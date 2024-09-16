@@ -8,3 +8,6 @@
     - A container running with the Nginx as reverse proxy
     - A container running with the Redis as cache
 5. If eveything is ok, you can access the project at http://localhost:8199
+
+## Swagger
+The project has a swagger documentation that can be accessed at http://localhost:8199/api/documentation

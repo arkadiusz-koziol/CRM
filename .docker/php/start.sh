@@ -9,4 +9,5 @@ php artisan route:clear &&
 php artisan view:clear &&
 php artisan migrate &&
 php artisan db:seed &&
+php artisan l5-swagger:generate &&
 php artisan storage:link
