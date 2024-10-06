@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Factory\ResponseFactory;
+use Illuminate\Auth\AuthManager;
 
 abstract class Controller
 {
@@ -15,8 +16,10 @@ abstract class Controller
      * )
      */
 
-    public function __construct(protected ResponseFactory $responseFactory)
-    {
+    public function __construct(
+        protected ResponseFactory $responseFactory,
+        protected AuthManager $authManager
+    ) {
     }
 
 }
