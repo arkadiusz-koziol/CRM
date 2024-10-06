@@ -13,4 +13,7 @@ interface UserRepositoryInterface
     public function findById(int $id): ?User;
 
     public function delete(User $user): bool;
+
+    public function changePassword(User $user, string $newPassword): bool;
+    public function list(): array;
 }

@@ -25,4 +25,14 @@ class UserRepository implements UserRepositoryInterface
     {
         return $user->delete();
     }
+
+    public function changePassword(User $user, string $newPassword): bool
+    {
+        return $user->update(['password' => $newPassword]);
+    }
+
+    public function list(): array
+    {
+        return User::all()->toArray();
+    }
 }

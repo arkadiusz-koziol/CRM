@@ -13,8 +13,11 @@ use Illuminate\Routing\UrlGenerator;
 
 class ResponseFactory extends BaseResponseFactory
 {
-    public function __construct(protected readonly UrlGenerator $generator, ViewFactory $view, Redirector $redirector)
-    {
+    public function __construct(
+        protected readonly UrlGenerator $generator,
+        ViewFactory $view,
+        Redirector $redirector
+    ) {
         parent::__construct($view, $redirector);
     }
 

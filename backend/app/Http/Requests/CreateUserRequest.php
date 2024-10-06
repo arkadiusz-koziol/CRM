@@ -13,8 +13,13 @@ class CreateUserRequest extends FormRequest
             'surname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'phone' => ['nullable', 'string', 'max:20'],
-            'status' => ['required', 'in:inactive,active,blocked'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
+
+    public function authorize(): bool
+    {
+        return true;
+    }
+
 }

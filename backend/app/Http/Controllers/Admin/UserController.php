@@ -63,4 +63,11 @@ class UserController extends Controller
 
         return $this->responseFactory->successResponse(['message' => __('messages.user_deleted')]);
     }
+
+    public function list(): JsonResponse
+    {
+        $users = $this->userService->getAllUsers();
+
+        return $this->responseFactory->successResponse($users);
+    }
 }

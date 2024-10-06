@@ -13,6 +13,15 @@ return [
     'alpha_num'            => 'Pole :attribute może zawierać jedynie litery i cyfry.',
     'array'                => 'Pole :attribute musi być tablicą.',
     'ascii'                => 'Pole :attribute może zawierać tylko jednobajtowe znaki alfanumeryczne i symbole.',
+    'attributes'           => [
+        'password' => 'hasło',
+        'phone' => 'numer telefonu',
+        'email' => 'adres e-mail',
+        'name' => 'imię',
+        'surname' => 'nazwisko',
+        'company_name' => 'nazwa firmy',
+        'company_tax_number' => 'numer NIP',
+    ],
     'before'               => 'Pole :attribute musi być datą wcześniejszą od :date.',
     'before_or_equal'      => 'Pole :attribute musi być datą nie późniejszą niż :date.',
     'between'              => [

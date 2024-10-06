@@ -32,4 +32,14 @@ class UserService
     {
         return $this->userRepository->delete($user);
     }
+
+    public function changePassword(User $user, string $newPassword): bool
+    {
+        return $this->userRepository->update($user, ['password' => $newPassword]);
+    }
+
+    public function getAllUsers(): array
+    {
+        return $this->userRepository->list();
+    }
 }

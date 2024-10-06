@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Factory\ResponseFactory;
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,35 +20,28 @@ class UserController extends Controller
         parent::__construct($responseFactory, $authManager);
     }
 
-    public function store(CreateUserRequest $request): JsonResponse
-    {
-        $user = $this->userService->createUser($request->validated());
-
-        return response()->json($user, 201);
-    }
-
     public function show(int $id): JsonResponse
     {
         $user = $this->userService->getUserById($id);
 
         if (!$user) {
-            return response()->json(['message' => __('errors.user_not_found')], 404);
+            return $this->responseFactory->json(['message' => __('errors.user_not_found')], 404);
         }
 
-        return response()->json($user);
+        return $this->responseFactory->json($user);
     }
 
-    public function update(CreateUserRequest $request, int $id): JsonResponse
+    public function update(UpdateUserRequest $request, int $id): JsonResponse
     {
         $user = $this->userService->getUserById($id);
 
         if (!$user) {
-            return response()->json(['message' => __('errors.user_not_found')], 404);
+            return $this->responseFactory->json(['message' => __('errors.user_not_found')], 404);
         }
 
         $this->userService->updateUser($user, $request->validated());
 
-        return response()->json($user);
+        return $this->responseFactory->json($user);
     }
 
     public function destroy(int $id): JsonResponse
@@ -54,11 +49,25 @@ class UserController extends Controller
         $user = $this->userService->getUserById($id);
 
         if (!$user) {
-            return response()->json(['message' => __('errors.user_not_found')], 404);
+            return $this->responseFactory->json(['message' => __('errors.user_not_found')], 404);
         }
 
         $this->userService->deleteUser($user);
 
-        return response()->json(['message' => __('messages.user_deleted')]);
+        return $this->responseFactory->json(['message' => __('messages.user_deleted')]);
     }
+
+    public function changePassword(ChangePasswordRequest $request): JsonResponse
+    {
+        $user = $this->authManager->user();
+
+        if (!Hash::check($request->password, $user->password)) {
+            return $this->responseFactory->errorResponse(__('errors.invalid_password'), 400);
+        }
+
+        $this->userService->changePassword($user, $request->new_password);
+
+        return $this->responseFactory->successResponse(['message' => __('messages.password_changed')]);
+    }
+
 }
