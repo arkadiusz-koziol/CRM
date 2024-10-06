@@ -8,12 +8,14 @@
         "php": "^8.2",
         "darkaonline/l5-swagger": "^8.6",
         "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "predis/predis": "^2.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "friendsofphp/php-cs-fixer": "^3.64",
+        "laravel-lang/lang": "^15.7",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
