@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Factory\ResponseFactory;
 use Illuminate\Auth\AuthManager;
+use OpenApi\Annotations as OA;
 
 abstract class Controller
 {
     /**
-     * @OA\Info(title="Skytech Whitelabel API", version="0.1")
+     * @OA\Info(title="Telemain API", version="0.1")
      *
      * @OA\Server(
-     *      url="http://localhost:8199/api/documentation",
-     *      description="Skytech Whitelabel API Server"
+     *      url="http://localhost:8199/api/",
+     *      description="Telemain API Server"
+     * )
+     *
+     * @OA\Components(
+     *     @OA\SecurityScheme(
+     *         securityScheme="bearerAuth",
+     *         type="http",
+     *         scheme="bearer",
+     *         bearerFormat="JWT"
+     *     )
      * )
      */
 
