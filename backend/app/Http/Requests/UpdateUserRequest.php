@@ -11,8 +11,8 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => ['string', 'max:255'],
             'surname' => ['string', 'max:255'],
-            'phone' => ['string', 'max:255', 'unique:users,phone,' . $this->route('id')],
-            'email' => ['email', 'max:255', 'unique:users,email,' . $this->route('id')],
+            'phone' => ['string', 'max:255', 'unique:users,phone,' . $this->route('user')->id],
+            'email' => ['email', 'max:255', 'unique:users,email,' . $this->route('user')->id],
         ];
     }
 

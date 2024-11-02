@@ -25,24 +25,29 @@ Route::group(
             ->middleware('auth:sanctum')
             ->group(function () {
                 Route::post('/user', [AdminUserController::class, 'store'])
-                    ->name('admin.users.store');
-                Route::get('/user/{id}', [AdminUserController::class, 'show'])
-                    ->name('admin.users.show');
-                Route::put('/user/{id}', [AdminUserController::class, 'update'])
-                    ->name('admin.users.update');
-                Route::delete('/user/{id}', [AdminUserController::class, 'destroy'])
-                    ->name('admin.users.destroy');
+                    ->name('admin.users.store')
+                    ->permission('user.create');
+                Route::get('/user/{user}', [AdminUserController::class, 'show'])
+                    ->name('admin.users.show')
+                    ->permission('user.show');
+                Route::put('/user/{user}', [AdminUserController::class, 'update'])
+                    ->name('admin.users.update')
+                    ->permission('user.update');
+                Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])
+                    ->name('admin.users.destroy')
+                    ->permission('user.delete');
                 Route::get('/list', [AdminUserController::class, 'list'])
-                    ->name('admin.users.list');
+                    ->name('admin.users.list')
+                    ->permission('user.list');
             });
 
         // Regular user routes
         Route::prefix('users')
             ->middleware('auth:sanctum')
             ->group(function () {
-                Route::get('{id}', [UserController::class, 'show'])
+                Route::get('{user}', [UserController::class, 'show'])
                     ->name('users.show');
-                Route::put('{id}', [UserController::class, 'update'])
+                Route::put('{user}', [UserController::class, 'update'])
                     ->name('users.update');
                 Route::post('change-password', [UserController::class, 'changePassword'])
                     ->name('users.change_password');

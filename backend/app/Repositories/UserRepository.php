@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Enums\UserStatus;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 
@@ -34,5 +35,13 @@ class UserRepository implements UserRepositoryInterface
     public function list(): array
     {
         return User::all()->toArray();
+    }
+
+    public function userCanPerformAction(User $user): bool
+    {
+        return in_array($user->status,
+            [
+                UserStatus::ACTIVE->value,
+            ]);
     }
 }
