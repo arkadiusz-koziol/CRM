@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Factory\ResponseFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
@@ -89,14 +90,8 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function show(int $id): JsonResponse
+    public function show(User $user): JsonResponse
     {
-        $user = $this->userService->getUserById($id);
-
-        if (!$user) {
-            return $this->responseFactory->errorResponse(__('errors.user_not_found'), 404);
-        }
-
         return $this->responseFactory->successResponse($user);
     }
 
@@ -137,14 +132,8 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function update(UpdateUserRequest $request, int $id): JsonResponse
+    public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
-        $user = $this->userService->getUserById($id);
-
-        if (!$user) {
-            return $this->responseFactory->errorResponse(__('errors.user_not_found'), 404);
-        }
-
         $this->userService->updateUser($user, $request->validated());
 
         return $this->responseFactory->successResponse($user);
@@ -180,14 +169,8 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function destroy(int $id): JsonResponse
+    public function destroy(User $user): JsonResponse
     {
-        $user = $this->userService->getUserById($id);
-
-        if (!$user) {
-            return $this->responseFactory->errorResponse(__('errors.user_not_found'), 404);
-        }
-
         $this->userService->deleteUser($user);
 
         return $this->responseFactory->successResponse(['message' => __('messages.user_deleted')]);

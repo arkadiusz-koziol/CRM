@@ -1,4 +1,4 @@
-FROM php:8.3-fpm AS skytech-whitelabel-php
+FROM php:8.3-fpm AS telemain-php
 
 # Copy composer.lock and composer.json into the working directory
 COPY ./backend/composer.lock ./backend/composer.json /var/www/app/

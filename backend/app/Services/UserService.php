@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\UserRoles;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 
@@ -15,7 +16,9 @@ class UserService
 
     public function createUser(array $data): User
     {
-        return $this->userRepository->create($data);
+        $user = $this->userRepository->create($data);
+        $user->assignRole($data['role'] ?? UserRoles::USER->value);
+        return $user;
     }
 
     public function updateUser(User $user, array $data): bool
