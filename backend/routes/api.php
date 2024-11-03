@@ -29,38 +29,38 @@ Route::group(
                 Route::prefix('users')->group(function () {
                     Route::post('/user', [AdminUserController::class, 'store'])
                         ->name('admin.users.store')
-                        ->permission('user.create');
+                        ->can('user.create');
                     Route::get('/user/{user}', [AdminUserController::class, 'show'])
                         ->name('admin.users.show')
-                        ->permission('user.show');
+                        ->can('user.show');
                     Route::put('/user/{user}', [AdminUserController::class, 'update'])
                         ->name('admin.users.update')
-                        ->permission('user.update');
+                        ->can('user.update');
                     Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])
                         ->name('admin.users.destroy')
-                        ->permission('user.delete');
+                        ->can('user.delete');
                     Route::get('/list', [AdminUserController::class, 'list'])
                         ->name('admin.users.list')
-                        ->permission('user.list');
+                        ->can('user.list');
                 });
 
                 // Admin Tools
                 Route::prefix('tools')->group(function () {
                     Route::get('/list', [AdminToolController::class, 'list'])
                         ->name('tools.index')
-                        ->permission('tool.list');
+                        ->can('tool.list');
                     Route::get('/{tool}', [AdminToolController::class, 'show'])
-                        ->name('tools.show')
-                        ->permission('tool.show');
+                        ->name('tools.show');
+//                        ->can('tool.show');
                     Route::post('/', [AdminToolController::class, 'store'])
-                        ->name('tools.store')
-                        ->permission('tool.create');
+                        ->name('tools.store');
+//                        ->can('tool.create');
                     Route::put('/{tool}', [AdminToolController::class, 'update'])
-                        ->name('tools.update')
-                        ->permission('tool.update');
+                        ->name('tools.update');
+//                        ->can('tool.update');
                     Route::delete('/{tool}', [AdminToolController::class, 'destroy'])
-                        ->name('tools.destroy')
-                        ->permission('tool.delete');
+                        ->name('tools.destroy');
+//                        ->can('tool.delete');
                 });
 
 
