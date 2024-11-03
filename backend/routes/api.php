@@ -9,7 +9,7 @@ use App\Http\Controllers\UserRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
-    ['prefix' => env('API_VERSION', 'v1'), 'middleware' => 'auth:api'],
+    ['prefix' => env('API_VERSION', 'v1'), 'middleware' => 'api'],
     function (): void {
         Route::prefix('auth')
             ->group(function () {
