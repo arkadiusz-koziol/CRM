@@ -7,4 +7,5 @@ return
         'error'   => 'Wystąpił błąd podczas wykonywania akcji.',
         'failed' => 'Akcja nie powiodła się.',
     ],
+    'not_found' => 'Nie znaleziono zasobu.',
 ];

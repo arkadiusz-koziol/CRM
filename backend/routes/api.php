@@ -47,20 +47,20 @@ Route::group(
                 // Admin Tools
                 Route::prefix('tools')->group(function () {
                     Route::get('/list', [AdminToolController::class, 'list'])
-                        ->name('tools.index');
-//                        ->permission('tool.list');
+                        ->name('tools.index')
+                        ->permission('tool.list');
                     Route::get('/{tool}', [AdminToolController::class, 'show'])
-                        ->name('tools.show');
-//                        ->permission('tool.show');
+                        ->name('tools.show')
+                        ->permission('tool.show');
                     Route::post('/', [AdminToolController::class, 'store'])
-                        ->name('tools.store');
-//                        ->permission('tool.create');
+                        ->name('tools.store')
+                        ->permission('tool.create');
                     Route::put('/{tool}', [AdminToolController::class, 'update'])
-                        ->name('tools.update');
-//                        ->permission('tool.update');
+                        ->name('tools.update')
+                        ->permission('tool.update');
                     Route::delete('/{tool}', [AdminToolController::class, 'destroy'])
-                        ->name('tools.destroy');
-//                        ->permission('tool.delete');
+                        ->name('tools.destroy')
+                        ->permission('tool.delete');
                 });
 
 
