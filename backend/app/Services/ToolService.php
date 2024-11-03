@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DTO\ToolDTO;
+use App\Dto\ToolDTO;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
 use App\Interfaces\Services\ToolServiceInterface;
 use App\Models\Tool;

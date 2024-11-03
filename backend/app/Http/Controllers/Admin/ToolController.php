@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\DTO\ToolDTO;
+use App\Dto\ToolDTO;
 use App\Http\Requests\CreateToolRequest;
 use App\Http\Requests\UpdateToolRequest;
 use App\Interfaces\Services\ToolServiceInterface;
