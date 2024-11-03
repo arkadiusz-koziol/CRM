@@ -3,13 +3,16 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Throwable;
 
 class ForceJsonResponse
 {
@@ -20,7 +23,7 @@ class ForceJsonResponse
         try {
             return $next($request);
 
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return $this->handleException($request, $exception);
         }
     }
@@ -51,6 +54,12 @@ class ForceJsonResponse
 
         // Handle resource not found errors (404 Not Found)
         if ($exception instanceof NotFoundHttpException) {
+            return response()->json([
+                'message' => 'Resource not found.'
+            ], 404);
+        }
+
+        if ($exception instanceof ModelNotFoundException) {
             return response()->json([
                 'message' => 'Resource not found.'
             ], 404);

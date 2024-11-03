@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ToolController as AdminToolController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -20,25 +21,49 @@ Route::group(
                     ->name('auth.logout');
             });
 
-        // Admin routes for user management
-        Route::prefix('admin/users')
+        Route::prefix('admin')
             ->middleware('auth:sanctum')
             ->group(function () {
-                Route::post('/user', [AdminUserController::class, 'store'])
-                    ->name('admin.users.store')
-                    ->permission('user.create');
-                Route::get('/user/{user}', [AdminUserController::class, 'show'])
-                    ->name('admin.users.show')
-                    ->permission('user.show');
-                Route::put('/user/{user}', [AdminUserController::class, 'update'])
-                    ->name('admin.users.update')
-                    ->permission('user.update');
-                Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])
-                    ->name('admin.users.destroy')
-                    ->permission('user.delete');
-                Route::get('/list', [AdminUserController::class, 'list'])
-                    ->name('admin.users.list')
-                    ->permission('user.list');
+
+                // Admin Users
+                Route::prefix('users')->group(function () {
+                    Route::post('/user', [AdminUserController::class, 'store'])
+                        ->name('admin.users.store')
+                        ->permission('user.create');
+                    Route::get('/user/{user}', [AdminUserController::class, 'show'])
+                        ->name('admin.users.show')
+                        ->permission('user.show');
+                    Route::put('/user/{user}', [AdminUserController::class, 'update'])
+                        ->name('admin.users.update')
+                        ->permission('user.update');
+                    Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])
+                        ->name('admin.users.destroy')
+                        ->permission('user.delete');
+                    Route::get('/list', [AdminUserController::class, 'list'])
+                        ->name('admin.users.list')
+                        ->permission('user.list');
+                });
+
+                // Admin Tools
+                Route::prefix('tools')->group(function () {
+                    Route::get('/list', [AdminToolController::class, 'list'])
+                        ->name('tools.index');
+//                        ->permission('tool.list');
+                    Route::get('/{tool}', [AdminToolController::class, 'show'])
+                        ->name('tools.show');
+//                        ->permission('tool.show');
+                    Route::post('/', [AdminToolController::class, 'store'])
+                        ->name('tools.store');
+//                        ->permission('tool.create');
+                    Route::put('/{tool}', [AdminToolController::class, 'update'])
+                        ->name('tools.update');
+//                        ->permission('tool.update');
+                    Route::delete('/{tool}', [AdminToolController::class, 'destroy'])
+                        ->name('tools.destroy');
+//                        ->permission('tool.delete');
+                });
+
+
             });
 
         // Regular user routes
