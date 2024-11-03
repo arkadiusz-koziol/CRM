@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\Admin\ToolController as AdminToolController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UserRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
-    ['prefix' => env('API_VERSION', 'v1'), 'middleware' => 'api'],
+    ['prefix' => env('API_VERSION', 'v1'), 'middleware' => 'auth:api'],
     function (): void {
         Route::prefix('auth')
             ->group(function () {
@@ -61,6 +62,25 @@ Route::group(
                     Route::delete('/{tool}', [AdminToolController::class, 'destroy'])
                         ->name('tools.destroy')
                         ->can('tool.delete');
+                });
+
+                // Admin materials
+                Route::prefix('materials')->group(function () {
+                    Route::get('/list', [AdminMaterialController::class, 'list'])
+                        ->name('materials.index')
+                        ->can('material.list');
+                    Route::get('/{material}', [AdminMaterialController::class, 'show'])
+                        ->name('materials.show')
+                        ->can('material.show');
+                    Route::post('/', [AdminMaterialController::class, 'store'])
+                        ->name('materials.store')
+                        ->can('material.create');
+                    Route::put('/{material}', [AdminMaterialController::class, 'update'])
+                        ->name('materials.update')
+                        ->can('material.update');
+                    Route::delete('/{material}', [AdminMaterialController::class, 'destroy'])
+                        ->name('materials.destroy')
+                        ->can('material.delete');
                 });
 
 

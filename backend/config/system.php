@@ -15,6 +15,11 @@ return [
             'tool.create',
             'tool.update',
             'tool.delete',
+            'material.list',
+            'material.show',
+            'material.create',
+            'material.update',
+            'material.delete',
         ],
 
         UserRoles::USER->value => [
