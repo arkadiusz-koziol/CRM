@@ -50,17 +50,17 @@ Route::group(
                         ->name('tools.index')
                         ->can('tool.list');
                     Route::get('/{tool}', [AdminToolController::class, 'show'])
-                        ->name('tools.show');
-//                        ->can('tool.show');
+                        ->name('tools.show')
+                        ->can('tool.show');
                     Route::post('/', [AdminToolController::class, 'store'])
-                        ->name('tools.store');
-//                        ->can('tool.create');
+                        ->name('tools.store')
+                        ->can('tool.create');
                     Route::put('/{tool}', [AdminToolController::class, 'update'])
-                        ->name('tools.update');
-//                        ->can('tool.update');
+                        ->name('tools.update')
+                        ->can('tool.update');
                     Route::delete('/{tool}', [AdminToolController::class, 'destroy'])
-                        ->name('tools.destroy');
-//                        ->can('tool.delete');
+                        ->name('tools.destroy')
+                        ->can('tool.delete');
                 });
 
 
