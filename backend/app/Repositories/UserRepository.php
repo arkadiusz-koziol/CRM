@@ -2,7 +2,7 @@
 namespace App\Repositories;
 
 use App\Enums\UserStatus;
-use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 
 class UserRepository implements UserRepositoryInterface

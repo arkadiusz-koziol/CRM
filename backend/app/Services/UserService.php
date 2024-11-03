@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Enums\UserRoles;
-use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 
 class UserService
