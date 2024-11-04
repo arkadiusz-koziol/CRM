@@ -13,6 +13,7 @@ php artisan l5-swagger:generate &&
 mkdir -p /var/www/app/storage/logs &&
 touch /var/www/app/storage/logs/laravel.log &&
 chmod 755 -R storage &&
+chown -R www-data:www-data storage &&
 
 if ! pgrep php-fpm > /dev/null 2>&1; then
   php-fpm
