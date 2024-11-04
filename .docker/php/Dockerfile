@@ -56,10 +56,6 @@ COPY ./backend /var/www/app
 RUN chown -R www-data:www-data \
         /var/www -R
 
-# Install Node.js and npm
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
-
 EXPOSE 9000
 COPY .docker/php/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh

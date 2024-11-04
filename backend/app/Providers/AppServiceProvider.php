@@ -2,14 +2,18 @@
 
 namespace App\Providers;
 
+use App\Interfaces\Repositories\CityRepositoryInterface;
 use App\Interfaces\Repositories\MaterialRepositoryInterface;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
+use App\Interfaces\Services\CityServiceInterface;
 use App\Interfaces\Services\MaterialServiceInterface;
 use App\Interfaces\Services\ToolServiceInterface;
+use App\Repositories\CityRepository;
 use App\Repositories\MaterialRepository;
 use App\Repositories\ToolRepository;
 use App\Repositories\UserRepository;
+use App\Services\CityService;
 use App\Services\MaterialService;
 use App\Services\ToolService;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ToolRepositoryInterface::class, ToolRepository::class);
         $this->app->bind(MaterialServiceInterface::class, MaterialService::class);
         $this->app->bind(MaterialRepositoryInterface::class, MaterialRepository::class);
+        $this->app->bind(CityServiceInterface::class, CityService::class);
+        $this->app->bind(CityRepositoryInterface::class, CityRepository::class);
     }
 
     /**

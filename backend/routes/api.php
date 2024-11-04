@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CityController as AdminCityController;
 use App\Http\Controllers\Admin\ToolController as AdminToolController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
@@ -83,6 +84,17 @@ Route::group(
                         ->can('material.delete');
                 });
 
+                Route::prefix('cities')->group(function () {
+                    Route::post('/', [AdminCityController::class, 'store'])
+                        ->name('cities.store')
+                        ->can('city.create');
+                    Route::put('/{city}', [AdminCityController::class, 'update'])
+                        ->name('cities.update')
+                        ->can('city.update');
+                    Route::delete('/{city}', [AdminCityController::class, 'destroy'])
+                        ->name('cities.destroy')
+                        ->can('city.delete');
+                });
 
             });
 

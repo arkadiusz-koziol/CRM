@@ -20,6 +20,9 @@ return [
             'material.create',
             'material.update',
             'material.delete',
+            'city.create',
+            'city.update',
+            'city.delete',
         ],
 
         UserRoles::USER->value => [
