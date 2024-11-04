@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MaterialSeeder::class,
             ToolSeeder::class,
+            CitySeeder::class,
         ]);
 
     }

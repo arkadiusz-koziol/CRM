@@ -154,9 +154,9 @@ return [
     'string'               => 'Pole :attribute musi być ciągiem znaków.',
     'timezone'             => 'Pole :attribute musi być prawidłową strefą czasową.',
     'ulid'                 => 'Pole :attribute musi być prawidłowym identyfikatorem ULID.',
-    'unique'               => 'Taki :attribute już występuje.',
+    'unique'               => 'Taka wartość :attribute już występuje.',
     'uploaded'             => 'Nie udało się wgrać pliku :attribute.',
-    'uppercase'            => ':Attribute musi być pisany wielkimi literami.',
+    'uppercase'            => ':attribute musi być pisany wielkimi literami.',
     'url'                  => 'Format pola :attribute jest nieprawidłowy.',
     'uuid'                 => 'Pole :attribute musi być poprawnym identyfikatorem UUID.',
 ];
