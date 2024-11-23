@@ -3,17 +3,21 @@
 namespace App\Providers;
 
 use App\Interfaces\Repositories\CityRepositoryInterface;
+use App\Interfaces\Repositories\EstateRepositoryInterface;
 use App\Interfaces\Repositories\MaterialRepositoryInterface;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Interfaces\Services\CityServiceInterface;
+use App\Interfaces\Services\EstateServiceInterface;
 use App\Interfaces\Services\MaterialServiceInterface;
 use App\Interfaces\Services\ToolServiceInterface;
 use App\Repositories\CityRepository;
+use App\Repositories\EstateRepository;
 use App\Repositories\MaterialRepository;
 use App\Repositories\ToolRepository;
 use App\Repositories\UserRepository;
 use App\Services\CityService;
+use App\Services\EstateService;
 use App\Services\MaterialService;
 use App\Services\ToolService;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MaterialRepositoryInterface::class, MaterialRepository::class);
         $this->app->bind(CityServiceInterface::class, CityService::class);
         $this->app->bind(CityRepositoryInterface::class, CityRepository::class);
+        $this->app->bind(EstateRepositoryInterface::class, EstateRepository::class);
+        $this->app->bind(EstateServiceInterface::class, EstateService::class);
     }
 
     /**

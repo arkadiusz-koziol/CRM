@@ -33,13 +33,6 @@ class UserController extends Controller
         return $this->responseFactory->json($user);
     }
 
-    public function destroy(User $user): JsonResponse
-    {
-        $this->userService->deleteUser($user);
-
-        return $this->responseFactory->json(['message' => __('messages.user_deleted')]);
-    }
-
     public function changePassword(ChangePasswordRequest $request): JsonResponse
     {
         $user = $this->authManager->user();
