@@ -23,6 +23,12 @@ return [
             'city.create',
             'city.update',
             'city.delete',
+            'city.list',
+            'estate.create',
+            'estate.update',
+            'estate.delete',
+            'estate.list',
+            'estate.show',
         ],
 
         UserRoles::USER->value => [

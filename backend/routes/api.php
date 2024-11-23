@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CityController as AdminCityController;
+use App\Http\Controllers\Admin\EstateController as AdminEstateController;
 use App\Http\Controllers\Admin\ToolController as AdminToolController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
@@ -84,7 +85,11 @@ Route::group(
                         ->can('material.delete');
                 });
 
+                // Admin cities
                 Route::prefix('cities')->group(function () {
+                    Route::get('/list', [AdminCityController::class, 'list'])
+                        ->name('cities.index')
+                        ->can('city.list');
                     Route::post('/', [AdminCityController::class, 'store'])
                         ->name('cities.store')
                         ->can('city.create');
@@ -96,6 +101,24 @@ Route::group(
                         ->can('city.delete');
                 });
 
+                // Admin estates
+                Route::prefix('estates')->group(function () {
+                    Route::get('/list', [AdminEstateController::class, 'list'])
+                        ->name('estates.index')
+                        ->can('estate.list');
+                    Route::post('/', [AdminEstateController::class, 'store'])
+                        ->name('estates.store')
+                        ->can('estate.create');
+                    Route::put('/{estate}', [AdminEstateController::class, 'update'])
+                        ->name('estates.update')
+                        ->can('estate.update');
+                    Route::delete('/{estate}', [AdminEstateController::class, 'destroy'])
+                        ->name('estates.destroy')
+                        ->can('estate.delete');
+                    Route::get('/{estate}', [AdminEstateController::class, 'show'])
+                        ->name('estates.show')
+                        ->can('estate.show');
+                });
             });
 
         // Regular user routes
