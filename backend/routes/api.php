@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\Admin\CityController as AdminCityController;
 use App\Http\Controllers\Admin\EstateController as AdminEstateController;
+use App\Http\Controllers\Admin\PinController as AdminPinController;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ToolController as AdminToolController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
+use App\Http\Controllers\PinController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UserRegistrationController;
@@ -27,6 +30,18 @@ Route::group(
         Route::prefix('admin')
             ->middleware('auth:sanctum')
             ->group(function () {
+
+                //Admin Plans
+                Route::prefix('plans')->group(function () {
+                    Route::get('/', [PlanController::class, 'index']);
+                    Route::post('/', [PlanController::class, 'store']);
+                    Route::delete('/{plan}', [PlanController::class, 'destroy']);
+                });
+
+                //Admin Pins
+                Route::prefix('pins')->group(function () {
+                    Route::get('/', [AdminPinController::class, 'index']);
+                });
 
                 // Admin Users
                 Route::prefix('users')->group(function () {
@@ -131,6 +146,11 @@ Route::group(
                     ->name('users.update');
                 Route::post('change-password', [UserController::class, 'changePassword'])
                     ->name('users.change_password');
+
+                Route::prefix('pins')->group(function () {
+                    Route::get('/', [PinController::class, 'index']);
+                    Route::post('/', [PinController::class, 'store']);
+                });
             });
     }
 );
