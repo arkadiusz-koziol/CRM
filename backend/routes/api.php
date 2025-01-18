@@ -131,7 +131,7 @@ Route::group(
                 });
 
                 //Admin Pins
-                Route::prefix('pins')->group(function () {
+                Route::prefix('pins/{plan}')->group(function () {
                     Route::get('/', [AdminPinController::class, 'index']);
                 });
             });
@@ -147,7 +147,7 @@ Route::group(
                 Route::post('change-password', [UserController::class, 'changePassword'])
                     ->name('users.change_password');
 
-                Route::prefix('pins')->group(function () {
+                Route::prefix('plans/{plan}/pins')->group(function () {
                     Route::get('/', [PinController::class, 'index']);
                     Route::post('/', [PinController::class, 'store']);
                 });

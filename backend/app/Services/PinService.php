@@ -22,6 +22,7 @@ class PinService implements PinServiceInterface
         }
 
         return $this->pinRepository->create([
+            'user_id' => $data['user_id'],
             'plan_id' => $plan->id,
             'x' => $data['x'],
             'y' => $data['y'],

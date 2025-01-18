@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePlanRequest;
 use App\Interfaces\Services\PlanServiceInterface;
 use App\Models\Estate;
-use App\Models\Plan;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 

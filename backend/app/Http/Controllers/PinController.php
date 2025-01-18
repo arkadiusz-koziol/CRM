@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Factory\ResponseFactory;
@@ -15,29 +14,26 @@ class PinController extends Controller
         protected ResponseFactory $responseFactory,
         protected AuthManager $authManager,
         protected PinServiceInterface $pinService
-    )
-    {
+    ) {
         parent::__construct($responseFactory, $authManager);
     }
 
     public function store(CreatePinRequest $request, Plan $plan): JsonResponse
     {
-        $pin = $this->pinService->createPin(array_merge(
-            $request->validated(),
-            [
-                'user_id' => $this->authManager::user()->id
-            ]
-        ), $plan);
+        $user = $this->authManager->guard()->user();
 
-        return $this->responseFactory->json($pin, 201);
+        return $this->responseFactory->json($this->pinService->createPin(array_merge(
+            $request->validated(),
+            ['user_id' => $user->id]
+        ), $plan), 201);
     }
 
     public function index(Plan $plan): JsonResponse
     {
-        $pins = $this->pinService
-            ->getPinsByPlan($plan)
-            ->where('user_id', $this->authManager::user()->id);
+        $user = $this->authManager->guard()->user();
 
-        return $this->responseFactory->json($pins);
+        return $this->responseFactory->json($this->pinService
+            ->getPinsByPlan($plan)
+            ->where('user_id', $user->id));
     }
 }
