@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\Admin\CityController as AdminCityController;
 use App\Http\Controllers\Admin\EstateController as AdminEstateController;
+use App\Http\Controllers\Admin\PinController as AdminPinController;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ToolController as AdminToolController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
+use App\Http\Controllers\PinController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UserRegistrationController;
@@ -119,6 +122,18 @@ Route::group(
                         ->name('estates.show')
                         ->can('estate.show');
                 });
+
+                //Admin Plans
+                Route::prefix('plans')->group(function () {
+                    Route::get('/{estate}', [PlanController::class, 'index']);
+                    Route::post('/{estate}', [PlanController::class, 'store']);
+                    Route::delete('/{estate}', [PlanController::class, 'destroy']);
+                });
+
+                //Admin Pins
+                Route::prefix('pins/{plan}')->group(function () {
+                    Route::get('/', [AdminPinController::class, 'index']);
+                });
             });
 
         // Regular user routes
@@ -131,6 +146,11 @@ Route::group(
                     ->name('users.update');
                 Route::post('change-password', [UserController::class, 'changePassword'])
                     ->name('users.change_password');
+
+                Route::prefix('plans/{plan}/pins')->group(function () {
+                    Route::get('/', [PinController::class, 'index']);
+                    Route::post('/', [PinController::class, 'store']);
+                });
             });
     }
 );
