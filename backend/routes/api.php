@@ -31,18 +31,6 @@ Route::group(
             ->middleware('auth:sanctum')
             ->group(function () {
 
-                //Admin Plans
-                Route::prefix('plans')->group(function () {
-                    Route::get('/', [PlanController::class, 'index']);
-                    Route::post('/', [PlanController::class, 'store']);
-                    Route::delete('/{plan}', [PlanController::class, 'destroy']);
-                });
-
-                //Admin Pins
-                Route::prefix('pins')->group(function () {
-                    Route::get('/', [AdminPinController::class, 'index']);
-                });
-
                 // Admin Users
                 Route::prefix('users')->group(function () {
                     Route::post('/user', [AdminUserController::class, 'store'])
@@ -133,6 +121,18 @@ Route::group(
                     Route::get('/{estate}', [AdminEstateController::class, 'show'])
                         ->name('estates.show')
                         ->can('estate.show');
+                });
+
+                //Admin Plans
+                Route::prefix('plans')->group(function () {
+                    Route::get('/{estate}', [PlanController::class, 'index']);
+                    Route::post('/{estate}', [PlanController::class, 'store']);
+                    Route::delete('/{estate}', [PlanController::class, 'destroy']);
+                });
+
+                //Admin Pins
+                Route::prefix('pins')->group(function () {
+                    Route::get('/', [AdminPinController::class, 'index']);
                 });
             });
 

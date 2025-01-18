@@ -40,9 +40,9 @@ class PlanController extends Controller
         return $this->responseFactory->json($this->planService->getPlansByEstate($estate));
     }
 
-    public function destroy(Plan $plan): JsonResponse
+    public function destroy(Estate $estate): JsonResponse
     {
-        $this->planService->deletePlan($plan);
+        $this->planService->deletePlan($this->planService->getPlansByEstate($estate));
 
         return $this->responseFactory->json(['message' => __('app.action.success')]);
     }

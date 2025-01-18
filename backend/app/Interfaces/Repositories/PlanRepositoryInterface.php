@@ -12,5 +12,5 @@ interface PlanRepositoryInterface
 
     public function delete(Plan $plan): bool;
 
-    public function getPlansByEstateId(int $estateId): iterable;
+    public function getPlansByEstateId(int $estateId): Plan;
 }

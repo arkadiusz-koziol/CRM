@@ -22,8 +22,8 @@ class PlanRepository implements PlanRepositoryInterface
         return $plan->delete();
     }
 
-    public function getPlansByEstateId(int $estateId): iterable
+    public function getPlansByEstateId(int $estateId): Plan
     {
-        return Plan::where('estate_id', $estateId)->get();
+        return Plan::where('estate_id', $estateId)->first();
     }
 }

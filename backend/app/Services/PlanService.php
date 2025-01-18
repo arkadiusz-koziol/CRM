@@ -6,6 +6,8 @@ use App\Interfaces\Repositories\PlanRepositoryInterface;
 use App\Interfaces\Services\PlanServiceInterface;
 use App\Models\Estate;
 use App\Models\Plan;
+use Exception;
+use RuntimeException;
 use Spatie\PdfToImage\Pdf;
 
 class PlanService implements PlanServiceInterface
@@ -16,24 +18,20 @@ class PlanService implements PlanServiceInterface
 
     public function createPlan(array $data, Estate $estate): Plan
     {
-        // Store the PDF
         $pdfPath = $data['file']->store('plans/pdf', 'public');
 
-        // Create a path for the output image
         $imagePath = 'plans/images/' . pathinfo($data['file']->getClientOriginalName(), PATHINFO_FILENAME) . '.jpg';
 
+        $imageDirectory = storage_path('app/public/plans/images');
+        if (!is_dir($imageDirectory)) {
+            mkdir($imageDirectory, 0755, true);
+        }
+
         try {
-            // Initialize the PDF-to-image converter
             $pdf = new Pdf(storage_path("app/public/$pdfPath"));
-
-            // (Optional) You can set resolution, page, and other options if needed
-            // $pdf->setResolution(300);
-            // $pdf->setPage(1);
-
-            // Convert & save the PDF as a single image
             $pdf->save(storage_path("app/public/$imagePath"));
-        } catch (\Exception $e) {
-            throw new \RuntimeException(__('Błąd podczas konwersji pliku PDF na obraz'), 0, $e);
+        } catch (Exception $e) {
+            throw new RuntimeException(__('Błąd podczas konwersji pliku PDF na obraz'), 500, $e);
         }
 
         return $this->planRepository->create([
@@ -48,7 +46,7 @@ class PlanService implements PlanServiceInterface
         return $this->planRepository->delete($plan);
     }
 
-    public function getPlansByEstate(Estate $estate): iterable
+    public function getPlansByEstate(Estate $estate): Plan
     {
         return $this->planRepository->getPlansByEstateId($estate->id);
     }

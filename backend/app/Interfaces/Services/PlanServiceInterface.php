@@ -11,5 +11,5 @@ interface PlanServiceInterface
 
     public function deletePlan(Plan $plan): bool;
 
-    public function getPlansByEstate(Estate $estate): iterable;
+    public function getPlansByEstate(Estate $estate): Plan;
 }
