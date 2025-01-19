@@ -125,14 +125,18 @@ Route::group(
 
                 //Admin Plans
                 Route::prefix('plans')->group(function () {
-                    Route::get('/{estate}', [PlanController::class, 'index']);
-                    Route::post('/{estate}', [PlanController::class, 'store']);
-                    Route::delete('/{estate}', [PlanController::class, 'destroy']);
+                    Route::get('/{estate}', [PlanController::class, 'index'])
+                        ->can('plan.list');
+                    Route::post('/{estate}', [PlanController::class, 'store'])
+                        ->can('plan.create');
+                    Route::delete('/{estate}', [PlanController::class, 'destroy'])
+                        ->can('plan.delete');
                 });
 
                 //Admin Pins
                 Route::prefix('pins/{plan}')->group(function () {
-                    Route::get('/', [AdminPinController::class, 'index']);
+                    Route::get('/', [AdminPinController::class, 'index'])
+                        ->can('pin.list.by.plan');
                 });
             });
 
@@ -141,15 +145,20 @@ Route::group(
             ->middleware('auth:sanctum')
             ->group(function () {
                 Route::get('{user}', [UserController::class, 'show'])
+                    ->can('user.show')
                     ->name('users.show');
                 Route::put('{user}', [UserController::class, 'update'])
+                    ->can('user.update')
                     ->name('users.update');
                 Route::post('change-password', [UserController::class, 'changePassword'])
+                    ->can('user.change_password')
                     ->name('users.change_password');
 
                 Route::prefix('plans/{plan}/pins')->group(function () {
-                    Route::get('/', [PinController::class, 'index']);
-                    Route::post('/', [PinController::class, 'store']);
+                    Route::get('/', [PinController::class, 'index'])
+                    ->can('user.pin.list.by.plan');
+                    Route::post('/', [PinController::class, 'store'])
+                    ->can('user.pin.create');
                 });
             });
     }

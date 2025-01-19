@@ -29,10 +29,19 @@ return [
             'estate.delete',
             'estate.list',
             'estate.show',
+            'plan.list',
+            'plan.create',
+            'plan.delete',
+            'pin.list.by.plan',
+
         ],
 
         UserRoles::USER->value => [
-
+            'user.pin.create',
+            'user.pin.list.by.plan',
+            'user.show',
+            'user.update',
+            'user.change_password'
         ],
 
         UserRoles::TECHNICIAN->value => [
