@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('surname')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
+            $table->string('city')->nullable();
+            $table->string('voivodeship')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('status', [

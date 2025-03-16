@@ -5,10 +5,10 @@ volumes:
 networks:
   frontend:
   backend:
-name: "skytech-whitelabel"
+name: "telemain"
 services:
   proxy:
-    container_name: skytech-whitelabel-proxy
+    container_name: telemain-proxy
     image: nginx:latest
     ports:
       - "127.0.0.1:8199:80"
@@ -22,7 +22,7 @@ services:
       - php
 
   php:
-    container_name: skytech-whitelabel-php
+    container_name: telemain-php
     build:
       context: ..
       dockerfile: .docker/php/Dockerfile
@@ -35,29 +35,24 @@ services:
       - redis
 
   postgres:
-    container_name: skytech-whitelabel-db
-    image: postgres:latest
+    container_name: telemain-db
+    image: postgres:16.0
     ports:
-      - "127.0.0.1:5499:5432"
+      - "127.0.0.1:5419:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     env_file:
       - ../backend/.env
     environment:
       POSTGRES_PASSWORD: 'password'
-      POSTGRES_DB: 'skytech-whitelabel-db'
+      POSTGRES_DB: 'telemain-db'
       POSTGRES_USER: 'user'
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     restart: always
     networks:
       - backend
 
   redis:
-    container_name: skytech-whitelabel-redis
+    container_name: telemain-redis
     image: redis:latest
     sysctls:
       - net.core.somaxconn=511

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\AuthDto;
+use App\Enums\UserRoles;
 use App\Factory\ResponseFactory;
 use App\Http\Requests\LoginRequest;
+use App\Services\AuthService;
 use App\Services\UserService;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -29,8 +34,8 @@ class AuthController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"email", "password"},
-     *             @OA\Property(property="email", type="string", format="email", example="admin@admin.pl"),
-     *             @OA\Property(property="password", type="string", format="password", example="admin123!"),
+     *             @OA\Property(property="email", type="string", format="email", example="admin@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="password"),
      *         ),
      *     ),
      *     @OA\Response(
@@ -51,18 +56,26 @@ class AuthController extends Controller
      * )
      */
 
-    public function login(LoginRequest $request): JsonResponse
+    public function login(LoginRequest $request, AuthService $authService): JsonResponse
     {
-        $credentials = $request->only(['email', 'password']);
+        try {
+            $authDto = new AuthDto(
+                $request->input('email'),
+                $request->input('password')
+            );
 
-        if (!$this->authManager->attempt($credentials)) {
-            return $this->responseFactory->errorResponse(__('errors.invalid_credentials'), 401);
+            $response = $authService->authUser(
+                $authDto,
+                $request->input('remember', false),
+                UserRoles::allowedForApi(),
+            );
+
+            return $this->responseFactory->json([
+                'access_token' => $response,
+            ]);
+        } catch (Throwable $e) {
+            return $this->responseFactory->json([$e->getMessage()], ResponseAlias::HTTP_UNAUTHORIZED);
         }
-
-        $user = $this->authManager->user();
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return $this->responseFactory->successResponse(['token' => $token, 'user' => $user]);
     }
 
     /**
@@ -83,8 +96,7 @@ class AuthController extends Controller
      */
     public function logout(): JsonResponse
     {
-        $user = $this->authManager->user();
-        $user->tokens()->delete();
+        $this->authManager->user()->tokens()->delete();
 
         return $this->responseFactory->successResponse(['message' => __('messages.logged_out')]);
     }
