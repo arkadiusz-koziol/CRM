@@ -10,8 +10,8 @@ use App\Services\AuthService;
 use App\Services\UserService;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
 class AuthController extends Controller
@@ -74,7 +74,7 @@ class AuthController extends Controller
                 'access_token' => $response,
             ]);
         } catch (Throwable $e) {
-            return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return $this->responseFactory->json([$e->getMessage()], ResponseAlias::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -96,8 +96,7 @@ class AuthController extends Controller
      */
     public function logout(): JsonResponse
     {
-        $user = $this->authManager->user();
-        $user->tokens()->delete();
+        $this->authManager->user()->tokens()->delete();
 
         return $this->responseFactory->successResponse(['message' => __('messages.logged_out')]);
     }

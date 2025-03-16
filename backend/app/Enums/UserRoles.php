@@ -10,7 +10,6 @@ enum UserRoles: string
     case DRIVER = 'driver';
     case OBJECT_MANAGER = 'object_manager';
 
-
     public static function allowedForWeb(): array
     {
         return [

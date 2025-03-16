@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Dto\ToolDTO;
 use App\Http\Requests\CreateToolRequest;
 use App\Http\Requests\UpdateToolRequest;
-use App\Interfaces\Services\ToolServiceInterface;
 use App\Models\Tool;
-use App\Factory\ResponseFactory;
-use Illuminate\Auth\AuthManager;
+use App\Services\ToolService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +15,6 @@ use Throwable;
 
 class ToolController extends Controller
 {
-    public function __construct(
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager,
-        protected ToolServiceInterface $toolService,
-    )
-    {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Get(
      *     path="/v1/admin/tools/list",
@@ -56,9 +45,9 @@ class ToolController extends Controller
      * )
      */
 
-    public function list(): JsonResponse
+    public function list(ToolService $toolService): JsonResponse
     {
-        return $this->responseFactory->json($this->toolService->getAllTools());
+        return $this->responseFactory->json($toolService->getAllTools());
     }
 
     /**
@@ -175,7 +164,10 @@ class ToolController extends Controller
      * )
      */
 
-    public function store(CreateToolRequest $request): JsonResponse
+    public function store(
+        CreateToolRequest $request,
+        ToolService $toolService
+    ): JsonResponse
     {
         try {
             $toolDTO = new ToolDTO(
@@ -184,8 +176,7 @@ class ToolController extends Controller
                 count: $request->input('count')
             );
 
-            $tool = $this->toolService->createTool($toolDTO);
-            return $this->responseFactory->json($tool, 201);
+            return $this->responseFactory->json($toolService->createTool($toolDTO), 201);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -276,7 +267,11 @@ class ToolController extends Controller
      * )
      */
 
-    public function update(UpdateToolRequest $request, Tool $tool): JsonResponse
+    public function update(
+        UpdateToolRequest $request,
+        Tool $tool,
+        ToolService $toolService
+    ): JsonResponse
     {
         try {
             $toolDTO = new ToolDTO(
@@ -285,7 +280,7 @@ class ToolController extends Controller
                 count: $request->input('count')
             );
 
-            if (!$this->toolService->updateTool($tool, $toolDTO)) {
+            if (!$toolService->updateTool($tool, $toolDTO)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
             }
 
@@ -355,10 +350,13 @@ class ToolController extends Controller
      * )
      */
 
-    public function destroy(Tool $tool): JsonResponse
+    public function destroy(
+        Tool $tool,
+        ToolService $toolService
+    ): JsonResponse
     {
         try {
-            if (!$this->toolService->deleteTool($tool)) {
+            if (!$toolService->deleteTool($tool)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')]);
             }
 

@@ -3,14 +3,13 @@
 namespace App\Services;
 
 use App\Interfaces\Repositories\PlanRepositoryInterface;
-use App\Interfaces\Services\PlanServiceInterface;
 use App\Models\Estate;
 use App\Models\Plan;
 use Exception;
 use RuntimeException;
 use Spatie\PdfToImage\Pdf;
 
-class PlanService implements PlanServiceInterface
+class PlanService
 {
     public function __construct(
         protected PlanRepositoryInterface $planRepository

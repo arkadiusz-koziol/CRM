@@ -4,10 +4,9 @@ namespace App\Services;
 
 use App\Dto\CityDto;
 use App\Interfaces\Repositories\CityRepositoryInterface;
-use App\Interfaces\Services\CityServiceInterface;
 use App\Models\City;
 
-class CityService implements CityServiceInterface
+class CityService
 {
     public function __construct(
         protected CityRepositoryInterface $cityRepository

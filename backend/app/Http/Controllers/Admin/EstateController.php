@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Dto\EstateDto;
-use App\Factory\ResponseFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEstateRequest;
 use App\Http\Requests\UpdateEstateRequest;
-use App\Interfaces\Services\EstateServiceInterface;
 use App\Models\City;
 use App\Models\Estate;
-use Illuminate\Auth\AuthManager;
+use App\Services\EstateService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,14 +16,6 @@ use Throwable;
 
 class EstateController extends Controller
 {
-    public function __construct(
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager,
-        protected EstateServiceInterface $estateService,
-    ) {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Get(
      *     path="/v1/admin/estates/list",
@@ -133,9 +123,9 @@ class EstateController extends Controller
      *     )
      * )
      */
-    public function list(): JsonResponse
+    public function list(EstateService $estateService): JsonResponse
     {
-        return $this->responseFactory->json($this->estateService->getAllEstates());
+        return $this->responseFactory->json($estateService->getAllEstates());
     }
 
     /**
@@ -277,7 +267,10 @@ class EstateController extends Controller
      *     )
      * )
      */
-    public function store(CreateEstateRequest $request): JsonResponse
+    public function store(
+        CreateEstateRequest $request,
+        EstateService $estateService
+    ): JsonResponse
     {
         try {
             $estateDto = new EstateDto(
@@ -289,7 +282,7 @@ class EstateController extends Controller
                 house_number: $request->input('house_number'),
             );
 
-            return $this->responseFactory->json($this->estateService->createEstate($estateDto), 201);
+            return $this->responseFactory->json($estateService->createEstate($estateDto), 201);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -392,7 +385,11 @@ class EstateController extends Controller
      *     )
      * )
      */
-    public function update(UpdateEstateRequest $request, Estate $estate): JsonResponse
+    public function update(
+        UpdateEstateRequest $request,
+        Estate $estate,
+        EstateService $estateService
+    ): JsonResponse
     {
         try {
             $estateDto = new EstateDto(
@@ -404,7 +401,7 @@ class EstateController extends Controller
                 house_number: $request->input('house_number'),
             );
 
-            if (!$this->estateService->updateEstate($estate, $estateDto)) {
+            if (!$estateService->updateEstate($estate, $estateDto)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
             }
 
@@ -473,10 +470,13 @@ class EstateController extends Controller
      *     )
      * )
      */
-    public function destroy(Estate $estate): JsonResponse
+    public function destroy(
+        Estate $estate,
+        EstateService $estateService
+    ): JsonResponse
     {
         try {
-            if (!$this->estateService->deleteEstate($estate)) {
+            if (!$estateService->deleteEstate($estate)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')]);
             }
 
@@ -603,8 +603,11 @@ class EstateController extends Controller
      *     )
      * )
      */
-    public function show(Estate $estate): JsonResponse
+    public function show(
+        Estate $estate,
+        EstateService $estateService
+    ): JsonResponse
     {
-        return $this->responseFactory->json($this->estateService->findEstateById($estate->id));
+        return $this->responseFactory->json($estateService->findEstateById($estate->id));
     }
 }

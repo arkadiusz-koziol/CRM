@@ -4,10 +4,9 @@ namespace App\Services;
 
 use App\Dto\EstateDto;
 use App\Interfaces\Repositories\EstateRepositoryInterface;
-use App\Interfaces\Services\EstateServiceInterface;
 use App\Models\Estate;
 
-class EstateService implements EstateServiceInterface
+class EstateService
 {
     public function __construct(
         protected EstateRepositoryInterface $estateRepository,

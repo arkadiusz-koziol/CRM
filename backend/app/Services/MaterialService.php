@@ -4,10 +4,9 @@ namespace App\Services;
 
 use App\Dto\MaterialDto;
 use App\Interfaces\Repositories\MaterialRepositoryInterface;
-use App\Interfaces\Services\MaterialServiceInterface;
 use App\Models\material;
 
-class MaterialService implements MaterialServiceInterface
+class MaterialService
 {
     public function __construct(
         protected MaterialRepositoryInterface $materialRepository

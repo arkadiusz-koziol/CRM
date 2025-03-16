@@ -3,11 +3,10 @@
 namespace App\Services;
 
 use App\Interfaces\Repositories\PinRepositoryInterface;
-use App\Interfaces\Services\PinServiceInterface;
 use App\Models\Pin;
 use App\Models\Plan;
 
-class PinService implements PinServiceInterface
+class PinService
 {
     public function __construct(
         protected PinRepositoryInterface $pinRepository

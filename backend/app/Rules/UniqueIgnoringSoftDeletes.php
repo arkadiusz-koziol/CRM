@@ -18,12 +18,10 @@ class UniqueIgnoringSoftDeletes implements Rule
 
     public function passes($attribute, $value): bool
     {
-        $count = $this->dbManager->table($this->table)
-            ->where($this->column, $value)
-            ->whereNull('deleted_at')
-            ->count();
-
-        return $count === 0;
+        return $this->dbManager->table($this->table)
+                ->where($this->column, $value)
+                ->whereNull('deleted_at')
+                ->count() === 0;
     }
 
     public function message(): string

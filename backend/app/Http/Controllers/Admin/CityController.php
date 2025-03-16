@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Dto\CityDto;
-use App\Factory\ResponseFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCityRequest;
 use App\Http\Requests\UpdateCityRequest;
-use App\Interfaces\Services\CityServiceInterface;
 use App\Models\City;
-use Illuminate\Auth\AuthManager;
+use App\Services\CityService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +15,6 @@ use Throwable;
 
 class CityController extends Controller
 {
-    public function __construct(
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager,
-        protected CityServiceInterface $cityService,
-    )
-    {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Post(
      *     path="/v1/admin/cities",
@@ -91,7 +80,10 @@ class CityController extends Controller
      *     )
      * )
      */
-    public function store(CreateCityRequest $request): JsonResponse
+    public function store(
+        CreateCityRequest $request,
+        CityService $cityService
+    ): JsonResponse
     {
         try {
             $cityDto = new CityDto(
@@ -101,8 +93,7 @@ class CityController extends Controller
                 voivodeship: $request->input('voivodeship')
             );
 
-            $city = $this->cityService->createCity($cityDto);
-            return $this->responseFactory->json($city, 201);
+            return $this->responseFactory->json($cityService->createCity($cityDto), 201);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -198,7 +189,11 @@ class CityController extends Controller
      *     )
      * )
      */
-    public function update(UpdateCityRequest $request, City $city): JsonResponse
+    public function update(
+        UpdateCityRequest $request,
+        City $city,
+        CityService $cityService
+    ): JsonResponse
     {
         try {
             $cityDto = new CityDto(
@@ -208,7 +203,7 @@ class CityController extends Controller
                 voivodeship: $request->input('voivodeship')
             );
 
-            if (!$this->cityService->updateCity($city, $cityDto)) {
+            if (!$cityService->updateCity($city, $cityDto)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
             }
 
@@ -277,10 +272,13 @@ class CityController extends Controller
      *     )
      * )
      */
-    public function destroy(City $city): JsonResponse
+    public function destroy(
+        City $city,
+        CityService $cityService
+    ): JsonResponse
     {
         try {
-            if (!$this->cityService->deleteCity($city)) {
+            if (!$cityService->deleteCity($city)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')]);
             }
 
@@ -363,11 +361,10 @@ class CityController extends Controller
      *     )
      * )
      */
-    public function list(): JsonResponse
+    public function list(CityService $cityService): JsonResponse
     {
         try {
-            $cities = $this->cityService->getAllCities();
-            return $this->responseFactory->json($cities);
+            return $this->responseFactory->json($cityService->getAllCities());
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

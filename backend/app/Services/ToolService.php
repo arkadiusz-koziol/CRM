@@ -4,10 +4,9 @@ namespace App\Services;
 
 use App\Dto\ToolDTO;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
-use App\Interfaces\Services\ToolServiceInterface;
 use App\Models\Tool;
 
-class ToolService implements ToolServiceInterface
+class ToolService
 {
     public function __construct(
         protected ToolRepositoryInterface $toolRepository

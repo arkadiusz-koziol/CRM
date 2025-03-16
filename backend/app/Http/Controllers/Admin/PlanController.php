@@ -2,26 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Factory\ResponseFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePlanRequest;
-use App\Interfaces\Services\PlanServiceInterface;
 use App\Models\Estate;
-use Illuminate\Auth\AuthManager;
+use App\Services\PlanService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
 class PlanController extends Controller
 {
-    public function __construct(
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager,
-        protected PlanServiceInterface $planService
-    )
-    {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Post(
      *     path="/v1/admin/plans/{estate}",
@@ -56,10 +45,14 @@ class PlanController extends Controller
      *     )
      * )
      */
-    public function store(CreatePlanRequest $request, Estate $estate): JsonResponse
+    public function store(
+        CreatePlanRequest $request,
+        Estate $estate,
+        PlanService $planService
+    ): JsonResponse
     {
         return $this->responseFactory->json(
-            $this->planService->createPlan(
+            $planService->createPlan(
                 $request->validated(),
                 $estate
             ),
@@ -98,9 +91,12 @@ class PlanController extends Controller
      *     )
      * )
      */
-    public function index(Estate $estate): JsonResponse
+    public function index(
+        Estate $estate,
+        PlanService $planService
+    ): JsonResponse
     {
-        return $this->responseFactory->json($this->planService->getPlansByEstate($estate));
+        return $this->responseFactory->json($planService->getPlansByEstate($estate));
     }
 
     /**
@@ -133,9 +129,12 @@ class PlanController extends Controller
      *     )
      * )
      */
-    public function destroy(Estate $estate): JsonResponse
+    public function destroy(
+        Estate $estate,
+        PlanService $planService
+    ): JsonResponse
     {
-        $this->planService->deletePlan($this->planService->getPlansByEstate($estate));
+        $planService->deletePlan($planService->getPlansByEstate($estate));
 
         return $this->responseFactory->json(['message' => __('app.action.success')]);
     }

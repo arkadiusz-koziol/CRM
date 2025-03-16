@@ -32,4 +32,9 @@ class City extends Model
         'commune',
         'voivodeship',
     ];
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

@@ -2,26 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Factory\ResponseFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\CreateUserRequest;
 use OpenApi\Annotations as OA;
 
 class UserController extends Controller
 {
-    public function __construct(
-        protected UserService $userService,
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager
-    ) {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Post(
      *     path="/v1/admin/users/user",
@@ -55,11 +45,12 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function store(CreateUserRequest $request): JsonResponse
+    public function store(
+        CreateUserRequest $request,
+        UserService $userService
+    ): JsonResponse
     {
-        $user = $this->userService->createUser($request->validated());
-
-        return $this->responseFactory->successResponse($user, 201);
+        return $this->responseFactory->successResponse($userService->createUser($request->validated()), 201);
     }
 
     /**
@@ -132,9 +123,13 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function update(UpdateUserRequest $request, User $user): JsonResponse
+    public function update(
+        UpdateUserRequest $request,
+        User $user,
+        UserService $userService
+    ): JsonResponse
     {
-        $this->userService->updateUser($user, $request->validated());
+        $userService->updateUser($user, $request->validated());
 
         return $this->responseFactory->successResponse($user);
     }
@@ -169,9 +164,12 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function destroy(User $user): JsonResponse
+    public function destroy(
+        User $user,
+        UserService $userService
+    ): JsonResponse
     {
-        $this->userService->deleteUser($user);
+        $userService->deleteUser($user);
 
         return $this->responseFactory->successResponse(['message' => __('messages.user_deleted')]);
     }
@@ -193,10 +191,8 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function list(): JsonResponse
+    public function list(UserService $userService): JsonResponse
     {
-        $users = $this->userService->getAllUsers();
-
-        return $this->responseFactory->successResponse($users);
+        return $this->responseFactory->successResponse($userService->getAllUsers());
     }
 }

@@ -2,25 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Factory\ResponseFactory;
 use App\Http\Controllers\Controller;
-use App\Interfaces\Services\PinServiceInterface;
 use App\Models\Plan;
-use Illuminate\Auth\AuthManager;
+use App\Services\PinService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
 class PinController extends Controller
 {
-    public function __construct(
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager,
-        protected PinServiceInterface $pinService
-    )
-    {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Get(
      *     path="/v1/admin/pins/{plan}",
@@ -52,8 +41,11 @@ class PinController extends Controller
      *     )
      * )
      */
-    public function index(Plan $plan): JsonResponse
+    public function index(
+        Plan $plan,
+        PinService $pinService
+    ): JsonResponse
     {
-        return $this->responseFactory->json($this->pinService->getPinsByPlan($plan));
+        return $this->responseFactory->json($pinService->getPinsByPlan($plan));
     }
 }

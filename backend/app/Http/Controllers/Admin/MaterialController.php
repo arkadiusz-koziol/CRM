@@ -7,9 +7,7 @@ use App\Dto\MaterialDto;
 use App\Http\Requests\CreateMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
 use App\Models\Material;
-use App\Factory\ResponseFactory;
-use Illuminate\Auth\AuthManager;
-use App\Interfaces\Services\MaterialServiceInterface;
+use App\Services\MaterialService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +15,6 @@ use Throwable;
 
 class MaterialController extends Controller
 {
-    public function __construct(
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager,
-        protected MaterialServiceInterface $materialService,
-    )
-    {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Get(
      *     path="/v1/admin/materials/list",
@@ -55,9 +44,9 @@ class MaterialController extends Controller
      *     )
      * )
      */
-    public function list(): JsonResponse
+    public function list(MaterialService $materialService): JsonResponse
     {
-        return $this->responseFactory->json($this->materialService->getAllMaterials());
+        return $this->responseFactory->json($materialService->getAllMaterials());
     }
 
     /**
@@ -178,7 +167,10 @@ class MaterialController extends Controller
      *     )
      * )
      */
-    public function store(CreateMaterialRequest $request): JsonResponse
+    public function store(
+        CreateMaterialRequest $request,
+        MaterialService $materialService
+    ): JsonResponse
     {
         try {
             $materialDto = new MaterialDto(
@@ -188,8 +180,7 @@ class MaterialController extends Controller
                 price: $request->input('price')
             );
 
-            $material = $this->materialService->createMaterial($materialDto);
-            return $this->responseFactory->json($material, 201);
+            return $this->responseFactory->json($materialService->createMaterial($materialDto), 201);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -286,7 +277,11 @@ class MaterialController extends Controller
      *     )
      * )
      */
-    public function update(UpdateMaterialRequest $request, Material $material): JsonResponse
+    public function update(
+        UpdateMaterialRequest $request,
+        Material $material,
+        MaterialService $materialService
+    ): JsonResponse
     {
         try {
             $materialDto = new MaterialDto(
@@ -296,7 +291,7 @@ class MaterialController extends Controller
                 price: $request->input('price')
             );
 
-            if (!$this->materialService->updateMaterial($material, $materialDto)) {
+            if (!$materialService->updateMaterial($material, $materialDto)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
             }
 
@@ -365,10 +360,13 @@ class MaterialController extends Controller
      *     )
      * )
      */
-    public function destroy(Material $material): JsonResponse
+    public function destroy(
+        Material $material,
+        MaterialService $materialService
+    ): JsonResponse
     {
         try {
-            if (!$this->materialService->deleteMaterial($material)) {
+            if (!$materialService->deleteMaterial($material)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')]);
             }
 
