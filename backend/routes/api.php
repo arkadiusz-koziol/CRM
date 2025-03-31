@@ -156,10 +156,9 @@ Route::group(
 
                 Route::prefix('plans/{plan}/pins')->group(function () {
                     Route::get('/', [PinController::class, 'index'])
-                    ->can('user.pin.list.by.plan');
+                        ->can('user.pin.list.by.plan');
                     Route::post('/', [PinController::class, 'store'])
-                    ->can('user.pin.create');
+                        ->can('user.pin.create');
                 });
             });
-    }
-);
+    });

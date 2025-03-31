@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Dto\AuthDto;
 use App\Enums\UserRoles;
-use App\Factory\ResponseFactory;
 use App\Http\Requests\LoginRequest;
 use App\Services\AuthService;
-use App\Services\UserService;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -16,14 +13,6 @@ use Throwable;
 
 class AuthController extends Controller
 {
-    public function __construct(
-        protected UserService $userService,
-        protected ResponseFactory $responseFactory,
-        protected AuthManager $authManager
-    ) {
-        parent::__construct($responseFactory, $authManager);
-    }
-
     /**
      * @OA\Post(
      *     path="/v1/auth/login",

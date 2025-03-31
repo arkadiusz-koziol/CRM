@@ -278,7 +278,7 @@ class EstateController extends Controller
                 custom_id: $request->input('custom_id'),
                 street: $request->input('street'),
                 postal_code: $request->input('postal_code'),
-                city: City::findOrFail($request->input('city')),
+                city: City::firstOrFail($request->input('city')),
                 house_number: $request->input('house_number'),
             );
 
@@ -397,7 +397,7 @@ class EstateController extends Controller
                 custom_id: $request->input('custom_id'),
                 street: $request->input('street'),
                 postal_code: $request->input('postal_code'),
-                city: City::findOrFail($request->input('city')),
+                city: City::firstOrFail($request->input('city')),
                 house_number: $request->input('house_number'),
             );
 

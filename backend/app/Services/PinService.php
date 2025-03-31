@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Dto\PinDto;
 use App\Interfaces\Repositories\PinRepositoryInterface;
 use App\Models\Pin;
 use App\Models\Plan;
@@ -12,20 +13,14 @@ class PinService
         protected PinRepositoryInterface $pinRepository
     ) {}
 
-    public function createPin(array $data, Plan $plan): Pin
+    public function createPin(PinDto $dto, Plan $plan): Pin
     {
-        $photoPath = null;
-
-        if (isset($data['photo'])) {
-            $photoPath = $data['photo']->store('pins/photos', 'public');
-        }
-
         return $this->pinRepository->create([
-            'user_id' => $data['user_id'],
+            'user_id' => $dto->userId,
             'plan_id' => $plan->id,
-            'x' => $data['x'],
-            'y' => $data['y'],
-            'photo_path' => $photoPath,
+            'x' => $dto->x,
+            'y' => $dto->y,
+            'photo_path' => $dto->photo?->store('pins/photos', 'public'),
         ]);
     }
 
