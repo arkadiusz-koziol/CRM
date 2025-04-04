@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use App\Services\PinService;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
@@ -46,6 +48,24 @@ class PinController extends Controller
         PinService $pinService
     ): JsonResponse
     {
-        return $this->responseFactory->json($pinService->getPinsByPlan($plan));
+        try {
+            return $this->responseFactory->json($pinService->getPinsByPlan($plan));
+        } catch (ModelNotFoundException $e) {
+            $this->logger->error($e->getMessage(), [
+                'plan_id' => $plan->id,
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('Nie znaleziono pinów')
+            ], 404);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'plan_id' => $plan->id,
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('Błąd podczas pobierania pinów')
+            ], 500);
+        }
     }
 }

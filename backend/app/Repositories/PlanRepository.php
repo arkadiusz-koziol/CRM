@@ -24,6 +24,6 @@ class PlanRepository implements PlanRepositoryInterface
 
     public function getPlansByEstateId(int $estateId): Plan
     {
-        return Plan::where('estate_id', $estateId)->first();
+        return Plan::where('estate_id', $estateId)->firstOrFail();
     }
 }
