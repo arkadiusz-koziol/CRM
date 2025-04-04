@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePlanRequest;
 use App\Models\Estate;
 use App\Services\PlanService;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
@@ -51,13 +53,24 @@ class PlanController extends Controller
         PlanService $planService
     ): JsonResponse
     {
-        return $this->responseFactory->json(
-            $planService->createPlan(
-                $request->validated(),
-                $estate
-            ),
-            201
-        );
+        try {
+            return $this->responseFactory->json(
+                $planService->createPlan(
+                    $request->validated(),
+                    $estate
+                ),
+                201
+            );
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'estate_id' => $estate->id,
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('Błąd podczas dodawania planu')
+            ], 500);
+        }
+
     }
 
     /**
@@ -96,7 +109,25 @@ class PlanController extends Controller
         PlanService $planService
     ): JsonResponse
     {
-        return $this->responseFactory->json($planService->getPlansByEstate($estate));
+        try {
+            return $this->responseFactory->json($planService->getPlansByEstate($estate));
+        } catch (ModelNotFoundException $e) {
+            $this->logger->error($e->getMessage(), [
+                'estate_id' => $estate->id,
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('Nie znaleziono planu dla tej nieruchomości')
+            ], 404);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'estate_id' => $estate->id,
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('Błąd podczas pobierania planów')
+            ], 500);
+        }
     }
 
     /**
@@ -134,8 +165,26 @@ class PlanController extends Controller
         PlanService $planService
     ): JsonResponse
     {
-        $planService->deletePlan($planService->getPlansByEstate($estate));
+        try {
+            $planService->deletePlan($planService->getPlansByEstate($estate));
 
-        return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success')]);
+        } catch (ModelNotFoundException $e) {
+            $this->logger->error($e->getMessage(), [
+                'estate_id' => $estate->id,
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('Nie znaleziono planu dla tej nieruchomości')
+            ], 404);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'estate_id' => $estate->id,
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('Błąd podczas usuwania planów')
+            ], 500);
+        }
     }
 }

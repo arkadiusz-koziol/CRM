@@ -99,6 +99,10 @@ class ToolController extends Controller
         try {
             return $this->responseFactory->json($tool);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'tool_id' => $tool->id,
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
@@ -178,6 +182,9 @@ class ToolController extends Controller
 
             return $this->responseFactory->json($toolService->createTool($toolDTO), 201);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
@@ -286,6 +293,10 @@ class ToolController extends Controller
 
             return $this->responseFactory->json(['message' => __('app.action.success')]);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'tool_id' => $tool->id,
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
@@ -362,6 +373,10 @@ class ToolController extends Controller
 
             return $this->responseFactory->json(['message' => __('app.action.success')]);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'tool_id' => $tool->id,
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

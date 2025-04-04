@@ -6,6 +6,7 @@ use App\Interfaces\Repositories\PlanRepositoryInterface;
 use App\Models\Estate;
 use App\Models\Plan;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use RuntimeException;
 use Spatie\PdfToImage\Pdf;
 
