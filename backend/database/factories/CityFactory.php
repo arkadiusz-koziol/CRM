@@ -1,0 +1,26 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\City;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CityFactory extends Factory
+{
+    protected $model = City::class;
+
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->city,
+            'district' => $this->faker->city,
+            'commune' => $this->faker->city,
+            'voivodeship' => $this->faker->randomElement([
+                'Dolnośląskie', 'Kujawsko-Pomorskie', 'Lubelskie',
+                'Lubuskie', 'Łódzkie', 'Małopolskie', 'Mazowieckie',
+                'Opolskie', 'Podkarpackie', 'Podlaskie', 'Pomorskie',
+                'Śląskie', 'Świętokrzyskie', 'Warmińsko-Mazurskie', 'Wielkopolskie'
+            ]),
+        ];
+    }
+}
