@@ -14,7 +14,7 @@ class UpdateEstateRequest extends FormRequest
             'custom_id' => ['required', 'string', new UniqueIgnoringSoftDeletes('estates', 'custom_id')],
             'street' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'max:20'],
-            'city' => ['required', 'integer', 'max:255'],
+            'city' => ['required', 'integer', 'exists:cities,id'],
             'house_number' => ['required', 'string', 'max:20'],
         ];
     }
