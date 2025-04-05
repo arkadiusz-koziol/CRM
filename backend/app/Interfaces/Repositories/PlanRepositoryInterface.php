@@ -3,6 +3,7 @@
 namespace App\Interfaces\Repositories;
 
 use App\Models\Plan;
+use Illuminate\Support\Collection;
 
 interface PlanRepositoryInterface
 {
@@ -12,5 +13,5 @@ interface PlanRepositoryInterface
 
     public function delete(Plan $plan): bool;
 
-    public function getPlansByEstateId(int $estateId): Plan;
+    public function getPlansByEstateId(int $estateId): Collection;
 }

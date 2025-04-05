@@ -9,7 +9,7 @@ class CreatePlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => ['required', 'file', 'mimes:pdf'],
+            'file' => ['required', 'file', 'mimetypes:application/pdf,image/jpeg,image/png', 'max:2048'],
         ];
     }
 }

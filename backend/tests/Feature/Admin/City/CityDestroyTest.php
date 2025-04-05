@@ -23,7 +23,7 @@ class CityDestroyTest extends TestCase
         $mockService = Mockery::mock(CityService::class);
         $mockService->shouldReceive('deleteCity')
             ->once()
-            ->with(\Mockery::on(fn($cityArg) => $cityArg->id === $city->id))
+            ->with(Mockery::on(fn($cityArg) => $cityArg->id === $city->id))
             ->andReturnUsing(function ($city) {
                 $city->delete();
                 return true;
@@ -44,7 +44,7 @@ class CityDestroyTest extends TestCase
         $mockService = Mockery::mock(CityService::class);
         $mockService->shouldReceive('deleteCity')
             ->once()
-            ->with(\Mockery::on(fn($cityArg) => $cityArg->id === $city->id))
+            ->with(Mockery::on(fn($cityArg) => $cityArg->id === $city->id))
             ->andReturnFalse();
         $this->app->instance(CityService::class, $mockService);
 

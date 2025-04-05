@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\MaterialService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class ListMaterialController extends Controller
 {
@@ -40,6 +42,16 @@ class ListMaterialController extends Controller
      */
     public function __invoke(MaterialService $materialService): JsonResponse
     {
-        return $this->responseFactory->json($materialService->getAllMaterials());
+        try {
+            return $this->responseFactory->json($materialService->getAllMaterials());
+        } catch (Throwable $e) {
+            $this->logger->error('Error retrieving materials', [
+                'exception' => $e,
+            ]);
+            return $this->responseFactory->json(
+                ['message' => __('Coś poszło nie tak. Spróbuj ponownie później.')],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }
