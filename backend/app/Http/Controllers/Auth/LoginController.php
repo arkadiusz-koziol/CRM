@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Dto\AuthDto;
 use App\Enums\UserRoles;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
@@ -11,7 +12,7 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     /**
      * @OA\Post(
@@ -45,7 +46,7 @@ class AuthController extends Controller
      * )
      */
 
-    public function login(LoginRequest $request, AuthService $authService): JsonResponse
+    public function __invoke(LoginRequest $request, AuthService $authService): JsonResponse
     {
         try {
             $authDto = new AuthDto(
@@ -65,28 +66,5 @@ class AuthController extends Controller
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], ResponseAlias::HTTP_UNAUTHORIZED);
         }
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/v1/auth/logout",
-     *     tags={"Auth"},
-     *     summary="Log out a user",
-     *     description="Log out the authenticated user by invalidating the Bearer token.",
-     *     security={{ "sanctum": {} }},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Logout successful",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Logged out successfully")
-     *         )
-     *     )
-     * )
-     */
-    public function logout(): JsonResponse
-    {
-        $this->authManager->user()->tokens()->delete();
-
-        return $this->responseFactory->successResponse(['message' => __('messages.logged_out')]);
     }
 }

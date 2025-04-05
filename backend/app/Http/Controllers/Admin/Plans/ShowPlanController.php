@@ -1,70 +1,70 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Plans;
 
 use App\Http\Controllers\Controller;
-use App\Models\Plan;
-use App\Services\PinService;
+use App\Models\Estate;
+use App\Services\PlanService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
-class PinController extends Controller
+class ShowPlanController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/v1/admin/pins/{plan}",
-     *     tags={"Admin Pins"},
-     *     summary="Get pins for a specific plan",
-     *     description="Retrieve all pins associated with a specific plan.",
+     *     path="/v1/admin/plans/{estate}",
+     *     tags={"Admin Plans"},
+     *     summary="Get plans for an estate",
+     *     description="Retrieves all plans associated with a specific estate.",
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
-     *         name="plan",
+     *         name="estate",
      *         in="path",
-     *         description="Plan ID",
+     *         description="Estate ID",
      *         required=true,
      *         @OA\Schema(type="integer", example=1)
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="List of pins",
+     *         description="List of plans",
      *         @OA\JsonContent(
      *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Pin")
+     *             @OA\Items(ref="#/components/schemas/Plan")
      *         )
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Pins not found",
+     *         description="Plans not found",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Pins not found")
+     *             @OA\Property(property="message", type="string", example="Plans not found")
      *         )
      *     )
      * )
      */
-    public function index(
-        Plan $plan,
-        PinService $pinService
+    public function __invoke(
+        Estate $estate,
+        PlanService $planService
     ): JsonResponse
     {
         try {
-            return $this->responseFactory->json($pinService->getPinsByPlan($plan));
+            return $this->responseFactory->json($planService->getPlansByEstate($estate));
         } catch (ModelNotFoundException $e) {
             $this->logger->error($e->getMessage(), [
-                'plan_id' => $plan->id,
+                'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([
-                'message' => __('Nie znaleziono pinów')
+                'message' => __('Nie znaleziono planu dla tej nieruchomości')
             ], 404);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
-                'plan_id' => $plan->id,
+                'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([
-                'message' => __('Błąd podczas pobierania pinów')
+                'message' => __('Błąd podczas pobierania planów')
             ], 500);
         }
     }
