@@ -69,6 +69,5 @@ class StorePlanController extends Controller
                 'message' => __('Błąd podczas dodawania planu')
             ], 500);
         }
-
     }
 }

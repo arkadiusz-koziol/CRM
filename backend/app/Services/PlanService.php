@@ -6,7 +6,7 @@ use App\Interfaces\Repositories\PlanRepositoryInterface;
 use App\Models\Estate;
 use App\Models\Plan;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 use RuntimeException;
 use Spatie\PdfToImage\Pdf;
 
@@ -41,12 +41,14 @@ class PlanService
         ]);
     }
 
-    public function deletePlan(Plan $plan): bool
+    public function deletePlan(Collection $plans): void
     {
-        return $this->planRepository->delete($plan);
+        foreach ($plans as $plan) {
+            $this->planRepository->delete($plan);
+        }
     }
 
-    public function getPlansByEstate(Estate $estate): Plan
+    public function getPlansByEstate(Estate $estate): Collection
     {
         return $this->planRepository->getPlansByEstateId($estate->id);
     }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\Repositories\PlanRepositoryInterface;
 use App\Models\Plan;
+use Illuminate\Support\Collection;
 
 class PlanRepository implements PlanRepositoryInterface
 {
@@ -22,8 +23,8 @@ class PlanRepository implements PlanRepositoryInterface
         return $plan->delete();
     }
 
-    public function getPlansByEstateId(int $estateId): Plan
+    public function getPlansByEstateId(int $estateId): Collection
     {
-        return Plan::where('estate_id', $estateId)->firstOrFail();
+        return Plan::where('estate_id', $estateId)->get();
     }
 }

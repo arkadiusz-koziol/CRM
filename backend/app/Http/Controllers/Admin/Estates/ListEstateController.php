@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\EstateService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Throwable;
 
 class ListEstateController extends Controller
 {
@@ -118,7 +119,16 @@ class ListEstateController extends Controller
      */
     public function __invoke(EstateService $estateService): JsonResponse
     {
-        return $this->responseFactory->json($estateService->getAllEstates());
+        try {
+            return $this->responseFactory->json($estateService->getAllEstates());
+        } catch (Throwable $e) {
+            $this->logger->error('Error retrieving estates', [
+                'exception' => $e,
+            ]);
+            return $this->responseFactory->json(
+                ['message' => __('Coś poszło nie tak. Spróbuj ponownie później.')],
+                JsonResponse::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
-
 }
