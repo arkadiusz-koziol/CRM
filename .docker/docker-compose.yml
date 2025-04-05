@@ -3,7 +3,6 @@ volumes:
   redis-data:
 
 networks:
-  frontend:
   backend:
 name: "telemain"
 services:
@@ -16,7 +15,6 @@ services:
       - ../backend:/var/www/app
       - ../.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - frontend
       - backend
     depends_on:
       - php
