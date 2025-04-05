@@ -18,6 +18,8 @@ class EstateSeeder extends Seeder
                 'postal_code' => '59-700',
                 'city' => 'Wrocław',
                 'house_number' => '12a/3',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Lidl',
@@ -26,6 +28,8 @@ class EstateSeeder extends Seeder
                 'postal_code' => '30-001',
                 'city' => 'Kraków',
                 'house_number' => '15b',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Carrefour',
@@ -34,6 +38,8 @@ class EstateSeeder extends Seeder
                 'postal_code' => '00-001',
                 'city' => 'Warszawa',
                 'house_number' => '7/4',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Auchan',
@@ -42,6 +48,8 @@ class EstateSeeder extends Seeder
                 'postal_code' => '61-001',
                 'city' => 'Poznań',
                 'house_number' => '22',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Tesco',
@@ -50,6 +58,8 @@ class EstateSeeder extends Seeder
                 'postal_code' => '80-001',
                 'city' => 'Gdańsk',
                 'house_number' => '5/3',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 

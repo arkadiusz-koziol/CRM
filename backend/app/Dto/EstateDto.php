@@ -24,7 +24,7 @@ class EstateDto implements Arrayable
             'custom_id' => $this->getCustomId(),
             'street' => $this->getStreet(),
             'postal_code' => $this->getPostalCode(),
-            'city_id' => $this->city->getId(),
+            'city_id' => $this->getCity(),
             'house_number' => $this->getHouseNumber(),
         ];
     }

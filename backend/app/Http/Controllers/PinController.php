@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePinRequest;
-use App\Interfaces\Services\PinServiceInterface;
 use App\Models\Plan;
+use App\Services\PinService;
 use Illuminate\Http\JsonResponse;
 
 class PinController extends Controller
@@ -12,7 +12,7 @@ class PinController extends Controller
     public function store(
         CreatePinRequest $request,
         Plan $plan,
-        PinServiceInterface $pinService
+        PinService $pinService
     ): JsonResponse
     {
         return $this->responseFactory->json(
@@ -26,7 +26,7 @@ class PinController extends Controller
 
     public function index(
         Plan $plan,
-        PinServiceInterface $pinService
+        PinService $pinService
     ): JsonResponse
     {
         return $this->responseFactory->json(

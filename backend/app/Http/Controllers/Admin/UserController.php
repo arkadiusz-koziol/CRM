@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\CreateUserRequest;
 use OpenApi\Annotations as OA;
@@ -50,7 +51,16 @@ class UserController extends Controller
         UserService $userService
     ): JsonResponse
     {
-        return $this->responseFactory->successResponse($userService->createUser($request->validated()), 201);
+        try {
+            return $this->responseFactory->successResponse($userService->createUser($request->validated()), 201);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('messages.user_creation_failed')
+            ], 400);
+        }
     }
 
     /**
@@ -83,7 +93,17 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        return $this->responseFactory->successResponse($user);
+        try {
+            return $this->responseFactory->successResponse($user);
+
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('messages.user_not_found')
+            ], 404);
+        }
     }
 
     /**
@@ -129,9 +149,18 @@ class UserController extends Controller
         UserService $userService
     ): JsonResponse
     {
-        $userService->updateUser($user, $request->validated());
+        try {
+            $userService->updateUser($user, $request->validated());
 
-        return $this->responseFactory->successResponse($user);
+            return $this->responseFactory->successResponse($user);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'user_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('messages.user_not_found')
+            ], 404);
+        }
     }
 
     /**
@@ -169,9 +198,20 @@ class UserController extends Controller
         UserService $userService
     ): JsonResponse
     {
-        $userService->deleteUser($user);
+        try {
+            $userService->deleteUser($user);
 
-        return $this->responseFactory->successResponse(['message' => __('messages.user_deleted')]);
+            return $this->responseFactory->successResponse(['message' => __('messages.user_deleted')]);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage(), [
+                'user_id' => $user->id,
+                'admin_id' => auth()->id(),
+            ]);
+            return $this->responseFactory->json([
+                'message' => __('messages.user_not_found')
+            ], 404);
+        }
+
     }
 
     /**

@@ -97,6 +97,10 @@ class MaterialController extends Controller
         try {
             return $this->responseFactory->json($material);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'material_id' => $material->id,
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
@@ -182,6 +186,9 @@ class MaterialController extends Controller
 
             return $this->responseFactory->json($materialService->createMaterial($materialDto), 201);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
@@ -297,6 +304,10 @@ class MaterialController extends Controller
 
             return $this->responseFactory->json(['message' => __('app.action.success')]);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'material_id' => $material->id,
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
@@ -372,6 +383,10 @@ class MaterialController extends Controller
 
             return $this->responseFactory->json(['message' => __('app.action.success')]);
         } catch (Throwable $e) {
+            $this->logger->error($e->getMessage(), [
+                'material_id' => $material->id,
+                'user_id' => auth()->id(),
+            ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
