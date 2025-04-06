@@ -33,6 +33,7 @@ return [
             'plan.create',
             'plan.delete',
             'pin.list.by.plan',
+            'car.create',
 
         ],
 
