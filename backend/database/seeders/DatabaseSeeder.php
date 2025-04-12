@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ToolSeeder::class,
             CitySeeder::class,
             EstateSeeder::class,
+            CarSeeder::class,
         ]);
 
     }
