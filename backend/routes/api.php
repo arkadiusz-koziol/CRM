@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Cars\CreateCarController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
@@ -159,6 +160,12 @@ Route::group(
                 Route::prefix('pins/{plan}')->group(function () {
                     Route::get('/', ShowPinByPlanController::class)
                         ->can('pin.list.by.plan');
+                });
+
+                //Admin Cars
+                Route::prefix('cars')->group(function() {
+                    Route::post('/create', CreateCarController::class)
+                        ->can('car.create');
                 });
             });
 
