@@ -23,19 +23,19 @@ class CarDto implements Arrayable
             'technical_details' => $this->getTechnicalDetails()
         ];
     }
-    public function getName() {
+    public function getName(): string {
         return $this->name;
     }
 
-    public function getDescription() {
+    public function getDescription(): string {
         return $this->description;
     }
 
-    public function getRegistrationNumber() {
+    public function getRegistrationNumber(): string {
         return $this->registrationNumber;
     }
 
-    public function getTechnicalDetails() {
+    public function getTechnicalDetails(): string {
         return $this->technicalDetails;
     }
 }

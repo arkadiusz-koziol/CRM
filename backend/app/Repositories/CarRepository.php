@@ -17,5 +17,4 @@ class CarRepository implements CarRepositoryInterface
             'technical_details' => $carDto->technicalDetails,
         ]);
     }
-
 }
