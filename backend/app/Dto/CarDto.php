@@ -35,7 +35,7 @@ class CarDto implements Arrayable
         return $this->registrationNumber;
     }
 
-    public function getTechnicalDetails(): string {
+    public function getTechnicalDetails(): ?string {
         return $this->technicalDetails;
     }
 }
