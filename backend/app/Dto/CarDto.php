@@ -17,10 +17,25 @@ class CarDto implements Arrayable
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
-            'description' => $this->description,
-            'registration_number' => $this->registrationNumber,
-            'technical_details' => $this->technicalDetails
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'registration_number' => $this->getRegistrationNumber(),
+            'technical_details' => $this->getTechnicalDetails()
         ];
+    }
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function getRegistrationNumber() {
+        return $this->registrationNumber;
+    }
+
+    public function getTechnicalDetails() {
+        return $this->technicalDetails;
     }
 }

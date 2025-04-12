@@ -18,8 +18,4 @@ class CarRepository implements CarRepositoryInterface
         ]);
     }
 
-    // public function findAll(): array
-    // {
-    //     return Car::all()->toArray();
-    // }
 }

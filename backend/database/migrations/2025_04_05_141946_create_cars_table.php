@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('registration_number');
-            $table->string('technical_details');
+            $table->string('registration_number')->unique();
+            $table->string('technical_details')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -27,7 +27,7 @@ class CreateCarController extends Controller
                 registrationNumber: $request->input('registration_number'),
                 technicalDetails: $request->input('technical_details')
             );
-            return $this->responseFactory->json($carService->createCar($carDto),201);
+            return $this->responseFactory->json($carService->createCar($carDto),Response::HTTP_CREATED);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

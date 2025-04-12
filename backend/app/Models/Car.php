@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OpenApi\Annotations as OA;
 
-
-
 class Car extends Model
 {
     use SoftDeletes,HasFactory;
@@ -20,7 +18,7 @@ class Car extends Model
         'technical_details'
     ];
 
-    public function getId() : int 
+    public function getId() : int
     {
         return $this->id;
     }
