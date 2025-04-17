@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Estates;
 
 use App\Dto\EstateDto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateEstateRequest;
+use App\Http\Requests\Estate\UpdateEstateRequest;
 use App\Models\City;
 use App\Models\Estate;
 use App\Services\EstateService;

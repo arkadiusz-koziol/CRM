@@ -24,6 +24,9 @@ use App\Http\Controllers\Admin\Tools\ListToolController;
 use App\Http\Controllers\Admin\Tools\ShowToolController;
 use App\Http\Controllers\Admin\Tools\StoreToolController;
 use App\Http\Controllers\Admin\Tools\UpdateToolController;
+use App\Http\Controllers\Admin\Trainings\DestroyTrainingController;
+use App\Http\Controllers\Admin\Trainings\StoreTrainingController;
+use App\Http\Controllers\Admin\Trainings\UpdateTrainingController;
 use App\Http\Controllers\Admin\Users\DestroyUserController;
 use App\Http\Controllers\Admin\Users\ListUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
@@ -167,6 +170,22 @@ Route::group(
                     Route::post('/create', CreateCarController::class)
                         ->can('car.create');
                 });
+
+                // Admin Trainings
+                Route::prefix('trainings')->group(function () {
+                    Route::post('/', StoreTrainingController::class)
+                        ->name('trainings.store')
+                        ->can('training.create');
+
+                    Route::put('/{training}', UpdateTrainingController::class)
+                        ->name('trainings.update')
+                        ->can('training.update');
+
+                    Route::delete('/{training}', DestroyTrainingController::class)
+                        ->name('trainings.destroy')
+                        ->can('training.delete');
+                });
+
             });
 
         // Regular user routes

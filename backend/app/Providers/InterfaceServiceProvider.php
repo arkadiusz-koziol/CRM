@@ -9,6 +9,8 @@ use App\Interfaces\Repositories\MaterialRepositoryInterface;
 use App\Interfaces\Repositories\PinRepositoryInterface;
 use App\Interfaces\Repositories\PlanRepositoryInterface;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
+use App\Interfaces\Repositories\TrainingFileRepositoryInterface;
+use App\Interfaces\Repositories\TrainingRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Repositories\CarRepository;
 use App\Repositories\CityRepository;
@@ -17,6 +19,8 @@ use App\Repositories\MaterialRepository;
 use App\Repositories\PinRepository;
 use App\Repositories\PlanRepository;
 use App\Repositories\ToolRepository;
+use App\Repositories\TrainingFileRepository;
+use App\Repositories\TrainingRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +35,8 @@ class InterfaceServiceProvider extends ServiceProvider
         PlanRepositoryInterface::class => PlanRepository::class,
         PinRepositoryInterface::class => PinRepository::class,
         CarRepositoryInterface::class => CarRepository::class,
+        TrainingRepositoryInterface::class => TrainingRepository::class,
+        TrainingFileRepositoryInterface::class => TrainingFileRepository::class,
     ];
 
 }

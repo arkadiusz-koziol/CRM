@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePinRequest;
+use App\Http\Requests\Pin\CreatePinRequest;
 use App\Models\Plan;
 use App\Services\PinService;
 use Illuminate\Http\JsonResponse;

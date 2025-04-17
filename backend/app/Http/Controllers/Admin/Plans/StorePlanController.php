@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Plans;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreatePlanRequest;
+use App\Http\Requests\Plan\CreatePlanRequest;
 use App\Models\Estate;
 use App\Services\PlanService;
 use Exception;

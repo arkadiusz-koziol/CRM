@@ -3,6 +3,7 @@
 namespace App\Interfaces\Repositories;
 
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 interface UserRepositoryInterface
 {
@@ -16,4 +17,10 @@ interface UserRepositoryInterface
 
     public function changePassword(User $user, string $newPassword): bool;
     public function list(): array;
+
+    public function getAllIds(): Collection;
+
+    public function getByRoles(array $roleIds): Collection;
+
+    public function getByIds(array $userIds): Collection;
 }

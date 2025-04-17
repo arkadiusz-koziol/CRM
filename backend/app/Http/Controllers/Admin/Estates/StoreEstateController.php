@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Estates;
 
 use App\Dto\EstateDto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateEstateRequest;
+use App\Http\Requests\Estate\CreateEstateRequest;
 use App\Models\City;
 use App\Services\EstateService;
 use Illuminate\Http\JsonResponse;
