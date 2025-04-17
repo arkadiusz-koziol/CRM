@@ -34,10 +34,7 @@ readonly class TrainingService
             ]);
 
             $this->userTrainingService->assignUsers($training, $data);
-
-            if (!empty($data['files'])) {
-                $this->storeTrainingFiles($training, $data['files']);
-            }
+            $this->storeTrainingFiles($training, $data['files']);
 
             return $training;
         });
@@ -57,10 +54,7 @@ readonly class TrainingService
 
             $training->users()->detach();
             $this->userTrainingService->assignUsers($training, $data);
-
-            if (!empty($data['files'])) {
-                $this->storeTrainingFiles($training, $data['files']);
-            }
+            $this->storeTrainingFiles($training, $data['files']);
 
             return $training;
         });
@@ -77,18 +71,20 @@ readonly class TrainingService
             foreach ($this->trainingFileRepository->all($training) as $file) {
                 $this->fileService->delete($file->file_path);
             }
-
             $this->trainingFileRepository->deleteAll($training);
 
             return $this->trainingRepository->delete($training);
         });
     }
 
-    private function storeTrainingFiles(Training $training, array $files): void
+    private function storeTrainingFiles(Training $training, array $data): void
     {
-        foreach ($files as $file) {
-            $storedPath = $this->fileService->store($file, $this->trainingConfig->getFilesPath());
-            $this->trainingFileRepository->create($training, $storedPath);
+        $files = $data['files'];
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                $storedPath = $this->fileService->store($file, $this->trainingConfig->getFilesPath());
+                $this->trainingFileRepository->create($training, $storedPath);
+            }
         }
     }
 }

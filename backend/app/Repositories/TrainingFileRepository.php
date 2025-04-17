@@ -20,8 +20,6 @@ class TrainingFileRepository implements TrainingFileRepositoryInterface
 
     public function deleteAll(Training $training): void
     {
-        foreach ($training->files as $file) {
-            $file->delete();
-        }
+        $training->files()->delete();
     }
 }
