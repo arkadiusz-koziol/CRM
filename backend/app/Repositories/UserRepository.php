@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Enums\UserStatus;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -44,4 +45,20 @@ class UserRepository implements UserRepositoryInterface
                 UserStatus::ACTIVE->value,
             ]);
     }
+
+    public function getAllIds(): Collection
+    {
+        return User::all('id')->pluck('id');
+    }
+
+    public function getByRoles(array $roleIds): Collection
+    {
+        return User::role($roleIds)->get(['id'])->pluck('id');
+    }
+
+    public function getByIds(array $userIds): Collection
+    {
+        return User::whereIn('id', $userIds)->get(['id'])->pluck('id');
+    }
+
 }

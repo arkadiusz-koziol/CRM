@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Cities;
 
 use App\Dto\CityDto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateCityRequest;
+use App\Http\Requests\City\UpdateCityRequest;
 use App\Models\City;
 use App\Services\CityService;
 use Illuminate\Http\JsonResponse;

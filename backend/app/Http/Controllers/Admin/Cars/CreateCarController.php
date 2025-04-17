@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Admin\Cars;
 
 use App\Dto\CarDto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCarRequest;
-use App\Models\Car;
+use App\Http\Requests\Car\CreateCarRequest;
 use App\Services\CarService;
 use Illuminate\Http\JsonResponse;
-use OpenApi\Annotations as OA;
-use Throwable;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 
 class CreateCarController extends Controller

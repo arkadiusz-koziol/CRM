@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin\Materials;
 
 use App\Dto\MaterialDto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateMaterialRequest;
-use App\Http\Requests\UpdateMaterialRequest;
+use App\Http\Requests\Material\UpdateMaterialRequest;
 use App\Models\Material;
 use App\Services\MaterialService;
 use Illuminate\Http\JsonResponse;

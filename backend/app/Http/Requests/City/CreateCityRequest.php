@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCityRequest extends FormRequest
+class CreateCityRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -13,6 +13,6 @@ class UpdateCityRequest extends FormRequest
             'district' => ['required', 'string', 'max:255'],
             'commune' => ['required', 'string', 'max:255'],
             'voivodeship' => ['required', 'string', 'max:255'],
-        ];
-    }
+            ];
+        }
 }

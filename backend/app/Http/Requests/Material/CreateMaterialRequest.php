@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Material;
 
 use App\Rules\UniqueIgnoringSoftDeletes;
 use Illuminate\Foundation\Http\FormRequest;

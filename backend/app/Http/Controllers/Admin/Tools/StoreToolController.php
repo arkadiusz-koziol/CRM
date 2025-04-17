@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin\Tools;
 
 use App\Dto\ToolDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateToolRequest;
-use App\Http\Requests\UpdateToolRequest;
-use App\Models\Tool;
+use App\Http\Requests\Tool\CreateToolRequest;
 use App\Services\ToolService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
