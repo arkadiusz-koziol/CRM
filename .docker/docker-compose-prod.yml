@@ -1,11 +1,4 @@
-version: '3.8'
-
 name: "crm"
-
-networks:
-  shared_network:
-    external: true
-    name: network
 
 services:
   php:
@@ -30,3 +23,7 @@ services:
       - php
     networks:
       - shared_network
+
+networks:
+  shared_network:
+    driver: bridge
