@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cd38e03e82632e8b9510a0c3505e273",
+    "content-hash": "a22ae8c714c6d4cca3206a3d6d4f7707",
     "packages": [
         {
             "name": "brick/math",
@@ -2541,6 +2541,57 @@
             "time": "2024-09-05T15:25:50+00:00"
         },
         {
+            "name": "openpayu/openpayu",
+            "version": "2.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PayU-EMEA/openpayu_php.git",
+                "reference": "3d5a609147777e2ba64d72957492457cdd67d239"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PayU-EMEA/openpayu_php/zipball/3d5a609147777e2ba64d72957492457cdd67d239",
+                "reference": "3d5a609147777e2ba64d72957492457cdd67d239",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-hash": "*",
+                "ext-json": "*",
+                "php": ">=5.5.19 | >=5.6.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.3"
+            },
+            "type": "library",
+            "extra": [
+                {
+                    "engine": "PHP SDK"
+                }
+            ],
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "OpenPayU",
+                    "homepage": "http://developers.payu.com"
+                }
+            ],
+            "description": "OpenPayU PHP Library",
+            "support": {
+                "issues": "https://github.com/PayU/openpayu_php/issues",
+                "source": "https://github.com/PayU-EMEA/openpayu_php/tree/v2.3.6"
+            },
+            "time": "2023-07-27T07:47:25+00:00"
+        },
+        {
             "name": "phpoption/phpoption",
             "version": "1.9.3",
             "source": {
@@ -3440,6 +3491,54 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "skilleton/payment-package",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:arkadiusz-koziol/payment-package.git",
+                "reference": "5de1a229977bc83c98f01ad68ff86ef015fc6b7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arkadiusz-koziol/payment-package/zipball/5de1a229977bc83c98f01ad68ff86ef015fc6b7d",
+                "reference": "5de1a229977bc83c98f01ad68ff86ef015fc6b7d",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.9",
+                "illuminate/support": "*",
+                "laravel/framework": "11.*",
+                "openpayu/openpayu": "^2.3",
+                "php": ">=8.2"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Skilleton\\PaymentPackage\\Providers\\PaymentServiceProvider"
+                    ],
+                    "aliases": {
+                        "PaymentPackage": "Skilleton\\PaymentPackage\\Facades\\PaymentPackage"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Skilleton\\PaymentPackage\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "description": "skilleton PHP PAYMENTS",
+            "support": {
+                "source": "https://github.com/arkadiusz-koziol/payment-package/tree/master",
+                "issues": "https://github.com/arkadiusz-koziol/payment-package/issues"
+            },
+            "time": "2025-08-06T18:22:24+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -10537,9 +10636,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {},
-    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "skilleton/payment-package": 20
+    },
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2",
