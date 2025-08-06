@@ -7,7 +7,7 @@ services:
       context: ..
       dockerfile: .docker/php/Dockerfile
     volumes:
-      - ../:/var/www/app
+      - ../backend:/var/www/app
     networks:
       - shared_network
 
@@ -17,7 +17,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ../:/var/www/app
+      - ../backend:/var/www/app
       - ./nginx/app-prod.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
