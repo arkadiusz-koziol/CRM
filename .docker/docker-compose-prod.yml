@@ -1,4 +1,7 @@
 name: "crm"
+volumes:
+  postgres-data:
+  redis-data:
 
 services:
   php:
