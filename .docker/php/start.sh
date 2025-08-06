@@ -1,4 +1,5 @@
 #!/bin/sh
+cd /var/www/app || exit 1
 
 composer install &&
 if [ -f /etc/ImageMagick-6/policy.xml ]; then
