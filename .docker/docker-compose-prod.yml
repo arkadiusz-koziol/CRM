@@ -24,6 +24,35 @@ services:
     networks:
       - shared_network
 
+
+  postgres:
+    container_name: telemain-db
+    image: postgres:16.0
+    ports:
+      - "127.0.0.1:5419:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    env_file:
+      - ../backend/.env
+    environment:
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'telemain-db'
+      POSTGRES_USER: 'user'
+    restart: always
+    networks:
+      - shared_network
+
+  redis:
+    container_name: telemain-redis
+    image: redis:latest
+    sysctls:
+      - net.core.somaxconn=511
+    volumes:
+      - redis-data:/data
+    networks:
+      - shared_network
+
+
 networks:
   shared_network:
     driver: bridge
