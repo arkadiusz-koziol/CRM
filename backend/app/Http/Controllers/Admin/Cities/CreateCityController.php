@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Cities;
 
-use App\Dto\CityDto;
+use App\Factory\CityDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCityRequest;
-use App\Http\Requests\UpdateCityRequest;
-use App\Models\City;
 use App\Services\CityService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
@@ -82,18 +80,19 @@ class CreateCityController extends Controller
      */
     public function __invoke(
         CreateCityRequest $request,
-        CityService $cityService
+        CityService $cityService,
+        CityDtoFactory $cityDtoFactory
     ): JsonResponse
     {
         try {
-            $cityDto = new CityDto(
+            $cityDto = $cityDtoFactory->fromRequest(
                 name: $request->input('name'),
                 district: $request->input('district'),
                 commune: $request->input('commune'),
                 voivodeship: $request->input('voivodeship')
             );
 
-            return $this->responseFactory->json($cityService->createCity($cityDto), 201);
+            return $this->responseFactory->json($cityService->createCity($cityDto), Response::HTTP_CREATED);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

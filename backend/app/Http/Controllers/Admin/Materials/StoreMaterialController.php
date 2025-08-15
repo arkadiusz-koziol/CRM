@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin\Materials;
 
 use App\Dto\MaterialDto;
+use App\Factory\MaterialDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateMaterialRequest;
-use App\Http\Requests\UpdateMaterialRequest;
-use App\Models\Material;
 use App\Services\MaterialService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
@@ -83,18 +82,19 @@ class StoreMaterialController extends Controller
      */
     public function __invoke(
         CreateMaterialRequest $request,
-        MaterialService $materialService
+        MaterialService $materialService,
+        MaterialDtoFactory $dtoFactory
     ): JsonResponse
     {
         try {
-            $materialDto = new MaterialDto(
+            $materialDto = $dtoFactory->fromRequest(
                 name: $request->input('name'),
                 description: $request->input('description'),
                 count: $request->input('count'),
                 price: $request->input('price')
             );
 
-            return $this->responseFactory->json($materialService->createMaterial($materialDto), 201);
+            return $this->responseFactory->json($materialService->createMaterial($materialDto), Response::HTTP_CREATED);
         } catch (Throwable $e) {
             $this->logger->error($e->getMessage(), [
                 'user_id' => auth()->id(),

@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowPinByPlanController extends Controller
 {
@@ -56,8 +57,8 @@ class ShowPinByPlanController extends Controller
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([
-                'message' => __('Nie znaleziono pinów')
-            ], 404);
+                'message' => __('app.not_found')
+            ], Response::HTTP_NOT_FOUND);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'plan_id' => $plan->id,
@@ -65,7 +66,7 @@ class ShowPinByPlanController extends Controller
             ]);
             return $this->responseFactory->json([
                 'message' => __('Błąd podczas pobierania pinów')
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

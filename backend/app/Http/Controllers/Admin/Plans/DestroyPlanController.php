@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class DestroyPlanController extends Controller
 {
@@ -50,7 +51,7 @@ class DestroyPlanController extends Controller
         try {
             $planService->deletePlan($planService->getPlansByEstate($estate));
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (ModelNotFoundException $e) {
             $this->logger->error($e->getMessage(), [
                 'estate_id' => $estate->id,
@@ -58,7 +59,7 @@ class DestroyPlanController extends Controller
             ]);
             return $this->responseFactory->json([
                 'message' => __('Nie znaleziono planu dla tej nieruchomości')
-            ], 404);
+            ], Response::HTTP_NOT_FOUND);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'estate_id' => $estate->id,
@@ -66,7 +67,7 @@ class DestroyPlanController extends Controller
             ]);
             return $this->responseFactory->json([
                 'message' => __('Błąd podczas usuwania planów')
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

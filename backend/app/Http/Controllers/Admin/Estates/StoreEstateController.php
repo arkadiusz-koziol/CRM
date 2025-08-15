@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Estates;
 
-use App\Dto\EstateDto;
+use App\Factory\EstateDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEstateRequest;
 use App\Models\City;
@@ -155,20 +155,21 @@ class StoreEstateController extends Controller
      */
     public function __invoke(
         CreateEstateRequest $request,
-        EstateService $estateService
+        EstateService $estateService,
+        EstateDtoFactory $estateDtoFactory,
     ): JsonResponse
     {
         try {
-            $estateDto = new EstateDto(
+            $estateDto = $estateDtoFactory->fromRequest(
                 name: $request->input('name'),
-                custom_id: $request->input('custom_id'),
+                customId: $request->input('custom_id'),
                 street: $request->input('street'),
-                postal_code: $request->input('postal_code'),
-                city: City::find($request->input('city')),
-                house_number: $request->input('house_number'),
+                postalCode: $request->input('postal_code'),
+                city: City::findOrFail($request->input('city')),
+                houseNumber: $request->input('house_number')
             );
 
-            return $this->responseFactory->json($estateService->createEstate($estateDto), 201);
+            return $this->responseFactory->json($estateService->createEstate($estateDto), Response::HTTP_CREATED);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

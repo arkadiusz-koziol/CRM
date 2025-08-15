@@ -79,13 +79,13 @@ class DestroyToolController extends Controller
     {
         try {
             if (!$toolService->deleteTool($tool)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')]);
+                return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_UNPROCESSABLE_ENTITY]);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             $this->logger->error($e->getMessage(), [
-                'tool_id' => $tool->id,
+                'tool_id' => $tool->getId(),
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);

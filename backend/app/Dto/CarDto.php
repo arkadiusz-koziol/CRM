@@ -4,13 +4,13 @@ namespace App\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-class CarDto implements Arrayable
+readonly class CarDto implements Arrayable
 {
     public function __construct(
-        public string $name,
-        public string $description,
-        public string $registrationNumber,
-        public string $technicalDetails
+        private string $name,
+        private string $description,
+        private string $registrationNumber,
+        private string $technicalDetails
     )
     {}
 
@@ -23,19 +23,24 @@ class CarDto implements Arrayable
             'technical_details' => $this->getTechnicalDetails()
         ];
     }
-    public function getName(): string {
+
+    public function getName(): string
+    {
         return $this->name;
     }
 
-    public function getDescription(): string {
+    public function getDescription(): string
+    {
         return $this->description;
     }
 
-    public function getRegistrationNumber(): string {
+    public function getRegistrationNumber(): string
+    {
         return $this->registrationNumber;
     }
 
-    public function getTechnicalDetails(): ?string {
+    public function getTechnicalDetails(): ?string
+    {
         return $this->technicalDetails;
     }
 }

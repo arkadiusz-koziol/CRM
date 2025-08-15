@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Factory\CreateUserDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoreUserController extends Controller
 {
@@ -46,18 +49,22 @@ class StoreUserController extends Controller
      */
     public function __invoke(
         CreateUserRequest $request,
-        UserService $userService
-    ): JsonResponse
-    {
+        UserService $userService,
+        CreateUserDtoFactory $dtoFactory,
+        AuthManager $auth
+    ): JsonResponse {
         try {
-            return $this->responseFactory->successResponse($userService->createUser($request->validated()), 201);
+            $dto = $dtoFactory->fromRequest($request);
+            return $this->responseFactory->successResponse(
+                $userService->createUser($dto)
+            );
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
-                'user_id' => auth()->id(),
+                'user_id' => $auth->id(),
             ]);
             return $this->responseFactory->json([
                 'message' => __('messages.user_creation_failed')
-            ], 400);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 }

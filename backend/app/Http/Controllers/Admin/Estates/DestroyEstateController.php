@@ -78,10 +78,10 @@ class DestroyEstateController extends Controller
     {
         try {
             if (!$estateService->deleteEstate($estate)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')]);
+                return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_BAD_REQUEST]);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers\Admin\Cars;
 
-use App\Dto\CarDto;
+use App\Factory\CarDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCarRequest;
-use App\Models\Car;
 use App\Services\CarService;
 use Illuminate\Http\JsonResponse;
-use OpenApi\Annotations as OA;
 use Throwable;
 use Symfony\Component\HttpFoundation\Response;
-
 
 class CreateCarController extends Controller
 {
     public function __invoke(
         CreateCarRequest $request,
-        CarService $carService
+        CarService $carService,
+        CarDtoFactory $carDtoFactory,
     ): JsonResponse
     {
         try {
-            $carDto = new CarDto(
+            $carDto = $carDtoFactory->fromRequest(
                 name: $request->input('name'),
                 description: $request->input('description'),
                 registrationNumber: $request->input('registration_number'),

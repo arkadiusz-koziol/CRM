@@ -49,7 +49,7 @@ class ListMaterialController extends Controller
                 'exception' => $e,
             ]);
             return $this->responseFactory->json(
-                ['message' => __('Coś poszło nie tak. Spróbuj ponownie później.')],
+                ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }

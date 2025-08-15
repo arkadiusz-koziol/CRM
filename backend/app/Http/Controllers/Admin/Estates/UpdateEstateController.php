@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Estates;
 
-use App\Dto\EstateDto;
+use App\Factory\EstateDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateEstateRequest;
 use App\Models\City;
@@ -115,24 +115,25 @@ class UpdateEstateController extends Controller
     public function __invoke(
         UpdateEstateRequest $request,
         Estate $estate,
-        EstateService $estateService
+        EstateService $estateService,
+        EstateDtoFactory $estateDtoFactory,
     ): JsonResponse
     {
         try {
-            $estateDto = new EstateDto(
+            $estateDto = $estateDtoFactory->fromRequest(
                 name: $request->input('name'),
-                custom_id: $request->input('custom_id'),
+                customId: $request->input('custom_id'),
                 street: $request->input('street'),
-                postal_code: $request->input('postal_code'),
-                city: City::find($request->input('city')),
-                house_number: $request->input('house_number'),
+                postalCode: $request->input('postal_code'),
+                city: City::findOrFail($request->input('city')),
+                houseNumber: $request->input('house_number')
             );
 
             if (!$estateService->updateEstate($estate, $estateDto)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
+                return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

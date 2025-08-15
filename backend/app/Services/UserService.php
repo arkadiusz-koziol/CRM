@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Dto\CreateUserDto;
 use App\Enums\UserRoles;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
@@ -14,10 +15,22 @@ class UserService
     ) {
     }
 
-    public function createUser(array $data): User
+    public function createUser(CreateUserDto $dto): User
     {
+        $data = [
+            'name'       => $dto->getName(),
+            'surname'    => $dto->getSurname(),
+            'email'      => $dto->getEmail(),
+            'phone'      => $dto->getPhone(),
+            'password'   => $dto->getPassword(),
+            'city'       => $dto->getCity(),
+            'vovoidship' => $dto->getVovoidship(),
+        ];
+
         $user = $this->userRepository->create($data);
-        $user->assignRole($data['role'] ?? UserRoles::USER->value);
+
+        $user->assignRole(UserRoles::USER->value);
+
         return $user;
     }
 

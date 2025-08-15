@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Cities;
 
-use App\Dto\CityDto;
+use App\Factory\CityDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateCityRequest;
 use App\Models\City;
@@ -108,11 +108,12 @@ class UpdateCityController extends Controller
     public function __invoke(
         UpdateCityRequest $request,
         City $city,
-        CityService $cityService
+        CityService $cityService,
+        CityDtoFactory $cityDtoFactory
     ): JsonResponse
     {
         try {
-            $cityDto = new CityDto(
+            $cityDto = $cityDtoFactory->fromRequest(
                 name: $request->input('name'),
                 district: $request->input('district'),
                 commune: $request->input('commune'),
@@ -120,10 +121,10 @@ class UpdateCityController extends Controller
             );
 
             if (!$cityService->updateCity($city, $cityDto)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
+                return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Materials;
 
-use App\Dto\MaterialDto;
+use App\Factory\MaterialDtoFactory;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
 use App\Models\Material;
 use App\Services\MaterialService;
@@ -109,11 +108,12 @@ class UpdateMaterialController extends Controller
     public function __invoke(
         UpdateMaterialRequest $request,
         Material $material,
-        MaterialService $materialService
+        MaterialService $materialService,
+        MaterialDtoFactory $dtoFactory
     ): JsonResponse
     {
         try {
-            $materialDto = new MaterialDto(
+            $materialDto = $dtoFactory->fromRequest(
                 name: $request->input('name'),
                 description: $request->input('description'),
                 count: $request->input('count'),
@@ -121,10 +121,10 @@ class UpdateMaterialController extends Controller
             );
 
             if (!$materialService->updateMaterial($material, $materialDto)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
+                return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             $this->logger->error($e->getMessage(), [
                 'material_id' => $material->id,

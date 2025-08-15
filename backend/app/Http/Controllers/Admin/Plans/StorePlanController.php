@@ -9,6 +9,7 @@ use App\Services\PlanService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class StorePlanController extends Controller
 {
@@ -58,7 +59,7 @@ class StorePlanController extends Controller
                     $request->validated(),
                     $estate
                 ),
-                201
+                Response::HTTP_CREATED
             );
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
@@ -66,8 +67,8 @@ class StorePlanController extends Controller
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([
-                'message' => __('Błąd podczas dodawania planu')
-            ], 500);
+                'message' => __('app.action.error')
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

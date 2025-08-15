@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin\Estates;
 use App\Http\Controllers\Controller;
 use App\Models\Estate;
 use App\Services\EstateService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowEstateController extends Controller
 {
@@ -132,6 +134,13 @@ class ShowEstateController extends Controller
         EstateService $estateService
     ): JsonResponse
     {
-        return $this->responseFactory->json($estateService->findEstateById($estate->id));
+        try {
+            return $this->responseFactory->json($estateService->findEstateById($estate->id));
+
+        } catch (ModelNotFoundException $e) {
+            return $this->responseFactory->json([
+                'message' => __('app.estate.not_found'),
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 }

@@ -4,13 +4,13 @@ namespace App\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-class CityDto implements Arrayable
+readonly class CityDto implements Arrayable
 {
     public function __construct(
-        public string $name,
-        public string $district,
-        public string $commune,
-        public string $voivodeship
+        private string $name,
+        private string $district,
+        private string $commune,
+        private string $voivodeship
     ) {
     }
 
@@ -22,5 +22,25 @@ class CityDto implements Arrayable
             'commune' => $this->commune,
             'voivodeship' => $this->voivodeship,
         ];
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDistrict(): string
+    {
+        return $this->district;
+    }
+
+    public function getCommune(): string
+    {
+        return $this->commune;
+    }
+
+    public function getVoivodeship(): string
+    {
+        return $this->voivodeship;
     }
 }

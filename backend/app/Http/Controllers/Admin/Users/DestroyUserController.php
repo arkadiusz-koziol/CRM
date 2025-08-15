@@ -8,6 +8,7 @@ use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class DestroyUserController extends Controller
 {
@@ -49,7 +50,7 @@ class DestroyUserController extends Controller
         try {
             $userService->deleteUser($user);
 
-            return $this->responseFactory->successResponse(['message' => __('messages.user_deleted')]);
+            return $this->responseFactory->json(['message' => __('messages.user_deleted'), Response::HTTP_NO_CONTENT]);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'user_id' => $user->id,
@@ -57,7 +58,7 @@ class DestroyUserController extends Controller
             ]);
             return $this->responseFactory->json([
                 'message' => __('messages.user_not_found')
-            ], 404);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

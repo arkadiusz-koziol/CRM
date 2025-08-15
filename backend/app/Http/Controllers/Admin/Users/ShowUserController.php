@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\ShowUserResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowUserController extends Controller
 {
@@ -38,18 +40,22 @@ class ShowUserController extends Controller
      *     )
      * )
      */
-    public function __invoke(User $user): JsonResponse
+    public function __invoke(
+        User $user,
+        ShowUserResource $showUserResource
+    ): JsonResponse
     {
         try {
-            return $this->responseFactory->successResponse($user);
-
+            return $this->responseFactory->successResponse(
+                new ShowUserResource($user)
+            );
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([
                 'message' => __('messages.user_not_found')
-            ], 404);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

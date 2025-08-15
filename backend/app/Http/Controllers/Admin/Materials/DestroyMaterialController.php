@@ -78,10 +78,10 @@ class DestroyMaterialController extends Controller
     {
         try {
             if (!$materialService->deleteMaterial($material)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')]);
+                return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_BAD_REQUEST]);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             $this->logger->error($e->getMessage(), [
                 'material_id' => $material->id,

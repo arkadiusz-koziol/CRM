@@ -9,6 +9,7 @@ use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateUserController extends Controller
 {
@@ -65,7 +66,7 @@ class UpdateUserController extends Controller
             ]);
             return $this->responseFactory->json([
                 'message' => __('messages.user_not_found')
-            ], 404);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

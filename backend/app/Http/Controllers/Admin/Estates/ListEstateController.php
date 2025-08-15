@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\EstateService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class ListEstateController extends Controller
@@ -126,8 +127,8 @@ class ListEstateController extends Controller
                 'exception' => $e,
             ]);
             return $this->responseFactory->json(
-                ['message' => __('Coś poszło nie tak. Spróbuj ponownie później.')],
-                JsonResponse::HTTP_INTERNAL_SERVER_ERROR
+                ['message' => __('app.action.failed')],
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }

@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowPlanController extends Controller
 {
@@ -56,16 +57,16 @@ class ShowPlanController extends Controller
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([
-                'message' => __('Nie znaleziono planu dla tej nieruchomości')
-            ], 404);
+                'message' => __('app.not_found')
+            ], Response::HTTP_NOT_FOUND);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
             return $this->responseFactory->json([
-                'message' => __('Błąd podczas pobierania planów')
-            ], 500);
+                'message' => __('app.action.error')
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

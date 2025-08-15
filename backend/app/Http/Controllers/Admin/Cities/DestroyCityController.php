@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Cities;
 
-use App\Dto\CityDto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCityRequest;
-use App\Http\Requests\UpdateCityRequest;
 use App\Models\City;
 use App\Services\CityService;
 use Illuminate\Http\JsonResponse;
@@ -77,14 +74,13 @@ class DestroyCityController extends Controller
     public function __invoke(
         City $city,
         CityService $cityService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             if (!$cityService->deleteCity($city)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')]);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

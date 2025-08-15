@@ -71,4 +71,54 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getSurname(): string
+    {
+        return $this->surname;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function getVovoidship(): ?string
+    {
+        return $this->vovoidship;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at?->toDateTimeString();
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at?->toDateTimeString();
+    }
 }

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Tools;
 
-use App\Dto\ToolDTO;
+use App\Factory\ToolDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateToolRequest;
-use App\Http\Requests\UpdateToolRequest;
-use App\Models\Tool;
 use App\Services\ToolService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
@@ -77,17 +75,18 @@ class StoreToolController extends Controller
 
     public function __invoke(
         CreateToolRequest $request,
-        ToolService $toolService
+        ToolService $toolService,
+        ToolDtoFactory $toolDtoFactory
     ): JsonResponse
     {
         try {
-            $toolDTO = new ToolDTO(
+            $toolDTO = $toolDtoFactory->fromRequest(
                 name: $request->input('name'),
                 description: $request->input('description'),
                 count: $request->input('count')
             );
 
-            return $this->responseFactory->json($toolService->createTool($toolDTO), 201);
+            return $this->responseFactory->json($toolService->createTool($toolDTO), Response::HTTP_CREATED);
         } catch (Throwable $e) {
             $this->logger->error($e->getMessage(), [
                 'user_id' => auth()->id(),

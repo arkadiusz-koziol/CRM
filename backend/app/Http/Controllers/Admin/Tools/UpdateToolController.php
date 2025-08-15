@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Tools;
 
 use App\Dto\ToolDTO;
+use App\Factory\ToolDtoFactory;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateToolRequest;
 use App\Http\Requests\UpdateToolRequest;
 use App\Models\Tool;
 use App\Services\ToolService;
@@ -103,21 +103,22 @@ class UpdateToolController extends Controller
     public function __invoke(
         UpdateToolRequest $request,
         Tool $tool,
-        ToolService $toolService
+        ToolService $toolService,
+        ToolDtoFactory $dtoFactory
     ): JsonResponse
     {
         try {
-            $toolDTO = new ToolDTO(
+            $toolDTO = $dtoFactory->fromRequest(
                 name: $request->input('name'),
                 description: $request->input('description'),
                 count: $request->input('count')
             );
 
             if (!$toolService->updateTool($tool, $toolDTO)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')], 400);
+                return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success')]);
+            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
         } catch (Throwable $e) {
             $this->logger->error($e->getMessage(), [
                 'tool_id' => $tool->id,

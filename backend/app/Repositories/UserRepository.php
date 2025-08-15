@@ -39,7 +39,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function userCanPerformAction(User $user): bool
     {
-        return in_array($user->status,
+        return in_array($user->getStatus(),
             [
                 UserStatus::ACTIVE->value,
             ]);

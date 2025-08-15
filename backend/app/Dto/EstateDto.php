@@ -5,15 +5,15 @@ namespace App\Dto;
 use App\Models\City;
 use Illuminate\Contracts\Support\Arrayable;
 
-class EstateDto implements Arrayable
+readonly class EstateDto implements Arrayable
 {
     public function __construct(
-        public string $name,
-        public string $custom_id,
-        public string $street,
-        public string $postal_code,
-        public City $city,
-        public string $house_number
+        private string $name,
+        private string $custom_id,
+        private string $street,
+        private string $postal_code,
+        private City $city,
+        private string $house_number
     ) {
     }
 

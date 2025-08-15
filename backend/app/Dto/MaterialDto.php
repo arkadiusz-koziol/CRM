@@ -4,13 +4,13 @@ namespace App\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-class MaterialDto implements Arrayable
+readonly class MaterialDto implements Arrayable
 {
     public function __construct(
-        public string $name,
-        public string $description,
-        public int $count,
-        public int $price) {
+        private string $name,
+        private string $description,
+        private int $count,
+        private int $price) {
     }
 
     public function toArray(): array
@@ -21,5 +21,25 @@ class MaterialDto implements Arrayable
             'count' => $this->count,
             'price' => $this->price,
         ];
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
+    public function getPrice(): int
+    {
+        return $this->price;
     }
 }
