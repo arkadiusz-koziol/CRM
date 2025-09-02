@@ -19,6 +19,11 @@ use App\Http\Controllers\Admin\Pins\ShowPinByPlanController;
 use App\Http\Controllers\Admin\Plans\DestroyPlanController;
 use App\Http\Controllers\Admin\Plans\ShowPlanController;
 use App\Http\Controllers\Admin\Plans\StorePlanController;
+use App\Http\Controllers\Admin\Tasks\DestroyTaskController;
+use App\Http\Controllers\Admin\Tasks\ListTaskController;
+use App\Http\Controllers\Admin\Tasks\ShowTaskController;
+use App\Http\Controllers\Admin\Tasks\StoreTaskController;
+use App\Http\Controllers\Admin\Tasks\UpdateTaskController;
 use App\Http\Controllers\Admin\Tools\DestroyToolController;
 use App\Http\Controllers\Admin\Tools\ListToolController;
 use App\Http\Controllers\Admin\Tools\ShowToolController;
@@ -163,9 +168,28 @@ Route::group(
                 });
 
                 //Admin Cars
-                Route::prefix('cars')->group(function() {
+                Route::prefix('cars')->group(function () {
                     Route::post('/create', CreateCarController::class)
                         ->can('car.create');
+                });
+
+                // Admin Tasks
+                Route::prefix('tasks')->group(function () {
+                    Route::get('/list', ListTaskController::class)
+                        ->name('tasks.index')
+                        ->can('task.list');
+                    Route::get('/{task}', ShowTaskController::class)
+                        ->name('tasks.show')
+                        ->can('task.show');
+                    Route::post('/', StoreTaskController::class)
+                        ->name('tasks.store')
+                        ->can('task.create');
+                    Route::put('/{task}', UpdateTaskController::class)
+                        ->name('tasks.update')
+                        ->can('task.update');
+                    Route::delete('/{task}', DestroyTaskController::class)
+                        ->name('tasks.destroy')
+                        ->can('task.delete');
                 });
             });
 
@@ -190,4 +214,5 @@ Route::group(
                         ->can('user.pin.create');
                 });
             });
-    });
+    }
+);
