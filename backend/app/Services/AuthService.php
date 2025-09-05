@@ -50,4 +50,22 @@ readonly class AuthService
 
         return $user->createToken($user->name . '-AuthToken')->plainTextToken;
     }
+
+    /**
+     * Get authenticated user data
+     * @throws Exception
+     */
+    public function getAuthenticatedUser(AuthDto $authDto): User
+    {
+        $user = User::where('email', $authDto->email)->first();
+        if (
+            !$user ||
+            !$this->hashManager->check($authDto->password, $user->password) ||
+            !$this->repository->userCanPerformAction($user)
+        ) {
+            throw new Exception(__('auth.failed'));
+        }
+
+        return $user;
+    }
 }

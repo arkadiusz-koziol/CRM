@@ -54,17 +54,32 @@ class LoginController extends Controller
                 $request->input('password')
             );
 
-            $response = $authService->authUser(
+            // Get user data first to ensure authentication is valid
+            $user = $authService->getAuthenticatedUser($authDto);
+
+            // Generate token after confirming user is valid
+            $token = $authService->authUser(
                 $authDto,
                 $request->input('remember', false),
                 UserRoles::allowedForApi(),
             );
 
-            return $this->responseFactory->json([
-                'access_token' => $response,
-            ]);
+            $responseData = [
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'surname' => $user->surname,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'created_at' => $user->created_at,
+                    'updated_at' => $user->updated_at,
+                ],
+                'token' => $token,
+            ];
+
+            return $this->responseFactory->successResponse($responseData);
         } catch (Throwable $e) {
-            return $this->responseFactory->json([$e->getMessage()], ResponseAlias::HTTP_UNAUTHORIZED);
+            return $this->responseFactory->errorResponse($e->getMessage(), ResponseAlias::HTTP_UNAUTHORIZED);
         }
     }
 }

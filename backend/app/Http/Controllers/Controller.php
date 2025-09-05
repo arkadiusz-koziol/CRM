@@ -10,11 +10,11 @@ use Psr\Log\LoggerInterface;
 abstract class Controller
 {
     /**
-     * @OA\Info(title="Telemain API", version="0.1")
+     * @OA\Info(title="SkyTech API", version="0.1")
      *
      * @OA\Server(
      *      url="http://localhost:8199/api/",
-     *      description="Telemain API Server"
+     *      description="SkyTech API Server"
      * )
      *
      * @OA\Components(
