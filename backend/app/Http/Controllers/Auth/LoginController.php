@@ -60,7 +60,7 @@ class LoginController extends Controller
                 UserRoles::allowedForApi(),
             );
 
-            $user = \App\Models\User::where('email', $request->input('email'))->first();
+            $user = $this->authManager->user();
 
             return $this->responseFactory->successResponse([
                 'user' => [
