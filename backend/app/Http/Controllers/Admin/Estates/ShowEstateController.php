@@ -16,7 +16,8 @@ class ShowEstateController extends Controller
      * @OA\Get(
      *     path="/v1/admin/estates/{id}",
      *     summary="Get details of a specific estate",
-     *     description="Retrieve detailed information about a specific estate by its ID, including associated city information.",
+     *     description="Retrieve detailed information about a specific estate by its ID,
+     * including associated city information.",
      *     operationId="getEstate",
      *     tags={"Admin Estates"},
      *     security={{"bearerAuth": {}}},
@@ -132,11 +133,9 @@ class ShowEstateController extends Controller
     public function __invoke(
         Estate $estate,
         EstateService $estateService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             return $this->responseFactory->json($estateService->findEstateById($estate->id));
-
         } catch (ModelNotFoundException $e) {
             return $this->responseFactory->json([
                 'message' => __('app.estate.not_found'),

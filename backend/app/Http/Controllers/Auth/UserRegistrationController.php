@@ -12,8 +12,7 @@ class UserRegistrationController extends Controller
     public function __invoke(
         CreateUserRequest $request,
         UserService $userService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $user = $userService->createUser($request->validated());
 
         return $this->responseFactory->successResponse([

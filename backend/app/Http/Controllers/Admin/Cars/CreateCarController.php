@@ -16,8 +16,7 @@ class CreateCarController extends Controller
         CreateCarRequest $request,
         CarService $carService,
         CarDtoFactory $carDtoFactory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $carDto = $carDtoFactory->fromRequest(
                 name: $request->input('name'),
@@ -25,7 +24,7 @@ class CreateCarController extends Controller
                 registrationNumber: $request->input('registration_number'),
                 technicalDetails: $request->input('technical_details')
             );
-            return $this->responseFactory->json($carService->createCar($carDto),Response::HTTP_CREATED);
+            return $this->responseFactory->json($carService->createCar($carDto), Response::HTTP_CREATED);
         } catch (Throwable $e) {
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

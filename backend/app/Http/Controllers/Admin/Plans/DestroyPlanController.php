@@ -46,8 +46,7 @@ class DestroyPlanController extends Controller
     public function __invoke(
         Estate $estate,
         PlanService $planService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $planService->deletePlan($planService->getPlansByEstate($estate));
 

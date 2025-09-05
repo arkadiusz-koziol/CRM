@@ -14,7 +14,8 @@ class CreateTaskDtoFactory
 {
     public function __construct(
         private readonly AuthManager $auth
-    ) {}
+    ) {
+    }
 
     public function fromRequest(CreateTaskRequest $request): CreateTaskDto
     {

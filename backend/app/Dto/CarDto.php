@@ -11,7 +11,8 @@ readonly class CarDto implements Arrayable
         private string $description,
         private string $registrationNumber,
         private string $technicalDetails
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {

@@ -8,6 +8,7 @@ use App\Dto\CreateTaskDto;
 use App\Dto\UpdateTaskDto;
 use App\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Models\Task;
+use App\Enums\TaskStatus;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Psr\Log\LoggerInterface;
 
@@ -16,7 +17,8 @@ class TaskService
     public function __construct(
         private readonly TaskRepositoryInterface $taskRepository,
         private readonly LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     /**
      * Create a new task.
@@ -153,8 +155,7 @@ class TaskService
     public function markTaskAsCompleted(Task $task): Task
     {
         $dto = new UpdateTaskDto(
-            status: \App\Enums\TaskStatus::COMPLETED,
-            actualHours: $task->getEstimatedHours()
+            status: TaskStatus::COMPLETED
         );
 
         $this->logger->info('Marking task as completed', [

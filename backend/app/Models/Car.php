@@ -9,7 +9,8 @@ use OpenApi\Annotations as OA;
 
 class Car extends Model
 {
-    use SoftDeletes,HasFactory;
+    use SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -18,7 +19,7 @@ class Car extends Model
         'technical_details'
     ];
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }

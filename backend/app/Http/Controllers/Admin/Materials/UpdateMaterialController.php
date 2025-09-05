@@ -110,8 +110,7 @@ class UpdateMaterialController extends Controller
         Material $material,
         MaterialService $materialService,
         MaterialDtoFactory $dtoFactory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $materialDto = $dtoFactory->fromRequest(
                 name: $request->input('name'),

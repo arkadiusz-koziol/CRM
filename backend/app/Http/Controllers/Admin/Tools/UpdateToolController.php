@@ -105,8 +105,7 @@ class UpdateToolController extends Controller
         Tool $tool,
         ToolService $toolService,
         ToolDtoFactory $dtoFactory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $toolDTO = $dtoFactory->fromRequest(
                 name: $request->input('name'),

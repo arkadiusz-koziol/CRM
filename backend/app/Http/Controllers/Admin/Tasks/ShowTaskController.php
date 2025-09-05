@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Admin\Tasks;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
-use App\Services\TaskService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
@@ -42,17 +41,9 @@ class ShowTaskController extends Controller
      *     )
      * )
      */
-    public function __invoke(Task $task, TaskService $taskService): JsonResponse
+    public function __invoke(Task $task): JsonResponse
     {
         try {
-            $task = $taskService->getTaskById($task->getId());
-            
-            if (!$task) {
-                return $this->responseFactory->json([
-                    'message' => __('app.task.not_found')
-                ], Response::HTTP_NOT_FOUND);
-            }
-
             return $this->responseFactory->successResponse($task);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [

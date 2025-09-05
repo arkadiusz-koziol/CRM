@@ -6,7 +6,7 @@ use App\DTO\CarDto;
 use App\Interfaces\Repositories\CarRepositoryInterface;
 use App\Models\Car;
 
-Class CarService
+class CarService
 {
     public function __construct(
         protected CarRepositoryInterface $carRepository

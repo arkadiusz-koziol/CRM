@@ -77,8 +77,7 @@ class StoreToolController extends Controller
         CreateToolRequest $request,
         ToolService $toolService,
         ToolDtoFactory $toolDtoFactory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $toolDTO = $toolDtoFactory->fromRequest(
                 name: $request->input('name'),

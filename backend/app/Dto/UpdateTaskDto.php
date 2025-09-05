@@ -18,7 +18,8 @@ readonly class UpdateTaskDto
         private ?string $dueDate = null,
         private ?float $estimatedHours = null,
         private ?float $actualHours = null
-    ) {}
+    ) {
+    }
 
     public function getTitle(): ?string
     {

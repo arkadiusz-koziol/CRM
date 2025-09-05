@@ -82,8 +82,7 @@ class CreateCityController extends Controller
         CreateCityRequest $request,
         CityService $cityService,
         CityDtoFactory $cityDtoFactory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $cityDto = $cityDtoFactory->fromRequest(
                 name: $request->input('name'),

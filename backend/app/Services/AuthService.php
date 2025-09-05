@@ -28,7 +28,8 @@ readonly class AuthService
         array $allowedRoles = [],
     ): string {
         $user = User::where('email', $authDto->email)->first();
-        if (!$user ||
+        if (
+            !$user ||
             !$user->hasAnyRole($allowedRoles) ||
             !$this->hashManager->check($authDto->password, $user->password) ||
             !$this->repository->userCanPerformAction($user) ||

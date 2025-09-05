@@ -14,5 +14,5 @@ class CreateCityRequest extends FormRequest
             'commune' => ['required', 'string', 'max:255'],
             'voivodeship' => ['required', 'string', 'max:255'],
             ];
-        }
+    }
 }

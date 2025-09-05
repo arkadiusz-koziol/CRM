@@ -14,7 +14,6 @@ use Throwable;
 
 class UpdateCityController extends Controller
 {
-
     /**
      * @OA\Put(
      *     path="/v1/admin/cities/{id}",
@@ -110,8 +109,7 @@ class UpdateCityController extends Controller
         City $city,
         CityService $cityService,
         CityDtoFactory $cityDtoFactory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $cityDto = $cityDtoFactory->fromRequest(
                 name: $request->input('name'),
@@ -129,5 +127,4 @@ class UpdateCityController extends Controller
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
-
 }

@@ -48,7 +48,7 @@ class DestroyTaskController extends Controller
     {
         try {
             $deleted = $taskService->deleteTask($task);
-            
+
             if (!$deleted) {
                 return $this->responseFactory->json([
                     'message' => __('app.task.deletion_failed')

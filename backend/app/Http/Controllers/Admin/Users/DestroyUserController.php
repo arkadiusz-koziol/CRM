@@ -45,8 +45,7 @@ class DestroyUserController extends Controller
     public function __invoke(
         User $user,
         UserService $userService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $userService->deleteUser($user);
 

@@ -20,8 +20,7 @@ class UserController extends Controller
         UpdateUserRequest $request,
         User $user,
         UserService $userService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $userService->updateUser($user, $request->validated());
 
         return $this->responseFactory->json($user);
@@ -30,8 +29,7 @@ class UserController extends Controller
     public function changePassword(
         ChangePasswordRequest $request,
         UserService $userService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $user = $this->authManager->user();
 
         if (!Hash::check($request->password, $user->password)) {
@@ -42,5 +40,4 @@ class UserController extends Controller
 
         return $this->responseFactory->successResponse(['message' => __('messages.password_changed')]);
     }
-
 }

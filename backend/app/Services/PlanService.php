@@ -14,7 +14,8 @@ class PlanService
 {
     public function __construct(
         protected PlanRepositoryInterface $planRepository
-    ) {}
+    ) {
+    }
 
     public function createPlan(array $data, Estate $estate): Plan
     {

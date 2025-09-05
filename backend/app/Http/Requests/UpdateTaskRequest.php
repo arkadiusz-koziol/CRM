@@ -27,8 +27,8 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title' => ['sometimes', 'string', 'max:255'],
             'description' => ['sometimes', 'string', 'max:1000'],
-            'status' => ['sometimes', 'string', Rule::in(TaskStatus::cases())],
-            'priority' => ['sometimes', 'string', Rule::in(TaskPriority::cases())],
+            'status' => ['sometimes', 'string', Rule::enum(TaskStatus::class)],
+            'priority' => ['sometimes', 'string', Rule::enum(TaskPriority::class)],
             'assigned_to' => ['sometimes', 'integer', 'exists:users,id'],
             'due_date' => ['sometimes', 'date'],
             'estimated_hours' => ['sometimes', 'numeric', 'min:0', 'max:1000'],

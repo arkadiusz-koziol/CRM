@@ -74,8 +74,7 @@ class DestroyMaterialController extends Controller
     public function __invoke(
         Material $material,
         MaterialService $materialService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             if (!$materialService->deleteMaterial($material)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_BAD_REQUEST]);

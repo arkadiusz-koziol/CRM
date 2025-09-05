@@ -16,7 +16,8 @@ class TaskRepository implements TaskRepositoryInterface
 {
     public function __construct(
         private readonly Task $model
-    ) {}
+    ) {
+    }
 
     public function create(CreateTaskDto $dto): Task
     {

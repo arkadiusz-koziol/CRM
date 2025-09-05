@@ -13,22 +13,25 @@ class PinController extends Controller
         CreatePinRequest $request,
         Plan $plan,
         PinService $pinService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->responseFactory->json(
-            $pinService->createPin(array_merge(
-                $request->validated(),
-                [
+            $pinService->createPin(
+                array_merge(
+                    $request->validated(),
+                    [
                     'user_id' => $this->authManager->guard()->user()->id
-                ]
-            ), $plan), 201);
+                    ]
+                ),
+                $plan
+            ),
+            201
+        );
     }
 
     public function index(
         Plan $plan,
         PinService $pinService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->responseFactory->json(
             $pinService->getPinsByPlan($plan)
                 ->where('user_id', $this->authManager->guard()->user()->id)

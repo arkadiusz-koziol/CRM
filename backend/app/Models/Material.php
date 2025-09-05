@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OpenApi\Annotations as OA;
 
-
 /**
  * @OA\Schema(
  *     schema="Material",
@@ -27,7 +26,8 @@ use OpenApi\Annotations as OA;
 
 class Material extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'name',

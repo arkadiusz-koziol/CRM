@@ -117,8 +117,7 @@ class UpdateEstateController extends Controller
         Estate $estate,
         EstateService $estateService,
         EstateDtoFactory $estateDtoFactory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $estateDto = $estateDtoFactory->fromRequest(
                 name: $request->input('name'),

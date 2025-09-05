@@ -35,7 +35,8 @@ class UpdateTaskController extends Controller
      *         @OA\JsonContent(
      *             @OA\Property(property="title", type="string", example="Fix login issue"),
      *             @OA\Property(property="description", type="string", example="Users cannot log in to the system"),
-     *             @OA\Property(property="status", type="string", enum={"pending", "in_progress", "completed", "cancelled", "on_hold"}),
+     *             @OA\Property(property="status", type="string", enum={"pending", "in_progress", "completed",
+     *      "cancelled", "on_hold"}),
      *             @OA\Property(property="priority", type="string", enum={"low", "medium", "high", "urgent"}),
      *             @OA\Property(property="assigned_to", type="integer", example=2),
      *             @OA\Property(property="due_date", type="string", format="date-time"),
@@ -72,7 +73,7 @@ class UpdateTaskController extends Controller
     ): JsonResponse {
         try {
             $dto = $dtoFactory->fromRequest($request);
-            
+
             if (!$dto->hasChanges()) {
                 return $this->responseFactory->json([
                     'message' => __('app.task.no_changes')
