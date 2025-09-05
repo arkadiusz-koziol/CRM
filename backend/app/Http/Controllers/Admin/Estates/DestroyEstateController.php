@@ -74,8 +74,7 @@ class DestroyEstateController extends Controller
     public function __invoke(
         Estate $estate,
         EstateService $estateService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             if (!$estateService->deleteEstate($estate)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_BAD_REQUEST]);

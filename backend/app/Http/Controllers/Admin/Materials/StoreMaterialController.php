@@ -84,8 +84,7 @@ class StoreMaterialController extends Controller
         CreateMaterialRequest $request,
         MaterialService $materialService,
         MaterialDtoFactory $dtoFactory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $materialDto = $dtoFactory->fromRequest(
                 name: $request->input('name'),
@@ -102,5 +101,4 @@ class StoreMaterialController extends Controller
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
-
 }

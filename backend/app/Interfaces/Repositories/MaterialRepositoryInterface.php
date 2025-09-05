@@ -13,4 +13,3 @@ interface MaterialRepositoryInterface
     public function findById(int $id): ?Material;
     public function findAll(): array;
 }
-

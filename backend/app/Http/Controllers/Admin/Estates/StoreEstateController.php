@@ -157,8 +157,7 @@ class StoreEstateController extends Controller
         CreateEstateRequest $request,
         EstateService $estateService,
         EstateDtoFactory $estateDtoFactory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $estateDto = $estateDtoFactory->fromRequest(
                 name: $request->input('name'),
@@ -174,5 +173,4 @@ class StoreEstateController extends Controller
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
-
 }

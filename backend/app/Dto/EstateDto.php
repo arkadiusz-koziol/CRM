@@ -58,5 +58,4 @@ readonly class EstateDto implements Arrayable
     {
         return $this->house_number;
     }
-
 }

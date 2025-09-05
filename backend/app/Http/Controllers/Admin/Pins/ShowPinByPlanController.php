@@ -47,8 +47,7 @@ class ShowPinByPlanController extends Controller
     public function __invoke(
         Plan $plan,
         PinService $pinService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             return $this->responseFactory->json($pinService->getPinsByPlan($plan));
         } catch (ModelNotFoundException $e) {

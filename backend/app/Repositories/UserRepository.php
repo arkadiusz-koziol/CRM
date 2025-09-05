@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Enums\UserStatus;
@@ -39,9 +40,11 @@ class UserRepository implements UserRepositoryInterface
 
     public function userCanPerformAction(User $user): bool
     {
-        return in_array($user->getStatus(),
+        return in_array(
+            $user->getStatus(),
             [
                 UserStatus::ACTIVE->value,
-            ]);
+            ]
+        );
     }
 }

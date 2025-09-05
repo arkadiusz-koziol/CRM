@@ -12,7 +12,6 @@ readonly class PinDto
         public float $y,
         public ?UploadedFile $photo
     ) {
-
     }
 
     public function toArray(): array
@@ -44,6 +43,4 @@ readonly class PinDto
     {
         return $this->photo;
     }
-
-
 }

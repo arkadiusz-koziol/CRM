@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             EstateSeeder::class,
             CarSeeder::class,
+            TaskSeeder::class,
         ]);
 
     }

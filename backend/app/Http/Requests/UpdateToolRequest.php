@@ -14,5 +14,4 @@ class UpdateToolRequest extends FormRequest
             'count' => ['required', 'integer', 'min:0'],
         ];
     }
-
 }

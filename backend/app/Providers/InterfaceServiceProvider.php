@@ -8,6 +8,7 @@ use App\Interfaces\Repositories\EstateRepositoryInterface;
 use App\Interfaces\Repositories\MaterialRepositoryInterface;
 use App\Interfaces\Repositories\PinRepositoryInterface;
 use App\Interfaces\Repositories\PlanRepositoryInterface;
+use App\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Repositories\CarRepository;
@@ -16,6 +17,7 @@ use App\Repositories\EstateRepository;
 use App\Repositories\MaterialRepository;
 use App\Repositories\PinRepository;
 use App\Repositories\PlanRepository;
+use App\Repositories\TaskRepository;
 use App\Repositories\ToolRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -31,6 +33,6 @@ class InterfaceServiceProvider extends ServiceProvider
         PlanRepositoryInterface::class => PlanRepository::class,
         PinRepositoryInterface::class => PinRepository::class,
         CarRepositoryInterface::class => CarRepository::class,
+        TaskRepositoryInterface::class => TaskRepository::class,
     ];
-
 }

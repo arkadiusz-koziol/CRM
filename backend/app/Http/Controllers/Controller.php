@@ -33,5 +33,4 @@ abstract class Controller
         protected LoggerInterface $logger,
     ) {
     }
-
 }

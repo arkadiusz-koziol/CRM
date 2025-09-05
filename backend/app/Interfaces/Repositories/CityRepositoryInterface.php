@@ -16,6 +16,4 @@ interface CityRepositoryInterface
     public function findById(int $id): ?City;
 
     public function findAll(): array;
-
 }
-

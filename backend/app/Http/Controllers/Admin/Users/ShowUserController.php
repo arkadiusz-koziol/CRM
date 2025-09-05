@@ -43,8 +43,7 @@ class ShowUserController extends Controller
     public function __invoke(
         User $user,
         ShowUserResource $showUserResource
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             return $this->responseFactory->successResponse(
                 new ShowUserResource($user)

@@ -54,8 +54,7 @@ class UpdateUserController extends Controller
         UpdateUserRequest $request,
         User $user,
         UserService $userService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $userService->updateUser($user, $request->validated());
 

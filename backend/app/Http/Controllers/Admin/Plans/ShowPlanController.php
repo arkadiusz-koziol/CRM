@@ -47,8 +47,7 @@ class ShowPlanController extends Controller
     public function __invoke(
         Estate $estate,
         PlanService $planService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             return $this->responseFactory->json($planService->getPlansByEstate($estate));
         } catch (ModelNotFoundException $e) {

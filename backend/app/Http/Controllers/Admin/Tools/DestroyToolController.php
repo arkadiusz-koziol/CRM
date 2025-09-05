@@ -75,11 +75,11 @@ class DestroyToolController extends Controller
     public function __invoke(
         Tool $tool,
         ToolService $toolService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             if (!$toolService->deleteTool($tool)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_UNPROCESSABLE_ENTITY]);
+                return $this->responseFactory->json(['message' => __('app.action.failed'),
+                                                     Response::HTTP_UNPROCESSABLE_ENTITY]);
             }
 
             return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);

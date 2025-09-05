@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateMaterialRequest extends FormRequest
 {
-
     public function rules(): array
     {
         return [
