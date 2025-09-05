@@ -21,7 +21,7 @@ class MeController extends Controller
      *     @OA\Property(property="created_at", type="string", format="date-time"),
      *     @OA\Property(property="updated_at", type="string", format="date-time")
      * )
-     * 
+     *
      * @OA\Get(
      *     path="/v1/auth/me",
      *     tags={"Auth"},

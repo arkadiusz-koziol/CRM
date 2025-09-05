@@ -54,17 +54,15 @@ class LoginController extends Controller
                 $request->input('password')
             );
 
+            // Get user data first to ensure authentication is valid
+            $user = $authService->getAuthenticatedUser($authDto);
+
+            // Generate token after confirming user is valid
             $token = $authService->authUser(
                 $authDto,
                 $request->input('remember', false),
                 UserRoles::allowedForApi(),
             );
-
-            $user = $this->authManager->user();
-
-            if (!$user) {
-                return $this->responseFactory->errorResponse('User not found after authentication', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
-            }
 
             $responseData = [
                 'user' => [

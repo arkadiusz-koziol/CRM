@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/shared/ui/Button'
 import { Card, CardContent } from '@/shared/ui/Card'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/hooks/useAuthHook'
 import { Eye, EyeOff, Mail, Lock, ArrowLeft } from 'lucide-react'
 
 export const LoginPage: React.FC = () => {
@@ -35,8 +35,9 @@ export const LoginPage: React.FC = () => {
     try {
       await login(formData)
       // Don't navigate manually - let the authentication state handle the redirect
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.error || err.response?.data?.message || 'Login failed. Please check your credentials.'
+    } catch (err: unknown) {
+      const axiosError = err as { response?: { data?: { error?: string; message?: string } } }
+      const errorMessage = axiosError.response?.data?.error || axiosError.response?.data?.message || 'Login failed. Please check your credentials.'
       setError(errorMessage)
     } finally {
       setIsLoading(false)

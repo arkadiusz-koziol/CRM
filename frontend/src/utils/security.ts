@@ -2,6 +2,39 @@
  * Security utilities for authentication and token management
  */
 
+import type { AuthUser } from '@/types/auth'
+
+// Type guards for better type safety
+type UserCandidate = Record<string, unknown>
+
+// Validation helper functions
+const hasRequiredStringProperty = (obj: UserCandidate, key: string): boolean => {
+  return typeof obj[key] === 'string' && obj[key] !== ''
+}
+
+const hasRequiredNumberProperty = (obj: UserCandidate, key: string): boolean => {
+  return typeof obj[key] === 'number' && !isNaN(obj[key] as number)
+}
+
+const hasOptionalStringProperty = (obj: UserCandidate, key: string): boolean => {
+  return obj[key] === null || obj[key] === undefined || typeof obj[key] === 'string'
+}
+
+// AuthUser validation schema
+const AUTH_USER_SCHEMA = {
+  required: {
+    id: hasRequiredNumberProperty,
+    email: hasRequiredStringProperty,
+    name: hasRequiredStringProperty,
+    created_at: hasRequiredStringProperty,
+    updated_at: hasRequiredStringProperty,
+  },
+  optional: {
+    surname: hasOptionalStringProperty,
+    phone: hasOptionalStringProperty,
+  },
+} as const
+
 export const SECURITY_CONSTANTS = {
   TOKEN_KEY: 'auth_token',
   USER_KEY: 'auth_user',
@@ -33,26 +66,35 @@ export const isValidTokenFormat = (token: string): boolean => {
 }
 
 /**
- * Check if user data is valid
+ * Type guard to check if user data is valid AuthUser
+ * @param user - Raw user data to validate
+ * @returns True if user data matches AuthUser interface
  */
-export const isValidUserData = (user: any): boolean => {
+export const isValidUserData = (user: unknown): user is AuthUser => {
   if (!user || typeof user !== 'object') return false
   
-  return !!(
-    user.id &&
-    user.email &&
-    user.name &&
-    typeof user.id === 'number' &&
-    typeof user.email === 'string' &&
-    typeof user.name === 'string'
+  const candidate = user as UserCandidate
+  
+  // Validate required properties
+  const requiredValid = Object.entries(AUTH_USER_SCHEMA.required).every(
+    ([key, validator]) => validator(candidate, key)
   )
+  
+  // Validate optional properties
+  const optionalValid = Object.entries(AUTH_USER_SCHEMA.optional).every(
+    ([key, validator]) => validator(candidate, key)
+  )
+  
+  return requiredValid && optionalValid
 }
 
 /**
  * Sanitize user data before storing
+ * @param user - Raw user data from API response
+ * @returns Sanitized AuthUser object or null if invalid
  */
-export const sanitizeUserData = (user: any) => {
-  if (!user || typeof user !== 'object') return null
+export const sanitizeUserData = (user: unknown): AuthUser | null => {
+  if (!isValidUserData(user)) return null
   
   return {
     id: user.id,

@@ -1,15 +1,15 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
 import type { AuthContextType, AuthUser, LoginCredentials, AuthResponse } from '@/types/auth'
 import { apiClient } from '@/services/api'
 import { 
-  SECURITY_CONSTANTS, 
   isValidTokenFormat, 
   isValidUserData, 
   sanitizeUserData,
   detectSuspiciousActivity,
   loginRateLimiter 
 } from '@/utils/security'
+import { AUTH_CONSTANTS } from '@/constants/auth'
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
@@ -26,8 +26,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Check for existing token on mount and verify with backend
   useEffect(() => {
     const initializeAuth = async () => {
-      const storedToken = localStorage.getItem(SECURITY_CONSTANTS.TOKEN_KEY)
-      const storedUser = localStorage.getItem(SECURITY_CONSTANTS.USER_KEY)
+      const storedToken = localStorage.getItem(AUTH_CONSTANTS.TOKEN_KEY)
       
       if (storedToken && isValidTokenFormat(storedToken)) {
         try {
@@ -43,24 +42,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               setUser(sanitizedUser)
               setToken(storedToken)
               // Update stored user data in case it's outdated
-              localStorage.setItem(SECURITY_CONSTANTS.USER_KEY, JSON.stringify(sanitizedUser))
+              localStorage.setItem(AUTH_CONSTANTS.USER_KEY, JSON.stringify(sanitizedUser))
             } else {
               throw new Error('Invalid user data structure')
             }
           } else {
             throw new Error('Invalid user data received')
           }
-        } catch (error) {
+        } catch {
           // Token is invalid or expired, clear everything
-          localStorage.removeItem(SECURITY_CONSTANTS.TOKEN_KEY)
-          localStorage.removeItem(SECURITY_CONSTANTS.USER_KEY)
+          localStorage.removeItem(AUTH_CONSTANTS.TOKEN_KEY)
+          localStorage.removeItem(AUTH_CONSTANTS.USER_KEY)
           setUser(null)
           setToken(null)
         }
       } else if (storedToken) {
         // Invalid token format, clear it
-        localStorage.removeItem(SECURITY_CONSTANTS.TOKEN_KEY)
-        localStorage.removeItem(SECURITY_CONSTANTS.USER_KEY)
+        localStorage.removeItem(AUTH_CONSTANTS.TOKEN_KEY)
+        localStorage.removeItem(AUTH_CONSTANTS.USER_KEY)
       }
       
       setIsLoading(false)
@@ -133,25 +132,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Set both user and token together to ensure they're synchronized
       setUser(sanitizedUser)
       setToken(authToken)
-      localStorage.setItem(SECURITY_CONSTANTS.TOKEN_KEY, authToken)
-      localStorage.setItem(SECURITY_CONSTANTS.USER_KEY, JSON.stringify(sanitizedUser))
+      localStorage.setItem(AUTH_CONSTANTS.TOKEN_KEY, authToken)
+      localStorage.setItem(AUTH_CONSTANTS.USER_KEY, JSON.stringify(sanitizedUser))
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Clear any partial auth state on error
       setUser(null)
       setToken(null)
-      localStorage.removeItem(SECURITY_CONSTANTS.TOKEN_KEY)
-      localStorage.removeItem(SECURITY_CONSTANTS.USER_KEY)
+      localStorage.removeItem(AUTH_CONSTANTS.TOKEN_KEY)
+      localStorage.removeItem(AUTH_CONSTANTS.USER_KEY)
       
       // Provide user-friendly error messages
-      if (error.response?.status === 401) {
+      const axiosError = error as { response?: { status?: number }; message?: string }
+      if (axiosError.response?.status === 401) {
         throw new Error('Invalid email or password')
-      } else if (error.response?.status === 429) {
+      } else if (axiosError.response?.status === 429) {
         throw new Error('Too many login attempts. Please try again later.')
-      } else if (error.response?.status >= 500) {
+      } else if (axiosError.response?.status && axiosError.response.status >= 500) {
         throw new Error('Server error. Please try again later.')
-      } else if (error.message) {
-        throw error
+      } else if (axiosError.message) {
+        throw new Error(axiosError.message)
       } else {
         throw new Error('Login failed. Please try again.')
       }
@@ -173,13 +173,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const sanitizedUser = sanitizeUserData(userData)
         if (sanitizedUser) {
           setUser(sanitizedUser)
-          localStorage.setItem(SECURITY_CONSTANTS.USER_KEY, JSON.stringify(sanitizedUser))
+          localStorage.setItem(AUTH_CONSTANTS.USER_KEY, JSON.stringify(sanitizedUser))
           return true
         }
       }
       
       throw new Error('Invalid user data received during refresh')
-    } catch (error) {
+    } catch {
       logout()
       return false
     } finally {
@@ -193,14 +193,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (token) {
         await apiClient.post('/auth/logout')
       }
-    } catch (error) {
+    } catch {
       // Logout API call failed, but continue with local cleanup
     } finally {
       // Always clear local state regardless of API call result
       setUser(null)
       setToken(null)
-      localStorage.removeItem(SECURITY_CONSTANTS.TOKEN_KEY)
-      localStorage.removeItem(SECURITY_CONSTANTS.USER_KEY)
+      localStorage.removeItem(AUTH_CONSTANTS.TOKEN_KEY)
+      localStorage.removeItem(AUTH_CONSTANTS.USER_KEY)
     }
   }
 
@@ -224,10 +224,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   )
 }
 
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext)
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-  return context
-}
+// Export AuthContext for useAuth hook
+export { AuthContext }

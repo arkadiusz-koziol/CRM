@@ -31,5 +31,6 @@ abstract class Controller
         protected ResponseFactory $responseFactory,
         protected AuthManager $authManager,
         protected LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 }

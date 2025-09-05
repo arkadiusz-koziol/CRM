@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse } from 'axios'
 import type { ApiResponse } from '@/types'
-import { SECURITY_CONSTANTS } from '@/utils/security'
+import { AUTH_CONSTANTS } from '@/constants/auth'
 
 class ApiClient {
   private client: AxiosInstance
@@ -24,7 +24,7 @@ class ApiClient {
     // Request interceptor
     this.client.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem(SECURITY_CONSTANTS.TOKEN_KEY)
+        const token = localStorage.getItem(AUTH_CONSTANTS.TOKEN_KEY)
         if (token) {
           config.headers.Authorization = `Bearer ${token}`
         }
@@ -54,7 +54,7 @@ class ApiClient {
           originalRequest._retry = true
           
           // Try to refresh token if available
-          const token = localStorage.getItem(SECURITY_CONSTANTS.TOKEN_KEY)
+          const token = localStorage.getItem(AUTH_CONSTANTS.TOKEN_KEY)
           if (token) {
             try {
               // Attempt to refresh user data
@@ -62,11 +62,11 @@ class ApiClient {
               const userData = refreshResponse.data.data
               
               // Update stored user data
-              localStorage.setItem(SECURITY_CONSTANTS.USER_KEY, JSON.stringify(userData))
+              localStorage.setItem(AUTH_CONSTANTS.USER_KEY, JSON.stringify(userData))
               
               // Retry the original request
               return this.client(originalRequest)
-            } catch (refreshError) {
+            } catch {
               // Refresh failed, clear auth data and redirect
               this.clearAuthData()
               this.redirectToLogin()
@@ -84,8 +84,8 @@ class ApiClient {
   }
 
   private clearAuthData() {
-    localStorage.removeItem(SECURITY_CONSTANTS.TOKEN_KEY)
-    localStorage.removeItem(SECURITY_CONSTANTS.USER_KEY)
+    localStorage.removeItem(AUTH_CONSTANTS.TOKEN_KEY)
+    localStorage.removeItem(AUTH_CONSTANTS.USER_KEY)
   }
 
   private redirectToLogin() {
@@ -95,17 +95,17 @@ class ApiClient {
     }
   }
 
-  async get<T>(url: string, params?: any): Promise<ApiResponse<T>> {
+  async get<T>(url: string, params?: Record<string, unknown>): Promise<ApiResponse<T>> {
     const response = await this.client.get(url, { params })
     return response.data
   }
 
-  async post<T>(url: string, data?: any): Promise<ApiResponse<T>> {
+  async post<T>(url: string, data?: unknown): Promise<ApiResponse<T>> {
     const response = await this.client.post(url, data)
     return response.data
   }
 
-  async put<T>(url: string, data?: any): Promise<ApiResponse<T>> {
+  async put<T>(url: string, data?: unknown): Promise<ApiResponse<T>> {
     const response = await this.client.put(url, data)
     return response.data
   }
@@ -115,7 +115,7 @@ class ApiClient {
     return response.data
   }
 
-  async patch<T>(url: string, data?: any): Promise<ApiResponse<T>> {
+  async patch<T>(url: string, data?: unknown): Promise<ApiResponse<T>> {
     const response = await this.client.patch(url, data)
     return response.data
   }
