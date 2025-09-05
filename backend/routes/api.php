@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\Users\StoreUserController;
 use App\Http\Controllers\Admin\Users\UpdateUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\UserRegistrationController;
 use App\Http\Controllers\PinController;
 use App\Http\Controllers\UserController;
@@ -50,6 +51,9 @@ Route::group(
                     ->name('auth.register');
                 Route::post('login', LoginController::class)
                     ->name('auth.login');
+                Route::get('me', MeController::class)
+                    ->middleware('auth:sanctum')
+                    ->name('auth.me');
                 Route::post('logout', LogoutController::class)
                     ->middleware('auth:sanctum')
                     ->name('auth.logout');

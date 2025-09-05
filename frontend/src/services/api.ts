@@ -1,6 +1,7 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse } from 'axios'
 import type { ApiResponse } from '@/types'
+import { SECURITY_CONSTANTS } from '@/utils/security'
 
 class ApiClient {
   private client: AxiosInstance
@@ -12,6 +13,7 @@ class ApiClient {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
       },
     })
 
@@ -22,10 +24,17 @@ class ApiClient {
     // Request interceptor
     this.client.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem('auth_token')
+        const token = localStorage.getItem(SECURITY_CONSTANTS.TOKEN_KEY)
         if (token) {
           config.headers.Authorization = `Bearer ${token}`
         }
+        
+        // Add security headers
+        config.headers['X-Requested-With'] = 'XMLHttpRequest'
+        config.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        config.headers['Pragma'] = 'no-cache'
+        config.headers['Expires'] = '0'
+        
         return config
       },
       (error) => {
@@ -38,18 +47,52 @@ class ApiClient {
       (response: AxiosResponse) => {
         return response
       },
-      (error) => {
-        if (error.response?.status === 401) {
-          // Handle unauthorized access
-          localStorage.removeItem('auth_token')
-          // Only redirect if not already on login page
-          if (window.location.pathname !== '/login') {
-            window.location.href = '/login'
+      async (error) => {
+        const originalRequest = error.config
+        
+        if (error.response?.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true
+          
+          // Try to refresh token if available
+          const token = localStorage.getItem(SECURITY_CONSTANTS.TOKEN_KEY)
+          if (token) {
+            try {
+              // Attempt to refresh user data
+              const refreshResponse = await this.client.get('/auth/me')
+              const userData = refreshResponse.data.data
+              
+              // Update stored user data
+              localStorage.setItem(SECURITY_CONSTANTS.USER_KEY, JSON.stringify(userData))
+              
+              // Retry the original request
+              return this.client(originalRequest)
+            } catch (refreshError) {
+              // Refresh failed, clear auth data and redirect
+              this.clearAuthData()
+              this.redirectToLogin()
+            }
+          } else {
+            // No token available, clear auth data and redirect
+            this.clearAuthData()
+            this.redirectToLogin()
           }
         }
+        
         return Promise.reject(error)
       }
     )
+  }
+
+  private clearAuthData() {
+    localStorage.removeItem(SECURITY_CONSTANTS.TOKEN_KEY)
+    localStorage.removeItem(SECURITY_CONSTANTS.USER_KEY)
+  }
+
+  private redirectToLogin() {
+    // Only redirect if not already on login page
+    if (window.location.pathname !== '/login') {
+      window.location.href = '/login'
+    }
   }
 
   async get<T>(url: string, params?: any): Promise<ApiResponse<T>> {

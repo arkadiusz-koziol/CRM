@@ -62,7 +62,11 @@ class LoginController extends Controller
 
             $user = $this->authManager->user();
 
-            return $this->responseFactory->successResponse([
+            if (!$user) {
+                return $this->responseFactory->errorResponse('User not found after authentication', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            }
+
+            $responseData = [
                 'user' => [
                     'id' => $user->id,
                     'name' => $user->name,
@@ -73,7 +77,9 @@ class LoginController extends Controller
                     'updated_at' => $user->updated_at,
                 ],
                 'token' => $token,
-            ]);
+            ];
+
+            return $this->responseFactory->successResponse($responseData);
         } catch (Throwable $e) {
             return $this->responseFactory->errorResponse($e->getMessage(), ResponseAlias::HTTP_UNAUTHORIZED);
         }
