@@ -13,7 +13,7 @@ class CorsMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param Closure(Request): (Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -28,13 +28,15 @@ class CorsMiddleware
 
         $origin = $request->header('Origin');
 
-        if (in_array($origin, $allowedOrigins)) {
+        if (in_array($origin, $allowedOrigins, true)) {
             $response = $next($request);
 
             $response->headers->set('Access-Control-Allow-Origin', $origin);
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization,
-             X-Requested-With, Accept, Origin, Cache-Control, Expires, Pragma');
+            $response->headers->set(
+                'Access-Control-Allow-Headers',
+                'Content-Type, Authorization, X-Requested-With, Accept, Origin, Cache-Control, Expires, Pragma'
+            );
             $response->headers->set('Access-Control-Allow-Credentials', 'true');
             $response->headers->set('Access-Control-Max-Age', '86400');
 
@@ -46,8 +48,10 @@ class CorsMiddleware
             $response = response('', 200);
             $response->headers->set('Access-Control-Allow-Origin', $origin ?? '*');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization,
-             X-Requested-With, Accept, Origin, Cache-Control, Expires, Pragma');
+            $response->headers->set(
+                'Access-Control-Allow-Headers',
+                'Content-Type, Authorization, X-Requested-With, Accept, Origin, Cache-Control, Expires, Pragma'
+            );
             $response->headers->set('Access-Control-Allow-Credentials', 'true');
             $response->headers->set('Access-Control-Max-Age', '86400');
 
