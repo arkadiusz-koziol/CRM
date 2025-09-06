@@ -7,6 +7,8 @@ import { Layout } from '@/components/Layout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { GuestHomePage } from '@/pages/GuestHomePage'
 import { LoginPage } from '@/pages/LoginPage'
+import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage'
+import { ResetPasswordPage } from '@/pages/ResetPasswordPage'
 import { DashboardPage } from '@/pages/DashboardPage'
 
 // Create a client
@@ -43,6 +45,14 @@ const AppRoutes: React.FC = () => {
       <Route 
         path="/login" 
         element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />} 
+      />
+      <Route 
+        path="/forgot-password" 
+        element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <ForgotPasswordPage />} 
+      />
+      <Route 
+        path="/reset-password" 
+        element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <ResetPasswordPage />} 
       />
       
       {/* Protected routes */}

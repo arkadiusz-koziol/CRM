@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/shared/ui/Button'
 import { Card, CardContent } from '@/shared/ui/Card'
 import { useAuth } from '@/hooks/useAuthHook'
-import { Eye, EyeOff, Mail, Lock, ArrowLeft } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 
 export const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -49,22 +49,16 @@ export const LoginPage: React.FC = () => {
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <Link to="/" className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">S</span>
             </div>
             <span className="text-2xl font-bold text-gray-900">SkyTech</span>
-          </Link>
+          </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
-          <Link to="/" className="font-medium text-blue-600 hover:text-blue-500">
-            return to homepage
-          </Link>
-        </p>
       </div>
 
       {/* Login Form */}
@@ -147,9 +141,9 @@ export const LoginPage: React.FC = () => {
                 </div>
 
                 <div className="text-sm">
-                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+                  <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -164,45 +158,10 @@ export const LoginPage: React.FC = () => {
               </div>
             </form>
 
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Demo Credentials</span>
-                </div>
-              </div>
-
-              <div className="mt-4 bg-green-50 p-4 rounded-lg border border-green-200">
-                <p className="text-sm text-green-800 mb-2 font-medium">✅ Demo Credentials:</p>
-                <div className="space-y-1 text-sm text-green-700">
-                  <div><strong>Email:</strong> admin@example.com</div>
-                  <div><strong>Password:</strong> password</div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setFormData({ email: 'admin@example.com', password: 'password' })}
-                  className="mt-2 text-xs text-green-600 hover:text-green-800 underline font-medium"
-                >
-                  🔄 Click to fill demo credentials
-                </button>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Back to Home */}
-      <div className="mt-8 text-center">
-        <Link 
-          to="/" 
-          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900"
-        >
-          <ArrowLeft className="w-4 h-4 mr-1" />
-          Back to homepage
-        </Link>
-      </div>
     </div>
   )
 }

@@ -34,9 +34,11 @@ use App\Http\Controllers\Admin\Users\ListUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
 use App\Http\Controllers\Admin\Users\StoreUserController;
 use App\Http\Controllers\Admin\Users\UpdateUserController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserRegistrationController;
 use App\Http\Controllers\PinController;
 use App\Http\Controllers\UserController;
@@ -51,6 +53,10 @@ Route::group(
                     ->name('auth.register');
                 Route::post('login', LoginController::class)
                     ->name('auth.login');
+                Route::post('forgot-password', ForgotPasswordController::class)
+                    ->name('auth.forgot-password');
+                Route::post('reset-password', ResetPasswordController::class)
+                    ->name('auth.reset-password');
                 Route::get('me', MeController::class)
                     ->middleware('auth:sanctum')
                     ->name('auth.me');
