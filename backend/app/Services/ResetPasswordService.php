@@ -10,13 +10,13 @@ use App\Exceptions\PasswordResetException;
 use App\Exceptions\UserNotFoundException;
 use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Contracts\Auth\PasswordBroker as PasswordBrokerAlias;
+use Illuminate\Support\Facades\Hash;
 
 final readonly class ResetPasswordService
 {
     public function __construct(
         private PasswordBroker $passwordBroker
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidPasswordResetTokenException
@@ -32,7 +32,7 @@ final readonly class ResetPasswordService
             'token' => $dto->getToken(),
         ], function ($user, $password) {
             $user->forceFill([
-                'password' => bcrypt($password)
+                'password' => Hash::make($password)
             ])->save();
         });
 

@@ -23,13 +23,6 @@ export const ResetPasswordPage: React.FC = () => {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    if (email) {
-      console.log('Setting email in formData:', email)
-      setFormData(prev => ({ ...prev, email }))
-    }
-  }, [email])
-
   // Update formData when email changes
   useEffect(() => {
     if (email && email !== formData.email) {
@@ -56,10 +49,6 @@ export const ResetPasswordPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    console.log('Form submitted with formData:', formData)
-    console.log('Token:', token)
-    console.log('Email from URL:', email)
-    
     if (!token) {
       setError('Invalid or missing reset token')
       return
@@ -84,7 +73,6 @@ export const ResetPasswordPage: React.FC = () => {
         ...formData,
         token
       }
-      console.log('Sending reset password request:', requestData)
       const response = await apiClient.post('/auth/reset-password', requestData)
       const responseData = response.data as { message?: string }
       setMessage(responseData.message || 'Password reset successfully')
@@ -175,8 +163,6 @@ export const ResetPasswordPage: React.FC = () => {
                   readOnly
                   className="block w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 sm:text-sm"
                 />
-                {/* Hidden input to ensure email is included in form submission */}
-                <input type="hidden" name="email" value={formData.email} />
               </div>
 
               <div>
