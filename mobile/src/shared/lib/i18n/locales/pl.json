@@ -1,0 +1,37 @@
+{
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Wystąpił błąd",
+    "retry": "Spróbuj ponownie",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "close": "Zamknij",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "previous": "Poprzedni",
+    "done": "Gotowe",
+    "yes": "Tak",
+    "no": "Nie",
+    "ok": "OK"
+  },
+  "auth": {
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się",
+    "email": "Email",
+    "password": "Hasło",
+    "forgotPassword": "Zapomniałeś hasła?",
+    "resetPassword": "Resetuj hasło",
+    "signUp": "Zarejestruj się"
+  },
+  "errors": {
+    "networkError": "Błąd sieci. Sprawdź połączenie internetowe.",
+    "serverError": "Błąd serwera. Spróbuj ponownie później.",
+    "validationError": "Sprawdź wprowadzone dane i spróbuj ponownie.",
+    "authError": "Uwierzytelnianie nie powiodło się. Zaloguj się ponownie.",
+    "notFound": "Nie znaleziono żądanego zasobu.",
+    "unauthorized": "Nie masz uprawnień do wykonania tej akcji.",
+    "conflict": "Ta akcja koliduje z istniejącymi danymi."
+  }
+}

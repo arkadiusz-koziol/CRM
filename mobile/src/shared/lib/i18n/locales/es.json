@@ -1,0 +1,37 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "done": "Hecho",
+    "yes": "Sí",
+    "no": "No",
+    "ok": "OK"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "resetPassword": "Restablecer contraseña",
+    "signUp": "Registrarse"
+  },
+  "errors": {
+    "networkError": "Error de red. Verifica tu conexión.",
+    "serverError": "Error del servidor. Inténtalo más tarde.",
+    "validationError": "Verifica tu entrada e inténtalo de nuevo.",
+    "authError": "La autenticación falló. Inicia sesión de nuevo.",
+    "notFound": "No se encontró el recurso solicitado.",
+    "unauthorized": "No tienes permisos para realizar esta acción.",
+    "conflict": "Esta acción entra en conflicto con los datos existentes."
+  }
+}
