@@ -16,7 +16,8 @@ final readonly class ResetPasswordService
 {
     public function __construct(
         private PasswordBroker $passwordBroker
-    ) {}
+    ) {
+    }
 
     /**
      * @throws InvalidPasswordResetTokenException
