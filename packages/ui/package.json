@@ -1,0 +1,38 @@
+{
+  "name": "@skytech/ui",
+  "version": "1.0.0",
+  "description": "Headless UI components and adapters",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./web": {
+      "types": "./dist/web/index.d.ts",
+      "import": "./dist/web/index.js",
+      "require": "./dist/web/index.js"
+    },
+    "./mobile": {
+      "types": "./dist/mobile/index.d.ts",
+      "import": "./dist/mobile/index.js",
+      "require": "./dist/mobile/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@skytech/theme": "workspace:*",
+    "react": "^19.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@types/react": "^19.1.1"
+  }
+}

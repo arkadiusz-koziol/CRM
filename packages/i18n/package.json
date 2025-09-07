@@ -1,0 +1,37 @@
+{
+  "name": "@skytech/i18n",
+  "version": "1.0.0",
+  "description": "Shared internationalization and translations",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./web": {
+      "types": "./dist/web/index.d.ts",
+      "import": "./dist/web/index.js",
+      "require": "./dist/web/index.js"
+    },
+    "./mobile": {
+      "types": "./dist/mobile/index.d.ts",
+      "import": "./dist/mobile/index.js",
+      "require": "./dist/mobile/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react-i18next": "^15.0.1",
+    "i18next": "^25.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

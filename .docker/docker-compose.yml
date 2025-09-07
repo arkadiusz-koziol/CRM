@@ -4,10 +4,10 @@ volumes:
 
 networks:
   backend:
-name: "telemain"
+name: "skytech"
 services:
   proxy:
-    container_name: telemain-proxy
+    container_name: skytech-proxy
     image: nginx:latest
     ports:
       - "127.0.0.1:8199:80"
@@ -20,7 +20,7 @@ services:
       - php
 
   php:
-    container_name: telemain-php
+    container_name: skytech-php
     build:
       context: ..
       dockerfile: .docker/php/Dockerfile
@@ -33,7 +33,7 @@ services:
       - redis
 
   postgres:
-    container_name: telemain-db
+    container_name: skytech-db
     image: postgres:16.0
     ports:
       - "127.0.0.1:5419:5432"
@@ -43,14 +43,14 @@ services:
       - ../backend/.env
     environment:
       POSTGRES_PASSWORD: 'password'
-      POSTGRES_DB: 'telemain-db'
+      POSTGRES_DB: 'skytech-db'
       POSTGRES_USER: 'user'
     restart: always
     networks:
       - backend
 
   redis:
-    container_name: telemain-redis
+    container_name: skytech-redis
     image: redis:latest
     sysctls:
       - net.core.somaxconn=511

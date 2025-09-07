@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker exec -it telemain-php php artisan db:seed
+docker exec -it skytech-php php artisan db:seed

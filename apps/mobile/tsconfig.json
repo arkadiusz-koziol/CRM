@@ -1,0 +1,29 @@
+{
+  "extends": "@skytech/tsconfig/base.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "ES2022"
+    ],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2022",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

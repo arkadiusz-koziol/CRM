@@ -1,0 +1,12 @@
+{
+  "name": "@skytech/tsconfig",
+  "version": "1.0.0",
+  "description": "Shared TypeScript configurations",
+  "main": "base.json",
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "react.json",
+    "node.json"
+  ]
+}

@@ -1,0 +1,470 @@
+-----
+
+description:
+globs:
+alwaysApply: true
+-----
+
+
+Monorepo Frontend (Web + Mobile Expo) – Principles and Architecture
+
+## Goal
+
+• A single monorepo combining:
+• **apps/web** – Next.js (App Router) + BFF (/app/api/\*), fully compliant with current rules.
+• **apps/mobile** – Expo (React Native + TypeScript), router: Expo Router, OIDC Auth Code + PKCE, React Query, Zod, Sentry, offline-first.
+• Shared contracts and types (OpenAPI/Zod) in `packages/api-sdk`, design tokens and headless UI in `packages/ui`/`packages/theme`, env/config in `packages/config`.
+• SRP and the Rule of Three throughout the monorepo, with strict module boundaries.
+
+-----
+
+## Stack and Conventions (monorepo)
+
+• **Package Manager**: pnpm (preferred) or npm/yarn; workspaces enabled.
+• **Orchestration**: Turborepo (tasks: `lint`, `typecheck`, `test`, `build`, `e2e`, `preview`, `release`).
+• **Web**: Next.js 14/15 (App Router, RSC where it makes sense), TypeScript strict, ESLint (airbnb + jsx-a11y + boundaries), Prettier, React Query, react-hook-form + Zod, Tailwind or CSS Modules, Sentry, Lighthouse CI, Playwright.
+• **Mobile (Expo)**: React Native 0.74+ (Hermes), Expo Router v3+, expo-auth-session (OIDC PKCE), expo-secure-store, React Query, Zod, Sentry (sentry-expo), expo-updates (OTA), expo-notifications (optional), AsyncStorage (cache/persist).
+• **Contracts**: OpenAPI → generated TS SDK in `packages/api-sdk` (or Zod schemas if no OpenAPI is available).
+• **I18n**: react-i18next with the same namespaces and ICU format as on the web, in a shared package.
+• **Quality**: ESLint, Prettier, typecheck (tsc), bundle-size budgets (web + mobile JS bundle).
+• **Tests**:
+• **Web**: Vitest/Jest + RTL + MSW, Playwright (E2E).
+• **Mobile**: Jest + React Native Testing Library; E2E: Maestro (recommended in Expo managed) or Detox in dev client/bare.
+• **CI/CD**: GitHub Actions/GitLab CI, EAS Build/Submit for mobile, Lighthouse for web, SAST/audit, Renovate.
+
+-----
+
+## Monorepo Structure
+
+```
+.
+├─ apps/
+│  ├─ web/                     # Next.js (App Router) + BFF (/app/api/*)
+│  └─ mobile/                  # Expo app (Expo Router)
+├─ packages/
+│  ├─ api-sdk/                 # OpenAPI client + Zod helpers (shared contracts)
+│  ├─ ui/                      # headless UI + adapters (web/mobile)
+│  ├─ theme/                   # design tokens (source of truth)
+│  ├─ config/                  # shared ENV schema + loading (web/mobile)
+│  ├─ i18n/                    # shared translations and initialization
+│  ├─ testing/                 # setups, test utils (separate web/mobile entries)
+│  ├─ tsconfig/                # base tsconfigs for the workspace
+│  └─ eslint-config/           # shared ESLint rules
+├─ tools/
+│  ├─ scripts/                 # repo scripts (e.g., generate-sdk, check-bundle)
+│  └─ adr/                     # Architecture Decision Records (ADRs)
+├─ turbo.json
+├─ pnpm-workspace.yaml
+└─ package.json
+```
+
+## Aliases and Boundaries
+
+• **Aliases**: `@/shared/*`, `@/features/*`, `@/entities/*`, `@/lib/*`, `@/api/*`, `@/ui/*`, `@/theme/*`, `@/config/*`.
+• **eslint-plugin-boundaries** (web) and consistent import rules in mobile:
+• `features/*` does not import from another `features/*`.
+• Shared code is accessed via `packages/*` (ui, theme, api-sdk, config, i18n).
+• Ban on deep relative imports (`../../..`).
+
+-----
+
+## Mobile Application (Expo) — Detailed Rules
+
+### 1\) Directory Architecture (apps/mobile)
+
+```
+apps/mobile/src/
+  app/                 # Expo Router (stacks, tabs), ErrorBoundary
+  config/              # env, feature flags, constants (imported from packages/config)
+  api/                 # http client, interceptors, JSON:API mappers
+  domain/              # use-cases, services, entities, mappers (pure TS)
+  features/
+    <feature>/
+      api/             # endpoint definitions, hooks (React Query)
+      components/      # presentation/containers (SRP, Rule of Three)
+      hooks/           # UI logic
+      screens/         # screens (route segments)
+      types/           # DTOs/contracts (shared with web where possible)
+  shared/
+    ui/                # headless atoms/molecules (adapter for React Native)
+    hooks/             # useDebounce, useNetInfo, useAppState...
+    lib/               # httpClient, queryClient, logger, feature-flags
+    theme/             # mapping tokens → RN (StyleSheet/styled/tailwind-rn)
+  entities/            # view-models/mappings
+  testing/             # mobile test setup
+```
+
+### 2\) Router and Navigation
+
+• **Expo Router v3+** (file-based routes): stacks, tabs, modals.
+• **Deep linking** for OIDC PKCE (custom scheme in `app.json`/`app.config.ts`).
+• **Guards**: protected screens check session/auth (global store is only for auth/flags).
+• Global `ErrorBoundary` + per-feature boundaries.
+
+### 3\) Authorization (OIDC Auth Code + PKCE)
+
+• **`expo-auth-session`** (ASWebAuthenticationSession / Custom Tabs).
+• Tokens stored **exclusively in `expo-secure-store`** (Keychain/Keystore), not in AsyncStorage.
+• **Token refresh** with deduplication (request queueing). A `401` triggers a silent refresh; if it fails, a controlled logout is performed (clear secure store + reset navigation).
+• **Backend**: must support `auth code + PKCE` grant (compliant with your backend rules).
+• Use `Idempotency-Key` for sensitive mutations.
+
+**Example Sketch (essentials only):**
+
+```typescript
+// apps/mobile/src/shared/lib/auth.ts
+import * as AuthSession from 'expo-auth-session';
+import * as SecureStore from 'expo-secure-store';
+
+export async function signInWithPKCE(): Promise<void> {
+  // PKCE + discovery from .well-known
+  // on success: save tokens to SecureStore
+  await SecureStore.setItemAsync('tokens', JSON.stringify({ access, refresh }));
+}
+
+export async function getTokens() {
+  const raw = await SecureStore.getItemAsync('tokens');
+  return raw ? JSON.parse(raw) as { access: string; refresh: string } : null;
+}
+
+export async function signOut(): Promise<void> {
+  await SecureStore.deleteItemAsync('tokens');
+}
+```
+
+### 4\) HTTP Client, Retry, Timeout, RequestId
+
+• Use **`fetch`/`axios`**; implement timeout, `AbortController`, and exponential backoff + jitter (only for retry-safe methods).
+• A **global error interceptor** maps errors to: `NetworkError | AuthError | ValidationError | ConflictError`.
+• Propagate `X-Request-Id` and log it in Sentry.
+• Use **mappers + Zod validation** for JSON:API shaped responses/requests.
+• The mobile app **does not use the web's BFF**; it communicates directly with the API gateway/public API.
+
+```typescript
+// apps/mobile/src/shared/lib/httpClient.ts
+import axios from 'axios';
+import { z } from 'zod';
+
+export const api = axios.create({ baseURL: process.env.EXPO_PUBLIC_API_URL, timeout: 15000 });
+
+api.interceptors.response.use(undefined, async (error) => {
+  const res = error.response;
+  throw Object.assign(new Error(res?.data?.message ?? error.message), {
+    status: res?.status, details: res?.data,
+  });
+});
+
+export async function http<T>(path: string, init?: {
+  method?: 'GET'|'POST'|'PATCH'|'DELETE';
+  data?: unknown;
+  schema?: (d: unknown) => T;
+  headers?: Record<string,string>;
+}): Promise<T> {
+  const res = await api.request({ url: path, method: init?.method ?? 'GET', data: init?.data, headers: init?.headers });
+  const data = res.data as unknown;
+  return init?.schema ? init.schema(data) : (data as T);
+}
+
+// example hook
+import { useQuery } from '@tanstack/react-query';
+import { UsersListResponse } from '@pkg/api-sdk/schemas';
+
+export function useUsersQuery() {
+  return useQuery({ 
+    queryKey: ['users','list'], 
+    queryFn: () => http('/users', { schema: (d) => UsersListResponse.parse(d) }), 
+    staleTime: 60_000 
+  });
+}
+```
+
+### 5\) Offline-first
+
+• **React Query persist** (using AsyncStorage) + retry/backoff on network recovery (`NetInfo`).
+• **Mutation queue** (optimistic updates + rollback).
+• For larger datasets, consider SQLite/WatermelonDB (on a feature-specific basis).
+
+### 6\) Styling and Design System
+
+• **Source of truth**: `packages/theme` (tokens as JSON/TS).
+• **Mobile**: map tokens to React Native styles (`StyleSheet`/`styled-components`/`tailwind-rn`).
+• **Web**: compile tokens to CSS variables.
+• `shared/ui` contains headless primitives + style adapters per platform.
+
+### 7\) Security (managed Expo)
+
+• **HTTPS** (TLS 1.2+).
+• **SSL Pinning**: limited in managed workflow – possible in dev client/bare (e.g., `react-native-ssl-pinning`).
+• **Recommendation**: backend should implement Certificate Transparency / `Expect-CT`, HSTS, and proper TLS.
+• **No secrets in the bundle**. Secrets managed via EAS secrets and on the backend.
+• Handle `429`/`503` responses with `Retry-After` header; implement backoff + jitter.
+• **Mask PII** in logs/Sentry.
+
+### 8\) Observability
+
+• **`sentry-expo`** – Source Maps, release tracking, environments (dev/stage/prod).
+• **Web Vitals** (web) and analogous metrics on mobile (startup time, cold start, errors).
+• Include `RequestId` in Sentry context.
+
+### 9\) Updates and Releases (EAS + OTA)
+
+• **EAS Build/Submit** (Android/iOS) + `expo-updates` (OTA) for the JS bundle.
+• **Rule**: native changes → new build; JS-only changes → OTA (ensuring API contract compatibility).
+• Use release channels (production, staging, preview) + semver tags.
+
+-----
+
+## Web Application (apps/web) – In Accordance with Your Rules
+
+• No changes to the philosophy: Next.js App Router + BFF (route handlers), RQ, Zod, Sentry, Lighthouse.
+• **Shared packages**: `packages/api-sdk`, `packages/theme`, `packages/ui`, `packages/config`, `packages/i18n`.
+
+-----
+
+## Shared Packages
+
+### packages/api-sdk
+
+• **Source of contracts**: Backend's OpenAPI spec.
+• **Generator** (e.g., `openapi-typescript`, `orval`, `openapi-generator`) → TS SDK + Zod (if the tool supports it).
+• Exports Zod schemas, types, and shared JSON:API mappers.
+
+### packages/theme
+
+• **Design tokens** (colors, spacing, typography, radius, shadow, z-index).
+• **Web**: build to CSS variables. **Mobile**: TS helpers for React Native.
+
+### packages/ui
+
+• **Headless primitives** (Button, Input, Select, List, Dialog).
+• **Adapters**: `ui-web`, `ui-native` (composed on top of headless components).
+• **Rule of Three** – extract only after 2–3 uses.
+
+### packages/config
+
+• **Zod schema for ENV variables**.
+• **Web**: `process.env.*` (public/private via Next.js).
+• **Mobile**: `EXPO_PUBLIC_*` and `Constants.expoConfig?.extra`/`process.env` (Expo).
+
+**Example:**
+
+```typescript
+// packages/config/src/env.ts
+import { z } from 'zod';
+
+export const EnvSchema = z.object({
+  API_URL: z.string().url(),
+  SENTRY_DSN: z.string().url().optional(),
+  FEATURE_X_ENABLED: z.coerce.boolean().default(false),
+});
+
+export type Env = z.infer<typeof EnvSchema>;
+```
+
+### packages/i18n
+
+• Shared namespaces, ICU message format, initialization, and hooks.
+• Mobile and web load the same resources (using a platform-specific loader).
+
+-----
+
+## CI/CD (summary)
+
+• **Turborepo**:
+• `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm e2e` (matrix: web/mobile).
+• **Web**:
+• Lint + typecheck + test + build + Lighthouse CI (budgets, score ≥90).
+• **Mobile**:
+• Lint + typecheck + unit/comp test + EAS Build (pr/preview, staging, prod).
+• Maestro E2E on an emulator (PKCE login, list, detail, mutation, offline→online).
+• **Security & maintenance**:
+• `pnpm audit`, SAST, Renovate/Dependabot, cache `node_modules` and SDK generator artifacts.
+
+-----
+
+## Tests
+
+• **Unit**: utils, use-cases, JSON:API ↔ domain mappers.
+• **Component**:
+• **Web**: React Testing Library + MSW.
+• **Mobile**: React Native Testing Library; mock network (`whatwg-fetch`/msw/native).
+• **E2E**:
+• **Web**: Playwright (critical paths).
+• **Mobile**: Maestro (PKCE login, critical flows, offline scenarios).
+• **Contract**: schema-drift detection (Zod vs OpenAPI) in `packages/api-sdk`.
+
+-----
+
+## Security (shared)
+
+• **Session/Auth**:
+• **Web**: HttpOnly cookies via BFF (as before).
+• **Mobile**: PKCE, secure storage, no cookies.
+• **CSP/HSTS/Headers** (web), pinning/CT (mobile – backend responsibility).
+• No `dangerouslySetInnerHTML` (web) without sanitization.
+• `Idempotency-Key` and retry policies consistent with the backend.
+
+-----
+
+## Definition of Done (monorepo)
+
+• **SRP + Rule of Three applied**; no boundary violations (checked by lint boundaries/import conventions).
+• **TS types + runtime validation (Zod)** at I/O boundaries.
+• **Loading/Error/Empty states** are present; `ErrorBoundary` works (web + mobile).
+• **A11y**: web (eslint-a11y, axe), mobile (TalkBack/VoiceOver, dynamic type).
+• **Tests**:
+• **Web**: unit/integration + E2E smoke tests are green.
+• **Mobile**: unit/comp + E2E (Maestro) smoke tests are green.
+• **OpenAPI/Zod contract has no drift**.
+• **Budgets met**: web bundle + mobile JS bundle, Lighthouse ≥90.
+• **Security**: PKCE + SecureStore (mobile), HttpOnly cookies (web), no secrets in the client.
+• **Sentry configured** with release tracking and `requestId`.
+• **ADR added** for non-trivial decisions; PR includes context/rollback plan.
+• **Mobile does not depend on the web BFF** (it hits the gateway/public API directly).
+
+-----
+
+## Migration/Extension Policy
+
+• **New feature**: Start with an ADR + API contract (OpenAPI/Zod), then create a skeleton in `features/<name>`.
+• **Extraction** to `packages/ui` after the third use.
+• **Breaking changes**: version endpoints (`/v2/*`), roll out using feature flags + OTA channels.
+• **Shared abstractions**: only if reuse is proven across both web and mobile.
+
+-----
+
+## Code Examples
+
+### 1\) Expo Router – Screen with React Query + Zod
+
+```typescript
+// apps/mobile/src/app/users/index.tsx
+import { View, Text, FlatList } from 'react-native';
+import { useUsersQuery } from '@/features/users/api/useUsersQuery';
+
+export default function UsersScreen() {
+  const { data, isLoading, isError } = useUsersQuery();
+
+  if (isLoading) return <Text>Loading…</Text>;
+  if (isError) return <Text>Failed to fetch users.</Text>;
+  if (!data?.data?.length) return <Text>No users found.</Text>;
+
+  return (
+    <View>
+      <FlatList
+        data={data.data}
+        keyExtractor={(u) => u.id}
+        renderItem={({ item }) => <Text>{item.attributes.name}</Text>}
+      />
+    </View>
+  );
+}
+```
+
+### 2\) Query Provider (mobile)
+
+```typescript
+// apps/mobile/src/app/_layout.tsx
+import { Stack } from 'expo-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react';
+
+export default function RootLayout() {
+  const [client] = useState(() => new QueryClient({
+    defaultOptions: { queries: { retry: 2, refetchOnReconnect: true } },
+  }));
+
+  return (
+    <QueryClientProvider client={client}>
+      <Stack screenOptions={{ headerShown: false }} />
+    </QueryClientProvider>
+  );
+}
+```
+
+### 3\) JSON:API + Zod (shared contract)
+
+```typescript
+// packages/api-sdk/src/schemas/users.ts
+import { z } from 'zod';
+
+export const UserAttributes = z.object({
+  name: z.string(),
+  email: z.string().email(),
+});
+
+export const UserJsonApi = z.object({
+  type: z.literal('users'),
+  id: z.string(),
+  attributes: UserAttributes,
+});
+
+export const UsersListResponse = z.object({
+  data: z.array(UserJsonApi),
+  meta: z.object({ total: z.number().optional() }).optional(),
+});
+
+export type UsersList = z.infer<typeof UsersListResponse>;
+```
+
+### 4\) Env in Expo (public)
+
+```typescript
+// apps/mobile/app.config.ts
+import { EnvSchema } from '@pkg/config';
+
+export default () => ({
+  expo: {
+    name: "MyApp",
+    scheme: "myapp",
+    extra: {
+      // values injected from EAS secrets / .env
+      EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
+      EXPO_PUBLIC_SENTRY_DSN: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    },
+  },
+});
+```
+
+### 5\) Sentry Integration (mobile)
+
+```typescript
+// apps/mobile/src/sentry.ts
+import * as Sentry from 'sentry-expo';
+
+Sentry.init({
+  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  enableInExpoDevelopment: true,
+  debug: __DEV__,
+});
+```
+
+## Developer Tools and Commands
+
+• **Root `package.json` (summary)**:
+• `dev:web`, `build:web`, `lint:web`, `test:web`, `e2e:web`
+• `dev:mobile`, `build:mobile`, `lint:mobile`, `test:mobile`, `e2e:mobile`
+• `generate:sdk` (OpenAPI → `packages/api-sdk`)
+• `check:bundle:web`, `check:bundle:mobile`
+• **`turbo.json`** – pipelines with `dependsOn` and caching.
+• **EAS**:
+• **profiles**: `preview`, `staging`, `production`
+• **OTA channels**: `preview`, `staging`, `production`
+
+-----
+
+## Compliance with Backend Rules (Laravel DDD)
+
+• **JSON:API** – mapping is done on the client, without bypassing the domain.
+• **Enums/statuses** – represented as string literal unions in TS.
+• **Idempotency and retry** policies are aligned with the backend.
+• **Dates** are in UTC (ISO 8601), presented in the user's timezone.
+• **Domain errors** → friendly UI messages (`422` for forms, `409` for conflicts, `401`/`403` for auth).
+
+-----
+
+## Final Remarks
+
+• The mobile app is a **first-class client** – it uses the same contracts as the web app but with a different security layer (PKCE, Secure Store, OTA, offline-first).
+• **No dependency from the mobile app to the web BFF**.
+• All deviations must be documented in an **ADR** in `tools/adr/`.

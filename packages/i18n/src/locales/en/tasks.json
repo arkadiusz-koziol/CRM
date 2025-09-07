@@ -1,0 +1,36 @@
+{
+  "tasks": {
+    "title": "Tasks",
+    "createTask": "Create Task",
+    "editTask": "Edit Task",
+    "deleteTask": "Delete Task",
+    "taskTitle": "Task Title",
+    "taskDescription": "Description",
+    "taskStatus": "Status",
+    "taskPriority": "Priority",
+    "assignedTo": "Assigned To",
+    "dueDate": "Due Date",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "completedAt": "Completed At",
+    "status": {
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "noTasks": "No tasks found",
+    "taskCreated": "Task created successfully",
+    "taskUpdated": "Task updated successfully",
+    "taskDeleted": "Task deleted successfully",
+    "taskCreateError": "Failed to create task",
+    "taskUpdateError": "Failed to update task",
+    "taskDeleteError": "Failed to delete task"
+  }
+}
