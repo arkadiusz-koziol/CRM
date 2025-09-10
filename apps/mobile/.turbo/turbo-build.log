@@ -1,0 +1,156 @@
+
+> skytech-mobile@1.0.0 build /Users/akoziol/projects/skytech/apps/mobile
+> expo export
+
+[90mUsing src/app as the root directory for Expo Router.[39m
+[2mStarting Metro Bundler[22m
+[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 18.9% [22m[2m(10/23)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 18.9% [22m[2m( 23/128)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 18.9% [22m[2m( 95/288)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓[49m[39m[47m[37m░░░░░░░░░░░░░░░[39m[49m[1m  8.0% [22m[2m( 45/159)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 18.9% [22m[2m( 95/288)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓[49m[39m[47m[37m░░░░░░░░░░░░░░░[39m[49m[1m  8.0% [22m[2m( 45/159)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [47m[37m░░░░░░░░░░░░░░░░[39m[49m[1m  0.0% [22m[2m(0/1)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 19.6% [22m[2m(172/389)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓[49m[39m[47m[37m░░░░░░░░░░░░░░░[39m[49m[1m  8.0% [22m[2m( 45/159)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 19.6% [22m[2m(172/389)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░░[39m[49m[1m 43.1% [22m[2m(214/326)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 19.6% [22m[2m(172/389)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░░[39m[49m[1m 43.1% [22m[2m(214/326)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░░░[39m[49m[1m 35.0% [22m[2m(420/710)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░░[39m[49m[1m 43.1% [22m[2m(235/379)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░░░[39m[49m[1m 35.0% [22m[2m(420/710)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░░[39m[49m[1m 43.1% [22m[2m(235/379)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░[39m[49m[1m 55.7% [22m[2m(647/867)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░[39m[49m[1m 46.5% [22m[2m(418/613)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░[39m[49m[1m 55.7% [22m[2m(647/867)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░[39m[49m[1m 46.5% [22m[2m(418/613)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░[39m[49m[1m 79.8% [22m[2m(852/954)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░░░░░░[39m[49m[1m 46.5% [22m[2m(418/613)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(920/982)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 88.3% [22m[2m(685/729)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓[49m[39m[47m[37m░░░░░░░░░░░░░[39m[49m[1m 20.7% [22m[2m(190/418)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(920/982)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 88.3% [22m[2m(685/729)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░[39m[49m[1m 75.9% [22m[2m(1041/1195)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(920/982)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 88.3% [22m[2m(685/729)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░[39m[49m[1m 75.9% [22m[2m(1041/1195)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(1150/1251)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 88.3% [22m[2m(802/930)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░░░[39m[49m[1m 75.9% [22m[2m(1041/1195)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(1150/1251)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 88.3% [22m[2m(802/930)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 98.8% [22m[2m(1330/1338)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(1150/1251)[22m
+[142D[3A[0J[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 99.9% [22m[2m(971/971)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 98.8% [22m[2m(1330/1338)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(1150/1251)[22m
+[142D[3A[0J[32m[1mWeb[22m Bundled [39m[2m2083ms[22m[0m[2m apps/mobile/index.ts (971 modules)[22m[0m
+[1mWeb[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 99.9% [22m[2m(971/971)[22m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 98.8% [22m[2m(1330/1338)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(1150/1251)[22m
+[142D[3A[0J[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 98.8% [22m[2m(1330/1338)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(1150/1251)[22m
+[142D[2A[0J[32m[1mAndroid[22m Bundled [39m[2m4619ms[22m[0m[2m apps/mobile/index.ts (1251 modules)[22m[0m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 98.8% [22m[2m(1330/1338)[22m
+[1mAndroid[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░░[39m[49m[1m 87.8% [22m[2m(1150/1251)[22m
+[142D[2A[0J[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 98.8% [22m[2m(1330/1338)[22m
+[142D[1A[0J[32m[1miOS[22m Bundled [39m[2m7052ms[22m[0m[2m apps/mobile/index.ts (1338 modules)[22m[0m
+[1miOS[22m [0m[2mapps/mobile/[22m[0m[1mindex.ts[22m [32m[42m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓[49m[39m[47m[37m░[39m[49m[1m 98.8% [22m[2m(1330/1338)[22m
+[142D[1A[0J
+[1m› Assets (85):[22m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/AntDesign.3a2ba31570920eeb9b1d217cabe58315.ttf [90m(70.3 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/AntDesign.ttf [90m(70.3 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Entypo.31b5ffea3daddc69dd01a1f3d6cf63c5.ttf [90m(66.2 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Entypo.ttf [90m(66.2 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/EvilIcons.140c53a7643ea949007aa9a282153849.ttf [90m(13.5 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/EvilIcons.ttf [90m(13.5 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Feather.a76d309774d33d9856f650bed4292a23.ttf [90m(56.2 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Feather.ttf [90m(56.2 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome.b06871f281fee6b241d60582ae9369b9.ttf [90m(166 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome.ttf [90m(166 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Brands.3b89dd103490708d19a95adcae52210e.ttf [90m(134 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf [90m(134 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Regular.1f77739ca9ff2188b539c36f30ffa2be.ttf [90m(33.7 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf [90m(33.7 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Solid.605ed7926cf39a2ad5ec2d1f9d391d3d.ttf [90m(203 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf [90m(203 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Brands.56c8d80832e37783f12c05db7c8849e2.ttf [90m(209 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Brands.ttf [90m(209 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Regular.370dd5af19f8364907b6e2c41f45dbbf.ttf [90m(68 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf [90m(68 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Solid.adec7d6f310bc577f05e8fe06a5daccf.ttf [90m(424 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf [90m(424 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Fontisto.b49ae8ab2dbccb02c4d11caaacf09eab.ttf [90m(314 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Fontisto.ttf [90m(314 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Foundation.e20945d7c929279ef7a6f1db184a4470.ttf [90m(57 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Foundation.ttf [90m(57 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.6148e7019854f3bde85b633cb88f3c25.ttf [90m(443 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf [90m(443 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.b62641afc9ab487008e996a5c5865e56.ttf [90m(1.15 MB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf [90m(1.15 MB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.4e85bc9ebe07e0340c9c4fc2f6c38908.ttf [90m(357 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf [90m(357 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Octicons.f7c53c47a66934504fcbc7cc164895a7.ttf [90m(49.4 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Octicons.ttf [90m(49.4 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/SimpleLineIcons.d2285965fe34b05465047401b8595dd0.ttf [90m(54.1 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/SimpleLineIcons.ttf [90m(54.1 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Zocial.1681f34aaca71b8dfb70756bca331eb2.ttf [90m(25.8 kB)[39m
+../../node_modules/.pnpm/@expo+vector-icons@14.1.0_expo-font@13.3.2_expo@53.0.22_@babel+core@7.28.4_@expo+metro-runtim_eapddcnwzeavb2bgw4zykf74f4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Zocial.ttf [90m(25.8 kB)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/back-icon-mask.0a328cd9c1afd0afe8e3b1ec5165b1b4.png [90m(653 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/back-icon-mask.png [90m(653 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/back-icon.35ba0eaec5a4f5ed12ca16fabeae451d.png [90m(207 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/back-icon.png [90m(8 variations | 359 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/clear-icon.c94f6478e7ae0cdd9f15de1fcb9e5e55.png [90m(4 variations | 425 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/clear-icon.png [90m(4 variations | 425 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/close-icon.808e1b1b9b53114ec2838071a7e6daa7.png [90m(4 variations | 235 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/close-icon.png [90m(4 variations | 235 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/search-icon.286d67d3f74808a60a78d3ebf1a5fb57.png [90m(928 B)[39m
+../../node_modules/.pnpm/@react-navigation+elements@2.6.4_@react-navigation+native@7.1.17_react-native@0.79.6_@babel+c_2v6stcbm5i25iz3vbywa73dsgq/node_modules/@react-navigation/elements/lib/module/assets/search-icon.png [90m(7 variations | 592 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/error.d1ea1496f9057eb392d5bbf3732a61b7.png [90m(469 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/error.png [90m(469 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/file.19eeb73b9593a38f8e9f418337fc7d10.png [90m(138 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/file.png [90m(138 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/forward.d8b800c443b8972542883e0b9de2bdc6.png [90m(188 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/forward.png [90m(188 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/pkg.ab19f4cbc543357183a20571f68380a3.png [90m(364 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/pkg.png [90m(364 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/sitemap.412dd9275b6b48ad28f5e3d81bb1f626.png [90m(465 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/sitemap.png [90m(465 B)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/unmatched.20e71bdf79e3a97bf55fd9e164041578.png [90m(4.75 kB)[39m
+../../node_modules/.pnpm/expo-router@4.0.21_@testing-library+jest-native@5.4.3_react-native@0.79.6_@babel+core@7.28.4__5e3xljyr5ohojddt7no4s2j46u/node_modules/expo-router/assets/unmatched.png [90m(4.75 kB)[39m
+
+[1m› web bundles (1):[22m
+_expo/static/js/web/index-974c7a10c359a611ee76e352e444a470.js [90m(2 MB)[39m
+
+[1m› android bundles (1):[22m
+_expo/static/js/android/index-93d406537f39ca5b29eeea059dddb6b4.hbc [90m(4.15 MB)[39m
+
+[1m› ios bundles (1):[22m
+_expo/static/js/ios/index-cffdafadfe04d24ccda755e41cb125a5.hbc [90m(4.15 MB)[39m
+
+[1m› Files (3):[22m
+favicon.ico [90m(14.5 kB)[39m
+index.html [90m(1.21 kB)[39m
+metadata.json [90m(5.79 kB)[39m
+
+[92mExported: dist[39m

@@ -1,0 +1,284 @@
+---
+description: frontend tasks
+alwaysApply: true
+---
+Cel
+
+Frontend w React + TypeScript, oparty o Next.js (App Router) z wbudowanym BFF (/app/api/*). Agent implementuje UI do backendowego API, tworząc od podstaw małe, ponownie używalne komponenty, zgodne z Single Responsibility Principle i Rule of Three (ekstrakcja dopiero po 2–3 użyciach).
+
+⸻
+
+Stos i konwencje
+	•	Runtime: Node 20+, Next.js 14/15 (App Router, RSC gdzie ma sens).
+	•	Język: TypeScript (strict).
+	•	Jakość: ESLint (airbnb + jsx-a11y + boundaries), Prettier.
+	•	Testy: Vitest/Jest + React Testing Library + MSW (mock API), Playwright (E2E).
+	•	Stan serwera: React Query.
+	•	Formy: react-hook-form + Zod.
+	•	I18n: react-i18next (ICU).
+	•	Styliowanie: CSS Modules lub Tailwind + design tokens (CSS variables).
+	•	Logowanie/observability: Sentry (błędy), requestId/tracing, web-vitals.
+	•	CI: lint, typecheck, testy, build, bundle-size budget, Lighthouse CI.
+
+⸻
+Struktura katalogów
+src/
+  app/
+    layout.tsx
+    page.tsx
+    api/                 # BFF (route handlers)
+  features/
+    <feature>/
+      api/               # definicje endpointów, query/mutation hooks
+      components/        # komponenty domenowe (prezentacyjne/kontenery)
+      hooks/             # logika UI feature
+      pages/             # widoki/route-segmenty feature (Next route groups)
+      types/             # DTO/typy kontraktów
+  shared/
+    ui/                  # atomy/molekuły headless (Button, Input, ...)
+    hooks/               # useDebounce, useToggle, ...
+    lib/                 # httpClient, queryClient, logger, env, feature-flags
+    utils/               # pure utils
+    config/              # stałe, tokens, atrybuty themingu
+  entities/              # modele/view-models/mapowania na UI
+  styles/                # global.css, tokens.css
+  test/                  # setupTests, msw handlers
+  Zasady granic (eslint-plugin-boundaries):
+	•	features/* nie importuje innego features/*.
+	•	Wspólne rzeczy wyłącznie przez shared/* lub entities/*.
+	•	Aliasowe importy (@/shared/..., @/features/...) — żadnych głębokich ../../...
+
+⸻
+
+Komponenty i SRP
+	•	Prezentacyjne: czysty JSX/HTML, brak fetchowania i side-effectów. Tylko props.
+	•	Kontenery: orkiestracja danych (React Query), stan UI, kompozycja prezentacyjnych.
+	•	Małe interfejsy: każdy komponent/hook robi jedną rzecz, ma jasny kontrakt typów.
+	•	Bez React.FC — zwykłe funkcje z jawnym typem props.
+
+Przykład:
+// shared/ui/Button.tsx
+import { ButtonHTMLAttributes, forwardRef } from 'react';
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: 'primary' | 'secondary' | 'ghost';
+};
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', ...props }, ref) => (
+    <button ref={ref} data-variant={variant} {...props} />
+  )
+);
+Button.displayName = 'Button';
+
+Warstwa API i BFF
+	•	BFF (Next route handlers) jako jedyna warstwa wiedząca o sekretach i tokenach (cookies HttpOnly).
+	•	httpClient po stronie klienta: fetch/ky z:
+	•	timeout, AbortController (cancel),
+	•	exponential backoff + jitter (retry tylko dla retry-safe),
+	•	idempotency key dla wrażliwych mutacji,
+	•	globalny error interceptor (mapowanie do NetworkError | AuthError | ValidationError | ConflictError).
+	•	Walidacja runtime: Zod (parse odpowiedzi/wejścia).
+	•	Konwencja kluczy React Query: ['feature','resource', normalizedParams].
+
+Przykład klienta:
+// shared/lib/httpClient.ts
+export async function http<T>(input: RequestInfo, init?: RequestInit & { schema?: (d: unknown) => T }): Promise<T> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15_000);
+  try {
+    const res = await fetch(input, { ...init, signal: controller.signal, credentials: 'include' });
+    if (!res.ok) throw await mapHttpError(res);
+    const data = (await res.json()) as unknown;
+    return init?.schema ? init.schema(data) : (data as T);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function mapHttpError(res: Response) {
+  let payload: any;
+  try { payload = await res.json(); } catch {}
+  const msg = payload?.message ?? res.statusText;
+  const err = new Error(msg) as Error & { code?: string; status?: number; details?: unknown };
+  err.status = res.status; err.details = payload;
+  return err;
+}
+Hook zapytania:
+// features/users/api/useUsersQuery.ts
+import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
+import { http } from '@/shared/lib/httpClient';
+
+const User = z.object({ id: z.string(), name: z.string(), email: z.string().email() });
+export type User = z.infer<typeof User>;
+
+export function useUsersQuery() {
+  return useQuery({
+    queryKey: ['users', 'list'],
+    queryFn: () => http('/api/users', { schema: (d) => z.array(User).parse(d) }),
+    staleTime: 60_000,
+  });
+}
+Zarządzanie stanem
+	•	Server state → React Query (cache, re-fetch, mutations, optimistic update).
+	•	Local state → useState/useReducer w najbliższym komponencie.
+	•	Global state (Zustand/Redux) tylko dla: sesja/auth, preferencje, feature flags.
+	•	Nigdy nie kopiujemy danych z React Query do global store.
+
+⸻
+
+Formy, walidacja, a11y
+	•	Jedna biblioteka prymitywów (Input, Select, Date, File) z adapterami react-hook-form.
+	•	Walidacja Zod (schematy dzielone UI/BFF).
+	•	Dostępność: label + aria-*, opis błędu (aria-describedby), focus management.
+
+Przykład:
+// shared/ui/FormInput.tsx
+import { useFormContext } from 'react-hook-form';
+
+export function FormInput({ name, label, ...rest }: { name: string; label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+  const { register, formState: { errors } } = useFormContext();
+  const err = (errors as any)[name]?.message as string | undefined;
+  const id = `input-${name}`;
+  const errId = `${id}-error`;
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} aria-invalid={!!err} aria-describedby={err ? errId : undefined} {...register(name)} {...rest} />
+      {err && <p id={errId} role="alert">{err}</p>}
+    </div>
+  );
+}
+UX: stany ładowania/błędu/pusty
+	•	Każdy widok korzystający z sieci musi mieć 3 stany.
+	•	ErrorBoundary na layout + per-feature.
+	•	Puste stany: komunikat + ewentualne CTA.
+
+⸻
+
+Wydajność
+	•	Code-splitting per route/feature (React.lazy + Suspense).
+	•	Virtualizacja dużych list (react-virtual).
+	•	Unikaj zbędnych re-renderów; używaj useMemo/useCallback tylko gdy mierzalne korzyści.
+	•	Budżet paczki w CI (np. main chunk < 180 KB gz).
+
+⸻
+
+Bezpieczeństwo
+	•	Sesja/tokenu nie udostępniamy JS – HttpOnly cookies; odświeżanie przez BFF.
+	•	CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.
+	•	Brak dangerouslySetInnerHTML; jeśli niezbędne → sanitacja + audyt.
+	•	Uploady: walidacja MIME i rozmiaru po stronie BFF, skan/karantanna (jeśli dotyczy).
+
+⸻
+
+I18n i formaty
+	•	Wszystkie stringi w i18n (namespacy per-feature).
+	•	Daty/liczby przez Intl; przechowywanie dat w UTC, prezentacja w strefie użytkownika.
+
+⸻
+
+Design System i theming
+	•	Design tokens jako CSS variables (kolory, spacing, typografia).
+	•	Komponenty shared/ui są headless; skórkowanie przez klasy/tokens.
+	•	Tryb ciemny: [data-theme="dark"] + tokeny różnicujące.
+
+⸻
+
+Feature Flags
+	•	Flagi dostarczane z BFF (SSR) i przechowywane lekko w kliencie.
+	•	Umożliwiony rollout gradacyjny i wyłączanie funkcji bez re-deployu.
+
+⸻
+
+Testy
+	•	Unit: pure utils i UI bez sieci (snapshoty oszczędnie).
+	•	Integration: komponent + hook + React Query + MSW (scenariusze success/edge).
+	•	E2E: ścieżki krytyczne (Playwright).
+	•	Kontrakt: testy schema-drift (DTO vs OpenAPI/Zod).
+	•	Metryki minimalne w CI: lint, typecheck, unit/integration, e2e-smoke, build, bundle budget, Lighthouse.
+
+Setup testów:
+// test/setupTests.ts
+import '@testing-library/jest-dom';
+import { server } from './msw-server';
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+Observability i DX
+	•	Sentry (ERROR, WARN), numer korelacyjny requestId przenoszony przez BFF.
+	•	Web Vitals raportowane do endpointu BFF.
+	•	ADR dla decyzji, PR template: kontekst, decyzje, ryzyka, walidacja.
+	•	Renovate/Dependabot, npm audit i blokady w CI.
+
+⸻
+
+Definition of Done (DoD)
+	•	SRP i Rule of Three; brak duplikacji i łamania granic modułów.
+	•	Typy TS + walidacja runtime (Zod) na wejściu/wyjściu.
+	•	Loading/Error/Empty obecne; ErrorBoundary działa.
+	•	A11y: eslint-a11y, podstawowe testy axe, focus-trap w modalach.
+	•	Testy: unit + integration (MSW) + E2E smoke przechodzą; kontrakt z API zgodny.
+	•	Budżet paczki i Lighthouse (≥90 dla Perf/A11y/Best Practices) w CI.
+	•	Bezpieczeństwo: HttpOnly cookies, CSP, brak nie-sanityzowanego HTML.
+	•	Storybook dla shared/ui; przykłady użycia dla kluczowych komponentów.
+	•	ADR dodany, PR opisany (co/po co/jak testować/rollback plan).
+
+⸻
+
+Szablony startowe
+
+Query Client (provider):
+// shared/lib/queryClient.tsx
+'use client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactNode, useState } from 'react';
+
+export function QueryProvider({ children }: { children: ReactNode }) {
+  const [client] = useState(() => new QueryClient({ defaultOptions: { queries: { retry: 2, refetchOnWindowFocus: false } } }));
+  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
+}
+Route handler (BFF):
+// app/api/users/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const User = z.object({ id: z.string(), name: z.string(), email: z.string().email() });
+
+export async function GET(_req: NextRequest) {
+  const upstream = await fetch(process.env.UPSTREAM_URL + '/users', { headers: { Authorization: `Bearer ${process.env.API_TOKEN}` } });
+  if (!upstream.ok) return NextResponse.json({ message: 'Upstream error' }, { status: upstream.status });
+  const data = await upstream.json();
+  return NextResponse.json(z.array(User).parse(data));
+}
+Strona (widok):
+// features/users/pages/UsersPage.tsx
+'use client';
+import { useUsersQuery } from '../api/useUsersQuery';
+import { Button } from '@/shared/ui/Button';
+
+export default function UsersPage() {
+  const { data, isPending, isError } = useUsersQuery();
+  if (isPending) return <p>Ładowanie…</p>;
+  if (isError) return <p>Nie udało się pobrać użytkowników.</p>;
+  if (!data?.length) return <p>Brak użytkowników.</p>;
+  return (
+    <section>
+      <header><h1>Użytkownicy</h1><Button>Dodaj</Button></header>
+      <ul>{data.map(u => <li key={u.id}>{u.name}</li>)}</ul>
+    </section>
+  );
+}
+Polityka migracji/rozszerzeń
+	•	Nowy feature: najpierw ADR + kontrakt API (Zod/OpenAPI), potem szkielet features/<name>.
+	•	Ekstrakcja do shared/ui dopiero po trzecim użyciu.
+	•	Zmiany łamiące: wersjonowanie endpointów w BFF (/api/v2/*), feature flags dla rolloutów.
+
+⸻
+
+Bezpieczne domyślne ustawienia
+	•	strict: true w TS, reactStrictMode: true.
+	•	Content-Security-Policy bez unsafe-inline (używaj nonce/hashes).
+	•	Cookies Secure, SameSite=Lax/Strict.
+	•	Brak sekretów w kliencie; wszystkie w BFF/ENV.

@@ -1,0 +1,164 @@
+2025-09-10 19:28:52,639 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-09-10 19:28:52,643 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:28:52,646 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:28:52,646 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-09-10 19:28:52,647 INFO supervisord started with pid 1
+2025-09-10 19:28:53,652 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:28:53,657 INFO spawned: 'laravel-worker_00' with pid 23
+2025-09-10 19:28:53,659 INFO spawned: 'laravel-worker_01' with pid 24
+2025-09-10 19:28:53,661 INFO spawned: 'laravel-worker_02' with pid 25
+2025-09-10 19:28:53,663 INFO spawned: 'nginx' with pid 26
+2025-09-10 19:28:53,665 INFO spawned: 'php-fpm' with pid 27
+2025-09-10 19:28:53,672 WARN exited: nginx (exit status 1; not expected)
+2025-09-10 19:28:54,716 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:28:54,716 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:28:54,717 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:28:54,717 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:28:54,719 INFO spawned: 'nginx' with pid 42
+2025-09-10 19:28:54,720 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:28:54,728 WARN exited: nginx (exit status 1; not expected)
+2025-09-10 19:28:56,731 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:28:56,732 INFO spawned: 'nginx' with pid 43
+2025-09-10 19:28:56,737 WARN exited: nginx (exit status 1; not expected)
+2025-09-10 19:28:59,746 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:28:59,746 INFO gave up: cron entered FATAL state, too many start retries too quickly
+2025-09-10 19:28:59,755 INFO spawned: 'nginx' with pid 44
+2025-09-10 19:28:59,761 WARN exited: nginx (exit status 1; not expected)
+2025-09-10 19:29:00,765 INFO gave up: nginx entered FATAL state, too many start retries too quickly
+2025-09-10 19:29:58,974 WARN received SIGQUIT indicating exit request
+2025-09-10 19:29:58,979 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02, php-fpm to die
+2025-09-10 19:29:58,990 INFO stopped: php-fpm (exit status 0)
+2025-09-10 19:30:00,031 INFO stopped: laravel-worker_01 (exit status 0)
+2025-09-10 19:30:00,033 INFO stopped: laravel-worker_02 (exit status 0)
+2025-09-10 19:30:00,033 INFO stopped: laravel-worker_00 (exit status 0)
+2025-09-10 19:30:00,626 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-09-10 19:30:00,630 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:30:00,630 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:30:00,630 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-09-10 19:30:00,631 INFO supervisord started with pid 1
+2025-09-10 19:30:01,634 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:30:01,641 INFO spawned: 'laravel-worker_00' with pid 23
+2025-09-10 19:30:01,644 INFO spawned: 'laravel-worker_01' with pid 24
+2025-09-10 19:30:01,646 INFO spawned: 'laravel-worker_02' with pid 25
+2025-09-10 19:30:01,648 INFO spawned: 'nginx' with pid 26
+2025-09-10 19:30:01,649 INFO spawned: 'php-fpm' with pid 27
+2025-09-10 19:30:02,687 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:30:02,687 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:30:02,687 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:30:02,687 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:30:02,688 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:30:02,688 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:30:04,692 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:30:08,494 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:30:08,495 INFO gave up: cron entered FATAL state, too many start retries too quickly
+2025-09-10 19:38:19,943 WARN received SIGQUIT indicating exit request
+2025-09-10 19:38:19,946 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02, nginx, php-fpm to die
+2025-09-10 19:38:19,957 INFO stopped: php-fpm (exit status 0)
+2025-09-10 19:38:19,964 INFO stopped: nginx (exit status 0)
+2025-09-10 19:38:22,973 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02 to die
+2025-09-10 19:38:23,013 INFO stopped: laravel-worker_00 (exit status 0)
+2025-09-10 19:38:23,013 INFO stopped: laravel-worker_02 (exit status 0)
+2025-09-10 19:38:23,013 INFO stopped: laravel-worker_01 (exit status 0)
+2025-09-10 19:38:29,209 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-09-10 19:38:29,213 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:38:29,215 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:38:29,216 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-09-10 19:38:29,216 INFO supervisord started with pid 1
+2025-09-10 19:38:30,220 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:38:30,223 INFO spawned: 'laravel-worker_00' with pid 28
+2025-09-10 19:38:30,225 INFO spawned: 'laravel-worker_01' with pid 29
+2025-09-10 19:38:30,227 INFO spawned: 'laravel-worker_02' with pid 30
+2025-09-10 19:38:30,228 INFO spawned: 'nginx' with pid 31
+2025-09-10 19:38:30,229 INFO spawned: 'php-fpm' with pid 32
+2025-09-10 19:38:31,269 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:38:31,269 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:38:31,269 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:38:31,269 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:38:31,270 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:38:31,270 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:38:33,275 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:38:36,286 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:38:36,287 INFO gave up: cron entered FATAL state, too many start retries too quickly
+2025-09-10 19:44:43,243 WARN received SIGQUIT indicating exit request
+2025-09-10 19:44:43,244 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02, nginx, php-fpm to die
+2025-09-10 19:44:44,274 INFO stopped: php-fpm (exit status 0)
+2025-09-10 19:44:44,284 INFO stopped: nginx (exit status 0)
+2025-09-10 19:44:46,291 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02 to die
+2025-09-10 19:44:47,410 INFO stopped: laravel-worker_00 (exit status 0)
+2025-09-10 19:44:47,411 INFO stopped: laravel-worker_02 (exit status 0)
+2025-09-10 19:44:47,412 INFO stopped: laravel-worker_01 (exit status 0)
+2025-09-10 19:45:42,474 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-09-10 19:45:42,485 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:45:42,487 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:45:42,488 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-09-10 19:45:42,488 INFO supervisord started with pid 1
+2025-09-10 19:45:43,490 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:45:43,493 INFO spawned: 'laravel-worker_00' with pid 27
+2025-09-10 19:45:43,496 INFO spawned: 'laravel-worker_01' with pid 28
+2025-09-10 19:45:43,497 INFO spawned: 'laravel-worker_02' with pid 29
+2025-09-10 19:45:43,499 INFO spawned: 'nginx' with pid 30
+2025-09-10 19:45:43,502 INFO spawned: 'php-fpm' with pid 31
+2025-09-10 19:45:44,545 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:45:44,545 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:45:44,546 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:45:44,546 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:45:44,546 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:45:44,546 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:45:46,553 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:45:49,566 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:45:49,568 INFO gave up: cron entered FATAL state, too many start retries too quickly
+2025-09-10 19:52:49,315 WARN received SIGQUIT indicating exit request
+2025-09-10 19:52:49,317 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02, nginx, php-fpm to die
+2025-09-10 19:52:49,338 INFO stopped: php-fpm (exit status 0)
+2025-09-10 19:52:49,346 INFO stopped: nginx (exit status 0)
+2025-09-10 19:52:52,349 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02 to die
+2025-09-10 19:52:52,390 INFO stopped: laravel-worker_01 (exit status 0)
+2025-09-10 19:52:52,390 INFO stopped: laravel-worker_00 (exit status 0)
+2025-09-10 19:52:52,391 INFO stopped: laravel-worker_02 (exit status 0)
+2025-09-10 19:52:58,466 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-09-10 19:52:58,470 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:52:58,473 INFO RPC interface 'supervisor' initialized
+2025-09-10 19:52:58,473 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-09-10 19:52:58,474 INFO supervisord started with pid 1
+2025-09-10 19:52:59,476 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:52:59,477 INFO spawned: 'laravel-worker_00' with pid 28
+2025-09-10 19:52:59,478 INFO spawned: 'laravel-worker_01' with pid 29
+2025-09-10 19:52:59,480 INFO spawned: 'laravel-worker_02' with pid 30
+2025-09-10 19:52:59,481 INFO spawned: 'nginx' with pid 31
+2025-09-10 19:52:59,483 INFO spawned: 'php-fpm' with pid 32
+2025-09-10 19:53:00,529 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:53:00,530 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:53:00,532 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:53:00,533 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:53:00,533 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:53:00,533 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 19:53:02,538 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:53:05,544 INFO spawnerr: can't find command 'cron'
+2025-09-10 19:53:05,545 INFO gave up: cron entered FATAL state, too many start retries too quickly
+2025-09-10 20:34:14,936 WARN received SIGQUIT indicating exit request
+2025-09-10 20:34:14,941 INFO waiting for laravel-worker_00, laravel-worker_01, laravel-worker_02, nginx, php-fpm to die
+2025-09-10 20:34:16,003 INFO stopped: php-fpm (exit status 0)
+2025-09-10 20:34:16,025 INFO stopped: nginx (exit status 0)
+2025-09-10 20:34:16,071 INFO stopped: laravel-worker_00 (exit status 0)
+2025-09-10 20:34:16,073 INFO stopped: laravel-worker_01 (exit status 0)
+2025-09-10 20:34:16,073 INFO stopped: laravel-worker_02 (exit status 0)
+2025-09-10 20:34:24,066 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-09-10 20:34:24,069 INFO RPC interface 'supervisor' initialized
+2025-09-10 20:34:24,071 INFO RPC interface 'supervisor' initialized
+2025-09-10 20:34:24,071 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-09-10 20:34:24,071 INFO supervisord started with pid 1
+2025-09-10 20:34:25,076 INFO spawnerr: can't find command 'cron'
+2025-09-10 20:34:25,078 INFO spawned: 'laravel-worker_00' with pid 28
+2025-09-10 20:34:25,082 INFO spawned: 'laravel-worker_01' with pid 29
+2025-09-10 20:34:25,084 INFO spawned: 'laravel-worker_02' with pid 30
+2025-09-10 20:34:25,087 INFO spawned: 'nginx' with pid 31
+2025-09-10 20:34:25,089 INFO spawned: 'php-fpm' with pid 32
+2025-09-10 20:34:26,145 INFO spawnerr: can't find command 'cron'
+2025-09-10 20:34:26,145 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 20:34:26,146 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 20:34:26,146 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 20:34:26,146 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 20:34:26,146 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-10 20:34:28,727 INFO spawnerr: can't find command 'cron'
+2025-09-10 20:34:31,994 INFO spawnerr: can't find command 'cron'
+2025-09-10 20:34:31,995 INFO gave up: cron entered FATAL state, too many start retries too quickly

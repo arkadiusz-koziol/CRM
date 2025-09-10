@@ -1,0 +1,440 @@
+2025-09-10T17:39:12.699717Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/.turbo-cookie"), AnchoredSystemPathBuf(".turbo/cookies/1.cookie")}
+2025-09-10T17:39:12.699731Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:44:16.933928Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:44:16.934424Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:44:17.025398Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:44:17.025417Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:44:26.225598Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/next.config.js")}
+2025-09-10T17:44:26.225608Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:44:35.626205Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/shared/lib/auth.ts")}
+2025-09-10T17:44:35.626235Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:44:42.126025Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.yml")}
+2025-09-10T17:44:42.126039Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:44:42.225225Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.yml")}
+2025-09-10T17:44:42.225235Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:44:49.625602Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("nginx.conf")}
+2025-09-10T17:44:49.625612Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:44:49.726208Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("nginx.conf")}
+2025-09-10T17:44:49.726219Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:44:56.925389Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/Dockerfile")}
+2025-09-10T17:44:56.925399Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:44:57.025621Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/Dockerfile")}
+2025-09-10T17:44:57.025636Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:44:59.126048Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:44:59.126058Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:45:07.526100Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile"), AnchoredSystemPathBuf("backend/Dockerfile"), AnchoredSystemPathBuf("nginx.conf"), AnchoredSystemPathBuf("apps/web/src/shared/lib/auth.ts"), AnchoredSystemPathBuf("docker-compose.yml"), AnchoredSystemPathBuf("apps/web/next.config.js")}
+2025-09-10T17:45:07.526112Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:45:07.526135Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T17:45:52.125406Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml")}
+2025-09-10T17:45:52.125433Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:46:03.126217Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:46:03.126228Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:46:06.526389Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml")}
+2025-09-10T17:46:06.526398Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:46:09.325962Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.yml")}
+2025-09-10T17:46:09.325980Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:46:11.326178Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("nginx.conf")}
+2025-09-10T17:46:11.326189Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:46:13.225721Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/Dockerfile")}
+2025-09-10T17:46:13.225731Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:46:40.026648Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/.dockerignore")}
+2025-09-10T17:46:40.026679Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:46:40.126046Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/.dockerignore")}
+2025-09-10T17:46:40.126056Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:46:54.432463Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:46:54.432473Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:47:11.726134Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:47:11.726166Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:47:15.726629Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml")}
+2025-09-10T17:47:15.726639Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:47:19.226269Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:47:19.226280Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:47:23.126486Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:47:23.126498Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:47:42.226192Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:47:42.226208Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:47:46.726662Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:47:46.726674Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:48:20.627006Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:48:20.627042Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:48:25.826422Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:48:25.826433Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:48:42.426622Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:48:42.426643Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:48:47.927177Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:48:47.927189Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:49:55.526972Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml")}
+2025-09-10T17:49:55.527023Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:49:58.026840Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml")}
+2025-09-10T17:49:58.026851Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:50:13.027567Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf"), AnchoredSystemPathBuf("apps/web/.dockerignore"), AnchoredSystemPathBuf(".docker/docker-compose.yml"), AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:50:13.027581Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:50:13.045377Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T17:50:56.427624Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile.dev")}
+2025-09-10T17:50:56.427637Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:50:56.527329Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile.dev")}
+2025-09-10T17:50:56.527343Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:50:59.927495Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.frontend.yml")}
+2025-09-10T17:50:59.927505Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:51:00.126260Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.frontend.yml")}
+2025-09-10T17:51:00.126270Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:51:03.526835Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:51:03.526845Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:51:08.927225Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php")}
+2025-09-10T17:51:08.927240Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:51:09.027007Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.phpi6ld6ht77nfm6ApYJh4"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php9lb1eg55ngfb80I7Im3"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php")}
+2025-09-10T17:51:09.027018Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:51:09.227261Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.phpj9ali1b3pp6ndbY2icd")}
+2025-09-10T17:51:09.227276Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:51:11.626950Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/api-docs/.gitignore"), AnchoredSystemPathBuf("backend/storage/logs/.gitignore"), AnchoredSystemPathBuf("backend/storage/framework/cache"), AnchoredSystemPathBuf("backend/storage/app/private"), AnchoredSystemPathBuf("backend/storage/framework/views/.gitignore"), AnchoredSystemPathBuf("backend/storage/framework/views"), AnchoredSystemPathBuf("backend/storage/app/private/.gitignore"), AnchoredSystemPathBuf("backend/storage"), AnchoredSystemPathBuf("backend/storage/api-docs"), AnchoredSystemPathBuf("backend/storage/api-docs/api-docs.yaml"), AnchoredSystemPathBuf("backend/storage/app"), AnchoredSystemPathBuf("backend/storage/framework/.gitignore"), AnchoredSystemPathBuf("backend/storage/framework/cache/data/.gitignore"), AnchoredSystemPathBuf("backend/storage/framework/testing"), AnchoredSystemPathBuf("backend/storage/framework/cache/data"), AnchoredSystemPathBuf("backend/storage/framework/sessions"), AnchoredSystemPathBuf("backend/storage/framework/sessions/.gitignore"), AnchoredSystemPathBuf("backend/storage/framework/cache/.gitignore"), AnchoredSystemPathBuf("backend/storage/framework"), AnchoredSystemPathBuf("backend/storage/api-docs/api-docs.json"), AnchoredSystemPathBuf("backend/storage/framework/testing/.gitignore"), AnchoredSystemPathBuf("backend/storage/app/.gitignore"), AnchoredSystemPathBuf("backend/storage/logs"), AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T17:51:11.626973Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:51:32.735040Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:51:32.735754Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T17:51:32.825602Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T17:52:23.327773Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.frontend.yml")}
+2025-09-10T17:52:23.327807Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:52:26.127508Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.frontend.yml")}
+2025-09-10T17:52:26.127517Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:53:19.427390Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.frontend.yml"), AnchoredSystemPathBuf("apps/web/Dockerfile.dev")}
+2025-09-10T17:53:19.427408Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:53:19.427433Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T17:53:39.128079Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf"), AnchoredSystemPathBuf(".docker/docker-compose.yml"), AnchoredSystemPathBuf("apps/web/Dockerfile")}
+2025-09-10T17:53:39.128089Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:53:39.128106Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T17:54:21.828786Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:54:21.828853Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:54:35.427853Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:54:35.427869Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:54:38.027441Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:54:38.027451Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:54:48.628172Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:54:48.628183Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:54:58.528852Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:54:58.528866Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:55:01.027665Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:55:01.027676Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:55:17.128970Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:55:17.128984Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:55:19.528012Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:55:19.528024Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:56:17.227601Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T17:56:17.227613Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T17:59:46.513723Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml")}
+2025-09-10T17:59:46.513768Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:00:00.513579Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile.new")}
+2025-09-10T18:00:00.513588Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:00:00.613337Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile.new")}
+2025-09-10T18:00:00.613351Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:00:29.613312Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/supervisord.conf")}
+2025-09-10T18:00:29.613322Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:00:36.813932Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/start.sh")}
+2025-09-10T18:00:36.813944Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:00:45.913183Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/app.conf")}
+2025-09-10T18:00:45.913196Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:01:03.814146Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile.old"), AnchoredSystemPathBuf(".docker/php/Dockerfile"), AnchoredSystemPathBuf(".docker/php/Dockerfile.new")}
+2025-09-10T18:01:03.814165Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:02:38.113637Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T18:02:38.113664Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:06:03.113549Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T18:06:03.113585Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:08:09.728444Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T18:08:09.729986Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:12:11.215598Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T18:12:11.215671Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:14:31.014696Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/start.sh"), AnchoredSystemPathBuf(".docker/php/Dockerfile.new"), AnchoredSystemPathBuf(".docker/docker-compose.yml"), AnchoredSystemPathBuf(".docker/php/Dockerfile"), AnchoredSystemPathBuf(".docker/nginx/app.conf"), AnchoredSystemPathBuf(".docker/php/supervisord.conf")}
+2025-09-10T18:14:31.014730Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:27:10.116811Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T18:27:10.116873Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:27:10.314624Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml")}
+2025-09-10T18:27:10.314643Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:27:10.416031Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/supervisord.conf"), AnchoredSystemPathBuf(".docker/php/Dockerfile.new")}
+2025-09-10T18:27:10.416050Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:27:10.516364Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/app.conf"), AnchoredSystemPathBuf(".docker/php/start.sh")}
+2025-09-10T18:27:10.516392Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T18:27:10.716933Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T18:27:10.716954Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:14:56.084966Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/dev.conf")}
+2025-09-10T19:14:56.086014Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:14:56.176103Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/docker-compose.yml"), AnchoredSystemPathBuf(".docker/php/Dockerfile.new")}
+2025-09-10T19:14:56.176123Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:14:56.277526Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile.new"), AnchoredSystemPathBuf(".docker/php/supervisord.conf")}
+2025-09-10T19:14:56.277547Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:14:56.378450Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/start.sh")}
+2025-09-10T19:14:56.378469Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:14:57.377052Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/app.conf")}
+2025-09-10T19:14:57.377069Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:14:57.876083Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:14:57.876103Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:24:12.076049Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:24:12.076104Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:26:42.776986Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:26:42.777010Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:28:52.674872Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/supervisord.log")}
+2025-09-10T19:28:52.674928Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:28:53.675528Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/worker.log")}
+2025-09-10T19:28:53.675549Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:29:47.675700Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/app.conf")}
+2025-09-10T19:29:47.675727Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:29:52.474852Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/app.conf")}
+2025-09-10T19:29:52.474872Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:30:00.074885Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log"), AnchoredSystemPathBuf("backend/supervisord.log")}
+2025-09-10T19:30:00.074912Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:30:06.374560Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/framework/views/c98295f68a80237dd5126a380728c54d.php"), AnchoredSystemPathBuf("backend/storage/framework/views/1efd8ff720bf7f1632bd1cec2b0275ac.php"), AnchoredSystemPathBuf("backend/storage/framework/views/076e853bfedeb5eec9586967a06eed40.php"), AnchoredSystemPathBuf("backend/storage/framework/views/cfa3c811900a0203293e04cebccedfc3.php"), AnchoredSystemPathBuf("backend/storage/framework/views/4beff654145491b6ceb08cd7e320ae9b.php"), AnchoredSystemPathBuf("backend/storage/framework/views/8c913330a9957f9f9b50fafad432b049.php"), AnchoredSystemPathBuf("backend/storage/framework/views/157f572d7844c3759575a5ddcb951b87.php"), AnchoredSystemPathBuf("backend/storage/framework/views/c23591f935208c974d08a5192bf9a106.php"), AnchoredSystemPathBuf("backend/storage/framework/views/c9dd51b8845835c7c523c84400b28af1.php")}
+2025-09-10T19:30:06.374591Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:30:07.475091Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/framework/views/874f34b7f3bd5cad13df099f51560b31.php"), AnchoredSystemPathBuf("backend/storage/framework/views/1f85a04b0c86fea83edb97150a3d8856.php"), AnchoredSystemPathBuf("backend/storage/framework/views/3536b43b0c2582c9d010503a01547cb3.php"), AnchoredSystemPathBuf("backend/storage/framework/views/727eb314a80677b0e7afc9be44c5a036.php")}
+2025-09-10T19:30:07.475110Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:30:07.574136Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log"), AnchoredSystemPathBuf("backend/storage/framework/views/199d1ec04aa65ec813743ce4906b3119.php"), AnchoredSystemPathBuf("backend/storage/framework/views/5e4591339f2a3bfd0e4bad402aeaed9c.php")}
+2025-09-10T19:30:07.574154Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:31:20.275816Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:31:20.275909Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:34:42.774819Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:34:42.774849Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:38:23.074821Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/supervisord.log"), AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T19:38:23.075052Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:38:28.774641Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php")}
+2025-09-10T19:38:28.774658Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:38:28.873557Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.phpllr7kvr5d973apZmP54"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php")}
+2025-09-10T19:38:28.873580Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:38:28.975029Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/services.php80a1redtdh948zbGS0q"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php")}
+2025-09-10T19:38:28.975047Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:38:29.074104Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php4ddsqhc6qg9f9IIbBwn"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php")}
+2025-09-10T19:38:29.074129Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:38:43.874283Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T19:38:43.874302Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:43:51.232948Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/app.conf"), AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:43:51.232976Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:44:47.434213Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/supervisord.log"), AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T19:44:47.434265Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:45:37.042896Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:45:37.043773Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:45:42.033730Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php")}
+2025-09-10T19:45:42.033740Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:45:42.133397Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.phpmpcs6u7raveb5Vwsr7e"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.phpr1ua0dfe606aaGtrzUo")}
+2025-09-10T19:45:42.133410Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:45:42.333324Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.phpanm5t1v310j54WU4Nz7"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php")}
+2025-09-10T19:45:42.333341Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:47:40.334893Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/Dockerfile.dev")}
+2025-09-10T19:47:40.334924Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T19:48:01.734088Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/package.json")}
+2025-09-10T19:48:01.734113Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T19:49:59.936061Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.frontend.yml")}
+2025-09-10T19:49:59.936088Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:51:19.136124Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T19:51:19.136159Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:52:10.037239Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/php/Dockerfile")}
+2025-09-10T19:52:10.037268Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:52:52.437493Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log"), AnchoredSystemPathBuf("backend/supervisord.log")}
+2025-09-10T19:52:52.437525Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:52:58.038643Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php")}
+2025-09-10T19:52:58.038661Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:52:58.137452Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/services.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.phpfvcacju2bk7p1Co1aja"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.php12cdeoivtpve8rYHN3H")}
+2025-09-10T19:52:58.137472Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:52:58.338091Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.phpo9g9dm5u10r09v6dc5q"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php")}
+2025-09-10T19:52:58.338110Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T19:53:50.439061Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/page.tsx")}
+2025-09-10T19:53:50.440359Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T19:54:30.338398Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/shared/lib/auth.ts")}
+2025-09-10T19:54:30.338458Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:01:57.851169Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("docker-compose.frontend.yml"), AnchoredSystemPathBuf("apps/web/package.json"), AnchoredSystemPathBuf(".docker/php/Dockerfile"), AnchoredSystemPathBuf("apps/web/src/shared/lib/auth.ts"), AnchoredSystemPathBuf("apps/web/Dockerfile.dev"), AnchoredSystemPathBuf("apps/web/src/app/page.tsx")}
+2025-09-10T20:01:57.851884Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:01:57.852066Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T20:04:31.645401Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/shared/lib/auth.ts")}
+2025-09-10T20:04:31.645431Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:05:27.245826Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/page.tsx")}
+2025-09-10T20:05:27.245837Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:05:32.645716Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/page.tsx")}
+2025-09-10T20:05:32.645736Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:06:21.351570Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:06:21.351609Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:06:30.148809Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:06:30.148840Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:07:09.147230Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/page.tsx"), AnchoredSystemPathBuf("apps/web/src/shared/lib/auth.ts"), AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:07:09.147247Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:07:09.191015Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T20:13:43.652129Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/api/useToolsQuery.ts"), AnchoredSystemPathBuf("apps/web/src/features/tools/api"), AnchoredSystemPathBuf("apps/web/src/features/tools")}
+2025-09-10T20:13:43.652224Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:13:43.851283Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/api/useToolsQuery.ts")}
+2025-09-10T20:13:43.851295Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:13:50.250913Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/api/useCreateTool.ts")}
+2025-09-10T20:13:50.250951Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:13:50.451019Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/api/useCreateTool.ts")}
+2025-09-10T20:13:50.451031Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:01.551451Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/tools/components")}
+2025-09-10T20:14:01.551479Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:01.754588Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-10T20:14:01.754608Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:18.251555Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/CreateToolForm.tsx")}
+2025-09-10T20:14:18.251605Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:18.353477Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/CreateToolForm.tsx")}
+2025-09-10T20:14:18.353495Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:23.851092Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools"), AnchoredSystemPathBuf("apps/web/src/app/tools/page.tsx")}
+2025-09-10T20:14:23.851103Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:24.051734Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools/page.tsx")}
+2025-09-10T20:14:24.051755Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:31.051330Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools/create/page.tsx"), AnchoredSystemPathBuf("apps/web/src/app/tools/create")}
+2025-09-10T20:14:31.051379Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:31.251465Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools/create/page.tsx")}
+2025-09-10T20:14:31.251477Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:14:39.052777Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:14:39.053452Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:03.752422Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:15:03.752580Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:08.652081Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials"), AnchoredSystemPathBuf("apps/web/src/features/materials/api"), AnchoredSystemPathBuf("apps/web/src/features/materials/api/useMaterialsQuery.ts")}
+2025-09-10T20:15:08.652091Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:08.851813Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials/api/useMaterialsQuery.ts")}
+2025-09-10T20:15:08.851836Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:18.352014Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials/components/MaterialsList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/materials/components")}
+2025-09-10T20:15:18.352032Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:18.557235Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials/components/MaterialsList.tsx")}
+2025-09-10T20:15:18.557257Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:23.152013Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/materials"), AnchoredSystemPathBuf("apps/web/src/app/materials/page.tsx")}
+2025-09-10T20:15:23.152024Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:23.351007Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/materials/page.tsx")}
+2025-09-10T20:15:23.351020Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:32.453236Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/cars"), AnchoredSystemPathBuf("apps/web/src/features/cars/api/useCarsQuery.ts"), AnchoredSystemPathBuf("apps/web/src/features/cars/api")}
+2025-09-10T20:15:32.453324Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:32.656062Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/cars/api/useCarsQuery.ts")}
+2025-09-10T20:15:32.656073Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:44.153173Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/cars/components/CarsList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/cars/components")}
+2025-09-10T20:15:44.153193Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:44.351361Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/cars/components/CarsList.tsx")}
+2025-09-10T20:15:44.351373Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:49.154794Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/cars"), AnchoredSystemPathBuf("apps/web/src/app/cars/page.tsx")}
+2025-09-10T20:15:49.154812Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:49.352116Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/cars/page.tsx")}
+2025-09-10T20:15:49.352128Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:56.852530Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/api/useEstatesQuery.ts"), AnchoredSystemPathBuf("apps/web/src/features/estates"), AnchoredSystemPathBuf("apps/web/src/features/estates/api")}
+2025-09-10T20:15:56.852596Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:15:57.052064Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/api/useEstatesQuery.ts")}
+2025-09-10T20:15:57.052082Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:16:08.952405Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/components/EstatesList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/estates/components")}
+2025-09-10T20:16:08.952421Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:16:09.152720Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/components/EstatesList.tsx")}
+2025-09-10T20:16:09.152735Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:16:15.451622Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/estates/page.tsx"), AnchoredSystemPathBuf("apps/web/src/app/estates")}
+2025-09-10T20:16:15.451641Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:16:15.654935Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/estates/page.tsx")}
+2025-09-10T20:16:15.654968Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:16:40.952839Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/shared/lib/httpClient.ts")}
+2025-09-10T20:16:40.952873Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:16:41.152125Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/shared/lib/httpClient.ts")}
+2025-09-10T20:16:41.152147Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:17:02.861953Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:17:02.864358Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:17:07.353433Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:17:07.353455Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:17:11.968655Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:17:11.968667Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:20:06.455619Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:20:06.455685Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:20:11.755486Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:20:11.755510Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:20:48.455979Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:20:48.456003Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:21:34.555792Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials/api/useCreateMaterial.ts")}
+2025-09-10T20:21:34.555810Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:21:34.656175Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials/api/useCreateMaterial.ts")}
+2025-09-10T20:21:34.656194Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:21:52.357405Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials/components/CreateMaterialForm.tsx")}
+2025-09-10T20:21:52.357424Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:21:52.561216Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/materials/components/CreateMaterialForm.tsx")}
+2025-09-10T20:21:52.561236Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:21:58.857852Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/materials/create/page.tsx"), AnchoredSystemPathBuf("apps/web/src/app/materials/create")}
+2025-09-10T20:21:58.857873Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:21:59.056496Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/materials/create/page.tsx")}
+2025-09-10T20:21:59.056507Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:06.255715Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/api/useCreateEstate.ts")}
+2025-09-10T20:22:06.255733Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:06.458197Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/api/useCreateEstate.ts")}
+2025-09-10T20:22:06.458217Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:24.855965Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/components/CreateEstateForm.tsx")}
+2025-09-10T20:22:24.855992Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:25.056515Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/components/CreateEstateForm.tsx")}
+2025-09-10T20:22:25.056537Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:33.357529Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/estates/create"), AnchoredSystemPathBuf("apps/web/src/app/estates/create/page.tsx")}
+2025-09-10T20:22:33.357550Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:33.559203Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/estates/create/page.tsx")}
+2025-09-10T20:22:33.559223Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:44.960462Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools/page.tsx")}
+2025-09-10T20:22:44.960484Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:50.571750Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/materials/page.tsx")}
+2025-09-10T20:22:50.571780Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:22:56.657826Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/estates/page.tsx")}
+2025-09-10T20:22:56.657845Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:23:13.457274Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:23:13.457294Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:24:06.358157Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Services/ToolService.php")}
+2025-09-10T20:24:06.358175Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:24:11.157746Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Services/ToolService.php")}
+2025-09-10T20:24:11.157773Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:24:16.257693Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Services/ToolService.php")}
+2025-09-10T20:24:16.257712Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:24:24.858157Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:24:24.858174Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:24:38.957109Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Repositories/ToolRepository.php")}
+2025-09-10T20:24:38.957130Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:24:46.458219Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Repositories/ToolRepository.php")}
+2025-09-10T20:24:46.458240Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:24:54.658024Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Repositories/ToolRepository.php")}
+2025-09-10T20:24:54.658065Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:25:06.259659Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Interfaces/Repositories/ToolRepositoryInterface.php")}
+2025-09-10T20:25:06.259682Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:25:11.957399Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Interfaces/Repositories/ToolRepositoryInterface.php")}
+2025-09-10T20:25:11.957485Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:25:32.057980Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/storage/logs/laravel.log")}
+2025-09-10T20:25:32.057999Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:25:56.159258Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Repositories/MaterialRepository.php")}
+2025-09-10T20:25:56.159350Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:26:02.659200Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Repositories/MaterialRepository.php")}
+2025-09-10T20:26:02.659225Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:27:09.159449Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Services/EstateService.php")}
+2025-09-10T20:27:09.159487Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:27:17.059559Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Services/EstateService.php")}
+2025-09-10T20:27:17.059576Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:27:25.558356Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/api/useCreateEstate.ts")}
+2025-09-10T20:27:25.558365Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:27:31.559700Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/components/CreateEstateForm.tsx")}
+2025-09-10T20:27:31.559723Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:27:37.059818Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/components/CreateEstateForm.tsx")}
+2025-09-10T20:27:37.059836Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:27:45.559943Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/estates/components/CreateEstateForm.tsx")}
+2025-09-10T20:27:45.559963Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:28:36.959081Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/cars/components/CarsList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/estates/components/CreateEstateForm.tsx"), AnchoredSystemPathBuf("apps/web/src/app/tools/create/page.tsx"), AnchoredSystemPathBuf("apps/web/src/app/estates/page.tsx"), AnchoredSystemPathBuf("apps/web/src/app/cars/page.tsx"), AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx"), AnchoredSystemPathBuf("apps/web/src/features/estates/components/EstatesList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/materials/components/MaterialsList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/tools/components/CreateToolForm.tsx"), AnchoredSystemPathBuf("apps/web/src/app/tools/page.tsx"), AnchoredSystemPathBuf("apps/web/src/app/materials/create/page.tsx"), AnchoredSystemPathBuf("apps/web/src/features/materials/api/useMaterialsQuery.ts"), AnchoredSystemPathBuf("apps/web/src/shared/lib/httpClient.ts"), AnchoredSystemPathBuf("apps/web/src/app/materials/page.tsx"), AnchoredSystemPathBuf("apps/web/src/features/estates/api/useEstatesQuery.ts"), AnchoredSystemPathBuf("apps/web/src/features/tools/api/useToolsQuery.ts"), AnchoredSystemPathBuf("apps/web/src/features/cars/api/useCarsQuery.ts"), AnchoredSystemPathBuf("apps/web/src/features/materials/api/useCreateMaterial.ts"), AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx"), AnchoredSystemPathBuf("apps/web/src/features/materials/components/CreateMaterialForm.tsx"), AnchoredSystemPathBuf("apps/web/src/features/tools/api/useCreateTool.ts"), AnchoredSystemPathBuf("apps/web/src/app/estates/create/page.tsx"), AnchoredSystemPathBuf("apps/web/src/features/estates/api/useCreateEstate.ts"), AnchoredSystemPathBuf("backend/app/Repositories/ToolRepository.php"), AnchoredSystemPathBuf("backend/app/Services/ToolService.php")}
+2025-09-10T20:28:36.959093Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:28:36.970296Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T20:28:37.060780Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Services/ToolService.php"), AnchoredSystemPathBuf("backend/app/Interfaces/Repositories/ToolRepositoryInterface.php"), AnchoredSystemPathBuf("backend/app/Repositories/MaterialRepository.php"), AnchoredSystemPathBuf("backend/app/Services/EstateService.php")}
+2025-09-10T20:28:37.060801Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:33:52.551606Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".docker/nginx/app.conf")}
+2025-09-10T20:33:52.551709Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:01.349462Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/app.php")}
+2025-09-10T20:34:01.349483Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:05.249468Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/app.php")}
+2025-09-10T20:34:05.249488Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:11.850433Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/config/cors.php")}
+2025-09-10T20:34:11.850464Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:16.149646Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/supervisord.log")}
+2025-09-10T20:34:16.149668Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:23.749698Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/services.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php")}
+2025-09-10T20:34:23.749729Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:23.850328Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/services.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/services.phpigfp2kio3v59bqql1mS"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php0lprilqbbcm528kRTgM"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php")}
+2025-09-10T20:34:23.850346Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:23.949674Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php"), AnchoredSystemPathBuf("backend/bootstrap/cache/packages.php5j0kct9msvgobpsK2oD")}
+2025-09-10T20:34:23.949700Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:45.649925Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/bootstrap/app.php"), AnchoredSystemPathBuf("backend/config/cors.php"), AnchoredSystemPathBuf(".docker/nginx/app.conf")}
+2025-09-10T20:34:45.649960Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:34:48.350406Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/config/cors.php"), AnchoredSystemPathBuf("backend/bootstrap/app.php"), AnchoredSystemPathBuf(".docker/nginx/app.conf")}
+2025-09-10T20:34:48.350429Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:39:40.553791Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:39:40.553868Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:39:56.356947Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:39:56.357522Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:40:05.052836Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:40:05.052972Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:40:49.552573Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:40:49.552669Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-10T20:40:49.552724Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T20:41:14.752931Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Services/ToolService.php"), AnchoredSystemPathBuf("apps/web/src/app/page.tsx"), AnchoredSystemPathBuf("apps/web/Dockerfile.dev"), AnchoredSystemPathBuf("backend/app/Interfaces/Repositories/ToolRepositoryInterface.php"), AnchoredSystemPathBuf("backend/app/Repositories/ToolRepository.php"), AnchoredSystemPathBuf(".docker/php/Dockerfile"), AnchoredSystemPathBuf("apps/web/src/app/dashboard/page.tsx")}
+2025-09-10T20:41:14.752985Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-10T20:41:14.767863Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-10T20:41:14.853515Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("backend/app/Interfaces/Repositories/ToolRepositoryInterface.php")}
+2025-09-10T20:41:14.853536Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))

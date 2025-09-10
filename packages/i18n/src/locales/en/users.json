@@ -1,0 +1,34 @@
+{
+  "users": {
+    "title": "Users",
+    "createUser": "Create User",
+    "editUser": "Edit User",
+    "deleteUser": "Delete User",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "role": "Role",
+    "status": "Status",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "roles": {
+      "admin": "Administrator",
+      "manager": "Manager",
+      "technician": "Technician",
+      "user": "User"
+    },
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended"
+    },
+    "noUsers": "No users found",
+    "userCreated": "User created successfully",
+    "userUpdated": "User updated successfully",
+    "userDeleted": "User deleted successfully",
+    "userCreateError": "Failed to create user",
+    "userUpdateError": "Failed to update user",
+    "userDeleteError": "Failed to delete user"
+  }
+}

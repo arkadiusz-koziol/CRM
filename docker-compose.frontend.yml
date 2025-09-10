@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: skytech-frontend-dev
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile.dev
+    ports:
+      - "0.0.0.0:3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8199
+    volumes:
+      - ./apps/web:/app/apps/web
+      - ./packages:/app/packages
+      - /app/node_modules
+    networks:
+      - skytech_backend
+
+networks:
+  skytech_backend:
+    external: true

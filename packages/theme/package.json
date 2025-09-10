@@ -1,0 +1,38 @@
+{
+  "name": "@skytech/theme",
+  "version": "1.0.0",
+  "description": "Design tokens and theming system",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js",
+      "require": "./dist/tokens.js"
+    },
+    "./web": {
+      "types": "./dist/web.d.ts",
+      "import": "./dist/web.js",
+      "require": "./dist/web.js"
+    },
+    "./mobile": {
+      "types": "./dist/mobile.d.ts",
+      "import": "./dist/mobile.js",
+      "require": "./dist/mobile.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
