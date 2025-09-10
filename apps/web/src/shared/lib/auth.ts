@@ -87,30 +87,33 @@ export async function signInWithCredentials(email: string, password: string): Pr
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || 'Login failed');
+    throw new Error(errorData.error || errorData.message || 'Login failed');
   }
 
   const data = await response.json();
   
+  // Backend returns data in JSON:API format: { data: { user: {...}, token: "..." } }
+  const { user: userData, token } = data.data;
+  
   // Store tokens
   const tokens: AuthTokens = {
-    accessToken: data.access_token,
-    refreshToken: data.refresh_token,
-    expiresIn: data.expires_in,
-    tokenType: data.token_type || 'Bearer',
-    scope: data.scope,
-    idToken: data.id_token,
+    accessToken: token,
+    refreshToken: undefined, // Backend doesn't provide refresh token
+    expiresIn: 3600, // Default 1 hour
+    tokenType: 'Bearer',
+    scope: undefined,
+    idToken: undefined,
   };
   
   await storeTokens(tokens);
 
   // Store user data
   const user: AuthUser = {
-    id: data.user.id,
-    firstName: data.user.first_name || data.user.firstName,
-    lastName: data.user.last_name || data.user.lastName,
-    email: data.user.email,
-    role: data.user.role || 'user',
+    id: userData.id.toString(),
+    firstName: userData.name || userData.first_name || userData.firstName || '',
+    lastName: userData.surname || userData.last_name || userData.lastName || '',
+    email: userData.email,
+    role: 'admin', // Default role, you can get this from userData if available
   };
   
   await storeUser(user);
@@ -135,6 +138,16 @@ export async function signOut(): Promise<void> {
 
 // Check if user is authenticated
 export async function isAuthenticated(): Promise<boolean> {
-  const tokens = await getTokens();
-  return !!tokens?.accessToken;
+  // Check if we're on the client side
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  
+  try {
+    const tokens = await getTokens();
+    return !!tokens?.accessToken;
+  } catch (error) {
+    console.error('Error checking authentication:', error);
+    return false;
+  }
 }

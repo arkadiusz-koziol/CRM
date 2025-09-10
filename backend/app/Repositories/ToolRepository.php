@@ -2,27 +2,27 @@
 
 namespace App\Repositories;
 
-use App\Dto\ToolDTO;
+use App\Dto\ToolDto;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
 use App\Models\Tool;
 
 class ToolRepository implements ToolRepositoryInterface
 {
-    public function create(ToolDTO $toolDTO): Tool
+    public function create(ToolDto $toolDTO): Tool
     {
         return Tool::create([
-            'name' => $toolDTO->name,
-            'description' => $toolDTO->description,
-            'count' => $toolDTO->count,
+            'name' => $toolDTO->getName(),
+            'description' => $toolDTO->getDescription(),
+            'count' => $toolDTO->getCount(),
         ]);
     }
 
-    public function update(Tool $tool, ToolDTO $toolDTO): bool
+    public function update(Tool $tool, ToolDto $toolDTO): bool
     {
         return $tool->update([
-            'name' => $toolDTO->name,
-            'description' => $toolDTO->description,
-            'count' => $toolDTO->count,
+            'name' => $toolDTO->getName(),
+            'description' => $toolDTO->getDescription(),
+            'count' => $toolDTO->getCount(),
         ]);
     }
 

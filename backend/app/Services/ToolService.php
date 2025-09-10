@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Dto\ToolDTO;
+use App\Dto\ToolDto;
 use App\Interfaces\Repositories\ToolRepositoryInterface;
 use App\Models\Tool;
 
@@ -10,15 +10,14 @@ class ToolService
 {
     public function __construct(
         protected ToolRepositoryInterface $toolRepository
-    ) {
-    }
+    ) {}
 
-    public function createTool(ToolDTO $toolDTO): Tool
+    public function createTool(ToolDto $toolDTO): Tool
     {
         return $this->toolRepository->create($toolDTO);
     }
 
-    public function updateTool(Tool $tool, ToolDTO $toolDTO): bool
+    public function updateTool(Tool $tool, ToolDto $toolDTO): bool
     {
         return $this->toolRepository->update($tool, $toolDTO);
     }

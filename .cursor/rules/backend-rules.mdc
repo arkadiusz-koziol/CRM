@@ -1,0 +1,346 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+BACKEND
+
+Architecture Backend Rules – Full Version
+
+1. Code Style & Conventions
+• PSR-12 standard, max 120 characters per line, trailing commas.
+• Database: snake_case for tables and columns.
+• PHP: PascalCase for classes, camelCase for methods/properties.
+• No abbreviations in variable/method names.
+• Always import classes via 'use ...' at top of file, never FQCN inline.
+• declare(strict_types=1); at the top of every file.
+• PHPDoc required for all public methods.
+• Forbidden in production: die(), dd(), dump().
+<?php
+declare(strict_types=1);
+
+namespace App\Domain\User\Entity;
+
+use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
+
+final class User
+{
+// Example using imported classes instead of \Ramsey\Uuid\Uuid inline
+public static function create(string $name): self
+{
+return new self(Uuid::uuid7()->toString(), $name, Carbon::now());
+}
+}
+
+2. Architecture & Structure
+• Domain-Driven Design separation: Domain, Application, Infrastructure, API.
+• Dependencies only top-down: API -> Application -> Domain.
+• Infrastructure provides repository implementations, adapters.
+• Patterns: Factory, Strategy, Repository, Observer, DTO.
+• Controllers are thin: only HTTP, validation, delegation.
+• Application Services orchestrate use-cases.
+• Eloquent only in Infrastructure.
+3. Technologies & Tools
+• Laravel 12, PHP 8.4.
+• PostgreSQL as DB, Redis for caching and queues.
+• Tests: PHPUnit/Pest for unit/integration, API contract tests, smoke tests.
+• Docker Compose for dev. Never commit .env.
+• Static analysis with PHPStan/Larastan.
+4. Quality Rules
+• Follow SOLID, DRY, KISS principles.
+• No magic strings – use BackedEnum or Config classes.
+• Always use Carbon instead of DateTimeImmutable.
+• Avoid complex if/elseif chains – prefer Strategy or maps.
+5. Project-Specific Rules
+• Translations must always use __('app.key.example').
+• Modules are optional vendor packages (e.g., vsc/loyaltykit-invoice).
+• Reports and large datasets must always use chunking/streaming.
+• Primary keys are UUID, migrations use softDeletesTz().
+• Status/type fields always represented by Enums.
+6. Prohibitions
+• Do not use DB::raw() unless necessary, only in repositories.
+• No direct Model::where/create/update outside repositories.
+• Do not use facades like DB::, Cache::, Auth::. Prefer dependency injection.
+• Do not use global helpers like config() or now(). Use Config classes or Carbon.
+7. Git & CI/CD
+• Branch naming: feature/*, bugfix/*, hotfix/*.
+• Use Conventional Commits (feat:, fix:, refactor:).
+• Do not commit vendor, .env, SQL dumps, IDE files.
+• CI checks: phpcs, phpstan, tests. Must pass before merge.
+• Use composer audit and SAST tools.
+8. API Design
+• Endpoints must follow REST, responses must follow JSON:API.
+• Plural resources: /users, /invoices.
+• Single actions use verbs: /users/{id}/block.
+• Use Resources/Transformers for responses.
+• Swagger/OpenAPI annotations required.
+@OA\Post(
+path="/invoices",
+summary="Create invoice",
+tags={"Invoices"},
+@OA\RequestBody(
+required=true,
+@OA\JsonContent(
+required={"number","user_id","net","issued_at"},
+@OA\Property(property="number", type="string"),
+@OA\Property(property="user_id", type="string", format="uuid"),
+@OA\Property(property="net", type="number", format="float"),
+@OA\Property(property="issued_at", type="string", format="date-time")
+)
+),
+@OA\Response(response=201, description="Created")
+)
+
+9. Dependency Injection
+• Use Laravel 11+ Attributes for dependency injection.
+• Always import via 'use', not fully qualified names.
+public function __construct(
+#[DB('pgsql')] Connection $connection,
+#[Cache('redis')] CacheRepository $cache,
+#[Config('services.mail.from.address')] string $from,
+#[Log('daily')] LoggerInterface $logger,
+#[Auth('web')] Guard $guard,
+) {}
+
+10. Configuration
+• Never call config() directly.
+• Use App\Config classes with attributes #[Config(...)] injected.
+11. Repositories
+• All DB queries must go through repositories.
+• Transactions only in repositories.
+• Always extend base EloquentRepository.
+• Mapping Model <-> Entity must be done in dedicated Mappers.
+12. Entities & Enums
+• Entities live in Domain only.
+• Carbon for datetime.
+• Use BackedEnum for status/option fields.
+13. DTO & Factories
+• Each DTO must have its own Factory.
+• DTOs must be readonly, with descriptive field names.
+14. Services (Application)
+• Only orchestration of use-cases.
+• Never open DB transactions directly – delegate to repositories.
+• Dispatch long-running tasks to queues with idempotency key.
+15. Controllers (API)
+• Validation in FormRequest.
+• No business logic, only delegation to services.
+• DTOs created by Factories, not inline.
+• Responses via Resources.
+16. API Resources
+• Only way of exposing data.
+• Resource must not depend on repositories or services.
+• All data must be passed in from controller/service.
+17. Events & Queues
+• Modules decoupled by Events and Listeners.
+• Queue jobs must be idempotent.
+• Idempotency key stored in DB or cache.
+18. Exceptions & Error Handling
+• Catch exceptions only to add context or convert type.
+• Never swallow exceptions – always rethrow.
+• Custom exceptions mapped to correct HTTP codes.
+19. Logging & Debugging
+• Log only errors/failures – never successes.
+• Use injected LoggerInterface.
+• Include requestId and context data in logs.
+• No dd()/dump() in code.
+20. Performance
+• Reports must use chunking/streaming.
+• Indexes required for filtering/sorting.
+• Materialized views for slow-changing datasets.
+• Prevent N+1 queries.
+21. Migrations & DDL
+• Always use UUID primary keys.
+• Partial unique indexes with deleted_at IS NULL.
+• Foreign keys with ON DELETE/UPDATE where sensible.
+• Use softDeletesTz().
+22. Routing
+• Plural nouns for resources.
+• Verbs for single actions.
+• No direct queries in views.
+23. Vendor Packages
+• All optional modules delivered as vendor packages.
+• Naming pattern: vsc/<domain>-<feature>.
+• Each package must provide config, migrations, service provider.
+24. API Resources Example
+Example of Resource returning JSON:API shape.
+
+final class InvoiceResource extends JsonResource
+{
+public function toArray($request): array
+{
+return [
+'data' => [
+'type' => 'invoices',
+'id' => $this->resource['id'],
+'attributes' => [
+'number' => $this->resource['number'],
+'status' => $this->resource['status'],
+],
+],
+'meta' => ['request_id' => app('requestId')],
+];
+}
+}
+
+25. DTO Factory Example
+Factories must build DTOs from requests.
+
+final class CreateInvoiceDtoFactory
+{
+public function fromRequest(CreateInvoiceRequest $request): CreateInvoiceDto
+{
+return new CreateInvoiceDto(
+invoiceNumber: $request->string('number')->toString(),
+userId: $request->string('user_id')->toString(),
+netAmountCents: (int) round($request->float('net') * 100),
+issuedAt: Carbon::parse($request->string('issued_at')->toString()),
+);
+}
+}
+
+26. Service Example
+Services orchestrate, no direct DB calls.
+
+final class CreateInvoiceService
+{
+public function __construct(
+private InvoiceRepositoryInterface $repository,
+private LoggerInterface $logger,
+) {}
+
+public function handle(CreateInvoiceDto $dto): string
+{
+$invoice = Invoice::create(
+$dto->invoiceNumber(),
+$dto->userId(),
+$dto->netAmountCents(),
+$dto->issuedAt(),
+);
+
+$this->repository->save($invoice);
+event(new InvoiceCreated($invoice->id()));
+return $invoice->id();
+}
+}
+
+27. Controller Example
+Controllers are thin – no business logic.
+
+final class InvoiceController extends Controller
+{
+public function store(
+CreateInvoiceRequest $request,
+CreateInvoiceDtoFactory $dtoFactory,
+CreateInvoiceService $service
+) {
+$dto = $dtoFactory->fromRequest($request);
+$id = $service->handle($dto);
+return (new InvoiceResource([
+'id' => $id,
+'number' => $dto->invoiceNumber(),
+'status' => 'pending',
+]))->response()->setStatusCode(201);
+}
+}
+
+28. Repository Example
+All DB access only in repositories, transactions here.
+
+final class InvoiceRepository extends EloquentRepository implements InvoiceRepositoryInterface
+{
+protected string $model = InvoiceModel::class;
+
+public function save(Invoice $invoice): void
+{
+$this->transactional(function () use ($invoice): void {
+$model = $this->mapper->toModel($invoice);
+$model->saveOrFail();
+});
+}
+}
+
+29. Mapper Example
+Dedicated mappers for Model ↔ Entity.
+
+final class InvoiceMapper
+{
+public function toDomain(InvoiceModel $model): Invoice
+{
+return Invoice::reconstitute(
+$model->id,
+$model->number,
+$model->user_id,
+(int) $model->net_amount_cents,
+Carbon::parse($model->issued_at),
+InvoiceStatus::from($model->status),
+);
+}
+}
+
+30. Tests
+• Unit: entities, value objects, utils.
+• Integration: services + repos, events/listeners.
+• API contract tests for JSON:API + OpenAPI.
+• E2E smoke tests for critical paths.
+31. ADR
+• Any deviation from these rules must be recorded as an Architecture Decision Record.
+• ADR includes context, options, decision, impact, rollback plan.
+32. Definition of Done
+• DDD structure applied, no layer violations.
+• No abbreviations in names, all imports via use.
+• Carbon used instead of DateTimeImmutable.
+• All DB queries and transactions in repositories.
+• DTOs built only via Factories.
+• Resources only output given data, no service/repo dependencies.
+• JSON:API + OpenAPI present.
+• Only error/failure logs with context.
+• All tests green, CI pipeline green.
+33. Controllers with __invoke()
+When using invokable controllers (__invoke()), do not use __construct for dependency injection. Instead, inject dependencies directly into the __invoke() method.
+
+final class BlockUserController
+{
+public function __invoke(
+BlockUserService $service,
+BlockUserDtoFactory $dtoFactory,
+Request $request
+) {
+$dto = $dtoFactory->fromRequest($request);
+$service->handle($dto);
+return response()->noContent();
+}
+}
+
+34. DTO Field Access
+All DTO fields must be private and accessible only through explicit getter methods. No public properties are allowed.
+
+final readonly class CreateUserDto
+{
+public function __construct(
+private string $firstName,
+private string $lastName,
+) {}
+
+public function firstName(): string { return $this->firstName; }
+public function lastName(): string { return $this->lastName; }
+}
+
+35. Method Typing
+Always add return type declarations to methods. Both return types and parameter types must be strictly declared.
+
+public function handle(CreateUserDto $dto): string
+{
+return $dto->firstName().' '.$dto->lastName();
+}
+
+36. Custom Exceptions
+Never use global exceptions (\Exception, \RuntimeException) directly. Always create dedicated, descriptive exception classes per domain context.
+
+final class UserNotFoundException extends \RuntimeException
+{
+public function __construct(string $userId)
+{
+parent::__construct("User with ID {$userId} not found.");
+}
+}

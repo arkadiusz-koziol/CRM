@@ -11,20 +11,20 @@ class MaterialRepository implements MaterialRepositoryInterface
     public function create(MaterialDto $materialDto): Material
     {
         return Material::create([
-            'name' => $materialDto->name,
-            'description' => $materialDto->description,
-            'count' => $materialDto->count,
-            'price' => $materialDto->price,
+            'name' => $materialDto->getName(),
+            'description' => $materialDto->getDescription(),
+            'count' => $materialDto->getCount(),
+            'price' => $materialDto->getPrice(),
         ]);
     }
 
     public function update(Material $material, MaterialDto $materialDto): bool
     {
         return $material->update([
-            'name' => $materialDto->name,
-            'description' => $materialDto->description,
-            'count' => $materialDto->count,
-            'price' => $materialDto->price,
+            'name' => $materialDto->getName(),
+            'description' => $materialDto->getDescription(),
+            'count' => $materialDto->getCount(),
+            'price' => $materialDto->getPrice(),
         ]);
     }
 
