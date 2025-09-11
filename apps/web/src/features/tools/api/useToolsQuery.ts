@@ -26,7 +26,7 @@ export function useToolsQuery() {
         throw new Error('No access token available');
       }
       
-      return http('/api/v1/admin/tools/list', { 
+      return http('/api/v1/admin/tools/list', {     
         schema: (d) => ToolsResponse.parse(d),
         headers: {
           'Authorization': `Bearer ${tokens.accessToken}`,
