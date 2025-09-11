@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TasksListResponse } from '@skytech/api-sdk';
 
 export async function GET() {
   // This is a BFF (Backend for Frontend) route

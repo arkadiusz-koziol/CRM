@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\Users\ListUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
 use App\Http\Controllers\Admin\Users\StoreUserController;
 use App\Http\Controllers\Admin\Users\UpdateUserController;
+use App\Http\Controllers\Admin\Activities\ListActivityController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -200,6 +201,13 @@ Route::group(
                     Route::delete('/{task}', DestroyTaskController::class)
                         ->name('tasks.destroy')
                         ->can('task.delete');
+                });
+
+                // Admin Activities
+                Route::prefix('activities')->group(function () {
+                    Route::get('/list', ListActivityController::class)
+                        ->name('activities.index')
+                        ->can('activity.list');
                 });
             });
 

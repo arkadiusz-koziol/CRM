@@ -147,21 +147,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@skytech/api-sdk':
-        specifier: workspace:*
-        version: link:../../packages/api-sdk
-      '@skytech/config':
-        specifier: workspace:*
-        version: link:../../packages/config
-      '@skytech/i18n':
-        specifier: workspace:*
-        version: link:../../packages/i18n
-      '@skytech/theme':
-        specifier: workspace:*
-        version: link:../../packages/theme
-      '@skytech/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       '@tanstack/react-query':
         specifier: ^5.87.1
         version: 5.87.1(react@19.1.1)
@@ -193,12 +178,6 @@ importers:
       '@playwright/test':
         specifier: ^1.49.1
         version: 1.55.0
-      '@skytech/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@skytech/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.8.0

@@ -1,6 +1,8 @@
-import { getEnv } from '@skytech/config';
-
-const env = getEnv();
+// Environment configuration
+const env = {
+  API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8199',
+  AUTH_CLIENT_ID: process.env.NEXT_PUBLIC_AUTH_CLIENT_ID || 'skytech-web',
+};
 
 export interface AuthTokens {
   accessToken: string;
@@ -74,7 +76,7 @@ export async function getUser(): Promise<AuthUser | null> {
 
 // Sign in with email and password
 export async function signInWithCredentials(email: string, password: string): Promise<void> {
-  const response = await fetch(`${env.API_URL}/api/v1/auth/login`, {
+  const response = await fetch(`${env.API_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -122,7 +124,7 @@ export async function signInWithCredentials(email: string, password: string): Pr
 // Sign in with OAuth PKCE
 export async function signInWithPKCE(): Promise<void> {
   // Redirect to OAuth provider
-  const authUrl = `${env.API_URL}/api/v1/auth/oauth/authorize?client_id=${env.AUTH_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(window.location.origin + '/auth/callback')}&scope=openid profile email`;
+  const authUrl = `${env.API_URL}/auth/oauth/authorize?client_id=${env.AUTH_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(window.location.origin + '/auth/callback')}&scope=openid profile email`;
   window.location.href = authUrl;
 }
 

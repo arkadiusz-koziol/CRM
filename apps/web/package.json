@@ -22,12 +22,7 @@
     "zod": "^3.23.8",
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.3.1",
-    "@skytech/api-sdk": "workspace:*",
-    "@skytech/theme": "workspace:*",
-    "@skytech/ui": "workspace:*",
-    "@skytech/config": "workspace:*",
-    "@skytech/i18n": "workspace:*"
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "typescript": "^5.8.3",
@@ -39,8 +34,6 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9.33.0",
     "eslint-config-next": "15.1.0",
-    "@skytech/tsconfig": "workspace:*",
-    "@skytech/eslint-config": "workspace:*",
     "jest": "^29.7.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/jest-dom": "^6.6.3",
