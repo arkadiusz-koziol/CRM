@@ -1,0 +1,58 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+const BACKEND_URL = process.env.BACKEND_URL || 'http://127.0.0.1:8199';
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    // Get the authorization header from the request
+    const authHeader = request.headers.get('authorization');
+    
+    if (!authHeader) {
+      return NextResponse.json(
+        { message: 'Authorization header is required' },
+        { status: 401 }
+      );
+    }
+
+    const toolId = params.id;
+    
+    if (!toolId || isNaN(Number(toolId))) {
+      return NextResponse.json({ message: 'Invalid tool ID' }, { status: 400 });
+    }
+
+    // Forward the request to the backend
+    const backendResponse = await fetch(
+      `${BACKEND_URL}/api/v1/admin/tools/${toolId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!backendResponse.ok) {
+      const errorData = await backendResponse.json().catch(() => ({}));
+      return NextResponse.json(
+        errorData,
+        { status: backendResponse.status }
+      );
+    }
+
+    const data = await backendResponse.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('BFF Error:', error);
+    return NextResponse.json(
+      { 
+        message: 'Internal server error',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}
