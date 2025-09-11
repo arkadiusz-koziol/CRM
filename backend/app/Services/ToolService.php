@@ -38,8 +38,8 @@ class ToolService
         return $this->toolRepository->findAll();
     }
 
-    public function getPaginatedTools(int $page = 1, int $limit = 10): array
+    public function getPaginatedTools(int $page = 1, int $limit = 10, string $search = ''): array
     {
-        return $this->toolRepository->findPaginated($page, $limit);
+        return $this->toolRepository->findPaginated($page, $limit, $search);
     }
 }

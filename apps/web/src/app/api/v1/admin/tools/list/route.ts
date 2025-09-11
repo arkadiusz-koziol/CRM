@@ -18,10 +18,20 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const page = searchParams.get('page') || '1';
     const limit = searchParams.get('limit') || '12';
+    const search = searchParams.get('search') || '';
+    
+    // Build query string
+    const queryParams = new URLSearchParams({
+      page,
+      limit,
+    });
+    if (search) {
+      queryParams.append('search', search);
+    }
     
     // Forward the request to the backend
     const backendResponse = await fetch(
-      `${BACKEND_URL}/api/v1/admin/tools/list?page=${page}&limit=${limit}`,
+      `${BACKEND_URL}/api/v1/admin/tools/list?${queryParams.toString()}`,
       {
         method: 'GET',
         headers: {

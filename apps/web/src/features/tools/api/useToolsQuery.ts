@@ -32,16 +32,17 @@ const ToolsResponse = z.object({
 export type ToolsResponse = z.infer<typeof ToolsResponse>;
 export type PaginationInfo = z.infer<typeof PaginationInfo>;
 
-export function useToolsQuery(page: number = 1, limit: number = 12) {
+export function useToolsQuery(page: number = 1, limit: number = 12, search: string = '') {
   return useQuery({
-    queryKey: ['tools', 'list', page, limit],
+    queryKey: ['tools', 'list', page, limit, search],
     queryFn: async () => {
       const tokens = await getTokens();
       if (!tokens?.accessToken) {
         throw new Error('No access token available');
       }
       
-      return http(`/api/v1/admin/tools/list?page=${page}&limit=${limit}`, { 
+      const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
+      return http(`/api/v1/admin/tools/list?page=${page}&limit=${limit}${searchParam}`, { 
         schema: (d) => ToolsResponse.parse(d),
         headers: {
           'Authorization': `Bearer ${tokens.accessToken}`,

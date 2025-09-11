@@ -32,6 +32,13 @@ class ListToolController extends Controller
      *         required=false,
      *         @OA\Schema(type="integer", minimum=1, maximum=100, default=10)
      *     ),
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="Search query for filtering tools by name or description",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
@@ -78,11 +85,12 @@ class ListToolController extends Controller
     {
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 10);
+        $search = $request->query('search', '');
 
         // Validate pagination parameters
         $page = max(1, $page);
         $limit = max(1, min(100, $limit)); // Limit between 1 and 100
 
-        return $this->responseFactory->json($toolService->getPaginatedTools($page, $limit));
+        return $this->responseFactory->json($toolService->getPaginatedTools($page, $limit, $search));
     }
 }

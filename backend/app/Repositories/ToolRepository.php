@@ -41,26 +41,40 @@ class ToolRepository implements ToolRepositoryInterface
         return Tool::all()->toArray();
     }
 
-    public function findPaginated(int $page = 1, int $limit = 10): array
+    public function findPaginated(int $page = 1, int $limit = 10, string $search = ''): array
     {
         $offset = ($page - 1) * $limit;
 
-        $tools = Tool::offset($offset)
+        $query = Tool::query();
+
+        // Apply search filter if provided
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // Get total count before applying offset and limit
+        $total = $query->count();
+
+        $tools = $query->offset($offset)
             ->limit($limit)
             ->get()
             ->toArray();
 
-        $total = Tool::count();
-
+        $lastPage = (int) ceil($total / $limit);
+        $isValidPage = $page <= $lastPage && $page > 0;
+        
         return [
             'data' => $tools,
             'pagination' => [
                 'current_page' => $page,
                 'per_page' => $limit,
                 'total' => $total,
-                'last_page' => (int) ceil($total / $limit),
-                'from' => $offset + 1,
-                'to' => min($offset + $limit, $total),
+                'last_page' => $lastPage,
+                'from' => $isValidPage && $total > 0 ? $offset + 1 : 0,
+                'to' => $isValidPage && $total > 0 ? min($offset + $limit, $total) : 0,
             ]
         ];
     }

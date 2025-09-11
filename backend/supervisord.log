@@ -416,3 +416,12 @@
 2025-09-11 08:22:00,782 INFO spawnerr: can't find command 'cron'
 2025-09-11 08:22:03,786 INFO spawnerr: can't find command 'cron'
 2025-09-11 08:22:03,788 INFO gave up: cron entered FATAL state, too many start retries too quickly
+2025-09-11 09:21:59,319 INFO exited: laravel-worker_00 (exit status 0; expected)
+2025-09-11 09:21:59,322 INFO exited: laravel-worker_01 (exit status 0; expected)
+2025-09-11 09:21:59,323 INFO exited: laravel-worker_02 (exit status 0; expected)
+2025-09-11 09:21:59,334 INFO spawned: 'laravel-worker_00' with pid 237
+2025-09-11 09:21:59,338 INFO spawned: 'laravel-worker_01' with pid 238
+2025-09-11 09:21:59,340 INFO spawned: 'laravel-worker_02' with pid 239
+2025-09-11 09:22:00,343 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 09:22:00,343 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 09:22:00,344 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
