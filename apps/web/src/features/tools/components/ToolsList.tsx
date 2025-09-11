@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 export function ToolsList() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
   const { data, isLoading, isError, error } = useToolsQuery(currentPage, itemsPerPage);
   const router = useRouter();
 
@@ -194,10 +194,10 @@ export function ToolsList() {
               }}
               className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
             >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
+              <option value={12}>12</option>
+              <option value={24}>24</option>
+              <option value={36}>36</option>
+              <option value={72}>72</option>
             </select>
             <span className="text-sm text-gray-500">per page</span>
           </div>

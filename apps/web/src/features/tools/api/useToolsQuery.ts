@@ -32,7 +32,7 @@ const ToolsResponse = z.object({
 export type ToolsResponse = z.infer<typeof ToolsResponse>;
 export type PaginationInfo = z.infer<typeof PaginationInfo>;
 
-export function useToolsQuery(page: number = 1, limit: number = 10) {
+export function useToolsQuery(page: number = 1, limit: number = 12) {
   return useQuery({
     queryKey: ['tools', 'list', page, limit],
     queryFn: async () => {

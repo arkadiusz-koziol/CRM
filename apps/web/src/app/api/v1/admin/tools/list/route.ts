@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     // Get query parameters
     const { searchParams } = new URL(request.url);
     const page = searchParams.get('page') || '1';
-    const limit = searchParams.get('limit') || '10';
+    const limit = searchParams.get('limit') || '12';
     
     // Forward the request to the backend
     const backendResponse = await fetch(

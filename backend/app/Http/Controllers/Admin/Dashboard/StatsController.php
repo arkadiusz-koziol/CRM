@@ -7,14 +7,12 @@ namespace App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Services\ToolService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Auth\AuthManager;
 use OpenApi\Annotations as OA;
+use Psr\Log\LoggerInterface;
 
 class StatsController extends Controller
 {
-    public function __construct(
-        private ToolService $toolService
-    ) {
-    }
 
     /**
      * @OA\Get(
@@ -58,18 +56,17 @@ class StatsController extends Controller
      *     )
      * )
      */
-    public function __invoke(): JsonResponse
+    public function __invoke(
+        ToolService $toolService
+    ): JsonResponse
     {
-        // For now, we only have tools implemented, so we'll return mock data for others
-        // In the future, you can add MaterialService, CarService, EstateService etc.
-
-        $tools = $this->toolService->getAllTools();
+        $tools = $toolService->getAllTools();
         $toolsCount = count($tools);
 
         return $this->responseFactory->json([
             'tools' => [
                 'total' => $toolsCount,
-                'active' => $toolsCount, // Assuming all tools are active for now
+                'active' => $toolsCount,
             ],
             'materials' => [
                 'total' => 156, // Mock data - replace with real service when available

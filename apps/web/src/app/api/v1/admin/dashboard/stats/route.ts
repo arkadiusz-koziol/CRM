@@ -14,9 +14,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // For now, return mock data since the backend endpoint might not be working
-    // In the future, we can uncomment this to use the real backend
-    /*
+    // Forward the request to the backend
     const backendResponse = await fetch(
       `${BACKEND_URL}/api/v1/admin/dashboard/stats`,
       {
@@ -38,27 +36,6 @@ export async function GET(request: NextRequest) {
 
     const data = await backendResponse.json();
     return NextResponse.json(data);
-    */
-
-    // Mock data for now
-    return NextResponse.json({
-      tools: {
-        total: 11,
-        active: 11,
-      },
-      materials: {
-        total: 156,
-        active: 142,
-      },
-      cars: {
-        total: 8,
-        active: 7,
-      },
-      estates: {
-        total: 12,
-        active: 11,
-      },
-    });
   } catch (error) {
     console.error('BFF Error:', error);
     return NextResponse.json(
