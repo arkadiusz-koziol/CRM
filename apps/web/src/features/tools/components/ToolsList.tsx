@@ -3,11 +3,17 @@
 import { useToolsQuery } from '../api/useToolsQuery';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function ToolsList() {
-  const { data, isLoading, isError, error } = useToolsQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const { data, isLoading, isError, error } = useToolsQuery(currentPage, itemsPerPage);
   const router = useRouter();
+
+  // Server-side pagination data
+  const tools = data?.data || [];
+  const pagination = data?.pagination;
 
   // Handle authentication error
   useEffect(() => {
@@ -66,7 +72,7 @@ export function ToolsList() {
     );
   }
 
-  if (!data?.length) {
+  if (!tools.length) {
     return (
       <div className="text-center py-16">
         <div className="mx-auto w-24 h-24 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center mb-6">
@@ -114,7 +120,7 @@ export function ToolsList() {
 
       {/* Tools Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.map((tool) => (
+        {tools.map((tool) => (
           <div
             key={tool.id}
             className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200 overflow-hidden"
@@ -169,6 +175,70 @@ export function ToolsList() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-gray-200">
+        {/* Items per page selector and info */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+          <div className="flex items-center space-x-2">
+            <label htmlFor="items-per-page" className="text-sm font-medium text-gray-700">
+              Show:
+            </label>
+            <select
+              id="items-per-page"
+              value={itemsPerPage}
+              onChange={(e) => {
+                setItemsPerPage(Number(e.target.value));
+                setCurrentPage(1); // Reset to first page when changing items per page
+              }}
+              className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+            <span className="text-sm text-gray-500">per page</span>
+          </div>
+          
+          <div className="text-sm text-gray-600">
+            Showing {pagination?.from || 0}-{pagination?.to || 0} of {pagination?.total || 0} tools
+          </div>
+        </div>
+
+        {/* Pagination buttons */}
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <div className="flex items-center space-x-1">
+            <span className="px-3 py-2 text-sm font-medium text-gray-700 bg-purple-50 border border-purple-200 rounded-lg">
+              {currentPage}
+            </span>
+            <span className="text-sm text-gray-500">of</span>
+            <span className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg">
+              {pagination?.last_page || 0}
+            </span>
+          </div>
+          
+          <button
+            onClick={() => setCurrentPage(prev => prev + 1)}
+            disabled={currentPage >= (pagination?.last_page || 0)}
+            className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

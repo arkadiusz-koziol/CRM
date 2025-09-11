@@ -40,4 +40,28 @@ class ToolRepository implements ToolRepositoryInterface
     {
         return Tool::all()->toArray();
     }
+
+    public function findPaginated(int $page = 1, int $limit = 10): array
+    {
+        $offset = ($page - 1) * $limit;
+
+        $tools = Tool::offset($offset)
+            ->limit($limit)
+            ->get()
+            ->toArray();
+
+        $total = Tool::count();
+
+        return [
+            'data' => $tools,
+            'pagination' => [
+                'current_page' => $page,
+                'per_page' => $limit,
+                'total' => $total,
+                'last_page' => (int) ceil($total / $limit),
+                'from' => $offset + 1,
+                'to' => min($offset + $limit, $total),
+            ]
+        ];
+    }
 }

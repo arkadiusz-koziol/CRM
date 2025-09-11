@@ -36,4 +36,9 @@ class ToolService
     {
         return $this->toolRepository->findAll();
     }
+
+    public function getPaginatedTools(int $page = 1, int $limit = 10): array
+    {
+        return $this->toolRepository->findPaginated($page, $limit);
+    }
 }

@@ -16,11 +16,12 @@ export async function GET(request: NextRequest) {
 
     // Get query parameters
     const { searchParams } = new URL(request.url);
+    const page = searchParams.get('page') || '1';
     const limit = searchParams.get('limit') || '10';
     
     // Forward the request to the backend
     const backendResponse = await fetch(
-      `${BACKEND_URL}/api/v1/admin/tools/list?limit=${limit}`,
+      `${BACKEND_URL}/api/v1/admin/tools/list?page=${page}&limit=${limit}`,
       {
         method: 'GET',
         headers: {
@@ -46,7 +47,7 @@ export async function GET(request: NextRequest) {
       { 
         message: 'Internal server error',
         error: error instanceof Error ? error.message : 'Unknown error',
-        backendUrl: `${BACKEND_URL}/api/v1/admin/tools/list?limit=${searchParams.get('limit') || '10'}`
+        backendUrl: `${BACKEND_URL}/api/v1/admin/tools/list?page=${page}&limit=${limit}`
       },
       { status: 500 }
     );

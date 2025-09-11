@@ -15,18 +15,33 @@ const Tool = z.object({
 
 export type Tool = z.infer<typeof Tool>;
 
-const ToolsResponse = z.array(Tool);
+const PaginationInfo = z.object({
+  current_page: z.number(),
+  per_page: z.number(),
+  total: z.number(),
+  last_page: z.number(),
+  from: z.number(),
+  to: z.number(),
+});
 
-export function useToolsQuery() {
+const ToolsResponse = z.object({
+  data: z.array(Tool),
+  pagination: PaginationInfo,
+});
+
+export type ToolsResponse = z.infer<typeof ToolsResponse>;
+export type PaginationInfo = z.infer<typeof PaginationInfo>;
+
+export function useToolsQuery(page: number = 1, limit: number = 10) {
   return useQuery({
-    queryKey: ['tools', 'list'],
+    queryKey: ['tools', 'list', page, limit],
     queryFn: async () => {
       const tokens = await getTokens();
       if (!tokens?.accessToken) {
         throw new Error('No access token available');
       }
       
-      return http('/api/v1/admin/tools/list', {     
+      return http(`/api/v1/admin/tools/list?page=${page}&limit=${limit}`, { 
         schema: (d) => ToolsResponse.parse(d),
         headers: {
           'Authorization': `Bearer ${tokens.accessToken}`,
