@@ -1,8 +1,45 @@
 'use client';
 
 import { ToolsList } from '@/features/tools/components/ToolsList';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { isAuthenticated } from '@/shared/lib/auth';
 
 export default function ToolsPage() {
+  const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const authenticated = await isAuthenticated();
+        setIsAuth(authenticated);
+        if (!authenticated) {
+          router.push('/login');
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        router.push('/login');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!isAuth) {
+    return null; // Will redirect to login
+  }
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}

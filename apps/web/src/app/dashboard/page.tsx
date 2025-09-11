@@ -59,11 +59,14 @@ const NotificationIcon = () => (
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const { data: activitiesData, isLoading: activitiesLoading, error: activitiesError } = useActivitiesQuery(5);
 
   useEffect(() => {
+    setIsMounted(true);
+    setCurrentTime(new Date());
     loadUser();
     
     // Update time every minute
@@ -97,14 +100,16 @@ export default function DashboardPage() {
     }
   };
 
-  const formatTime = (date: Date) => {
+  const formatTime = (date: Date | null) => {
+    if (!date) return '--:--';
     return date.toLocaleTimeString('pl-PL', { 
       hour: '2-digit', 
       minute: '2-digit' 
     });
   };
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date: Date | null) => {
+    if (!date) return 'Ładowanie...';
     return date.toLocaleDateString('pl-PL', { 
       weekday: 'long', 
       year: 'numeric', 

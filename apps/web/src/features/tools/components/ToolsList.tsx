@@ -2,9 +2,19 @@
 
 import { useToolsQuery } from '../api/useToolsQuery';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export function ToolsList() {
-  const { data, isLoading, isError } = useToolsQuery();
+  const { data, isLoading, isError, error } = useToolsQuery();
+  const router = useRouter();
+
+  // Handle authentication error
+  useEffect(() => {
+    if (isError && error?.message === 'No access token available') {
+      router.push('/login');
+    }
+  }, [isError, error, router]);
 
   if (isLoading) {
     return (
@@ -15,14 +25,23 @@ export function ToolsList() {
   }
 
   if (isError) {
+    if (error?.message === 'No access token available') {
+      return (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+          <p className="text-yellow-600">Przekierowywanie do logowania...</p>
+        </div>
+      );
+    }
+    
     return (
       <div className="bg-red-50 border border-red-200 rounded-md p-4">
         <p className="text-red-600">Wystąpił błąd podczas ładowania narzędzi.</p>
+        <p className="text-sm text-red-500 mt-2">{error?.message}</p>
       </div>
     );
   }
 
-  if (!data?.data?.length) {
+  if (!data?.length) {
     return (
       <div className="text-center py-8">
         <p className="text-gray-500 mb-4">Brak narzędzi w systemie.</p>
@@ -55,7 +74,7 @@ export function ToolsList() {
         </Link>
       </div>
       <ul className="divide-y divide-gray-200">
-        {data.data.map((tool) => (
+        {data.map((tool) => (
           <li key={tool.id}>
             <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-between">

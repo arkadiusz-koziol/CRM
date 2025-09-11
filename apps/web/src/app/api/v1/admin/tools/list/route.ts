@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const BACKEND_URL = process.env.BACKEND_URL || 'http://host.docker.internal:8199';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://127.0.0.1:8199';
 
 export async function GET(request: NextRequest) {
   try {
@@ -43,7 +43,11 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('BFF Error:', error);
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { 
+        message: 'Internal server error',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        backendUrl: `${BACKEND_URL}/api/v1/admin/tools/list?limit=${searchParams.get('limit') || '10'}`
+      },
       { status: 500 }
     );
   }

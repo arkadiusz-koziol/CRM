@@ -76,7 +76,7 @@ export async function getUser(): Promise<AuthUser | null> {
 
 // Sign in with email and password
 export async function signInWithCredentials(email: string, password: string): Promise<void> {
-  const response = await fetch(`${env.API_URL}/auth/login`, {
+  const response = await fetch(`${env.API_URL}/api/v1/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
