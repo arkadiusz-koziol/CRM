@@ -2,14 +2,17 @@
 
 import { ToolsList } from '@/features/tools/components/ToolsList';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { isAuthenticated } from '@/shared/lib/auth';
 import Link from 'next/link';
+import { Toast } from '@/shared/ui/Toast';
 
 export default function ToolsPage() {
   const [isAuth, setIsAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showToast, setShowToast] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -30,6 +33,17 @@ export default function ToolsPage() {
     checkAuth();
   }, [router]);
 
+  // Show toast if tool was created
+  useEffect(() => {
+    if (searchParams.get('created') === 'true') {
+      setShowToast(true);
+      // Clean up URL parameter
+      const url = new URL(window.location.href);
+      url.searchParams.delete('created');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [searchParams]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -43,6 +57,16 @@ export default function ToolsPage() {
   }
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50">
+      {/* Toast Notification */}
+      {showToast && (
+        <Toast
+          message="🎉 Tool created successfully!"
+          type="success"
+          duration={10000}
+          onClose={() => setShowToast(false)}
+        />
+      )}
+
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

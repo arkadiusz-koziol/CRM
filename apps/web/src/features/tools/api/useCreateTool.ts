@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 import { http } from '@/shared/lib/httpClient';
+import { getTokens } from '@/shared/lib/auth';
 
 const CreateToolRequest = z.object({
   name: z.string().min(1, 'Nazwa jest wymagana'),
@@ -25,16 +26,22 @@ export function useCreateTool() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreateToolRequest) => 
-      http('/api/v1/admin/tools', {
+    mutationFn: async (data: CreateToolRequest) => {
+      const tokens = await getTokens();
+      if (!tokens?.accessToken) {
+        throw new Error('No access token available');
+      }
+      
+      return http('/api/v1/admin/tools', {
         method: 'POST',
-        data: CreateToolRequest.parse(data),
+        body: JSON.stringify(CreateToolRequest.parse(data)),
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'Authorization': `Bearer ${tokens.accessToken}`,
           'Content-Type': 'application/json',
         },
         schema: (d) => Tool.parse(d),
-      }),
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tools'] });
     },
