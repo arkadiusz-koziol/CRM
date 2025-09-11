@@ -10,7 +10,8 @@ class EstateService
 {
     public function __construct(
         protected EstateRepositoryInterface $estateRepository,
-    ) {}
+    ) {
+    }
 
     public function createEstate(EstateDto $estateDto): Estate
     {
