@@ -44,4 +44,9 @@ class Estate extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

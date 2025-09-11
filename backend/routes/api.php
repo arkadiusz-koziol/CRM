@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\Users\ShowUserController;
 use App\Http\Controllers\Admin\Users\StoreUserController;
 use App\Http\Controllers\Admin\Users\UpdateUserController;
 use App\Http\Controllers\Admin\Activities\ListActivityController;
+use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -208,6 +209,12 @@ Route::group(
                     Route::get('/list', ListActivityController::class)
                         ->name('activities.index')
                         ->can('activity.list');
+                });
+
+                // Admin Dashboard
+                Route::prefix('dashboard')->group(function () {
+                    Route::get('/stats', StatsController::class)
+                        ->name('dashboard.stats');
                 });
             });
 

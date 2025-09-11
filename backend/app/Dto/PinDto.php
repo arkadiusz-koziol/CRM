@@ -7,10 +7,10 @@ use Illuminate\Http\UploadedFile;
 readonly class PinDto
 {
     public function __construct(
-        public int $userId,
-        public float $x,
-        public float $y,
-        public ?UploadedFile $photo
+        private int $userId,
+        private float $x,
+        private float $y,
+        private ?UploadedFile $photo
     ) {
     }
 

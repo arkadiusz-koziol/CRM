@@ -36,7 +36,7 @@ class PlanService
         }
 
         return $this->planRepository->create([
-            'estate_id' => $estate->id,
+            'estate_id' => $estate->getId(),
             'file_path' => $pdfPath,
             'image_path' => $imagePath,
         ]);
@@ -51,6 +51,6 @@ class PlanService
 
     public function getPlansByEstate(Estate $estate): Collection
     {
-        return $this->planRepository->getPlansByEstateId($estate->id);
+        return $this->planRepository->getPlansByEstateId($estate->getId());
     }
 }

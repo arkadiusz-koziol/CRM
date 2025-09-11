@@ -10,13 +10,11 @@ use App\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Models\Task;
 use App\Enums\TaskStatus;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Psr\Log\LoggerInterface;
 
 class TaskService
 {
     public function __construct(
-        private readonly TaskRepositoryInterface $taskRepository,
-        private readonly LoggerInterface $logger
+        private readonly TaskRepositoryInterface $taskRepository
     ) {
     }
 
@@ -25,12 +23,6 @@ class TaskService
      */
     public function createTask(CreateTaskDto $dto): Task
     {
-        $this->logger->info('Creating new task', [
-            'title' => $dto->getTitle(),
-            'assigned_to' => $dto->getAssignedTo(),
-            'created_by' => $dto->getCreatedBy(),
-        ]);
-
         return $this->taskRepository->create($dto);
     }
 
@@ -51,16 +43,6 @@ class TaskService
             return $task;
         }
 
-        $this->logger->info('Updating task', [
-            'task_id' => $task->getId(),
-            'changes' => array_filter([
-                'title' => $dto->getTitle(),
-                'status' => $dto->getStatus()?->value,
-                'priority' => $dto->getPriority()?->value,
-                'assigned_to' => $dto->getAssignedTo(),
-            ]),
-        ]);
-
         return $this->taskRepository->update($task, $dto);
     }
 
@@ -69,11 +51,6 @@ class TaskService
      */
     public function deleteTask(Task $task): bool
     {
-        $this->logger->info('Deleting task', [
-            'task_id' => $task->getId(),
-            'title' => $task->getTitle(),
-        ]);
-
         return $this->taskRepository->delete($task);
     }
 
@@ -158,11 +135,6 @@ class TaskService
             status: TaskStatus::COMPLETED
         );
 
-        $this->logger->info('Marking task as completed', [
-            'task_id' => $task->getId(),
-            'title' => $task->getTitle(),
-        ]);
-
         return $this->taskRepository->update($task, $dto);
     }
 
@@ -172,13 +144,6 @@ class TaskService
     public function reassignTask(Task $task, int $newUserId): Task
     {
         $dto = new UpdateTaskDto(assignedTo: $newUserId);
-
-        $this->logger->info('Reassigning task', [
-            'task_id' => $task->getId(),
-            'title' => $task->getTitle(),
-            'old_assigned_to' => $task->getAssignedTo(),
-            'new_assigned_to' => $newUserId,
-        ]);
 
         return $this->taskRepository->update($task, $dto);
     }

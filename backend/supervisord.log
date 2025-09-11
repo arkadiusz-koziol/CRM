@@ -376,3 +376,43 @@
 2025-09-11 07:51:22,645 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-09-11 07:51:22,645 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-09-11 07:51:22,646 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:00:35,742 INFO waiting for laravel-worker_00 to stop
+2025-09-11 08:00:35,743 INFO waiting for laravel-worker_01 to stop
+2025-09-11 08:00:35,743 INFO waiting for laravel-worker_02 to stop
+2025-09-11 08:00:35,743 INFO waiting for nginx to stop
+2025-09-11 08:00:35,743 INFO waiting for php-fpm to stop
+2025-09-11 08:00:35,763 INFO stopped: nginx (exit status 0)
+2025-09-11 08:00:35,818 INFO stopped: php-fpm (exit status 0)
+2025-09-11 08:00:35,827 INFO stopped: laravel-worker_01 (exit status 0)
+2025-09-11 08:00:35,828 INFO stopped: laravel-worker_02 (exit status 0)
+2025-09-11 08:00:35,829 INFO stopped: laravel-worker_00 (exit status 0)
+2025-09-11 08:00:36,837 INFO spawned: 'laravel-worker_00' with pid 171
+2025-09-11 08:00:36,844 INFO spawned: 'laravel-worker_01' with pid 172
+2025-09-11 08:00:36,853 INFO spawned: 'laravel-worker_02' with pid 173
+2025-09-11 08:00:36,859 INFO spawned: 'nginx' with pid 174
+2025-09-11 08:00:36,866 INFO spawned: 'php-fpm' with pid 175
+2025-09-11 08:00:37,923 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:00:37,923 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:00:37,924 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:00:37,924 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:00:37,924 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:21:55,880 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-09-11 08:21:55,890 INFO RPC interface 'supervisor' initialized
+2025-09-11 08:21:56,194 INFO RPC interface 'supervisor' initialized
+2025-09-11 08:21:56,196 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-09-11 08:21:56,208 INFO supervisord started with pid 34
+2025-09-11 08:21:57,250 INFO spawnerr: can't find command 'cron'
+2025-09-11 08:21:57,277 INFO spawned: 'laravel-worker_00' with pid 56
+2025-09-11 08:21:57,326 INFO spawned: 'laravel-worker_01' with pid 57
+2025-09-11 08:21:57,440 INFO spawned: 'laravel-worker_02' with pid 58
+2025-09-11 08:21:57,458 INFO spawned: 'nginx' with pid 59
+2025-09-11 08:21:57,468 INFO spawned: 'php-fpm' with pid 60
+2025-09-11 08:21:58,773 INFO spawnerr: can't find command 'cron'
+2025-09-11 08:21:58,774 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:21:58,775 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:21:58,776 INFO success: laravel-worker_02 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:21:58,776 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:21:58,776 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-09-11 08:22:00,782 INFO spawnerr: can't find command 'cron'
+2025-09-11 08:22:03,786 INFO spawnerr: can't find command 'cron'
+2025-09-11 08:22:03,788 INFO gave up: cron entered FATAL state, too many start retries too quickly

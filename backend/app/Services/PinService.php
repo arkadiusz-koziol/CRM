@@ -17,11 +17,11 @@ class PinService
     public function createPin(PinDto $dto, Plan $plan): Pin
     {
         return $this->pinRepository->create([
-            'user_id' => $dto->userId,
+            'user_id' => $dto->getUserId(),
             'plan_id' => $plan->id,
-            'x' => $dto->x,
-            'y' => $dto->y,
-            'photo_path' => $dto->photo?->store('pins/photos', 'public'),
+            'x' => $dto->getX(),
+            'y' => $dto->getY(),
+            'photo_path' => $dto->getPhoto()?->store('pins/photos', 'public'),
         ]);
     }
 

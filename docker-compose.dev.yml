@@ -106,7 +106,7 @@ services:
     environment:
       - NODE_ENV=development
       - NEXT_PUBLIC_API_URL=http://localhost:8199/api/v1
-      - BACKEND_URL=http://localhost:8199
+      - BACKEND_URL=http://backend:80
       - NEXT_PUBLIC_APP_NAME=Skytech
       - NEXT_PUBLIC_APP_VERSION=1.0.0
     depends_on:

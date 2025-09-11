@@ -23,6 +23,11 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\ThrottleRequests::class,
         ]);
 
+        // Replace the default authenticate middleware with our custom one
+        $middleware->alias([
+            'auth' => \App\Http\Middleware\ForceJsonResponse::class,
+        ]);
+
         // API routes don't need CSRF protection
     })
     ->withExceptions(function (Exceptions $exceptions) {

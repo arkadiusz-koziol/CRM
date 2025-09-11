@@ -35,4 +35,9 @@ class ResponseFactory extends BaseResponseFactory
     {
         return response()->json(['error' => $message], $statusCode);
     }
+
+    public function json($data = [], $status = 200, array $headers = [], $options = 0): JsonResponse
+    {
+        return response()->json($data, $status, $headers, $options);
+    }
 }

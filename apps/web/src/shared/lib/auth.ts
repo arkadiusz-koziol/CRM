@@ -1,6 +1,6 @@
 // Environment configuration
 const env = {
-  API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8199',
+  API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8199',
   AUTH_CLIENT_ID: process.env.NEXT_PUBLIC_AUTH_CLIENT_ID || 'skytech-web',
 };
 
@@ -76,7 +76,7 @@ export async function getUser(): Promise<AuthUser | null> {
 
 // Sign in with email and password
 export async function signInWithCredentials(email: string, password: string): Promise<void> {
-  const response = await fetch(`${env.API_URL}/api/v1/auth/login`, {
+  const response = await fetch(`${env.API_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

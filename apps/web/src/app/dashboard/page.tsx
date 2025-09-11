@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getUser, signOut } from '@/shared/lib/auth';
 import { useActivitiesQuery } from '@/features/activities/api/useActivitiesQuery';
+import { useDashboardStatsQuery } from '@/features/dashboard/api/useDashboardStatsQuery';
 import Link from 'next/link';
 
 // SVG Icons
@@ -63,6 +64,7 @@ export default function DashboardPage() {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const { data: activitiesData, isLoading: activitiesLoading, error: activitiesError } = useActivitiesQuery(5);
+  const { data: statsData, isLoading: statsLoading } = useDashboardStatsQuery();
 
   useEffect(() => {
     setIsMounted(true);
@@ -126,7 +128,7 @@ export default function DashboardPage() {
       icon: ToolsIcon,
       gradient: 'from-blue-500 to-blue-600',
       hoverGradient: 'from-blue-600 to-blue-700',
-      stats: '24 aktywne',
+      stats: statsLoading ? 'Ładowanie...' : `${statsData?.tools.active || 0} aktywne`,
       color: 'blue'
     },
     {
@@ -136,7 +138,7 @@ export default function DashboardPage() {
       icon: MaterialsIcon,
       gradient: 'from-emerald-500 to-emerald-600',
       hoverGradient: 'from-emerald-600 to-emerald-700',
-      stats: '156 pozycji',
+      stats: statsLoading ? 'Ładowanie...' : `${statsData?.materials.total || 0} pozycji`,
       color: 'emerald'
     },
     {
@@ -146,7 +148,7 @@ export default function DashboardPage() {
       icon: CarsIcon,
       gradient: 'from-amber-500 to-amber-600',
       hoverGradient: 'from-amber-600 to-amber-700',
-      stats: '8 pojazdów',
+      stats: statsLoading ? 'Ładowanie...' : `${statsData?.cars.total || 0} pojazdów`,
       color: 'amber'
     },
     {
@@ -156,7 +158,7 @@ export default function DashboardPage() {
       icon: EstatesIcon,
       gradient: 'from-purple-500 to-purple-600',
       hoverGradient: 'from-purple-600 to-purple-700',
-      stats: '12 obiektów',
+      stats: statsLoading ? 'Ładowanie...' : `${statsData?.estates.total || 0} obiektów`,
       color: 'purple'
     },
     {

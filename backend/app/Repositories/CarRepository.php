@@ -11,10 +11,10 @@ class CarRepository implements CarRepositoryInterface
     public function create(CarDto $carDto): Car
     {
         return Car::create([
-            'name' => $carDto->name,
-            'description' => $carDto->description,
-            'registration_number' => $carDto->registrationNumber,
-            'technical_details' => $carDto->technicalDetails,
+            'name' => $carDto->getName(),
+            'description' => $carDto->getDescription(),
+            'registration_number' => $carDto->getRegistrationNumber(),
+            'technical_details' => $carDto->getTechnicalDetails(),
         ]);
     }
 }
