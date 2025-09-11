@@ -457,3 +457,108 @@
 2025-09-11T07:05:05.393937Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
 2025-09-11T07:05:13.644489Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/api/useToolsQuery.ts")}
 2025-09-11T07:05:13.644519Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:05:30.448367Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:05:30.448410Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:05:30.448500Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:05:32.444171Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_19_4579738f99ac9def8e9e1eba2a12ad78"), AnchoredSystemPathBuf("_tmp_19_eee2d607ea134cfcf44b9d9830135b46"), AnchoredSystemPathBuf("")}
+2025-09-11T07:05:32.444181Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:05:37.844917Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:05:37.844953Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:05:37.943491Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:05:37.943502Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }}))
+2025-09-11T07:05:37.943554Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:06:29.546024Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:06:29.546065Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:06:29.546389Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:06:31.543649Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_19_4266261e50507c1b30f3f781010139e7"), AnchoredSystemPathBuf("_tmp_19_d329b391c201b5f4702110a4b1e0a0fd"), AnchoredSystemPathBuf("")}
+2025-09-11T07:06:31.543669Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:06:34.844318Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:06:34.845909Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }}))
+2025-09-11T07:06:34.862454Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:07:33.945027Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:07:33.945062Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:07:33.945124Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:07:35.844897Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_19_dffd84ce73eeabc069960c8c0cc28c0d"), AnchoredSystemPathBuf("_tmp_19_e8633c180f626ae42eeddb1ff469532c")}
+2025-09-11T07:07:35.844907Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:07:38.644046Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:07:38.644059Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:07:38.744825Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:07:38.744835Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }}))
+2025-09-11T07:07:38.744873Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:07:58.043678Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:07:58.043689Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:08:15.070260Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools/page.tsx")}
+2025-09-11T07:08:15.070302Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:08:26.945386Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools/page.tsx")}
+2025-09-11T07:08:26.945424Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:08:38.945619Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:08:38.945821Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:08:39.009367Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:08:41.845030Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_19_235574e9a8d585a2746c81725359e096"), AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_19_902c0e4005156134c907fea8793d9014")}
+2025-09-11T07:08:41.845050Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:08:44.644486Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:08:44.644496Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:08:44.649363Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:08:45.744705Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/app/tools/page.tsx"), AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:08:45.744725Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:08:45.782188Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:08:45.844360Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:08:45.844374Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:08:45.844409Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:09:35.045917Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:09:35.045965Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:09:44.245036Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:09:44.245099Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }}))
+2025-09-11T07:09:44.245248Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:09:46.144264Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_19_e0c1d338acaa4c2763c3eb7735836a9a"), AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_19_3ab642d6bdf2f266de711d9636ea46e7")}
+2025-09-11T07:09:46.144284Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:09:49.545097Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:09:49.545257Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:09:49.746171Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:09:49.746184Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }}))
+2025-09-11T07:09:49.746242Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:10:01.248538Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:10:01.248665Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:10:01.274586Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:10:48.844944Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:10:48.844973Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }}))
+2025-09-11T07:10:48.845038Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:10:50.245051Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_19_a493c1a35c34ce0ba381b633061e0158"), AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_19_4588dd37036adf138239402bcef5e1dd")}
+2025-09-11T07:10:50.245065Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:10:52.744104Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:10:52.744116Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:10:52.744149Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:11:52.645258Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:11:52.645304Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:11:52.650106Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:11:54.544431Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_19_559683930ab9a44ada5414bce173f626"), AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_19_5bef64d004d1cc973a0344db990593e2")}
+2025-09-11T07:11:54.544440Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:11:57.545077Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:11:57.545102Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:11:57.545143Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:12:57.645933Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:12:57.645969Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:12:57.646044Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:12:59.745929Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_19_368d346fef19f2ba49e031f5e2366583"), AnchoredSystemPathBuf("_tmp_19_1a4d364b4ebb65c4aa595e1c5781270d")}
+2025-09-11T07:12:59.745952Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:13:03.246826Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/mobile/.expo"), AnchoredSystemPathBuf("node_modules")}
+2025-09-11T07:13:03.246842Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:13:03.246907Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:13:28.344700Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:13:28.344849Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:13:35.348427Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:13:35.348547Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:13:35.384716Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:14:02.445640Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:14:02.445674Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:14:02.445733Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:14:05.446275Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_19_d4121b9da25aba67c67a5aa0bdcbc66e"), AnchoredSystemPathBuf("_tmp_19_4b946a6c6e660a664f5ead7f418f43f2"), AnchoredSystemPathBuf("")}
+2025-09-11T07:14:05.446507Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-09-11T07:14:09.745977Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("apps/mobile/.expo")}
+2025-09-11T07:14:09.745997Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("skytech-mobile"), path: AnchoredSystemPathBuf("apps/mobile") }}))
+2025-09-11T07:14:09.746051Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-09-11T07:14:29.646059Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:14:29.646096Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:14:35.392124Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/web/src/features/tools/components/ToolsList.tsx")}
+2025-09-11T07:14:35.392561Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("skytech-web"), path: AnchoredSystemPathBuf("apps/web") }}))
+2025-09-11T07:14:35.466834Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
