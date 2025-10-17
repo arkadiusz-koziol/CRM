@@ -7,14 +7,15 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Services\PlanService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Database\Seeders\PermissionSeeder;
 use Mockery;
 use Spatie\Permission\Models\Permission;
 
 class PlanShowTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected function setUp(): void {
         parent::setUp();
@@ -59,7 +60,7 @@ class PlanShowTest extends TestCase
         $this->actingAs($admin)
             ->getJson("api/v1/admin/plans/{$estate->id}")
             ->assertStatus(404)
-            ->assertJsonFragment(['message' => 'Nie znaleziono planu dla tej nieruchomości']);
+            ->assertJsonFragment(['message' => 'Nie znaleziono zasobu.']);
     }
 
     public function test_unauthenticated_cannot_show_plan(): void

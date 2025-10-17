@@ -6,15 +6,16 @@ use App\Models\Estate;
 use App\Models\Plan;
 use App\Models\User;
 use App\Services\PlanService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
+use Database\Seeders\PermissionSeeder;
 use Mockery;
 use Spatie\Permission\Models\Permission;
 
 class PlanStoreTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected function setUp(): void {
         parent::setUp();

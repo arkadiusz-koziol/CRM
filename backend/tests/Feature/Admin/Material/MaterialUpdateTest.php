@@ -6,13 +6,20 @@ use App\Dto\MaterialDto;
 use App\Models\Material;
 use App\Models\User;
 use App\Services\MaterialService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Database\Seeders\PermissionSeeder;
 use Mockery;
 
 class MaterialUpdateTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(PermissionSeeder::class);
+    }
 
     public function test_admin_can_update_material(): void
     {

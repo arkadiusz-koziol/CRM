@@ -5,14 +5,21 @@ namespace Tests\Feature\Admin\Material;
 use App\Models\User;
 use App\Services\MaterialService;
 use Exception;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Tests\TestCase;
+use Database\Seeders\PermissionSeeder;
 use Mockery;
 
 class MaterialListTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(PermissionSeeder::class);
+    }
 
     public function test_admin_can_list_materials(): void
     {
@@ -69,7 +76,7 @@ class MaterialListTest extends TestCase
             ->getJson('api/v1/admin/materials/list')
             ->assertStatus(500)
             ->assertJsonFragment([
-                'message' => __('Coś poszło nie tak. Spróbuj ponownie później.'),
+                'message' => __('app.action.failed'),
             ]);
     }
 

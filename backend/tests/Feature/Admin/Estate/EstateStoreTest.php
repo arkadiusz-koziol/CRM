@@ -5,12 +5,19 @@ namespace Tests\Feature\Admin\Estate;
 use App\Models\City;
 use App\Models\Estate;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Database\Seeders\PermissionSeeder;
 
 class EstateStoreTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(PermissionSeeder::class);
+    }
 
     public function test_admin_can_create_estate(): void
     {

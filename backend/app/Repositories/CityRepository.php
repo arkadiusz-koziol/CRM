@@ -11,20 +11,20 @@ class CityRepository implements CityRepositoryInterface
     public function create(CityDto $cityDto): City
     {
         return City::create([
-            'name' => $cityDto->name,
-            'district' => $cityDto->district,
-            'commune' => $cityDto->commune,
-            'voivodeship' => $cityDto->voivodeship,
+            'name' => $cityDto->getName(),
+            'district' => $cityDto->getDistrict(),
+            'commune' => $cityDto->getCommune(),
+            'voivodeship' => $cityDto->getVoivodeship(),
         ]);
     }
 
     public function update(City $city, CityDto $cityDto): bool
     {
         return $city->update([
-            'name' => $cityDto->name,
-            'district' => $cityDto->district,
-            'commune' => $cityDto->commune,
-            'voivodeship' => $cityDto->voivodeship,
+            'name' => $cityDto->getName(),
+            'district' => $cityDto->getDistrict(),
+            'commune' => $cityDto->getCommune(),
+            'voivodeship' => $cityDto->getVoivodeship(),
         ]);
     }
 

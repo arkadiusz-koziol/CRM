@@ -5,13 +5,20 @@ namespace Tests\Feature\Admin\Estate;
 use App\Models\User;
 use App\Services\EstateService;
 use Exception;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Database\Seeders\PermissionSeeder;
 use Mockery;
 
 class EstateListTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(PermissionSeeder::class);
+    }
 
     public function test_admin_can_list_estates(): void
     {
@@ -82,7 +89,7 @@ class EstateListTest extends TestCase
             ->getJson('api/v1/admin/estates/list')
             ->assertStatus(500)
             ->assertJsonFragment([
-                'message' => __('Coś poszło nie tak. Spróbuj ponownie później.'),
+                'message' => __('app.action.failed'),
             ]);
     }
 

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://raw.githubusercontent.com/infection/infection/main/resources/schema.json",
+  "source": {
+    "directories": [
+      "app"
+    ],
+    "excludes": [
+      "app/Console",
+      "app/Exceptions",
+      "app/Http/Kernel.php",
+      "app/Http/Middleware",
+      "app/Providers",
+      "app/Http/Controllers/Controller.php"
+    ]
+  },
+  "logs": {
+    "text": "storage/app/infection.log",
+    "summary": "storage/app/infection-summary.log",
+    "debug": "storage/app/infection-debug.log"
+  },
+  "mutators": {
+    "@default": true,
+    "ArrayItem": false,
+    "ArrayOneItem": false,
+    "Assignment": false,
+    "AssignmentEqual": false,
+    "BitwiseAnd": false,
+    "BitwiseNot": false,
+    "BitwiseOr": false,
+    "BitwiseXor": false,
+    "Break_": false,
+    "CastArray": false,
+    "CastBool": false,
+    "CastFloat": false,
+    "CastInt": false,
+    "CastObject": false,
+    "CastString": false,
+    "Continue_": false,
+    "Decrement": false,
+    "DivEqual": false,
+    "EqualIdentical": false,
+    "Exponentiation": false,
+    "FalseValue": false,
+    "FloatNegation": false,
+    "FunctionCall": false,
+    "GreaterThan": false,
+    "GreaterThanOrEqualTo": false,
+    "IdenticalEqual": false,
+    "Increment": false,
+    "IntegerNegation": false,
+    "LessThan": false,
+    "LessThanOrEqualTo": false,
+    "LogicalAnd": false,
+    "LogicalNot": false,
+    "LogicalOr": false,
+    "MethodCallRemoval": false,
+    "Minus": false,
+    "ModEqual": false,
+    "MulEqual": false,
+    "NotEqualNotIdentical": false,
+    "NotIdenticalNotEqual": false,
+    "NotLogicalAnd": false,
+    "NotLogicalNot": false,
+    "NotLogicalOr": false,
+    "NotStrictEqual": false,
+    "NotStrictNotEqual": false,
+    "Plus": false,
+    "PowEqual": false,
+    "ReturnValue": false,
+    "ShiftLeft": false,
+    "ShiftRight": false,
+    "Spaceship": false,
+    "SubEqual": false,
+    "TrueValue": false,
+    "UnaryMinus": false,
+    "UnaryPlus": false,
+    "XorEqual": false,
+    "Yield_": false
+  },
+  "testFramework": "phpunit",
+  "bootstrap": "vendor/autoload.php",
+  "initialTestsPhpOptions": "-d zend_extension=xdebug.so",
+  "testFrameworkOptions": "--configuration=phpunit.xml",
+  "minMsi": 80,
+  "minCoveredMsi": 85,
+  "threads": 4,
+  "ignoreMsiWithMoreMutants": true,
+  "showMutations": true,
+  "logVerbosity": "all",
+  "noProgress": false,
+  "formatters": {
+    "progress": true,
+    "dot": false,
+    "html": true,
+    "json": true
+  },
+  "formatterOptions": {
+    "html": {
+      "outputDirectory": "storage/app/infection"
+    }
+  }
+}
+

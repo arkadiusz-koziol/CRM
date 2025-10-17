@@ -344,3 +344,126 @@ public function __construct(string $userId)
 parent::__construct("User with ID {$userId} not found.");
 }
 }
+
+Poniżej znajduje się lista wymagań i zasad, każde z nich musi być przestrzegane. Sprawdź zmieniony kod na tym branchu i zweryfikuj czy wszystkie zasady zostały zachowane. Rezultat daj: konkretny odnośnik, tj. plik i linia od do -> która zasada została złamana i jak poprawić. Włącz krytyczne myślenie i zachowanie. ✅ Code Style & Conventions
+	•	Każdy plik zaczyna się od declare(strict_types=1);.
+	•	Zastosowany standard PSR-12 (max 120 znaków w linii, trailing commas).
+	•	Nazwy w DB w snake_case.
+	•	Klasy w PascalCase, metody/właściwości w camelCase.
+	•	Brak skrótów w nazwach metod/zmiennych.
+	•	Brak FQCN inline – wszystkie klasy importowane przez use.
+	•	Każda publiczna metoda ma PHPDoc.
+	•	Brak die(), dd(), dump() w kodzie.
+
+✅ Architecture & Structure
+	•	Zachowane rozdzielenie warstw: Domain, Application, Infrastructure, API.
+	•	Zależności tylko top-down: API → Application → Domain.
+	•	Eloquent używany wyłącznie w Infrastructure.
+	•	Kontrolery są cienkie – tylko walidacja, delegacja.
+	•	Serwisy aplikacyjne orkiestrują przypadki użycia, nie zawierają logiki DB.
+	•	Wzorce: Factory, Strategy, Repository, DTO, Observer.
+
+✅ Technologies & Tools
+	•	Użycie Laravel 12 + PHP 8.4.
+	•	PostgreSQL i Redis są bazowymi narzędziami.
+	•	Testy: PHPUnit/Pest (unit, integration, API contract, smoke).
+	•	Brak commitów .env i vendorów (wyjątek gdy wskazane zostanie w prompcie).
+	•	Static analysis: PHPStan/Larastan.
+
+✅ Quality Rules
+	•	Zastosowane SOLID, DRY, KISS.
+	•	Brak magic strings – tylko BackedEnum lub Config.
+	•	Daty obsługiwane przez Carbon.
+	•	Format daty zawsze pobierany z Config – niedozwolone ->format('ymdHis') czy inne twarde formaty.
+	•	Brak zagnieżdżonych if/elseif – preferowane mapy/strategie.
+	•	Brak komentarzy typu //this method to this.
+
+✅ Configuration
+	•	Brak bezpośrednich wywołań config() – tylko Config classes.
+	•	Wszelkie formaty (np. daty, kwoty) muszą być zdefiniowane w Config i wstrzykiwane przez atrybut 				#[Config(...)].
+
+✅ Project-Specific Rules
+	•	Tłumaczenia przez __(‚app.key’).
+	•	Raporty/duże dataset’y generowane chunkami/streamingiem.
+	•	Primary keys = UUID, softDeletesTz() w migracjach.
+	•	Status/type pola jako Enums.
+
+✅ Prohibitions
+	•	Brak DB::raw() poza repozytoriami.
+	•	Brak bezpośrednich wywołań Model::where/create/update.
+	•	Brak użycia fasad DB::, Cache::, Auth::.
+	•	Brak globalnych helperów config(), now().
+
+✅ Git & CI/CD
+	•	Branch naming: feature/*, bugfix/*, hotfix/*.
+	•	Commit messages zgodne z Conventional Commits.
+	•	CI pipeline: phpcs, phpstan, tests – wszystko musi przechodzić.
+	•	composer audit i SAST aktywne.
+
+✅ API Design
+	•	Endpointy REST, plural resources (/users, /invoices).
+	•	Akcje pojedyncze jako verb (/users/{id}/block).
+	•	Response przez Resources/Transformers.
+	•	JSON:API i Swagger/OpenAPI obecne.
+
+✅ Dependency Injection & Configuration
+	•	DI przez atrybuty Laravel 11+ (#[...]).
+	•	Brak FQCN inline.
+	•	Brak bezpośrednich wywołań config() – tylko Config classes.
+
+✅ Repositories
+	•	Wszystkie zapytania do DB w repozytoriach.
+	•	Transakcje tylko w repozytoriach.
+	•	Repozytoria dziedziczą po EloquentRepository.
+	•	Mapowanie Entity ↔ Model w Mapperach.
+
+✅ DTO & Factories
+	•	DTO są readonly, z prywatnymi polami i getterami.
+	•	Tworzone wyłącznie przez Factories.
+	•	Każdy DTO ma swoje własne Factory.
+	•	Typowanie parametrów i zwrotów jest ściśle zadeklarowane.
+	•	DTO nie odzwierciedla bazy danych – nie może zawierać ID ani pól technicznych.
+	•	Jeśli trzeba przekazać np. ID, to korzystamy z Entity, a nie DTO.
+	•	Zakaz tworzenia DTO w stylu return new Dto(...).
+	•	DTO musi być budowane w Factory z metody fromArray(array $data): Dto.
+	•	W serwisach/kontrolerach zawsze wywołujemy DtoFactory::fromArray([...]), nigdy new.
+
+✅ Services & Controllers
+	•	Serwisy tylko orkiestrują, nie otwierają transakcji DB.
+	•	Długie operacje w kolejce z kluczem idempotency.
+	•	Kontrolery: walidacja w FormRequest, bez logiki biznesowej.
+	•	Invokable controllers: dependencies w __invoke(), nie w __construct().
+
+✅ Resources
+	•	Resources tylko do transformacji danych, bez repo/serwisów.
+	•	Zwracają JSON:API shape.
+
+✅ Events, Queues, Exceptions
+	•	Moduły decoupled przez Events/Listeners.
+	•	Queue jobs idempotentne, z kluczem idempotency.
+	•	Brak globalnych wyjątków – tylko dedykowane.
+	•	Wyjątki mapowane na poprawne HTTP codes.
+
+✅ Logging & Performance
+	•	Logi tylko dla błędów/porażek, z kontekstem.
+	•	Logger przez DI.
+	•	Raporty muszą używać chunking/streaming.
+	•	Indeksy dla filtrowania/sortowania.
+	•	Materialized views dla wolnozmiennych danych.
+	•	Brak N+1 queries.
+
+✅ Migrations & DDL
+	•	UUID primary keys.
+	•	Partial unique indexes z deleted_at IS NULL.
+	•	Foreign keys z sensownymi ON DELETE/UPDATE.
+	•	softDeletesTz() obowiązkowe.
+
+✅ Vendor Packages
+	•	Pakiety opcjonalne w vendorach.
+	•	Naming: vsc/<domain>-<feature>.
+	•	Każdy pakiet z configiem, migracjami, service providerem.
+
+✅ Tests & ADR
+	•	Unit/integration/API contract/E2E smoke tests obecne.
+	•	Odchylenia udokumentowane w ADR.
+	•	Definition of Done: DDD, importy przez use, DTO przez Factories, JSON:API + OpenAPI, testy + CI green.

@@ -5,14 +5,21 @@ namespace Tests\Feature\Admin\City;
 use App\Models\User;
 use App\Services\CityService;
 use Exception;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Tests\TestCase;
 use Mockery;
+use Database\Seeders\PermissionSeeder;
 
 class CityListTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(PermissionSeeder::class);
+    }
 
     public function test_admin_can_list_cities(): void
     {
