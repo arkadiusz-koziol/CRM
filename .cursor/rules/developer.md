@@ -26,7 +26,8 @@ You must strictly follow these collaboration rules:
 	•	Always return it to free after finishing.
 
 ⸻
-
+/Users/akoziol/projects/skytech/.cursor/rules/reviewer.md
+/Users/akoziol/projects/skytech/.cursor/rules/developer.md
 🎯 Goal
 
 Deliver clean, functional, and test-covered code until the task is DONE.

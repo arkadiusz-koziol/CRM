@@ -35,6 +35,11 @@ final class CarRepository extends EloquentRepository implements CarRepositoryInt
         ]);
     }
 
+    public function deleteCar(Car $car): bool
+    {
+        return $car->delete();
+    }
+
     public function findAllCars(): array
     {
         return $this->model->all()->toArray();
@@ -46,7 +51,7 @@ final class CarRepository extends EloquentRepository implements CarRepositoryInt
 
         $query = $this->model->query();
 
-        if (!empty($search)) {
+        if (! empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('registration_number', 'LIKE', "%{$search}%");

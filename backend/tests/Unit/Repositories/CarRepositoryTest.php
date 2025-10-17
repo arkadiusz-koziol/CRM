@@ -19,7 +19,7 @@ final class CarRepositoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->carRepository = new CarRepository();
+        $this->carRepository = new CarRepository;
     }
 
     public function test_create_car_saves_to_database(): void
@@ -244,5 +244,55 @@ final class CarRepositoryTest extends TestCase
         $result = $this->carRepository->updateCar($car, $carDto);
 
         $this->assertFalse($result);
+    }
+
+    public function test_delete_car_soft_deletes_car(): void
+    {
+        $car = Car::factory()->create([
+            'name' => 'BMW X5',
+            'description' => 'Luxury SUV',
+            'registration_number' => 'ABC123',
+            'technical_details' => 'V8 Engine',
+        ]);
+
+        $result = $this->carRepository->deleteCar($car);
+
+        $this->assertTrue($result);
+
+        $this->assertSoftDeleted('cars', [
+            'id' => $car->id,
+        ]);
+    }
+
+    public function test_delete_car_returns_false_on_failure(): void
+    {
+        $car = Car::factory()->create();
+        $car->id = 999; // Non-existent ID
+
+        $result = $this->carRepository->deleteCar($car);
+
+        $this->assertFalse($result);
+    }
+
+    public function test_deleted_car_can_be_restored(): void
+    {
+        $car = Car::factory()->create([
+            'name' => 'BMW X5',
+        ]);
+
+        $result = $this->carRepository->deleteCar($car);
+
+        $this->assertTrue($result);
+
+        $this->assertSoftDeleted('cars', [
+            'id' => $car->id,
+        ]);
+
+        $car->restore();
+
+        $this->assertDatabaseHas('cars', [
+            'id' => $car->id,
+            'deleted_at' => null,
+        ]);
     }
 }

@@ -58,7 +58,6 @@ final class UpdateCarController extends Controller
      *             @OA\Property(
      *                 property="data",
      *                 type="object",
-     *
      *                 @OA\Property(property="type", type="string", example="cars"),
      *                 @OA\Property(property="id", type="string", example="1"),
      *                 @OA\Property(
@@ -79,17 +78,14 @@ final class UpdateCarController extends Controller
      *         response=404,
      *         description="Car not found"
      *     ),
-     *
      *     @OA\Response(
      *         response=422,
      *         description="Validation error"
      *     ),
-     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
      *     ),
-     *
      *     @OA\Response(
      *         response=403,
      *         description="Forbidden"
@@ -107,12 +103,12 @@ final class UpdateCarController extends Controller
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
                 'registration_number' => $request->input('registration_number'),
-                'technical_details' => $request->input('technical_details')
+                'technical_details' => $request->input('technical_details'),
             ]);
 
             $updated = $carService->updateCar($car, $carDto);
 
-            if (!$updated) {
+            if (! $updated) {
                 return $this->responseFactory->json(
                     ['message' => __('app.action.failed')],
                     Response::HTTP_INTERNAL_SERVER_ERROR

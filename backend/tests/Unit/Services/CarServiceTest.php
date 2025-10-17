@@ -17,6 +17,7 @@ final class CarServiceTest extends TestCase
     use RefreshDatabase;
 
     private CarService $carService;
+
     private CarRepositoryInterface $carRepository;
 
     protected function setUp(): void
@@ -35,7 +36,7 @@ final class CarServiceTest extends TestCase
             technicalDetails: 'V8 Engine'
         );
 
-        $expectedCar = new Car();
+        $expectedCar = new Car;
         $expectedCar->id = 1;
         $expectedCar->name = 'BMW X5';
         $expectedCar->description = 'Luxury SUV';
@@ -126,7 +127,7 @@ final class CarServiceTest extends TestCase
 
     public function test_get_car_by_id_calls_repository(): void
     {
-        $expectedCar = new Car();
+        $expectedCar = new Car;
         $expectedCar->id = 1;
         $expectedCar->name = 'BMW X5';
 
@@ -157,7 +158,7 @@ final class CarServiceTest extends TestCase
 
     public function test_update_car_calls_repository(): void
     {
-        $car = new Car();
+        $car = new Car;
         $car->id = 1;
         $car->name = 'BMW X5';
 
@@ -181,7 +182,7 @@ final class CarServiceTest extends TestCase
 
     public function test_update_car_returns_false_when_repository_fails(): void
     {
-        $car = new Car();
+        $car = new Car;
         $car->id = 1;
 
         $carDto = new CarDto(
@@ -198,6 +199,39 @@ final class CarServiceTest extends TestCase
             ->andReturn(false);
 
         $result = $this->carService->updateCar($car, $carDto);
+
+        $this->assertFalse($result);
+    }
+
+    public function test_delete_car_calls_repository(): void
+    {
+        $car = new Car;
+        $car->id = 1;
+        $car->name = 'BMW X5';
+
+        $this->carRepository
+            ->shouldReceive('deleteCar')
+            ->once()
+            ->with($car)
+            ->andReturn(true);
+
+        $result = $this->carService->deleteCar($car);
+
+        $this->assertTrue($result);
+    }
+
+    public function test_delete_car_returns_false_when_repository_fails(): void
+    {
+        $car = new Car;
+        $car->id = 1;
+
+        $this->carRepository
+            ->shouldReceive('deleteCar')
+            ->once()
+            ->with($car)
+            ->andReturn(false);
+
+        $result = $this->carService->deleteCar($car);
 
         $this->assertFalse($result);
     }

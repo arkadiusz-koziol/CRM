@@ -109,10 +109,10 @@ final class ListCarController extends Controller
             $limit = max(1, min(100, $limit));
 
             $result = $carService->getPaginatedCars($page, $limit, $search);
-            
+
             return $this->responseFactory->json([
-                'data' => array_map(fn($car) => new CarListResource($car), $result['data']),
-                'pagination' => $result['pagination']
+                'data' => array_map(fn ($car) => new CarListResource($car), $result['data']),
+                'pagination' => $result['pagination'],
             ]);
         } catch (Throwable $e) {
             $this->logger->error('Error retrieving cars', [
