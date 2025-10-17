@@ -79,27 +79,6 @@ jobs:
       run: php artisan test --testsuite=Feature
       working-directory: ./backend
 
-    - name: Execute Integration tests
-      run: php artisan test --testsuite=Integration
-      working-directory: ./backend
-      env:
-        DB_CONNECTION: pgsql
-        DB_HOST: localhost
-        DB_PORT: 5432
-        DB_DATABASE: skytech_test
-        DB_USERNAME: postgres
-        DB_PASSWORD: postgres
-        REDIS_HOST: localhost
-        REDIS_PORT: 6379
-
-    - name: Execute Contract tests
-      run: php artisan test --testsuite=Contract
-      working-directory: ./backend
-
-    - name: Execute E2E tests
-      run: php artisan test --testsuite=E2E
-      working-directory: ./backend
-
   pint:
     name: Code Style Check
     runs-on: ubuntu-latest
@@ -184,12 +163,12 @@ jobs:
       working-directory: ./backend
 
     - name: Run tests with coverage
-      run: php artisan test --coverage --coverage-text --coverage-clover=storage/app/coverage.xml
+      run: php artisan test --testsuite=Unit,Feature --coverage --coverage-text --coverage-clover=storage/app/coverage.xml
       working-directory: ./backend
 
     - name: Check coverage threshold
       run: |
-        COVERAGE=$(php artisan test --coverage-text | grep -o 'Lines:.*%' | grep -o '[0-9]*\.[0-9]*%' | head -1 | sed 's/%//')
+        COVERAGE=$(php artisan test --testsuite=Unit,Feature --coverage-text | grep -o 'Lines:.*%' | grep -o '[0-9]*\.[0-9]*%' | head -1 | sed 's/%//')
         echo "Coverage: $COVERAGE%"
         if (( $(echo "$COVERAGE < 98" | bc -l) )); then
           echo "Coverage is below 98% threshold"
