@@ -18,9 +18,6 @@ jobs:
     name: Quality Gates
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        php-version: ['8.2']
 
     steps:
     - name: Checkout code
@@ -29,7 +26,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php-version }}
+        php-version: '8.4'
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
         coverage: xdebug
 
@@ -38,9 +35,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ${{ env.COMPOSER_CACHE_DIR }}
-        key: php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}
+        key: php-8.4-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          php-${{ matrix.php-version }}-composer-
+          php-8.4-composer-
 
     - name: Install Composer dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -83,7 +80,7 @@ jobs:
     - name: Upload security audit results
       uses: actions/upload-artifact@v3
       with:
-        name: security-audit-${{ matrix.php-version }}
+        name: security-audit-8.4
         path: ./backend/audit.json
 
   test:
@@ -114,9 +111,6 @@ jobs:
         ports:
           - 6379:6379
 
-    strategy:
-      matrix:
-        php-version: ['8.2']
 
     steps:
     - name: Checkout code
@@ -125,7 +119,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php-version }}
+        php-version: '8.4'
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
         coverage: xdebug
 
@@ -134,9 +128,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ${{ env.COMPOSER_CACHE_DIR }}
-        key: php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}
+        key: php-8.4-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          php-${{ matrix.php-version }}-composer-
+          php-8.4-composer-
 
     - name: Install Composer dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist

@@ -39,10 +39,6 @@ jobs:
         ports:
           - 6379:6379
 
-    strategy:
-      matrix:
-        php-version: ['8.2']
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -50,7 +46,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php-version }}
+        php-version: '8.4'
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
         coverage: xdebug
 
