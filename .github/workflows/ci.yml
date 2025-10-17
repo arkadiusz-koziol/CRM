@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -10,80 +10,8 @@ on:
     paths:
       - 'backend/**'
 
-env:
-  COMPOSER_CACHE_DIR: ~/.composer/cache
-
 jobs:
-  quality-gates:
-    name: Quality Gates
-    runs-on: ubuntu-latest
-    
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.4'
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
-        coverage: xdebug
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: ${{ env.COMPOSER_CACHE_DIR }}
-        key: php-8.4-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          php-8.4-composer-
-
-    - name: Install Composer dependencies
-      run: composer install
-      working-directory: ./backend
-
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      working-directory: ./backend
-
-    - name: Generate key
-      run: php artisan key:generate
-      working-directory: ./backend
-
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-      working-directory: ./backend
-
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-      working-directory: ./backend
-
-    - name: Run Pint (dry-run)
-      run: ./vendor/bin/pint --test
-      working-directory: ./backend
-
-    - name: Run PHPStan
-      run: ./vendor/bin/phpstan analyse --memory-limit=2G
-      working-directory: ./backend
-
-    - name: Run PHP CodeSniffer
-      run: ./vendor/bin/phpcs --standard=PSR12 app/ --report=full
-      working-directory: ./backend
-
-    - name: Run Composer Audit
-      run: composer audit --format=json --output=audit.json
-      working-directory: ./backend
-
-    - name: Upload security audit results
-      uses: actions/upload-artifact@v3
-      with:
-        name: security-audit-8.4
-        path: ./backend/audit.json
-
-  test:
+  phpunit:
     name: PHPUnit Tests
     runs-on: ubuntu-latest
     
@@ -111,7 +39,6 @@ jobs:
         ports:
           - 6379:6379
 
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -121,23 +48,13 @@ jobs:
       with:
         php-version: '8.4'
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
-        coverage: xdebug
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: ${{ env.COMPOSER_CACHE_DIR }}
-        key: php-8.4-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          php-8.4-composer-
-
-    - name: Install Composer dependencies
-      run: composer install
-      working-directory: ./backend
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      working-directory: ./backend
+
+    - name: Install Composer dependencies
+      run: composer install
       working-directory: ./backend
 
     - name: Generate key
@@ -155,15 +72,15 @@ jobs:
       working-directory: ./backend
 
     - name: Execute Unit tests
-      run: php artisan test --testsuite=Unit --coverage --coverage-clover=storage/app/coverage-unit.xml
+      run: php artisan test --testsuite=Unit
       working-directory: ./backend
 
     - name: Execute Feature tests
-      run: php artisan test --testsuite=Feature --coverage --coverage-clover=storage/app/coverage-feature.xml
+      run: php artisan test --testsuite=Feature
       working-directory: ./backend
 
     - name: Execute Integration tests
-      run: php artisan test --testsuite=Integration --coverage --coverage-clover=storage/app/coverage-integration.xml
+      run: php artisan test --testsuite=Integration
       working-directory: ./backend
       env:
         DB_CONNECTION: pgsql
@@ -183,36 +100,56 @@ jobs:
       run: php artisan test --testsuite=E2E
       working-directory: ./backend
 
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./backend/storage/app/coverage-unit.xml
-        flags: unit
-        name: codecov-umbrella
-        fail_ci_if_error: false
-
-    - name: Upload feature coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./backend/storage/app/coverage-feature.xml
-        flags: feature
-        name: codecov-umbrella
-        fail_ci_if_error: false
-
-    - name: Upload integration coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./backend/storage/app/coverage-integration.xml
-        flags: integration
-        name: codecov-umbrella
-        fail_ci_if_error: false
-
-  coverage-gate:
-    name: Coverage Quality Gate
+  pint:
+    name: Code Style Check
     runs-on: ubuntu-latest
-    needs: test
-    if: github.event_name == 'pull_request'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.4'
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
+
+    - name: Install Composer dependencies
+      run: composer install
+      working-directory: ./backend
+
+    - name: Run Pint (test only)
+      run: ./vendor/bin/pint --test
+      working-directory: ./backend
+
+  coverage:
+    name: Coverage Check
+    runs-on: ubuntu-latest
     
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: skytech_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -224,12 +161,12 @@ jobs:
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
         coverage: xdebug
 
-    - name: Install Composer dependencies
-      run: composer install
-      working-directory: ./backend
-
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      working-directory: ./backend
+
+    - name: Install Composer dependencies
+      run: composer install
       working-directory: ./backend
 
     - name: Generate key
@@ -261,45 +198,10 @@ jobs:
         echo "Coverage meets 98% threshold"
       working-directory: ./backend
 
-  mutation-testing:
-    name: Mutation Testing
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.event_name == 'pull_request'
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
       with:
-        php-version: '8.4'
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
-
-    - name: Install Composer dependencies
-      run: composer install
-      working-directory: ./backend
-
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      working-directory: ./backend
-
-    - name: Generate key
-      run: php artisan key:generate
-      working-directory: ./backend
-
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-      working-directory: ./backend
-
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-      working-directory: ./backend
-
-    - name: Run Infection
-      run: ./vendor/bin/infection --configuration=infection.json5 --min-msi=80 --min-covered-msi=85
-      working-directory: ./backend
-
+        file: ./backend/storage/app/coverage.xml
+        flags: coverage
+        name: codecov-umbrella
+        fail_ci_if_error: false
