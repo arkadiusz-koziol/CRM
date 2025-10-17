@@ -24,6 +24,11 @@ final class TrainingService
         return $this->trainingRepository->updateTraining($training, $trainingDto);
     }
 
+    public function deleteTraining(Training $training): bool
+    {
+        return $this->trainingRepository->deleteTraining($training);
+    }
+
     public function getTrainingById(int $id): ?Training
     {
         return $this->trainingRepository->findById($id);

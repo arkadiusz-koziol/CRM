@@ -13,6 +13,8 @@ interface TrainingRepositoryInterface
 
     public function updateTraining(Training $training, TrainingDto $trainingDto): bool;
 
+    public function deleteTraining(Training $training): bool;
+
     public function findById(int $id): ?Training;
 
     public function findAllTrainings(): array;

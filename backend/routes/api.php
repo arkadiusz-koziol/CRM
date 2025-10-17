@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Cars\ShowCarController;
 use App\Http\Controllers\Admin\Cars\UpdateCarController;
 use App\Http\Controllers\Admin\Trainings\CreateTrainingController;
 use App\Http\Controllers\Admin\Trainings\UpdateTrainingController;
+use App\Http\Controllers\Admin\Trainings\DeleteTrainingController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
@@ -211,6 +212,9 @@ Route::group(
                     Route::put('/{training}', UpdateTrainingController::class)
                         ->name('trainings.update')
                         ->can('training.update');
+                    Route::delete('/{training}', DeleteTrainingController::class)
+                        ->name('trainings.delete')
+                        ->can('training.delete');
                 });
 
                 // Admin Tasks
