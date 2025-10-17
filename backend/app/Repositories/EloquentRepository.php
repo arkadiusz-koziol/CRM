@@ -41,3 +41,4 @@ abstract class EloquentRepository
         return $model->delete();
     }
 }
+

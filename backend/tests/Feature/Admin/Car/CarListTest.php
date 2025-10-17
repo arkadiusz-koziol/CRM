@@ -266,3 +266,4 @@ final class CarListTest extends TestCase
         $this->assertEquals('Active Car', $response->json('data.0.name'));
     }
 }
+

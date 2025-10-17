@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Cars\DeleteCarController;
 use App\Http\Controllers\Admin\Cars\ListCarController;
 use App\Http\Controllers\Admin\Cars\ShowCarController;
 use App\Http\Controllers\Admin\Cars\UpdateCarController;
+use App\Http\Controllers\Admin\Trainings\CreateTrainingController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
@@ -199,6 +200,13 @@ Route::group(
                     Route::delete('/{car}', DeleteCarController::class)
                         ->name('cars.delete')
                         ->can('car.delete');
+                });
+
+                // Admin Trainings
+                Route::prefix('trainings')->group(function () {
+                    Route::post('/', CreateTrainingController::class)
+                        ->name('trainings.create')
+                        ->can('training.create');
                 });
 
                 // Admin Tasks
