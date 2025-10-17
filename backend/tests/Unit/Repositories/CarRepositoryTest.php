@@ -158,7 +158,7 @@ final class CarRepositoryTest extends TestCase
         $car2 = Car::factory()->create(['name' => 'Deleted Car']);
         $car2->delete();
 
-        $allCars = $this->carRepository->findAll();
+        $allCars = $this->carRepository->findAllCars();
         $this->assertCount(1, $allCars);
 
         $paginatedCars = $this->carRepository->findPaginated(1, 10);
@@ -169,5 +169,80 @@ final class CarRepositoryTest extends TestCase
 
         $deletedCar = $this->carRepository->findById($car2->id);
         $this->assertNull($deletedCar);
+    }
+
+    public function test_update_car_updates_database(): void
+    {
+        $car = Car::factory()->create([
+            'name' => 'BMW X5',
+            'description' => 'Old description',
+            'registration_number' => 'ABC123',
+            'technical_details' => 'Old technical details',
+        ]);
+
+        $carDto = new CarDto(
+            name: 'BMW X5 Updated',
+            description: 'Updated description',
+            registrationNumber: 'XYZ789',
+            technicalDetails: 'Updated technical details'
+        );
+
+        $result = $this->carRepository->updateCar($car, $carDto);
+
+        $this->assertTrue($result);
+
+        $this->assertDatabaseHas('cars', [
+            'id' => $car->id,
+            'name' => 'BMW X5 Updated',
+            'description' => 'Updated description',
+            'registration_number' => 'XYZ789',
+            'technical_details' => 'Updated technical details',
+        ]);
+    }
+
+    public function test_update_car_with_nullable_fields(): void
+    {
+        $car = Car::factory()->create([
+            'name' => 'BMW X5',
+            'description' => 'Old description',
+            'registration_number' => 'ABC123',
+            'technical_details' => 'Old technical details',
+        ]);
+
+        $carDto = new CarDto(
+            name: 'BMW X5 Updated',
+            description: '',
+            registrationNumber: 'XYZ789',
+            technicalDetails: null
+        );
+
+        $result = $this->carRepository->updateCar($car, $carDto);
+
+        $this->assertTrue($result);
+
+        $this->assertDatabaseHas('cars', [
+            'id' => $car->id,
+            'name' => 'BMW X5 Updated',
+            'description' => '',
+            'registration_number' => 'XYZ789',
+            'technical_details' => null,
+        ]);
+    }
+
+    public function test_update_car_returns_false_on_failure(): void
+    {
+        $car = Car::factory()->create();
+        $car->id = 999; // Non-existent ID
+
+        $carDto = new CarDto(
+            name: 'BMW X5 Updated',
+            description: 'Updated description',
+            registrationNumber: 'XYZ789',
+            technicalDetails: 'Updated technical details'
+        );
+
+        $result = $this->carRepository->updateCar($car, $carDto);
+
+        $this->assertFalse($result);
     }
 }

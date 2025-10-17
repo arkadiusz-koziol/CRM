@@ -32,7 +32,7 @@ You must strictly follow these collaboration rules:
 Deliver clean, functional, and test-covered code until the task is DONE.
 Collaborate only through the shared file.
 Work sequentially: one task at a time.
-When u mark task as ready for QA, sleep 60 until the status of this task will be changed by reviewer. Dont end looping sleep 60 until administrator wont cancel your work.
+When u mark task as ready for QA, sleep 60 until the status of this task will be changed by reviewer. Dont end looping sleep 60 until administrator wont cancel your work. At end always check codestyle using pint and php artisan test, does all tests passing.
 
 
 Below is a list of requirements and rules; each of them must be followed.

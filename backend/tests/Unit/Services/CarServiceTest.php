@@ -154,4 +154,51 @@ final class CarServiceTest extends TestCase
 
         $this->assertNull($result);
     }
+
+    public function test_update_car_calls_repository(): void
+    {
+        $car = new Car();
+        $car->id = 1;
+        $car->name = 'BMW X5';
+
+        $carDto = new CarDto(
+            name: 'BMW X5 Updated',
+            description: 'Updated description',
+            registrationNumber: 'XYZ789',
+            technicalDetails: 'Updated technical details'
+        );
+
+        $this->carRepository
+            ->shouldReceive('updateCar')
+            ->once()
+            ->with($car, $carDto)
+            ->andReturn(true);
+
+        $result = $this->carService->updateCar($car, $carDto);
+
+        $this->assertTrue($result);
+    }
+
+    public function test_update_car_returns_false_when_repository_fails(): void
+    {
+        $car = new Car();
+        $car->id = 1;
+
+        $carDto = new CarDto(
+            name: 'BMW X5 Updated',
+            description: 'Updated description',
+            registrationNumber: 'XYZ789',
+            technicalDetails: 'Updated technical details'
+        );
+
+        $this->carRepository
+            ->shouldReceive('updateCar')
+            ->once()
+            ->with($car, $carDto)
+            ->andReturn(false);
+
+        $result = $this->carService->updateCar($car, $carDto);
+
+        $this->assertFalse($result);
+    }
 }

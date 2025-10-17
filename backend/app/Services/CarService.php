@@ -19,6 +19,11 @@ final class CarService
         return $this->carRepository->createCar($carDto);
     }
 
+    public function updateCar(Car $car, CarDto $carDto): bool
+    {
+        return $this->carRepository->updateCar($car, $carDto);
+    }
+
     public function getAllCars(): array
     {
         return $this->carRepository->findAllCars();

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Activities\ListActivityController;
 use App\Http\Controllers\Admin\Cars\CreateCarController;
 use App\Http\Controllers\Admin\Cars\ListCarController;
+use App\Http\Controllers\Admin\Cars\UpdateCarController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
@@ -187,6 +188,9 @@ Route::group(
                         ->can('car.list');
                     Route::post('/create', CreateCarController::class)
                         ->can('car.create');
+                    Route::put('/{car}', UpdateCarController::class)
+                        ->name('cars.update')
+                        ->can('car.update');
                 });
 
                 // Admin Tasks

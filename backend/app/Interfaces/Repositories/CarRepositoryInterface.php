@@ -11,6 +11,8 @@ interface CarRepositoryInterface
 {
     public function createCar(CarDto $carDto): Car;
 
+    public function updateCar(Car $car, CarDto $carDto): bool;
+
     public function findAllCars(): array;
 
     public function findPaginated(int $page = 1, int $limit = 10, string $search = ''): array;

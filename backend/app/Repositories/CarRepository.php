@@ -25,6 +25,16 @@ final class CarRepository extends EloquentRepository implements CarRepositoryInt
         ]);
     }
 
+    public function updateCar(Car $car, CarDto $carDto): bool
+    {
+        return $car->update([
+            'name' => $carDto->getName(),
+            'description' => $carDto->getDescription(),
+            'registration_number' => $carDto->getRegistrationNumber(),
+            'technical_details' => $carDto->getTechnicalDetails(),
+        ]);
+    }
+
     public function findAllCars(): array
     {
         return $this->model->all()->toArray();
