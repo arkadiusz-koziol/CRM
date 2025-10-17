@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Factory;
 
 use App\Dto\CarDto;
 
-class CarDtoFactory
+final class CarDtoFactory
 {
-    public static function fromRequest(
-        ?string $name = null,
-        ?string $description = null,
-        ?string $registrationNumber = null,
-        ?string $technicalDetails = null
-    ): CarDto {
+    public static function fromArray(array $data): CarDto
+    {
         return new CarDto(
-            name: $name,
-            description: $description,
-            registrationNumber: strtoupper($registrationNumber),
-            technicalDetails: $technicalDetails ?? null
+            name: $data['name'] ?? '',
+            description: $data['description'] ?? '',
+            registrationNumber: strtoupper($data['registration_number'] ?? ''),
+            technicalDetails: $data['technical_details'] ?? null
         );
     }
 }

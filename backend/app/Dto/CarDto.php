@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-readonly class CarDto implements Arrayable
+final readonly class CarDto implements Arrayable
 {
     public function __construct(
         private string $name,
         private string $description,
         private string $registrationNumber,
-        private string $technicalDetails
+        private ?string $technicalDetails
     ) {}
 
     public function toArray(): array

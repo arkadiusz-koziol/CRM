@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin\Cars;
 
 use App\Factory\CarDtoFactory;
@@ -10,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-class CreateCarController extends Controller
+final class CreateCarController extends Controller
 {
     public function __invoke(
         CreateCarRequest $request,
@@ -18,12 +20,12 @@ class CreateCarController extends Controller
         CarDtoFactory $carDtoFactory,
     ): JsonResponse {
         try {
-            $carDto = $carDtoFactory->fromRequest(
-                name: $request->input('name'),
-                description: $request->input('description'),
-                registrationNumber: $request->input('registration_number'),
-                technicalDetails: $request->input('technical_details')
-            );
+            $carDto = $carDtoFactory->fromArray([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'registration_number' => $request->input('registration_number'),
+                'technical_details' => $request->input('technical_details')
+            ]);
 
             return $this->responseFactory->json($carService->createCar($carDto), Response::HTTP_CREATED);
         } catch (Throwable $e) {

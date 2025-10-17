@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Activities\ListActivityController;
 use App\Http\Controllers\Admin\Cars\CreateCarController;
+use App\Http\Controllers\Admin\Cars\ListCarController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
@@ -181,6 +182,9 @@ Route::group(
 
                 // Admin Cars
                 Route::prefix('cars')->group(function () {
+                    Route::get('/list', ListCarController::class)
+                        ->name('cars.index')
+                        ->can('car.list');
                     Route::post('/create', CreateCarController::class)
                         ->can('car.create');
                 });

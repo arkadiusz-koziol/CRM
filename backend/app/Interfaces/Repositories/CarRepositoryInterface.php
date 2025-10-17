@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces\Repositories;
 
 use App\Dto\CarDto;
@@ -7,5 +9,11 @@ use App\Models\Car;
 
 interface CarRepositoryInterface
 {
-    public function create(CarDto $carDto): Car;
+    public function createCar(CarDto $carDto): Car;
+
+    public function findAllCars(): array;
+
+    public function findPaginated(int $page = 1, int $limit = 10, string $search = ''): array;
+
+    public function findById(int $id): ?Car;
 }
