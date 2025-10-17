@@ -20,20 +20,25 @@ class DestroyCityController extends Controller
      *     operationId="deleteCity",
      *     tags={"Admin Cities"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the city to delete",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="City deleted successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -41,11 +46,14 @@ class DestroyCityController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -53,14 +61,18 @@ class DestroyCityController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -76,7 +88,7 @@ class DestroyCityController extends Controller
         CityService $cityService
     ): JsonResponse {
         try {
-            if (!$cityService->deleteCity($city)) {
+            if (! $cityService->deleteCity($city)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')]);
             }
 

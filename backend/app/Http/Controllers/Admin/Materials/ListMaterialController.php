@@ -19,17 +19,21 @@ class ListMaterialController extends Controller
      *     operationId="getMaterialsList",
      *     tags={"Admin Materials"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(
      *                 type="object",
      *                 additionalProperties=true
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -48,6 +52,7 @@ class ListMaterialController extends Controller
             $this->logger->error('Error retrieving materials', [
                 'exception' => $e,
             ]);
+
             return $this->responseFactory->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR

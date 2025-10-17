@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Tools;
 
-use App\Dto\ToolDTO;
 use App\Factory\ToolDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateToolRequest;
@@ -23,20 +22,25 @@ class UpdateToolController extends Controller
      *     operationId="updateTool",
      *     tags={"Admin Tools"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the tool to update",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"name", "description", "count"},
+     *
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -57,11 +61,14 @@ class UpdateToolController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tool updated successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -69,11 +76,14 @@ class UpdateToolController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -81,14 +91,18 @@ class UpdateToolController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -99,7 +113,6 @@ class UpdateToolController extends Controller
      *     )
      * )
      */
-
     public function __invoke(
         UpdateToolRequest $request,
         Tool $tool,
@@ -113,7 +126,7 @@ class UpdateToolController extends Controller
                 count: $request->input('count')
             );
 
-            if (!$toolService->updateTool($tool, $toolDTO)) {
+            if (! $toolService->updateTool($tool, $toolDTO)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 
@@ -123,6 +136,7 @@ class UpdateToolController extends Controller
                 'tool_id' => $tool->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

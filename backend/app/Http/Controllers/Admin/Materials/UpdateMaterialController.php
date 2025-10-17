@@ -22,20 +22,25 @@ class UpdateMaterialController extends Controller
      *     operationId="updateMaterial",
      *     tags={"Admin Materials"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the material to update",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"name", "description", "count", "price"},
+     *
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -63,11 +68,14 @@ class UpdateMaterialController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Material updated successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -75,11 +83,14 @@ class UpdateMaterialController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -87,14 +98,18 @@ class UpdateMaterialController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -119,7 +134,7 @@ class UpdateMaterialController extends Controller
                 price: $request->input('price')
             );
 
-            if (!$materialService->updateMaterial($material, $materialDto)) {
+            if (! $materialService->updateMaterial($material, $materialDto)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 
@@ -129,6 +144,7 @@ class UpdateMaterialController extends Controller
                 'material_id' => $material->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

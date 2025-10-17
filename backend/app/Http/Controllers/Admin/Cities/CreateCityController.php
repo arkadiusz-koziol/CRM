@@ -21,11 +21,14 @@ class CreateCityController extends Controller
      *     operationId="createCity",
      *     tags={"Admin Cities"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"name", "district", "commune", "voivodeship"},
+     *
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -52,22 +55,28 @@ class CreateCityController extends Controller
      *              ),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="City created successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             additionalProperties=true
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"

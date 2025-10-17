@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use OpenApi\Annotations as OA;
 
 class Car extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
         'description',
         'registration_number',
-        'technical_details'
+        'technical_details',
     ];
 
     public function getId(): int

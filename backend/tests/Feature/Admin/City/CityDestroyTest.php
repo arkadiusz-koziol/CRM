@@ -5,10 +5,10 @@ namespace Tests\Feature\Admin\City;
 use App\Models\City;
 use App\Models\User;
 use App\Services\CityService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use Mockery;
 use Database\Seeders\PermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mockery;
+use Tests\TestCase;
 
 class CityDestroyTest extends TestCase
 {
@@ -30,9 +30,10 @@ class CityDestroyTest extends TestCase
         $mockService = Mockery::mock(CityService::class);
         $mockService->shouldReceive('deleteCity')
             ->once()
-            ->with(Mockery::on(fn($cityArg) => $cityArg->id === $city->id))
+            ->with(Mockery::on(fn ($cityArg) => $cityArg->id === $city->id))
             ->andReturnUsing(function ($city) {
                 $city->delete();
+
                 return true;
             });
         $this->app->instance(CityService::class, $mockService);
@@ -51,7 +52,7 @@ class CityDestroyTest extends TestCase
         $mockService = Mockery::mock(CityService::class);
         $mockService->shouldReceive('deleteCity')
             ->once()
-            ->with(Mockery::on(fn($cityArg) => $cityArg->id === $city->id))
+            ->with(Mockery::on(fn ($cityArg) => $cityArg->id === $city->id))
             ->andReturnFalse();
         $this->app->instance(CityService::class, $mockService);
 

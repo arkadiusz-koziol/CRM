@@ -11,8 +11,7 @@ readonly class CarDto implements Arrayable
         private string $description,
         private string $registrationNumber,
         private string $technicalDetails
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {
@@ -20,7 +19,7 @@ readonly class CarDto implements Arrayable
             'name' => $this->getName(),
             'description' => $this->getDescription(),
             'registration_number' => $this->getRegistrationNumber(),
-            'technical_details' => $this->getTechnicalDetails()
+            'technical_details' => $this->getTechnicalDetails(),
         ];
     }
 

@@ -10,8 +10,7 @@ class ToolService
 {
     public function __construct(
         protected ToolRepositoryInterface $toolRepository
-    ) {
-    }
+    ) {}
 
     public function createTool(ToolDto $toolDTO): Tool
     {

@@ -19,13 +19,17 @@ class ListEstateController extends Controller
      *     operationId="listEstates",
      *     tags={"Admin Estates"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of estates retrieved successfully",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(
      *                 type="object",
+     *
      *                 @OA\Property(
      *                     property="id",
      *                     type="integer",
@@ -100,6 +104,7 @@ class ListEstateController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -111,8 +116,10 @@ class ListEstateController extends Controller
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     )
@@ -126,6 +133,7 @@ class ListEstateController extends Controller
             $this->logger->error('Error retrieving estates', [
                 'exception' => $e,
             ]);
+
             return $this->responseFactory->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR

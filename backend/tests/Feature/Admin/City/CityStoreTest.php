@@ -4,9 +4,9 @@ namespace Tests\Feature\Admin\City;
 
 use App\Dto\CityDto;
 use App\Models\User;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 
 class CityStoreTest extends TestCase
 {
@@ -24,10 +24,10 @@ class CityStoreTest extends TestCase
         $admin->givePermissionTo('city.create');
 
         $cityData = [
-            'name' => 'TestCity' . uniqid(),
+            'name' => 'TestCity'.uniqid(),
             'district' => 'TestDistrict',
             'commune' => 'TestCommune',
-            'voivodeship' => 'TestVoivodeship'
+            'voivodeship' => 'TestVoivodeship',
         ];
 
         $this->actingAs($admin)

@@ -42,7 +42,7 @@ return [
             'user.pin.list.by.plan',
             'user.show',
             'user.update',
-            'user.change_password'
+            'user.change_password',
         ],
 
         UserRoles::TECHNICIAN->value => [

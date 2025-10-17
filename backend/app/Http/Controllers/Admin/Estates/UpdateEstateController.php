@@ -23,20 +23,25 @@ class UpdateEstateController extends Controller
      *     operationId="updateEstate",
      *     tags={"Admin Estates"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the estate to update",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"name", "custom_id", "street", "postal_code", "city", "house_number"},
+     *
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -70,11 +75,14 @@ class UpdateEstateController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Estate updated successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -82,11 +90,14 @@ class UpdateEstateController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -94,14 +105,18 @@ class UpdateEstateController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -128,7 +143,7 @@ class UpdateEstateController extends Controller
                 houseNumber: $request->input('house_number')
             );
 
-            if (!$estateService->updateEstate($estate, $estateDto)) {
+            if (! $estateService->updateEstate($estate, $estateDto)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 

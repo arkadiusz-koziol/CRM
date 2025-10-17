@@ -20,32 +20,40 @@ class LoginController extends Controller
      *     tags={"Auth"},
      *     summary="Log in a user and generate token",
      *     description="Authenticate a user using email and password, and generate a Bearer token for API access.",
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"email", "password"},
+     *
      *             @OA\Property(property="email", type="string", format="email", example="admin@example.com"),
      *             @OA\Property(property="password", type="string", format="password", example="password"),
      *         ),
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Login successful",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="token", type="string", example="Bearer token_example"),
      *             @OA\Property(property="user", ref="#/components/schemas/User")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Invalid credentials",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="error", type="string", example="Invalid credentials")
      *         )
      *     )
      * )
      */
-
     public function __invoke(LoginRequest $request, AuthService $authService): JsonResponse
     {
         try {

@@ -19,6 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
  *     type="object",
  *     title="User",
  *     required={"id", "name", "surname", "phone", "email"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="John"),
  *     @OA\Property(property="surname", type="string", example="Doe"),
@@ -29,14 +30,13 @@ use Spatie\Permission\Traits\HasRoles;
  *     @OA\Property(property="updated_at", type="string", format="date-time", example="2024-10-06T08:30:00Z")
  * )
  */
-
 class User extends Authenticatable
 {
+    use HasApiTokens;
     use HasFactory;
+    use HasRoles;
     use Notifiable;
     use SoftDeletes;
-    use HasApiTokens;
-    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -129,7 +129,6 @@ class User extends Authenticatable
      * Send the password reset notification.
      *
      * @param string $token
-     * @return void
      */
     public function sendPasswordResetNotification($token): void
     {

@@ -4,11 +4,11 @@ namespace Tests\Feature\Admin\Estate;
 
 use App\Models\User;
 use App\Services\EstateService;
+use Database\Seeders\PermissionSeeder;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 use Mockery;
+use Tests\TestCase;
 
 class EstateListTest extends TestCase
 {

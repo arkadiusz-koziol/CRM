@@ -4,12 +4,11 @@ namespace Tests\Feature\Admin\Material;
 
 use App\Models\User;
 use App\Services\MaterialService;
+use Database\Seeders\PermissionSeeder;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
-use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 use Mockery;
+use Tests\TestCase;
 
 class MaterialListTest extends TestCase
 {

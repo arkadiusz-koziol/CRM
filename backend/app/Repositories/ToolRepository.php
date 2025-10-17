@@ -48,10 +48,10 @@ class ToolRepository implements ToolRepositoryInterface
         $query = Tool::query();
 
         // Apply search filter if provided
-        if (!empty($search)) {
+        if (! empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('description', 'LIKE', "%{$search}%");
+                    ->orWhere('description', 'LIKE', "%{$search}%");
             });
         }
 
@@ -65,7 +65,7 @@ class ToolRepository implements ToolRepositoryInterface
 
         $lastPage = (int) ceil($total / $limit);
         $isValidPage = $page <= $lastPage && $page > 0;
-        
+
         return [
             'data' => $tools,
             'pagination' => [
@@ -75,7 +75,7 @@ class ToolRepository implements ToolRepositoryInterface
                 'last_page' => $lastPage,
                 'from' => $isValidPage && $total > 0 ? $offset + 1 : 0,
                 'to' => $isValidPage && $total > 0 ? min($offset + $limit, $total) : 0,
-            ]
+            ],
         ];
     }
 }

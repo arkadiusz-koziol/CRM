@@ -20,20 +20,25 @@ class DestroyMaterialController extends Controller
      *     operationId="deleteMaterial",
      *     tags={"Admin Materials"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the material to delete",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Material deleted successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -41,11 +46,14 @@ class DestroyMaterialController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -53,14 +61,18 @@ class DestroyMaterialController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -76,7 +88,7 @@ class DestroyMaterialController extends Controller
         MaterialService $materialService
     ): JsonResponse {
         try {
-            if (!$materialService->deleteMaterial($material)) {
+            if (! $materialService->deleteMaterial($material)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_BAD_REQUEST]);
             }
 
@@ -86,6 +98,7 @@ class DestroyMaterialController extends Controller
                 'material_id' => $material->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

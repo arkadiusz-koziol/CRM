@@ -17,8 +17,7 @@ final readonly class Activity
         private string $entityType,
         private ?string $entityId,
         private Carbon $createdAt
-    ) {
-    }
+    ) {}
 
     public static function create(
         string $action,

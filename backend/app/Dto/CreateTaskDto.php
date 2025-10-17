@@ -18,8 +18,7 @@ readonly class CreateTaskDto
         private int $createdBy,
         private ?string $dueDate = null,
         private ?float $estimatedHours = null
-    ) {
-    }
+    ) {}
 
     public function getTitle(): string
     {

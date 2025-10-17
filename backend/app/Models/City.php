@@ -13,6 +13,7 @@ use OpenApi\Annotations as OA;
  *     type="object",
  *     title="City",
  *     required={"id", "name", "district", "commune", "voivodeship"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="Wrocław"),
  *     @OA\Property(property="district", type="string", example="Wrocław"),
@@ -25,8 +26,8 @@ use OpenApi\Annotations as OA;
  */
 class City extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

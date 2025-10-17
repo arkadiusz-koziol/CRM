@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Services;
 
 use App\Domain\Activity\Entity\Activity;
-use App\Factory\ActivityDtoFactory;
 use App\Interfaces\Repositories\ActivityRepositoryInterface;
 use App\Services\ActivityService;
 use Illuminate\Support\Collection;
@@ -15,6 +14,7 @@ use Tests\TestCase;
 class ActivityServiceTest extends TestCase
 {
     private ActivityRepositoryInterface $activityRepository;
+
     private ActivityService $activityService;
 
     protected function setUp(): void
@@ -30,7 +30,7 @@ class ActivityServiceTest extends TestCase
         parent::tearDown();
     }
 
-    public function testLogActivity(): void
+    public function test_log_activity(): void
     {
         $action = 'user_created';
         $userName = 'John Doe';
@@ -53,7 +53,7 @@ class ActivityServiceTest extends TestCase
         $this->activityService->logActivity($action, $userName, $userEmail, $entityType, $entityId);
     }
 
-    public function testLogActivityWithoutEntityId(): void
+    public function test_log_activity_without_entity_id(): void
     {
         $action = 'system_started';
         $userName = 'System';
@@ -75,10 +75,10 @@ class ActivityServiceTest extends TestCase
         $this->activityService->logActivity($action, $userName, $userEmail, $entityType);
     }
 
-    public function testGetRecentActivities(): void
+    public function test_get_recent_activities(): void
     {
         $limit = 5;
-        $mockActivities = Collection::times($limit, fn() => $this->createActivityEntity());
+        $mockActivities = Collection::times($limit, fn () => $this->createActivityEntity());
 
         $this->activityRepository
             ->shouldReceive('getRecent')
@@ -90,14 +90,14 @@ class ActivityServiceTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $activities);
         $this->assertCount($limit, $activities);
-        $this->assertTrue($activities->every(fn($activity) => $activity instanceof \App\Dto\ActivityDto));
+        $this->assertTrue($activities->every(fn ($activity) => $activity instanceof \App\Dto\ActivityDto));
     }
 
-    public function testGetActivitiesByEntityType(): void
+    public function test_get_activities_by_entity_type(): void
     {
         $entityType = 'User';
         $limit = 3;
-        $mockActivities = Collection::times($limit, fn() => $this->createActivityEntity(['entityType' => $entityType]));
+        $mockActivities = Collection::times($limit, fn () => $this->createActivityEntity(['entityType' => $entityType]));
 
         $this->activityRepository
             ->shouldReceive('getByEntityType')
@@ -109,17 +109,17 @@ class ActivityServiceTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $activities);
         $this->assertCount($limit, $activities);
-        $this->assertTrue($activities->every(fn($activity) => $activity instanceof \App\Dto\ActivityDto));
-        $this->assertTrue($activities->every(fn($activity) => $activity->getEntityType() === $entityType));
+        $this->assertTrue($activities->every(fn ($activity) => $activity instanceof \App\Dto\ActivityDto));
+        $this->assertTrue($activities->every(fn ($activity) => $activity->getEntityType() === $entityType));
     }
 
-    public function testGetActivitiesByEntityTypeWithDifferentLimits(): void
+    public function test_get_activities_by_entity_type_with_different_limits(): void
     {
         $entityType = 'Task';
         $limits = [1, 5, 10];
 
         foreach ($limits as $limit) {
-            $mockActivities = Collection::times($limit, fn() => $this->createActivityEntity(['entityType' => $entityType]));
+            $mockActivities = Collection::times($limit, fn () => $this->createActivityEntity(['entityType' => $entityType]));
 
             $this->activityRepository = Mockery::mock(ActivityRepositoryInterface::class);
             $this->activityService = new ActivityService($this->activityRepository);
@@ -137,12 +137,12 @@ class ActivityServiceTest extends TestCase
         }
     }
 
-    public function testGetRecentActivitiesWithDifferentLimits(): void
+    public function test_get_recent_activities_with_different_limits(): void
     {
         $limits = [0, 1, 5, 10];
 
         foreach ($limits as $limit) {
-            $mockActivities = Collection::times($limit, fn() => $this->createActivityEntity());
+            $mockActivities = Collection::times($limit, fn () => $this->createActivityEntity());
 
             $this->activityRepository = Mockery::mock(ActivityRepositoryInterface::class);
             $this->activityService = new ActivityService($this->activityRepository);
@@ -160,7 +160,7 @@ class ActivityServiceTest extends TestCase
         }
     }
 
-    public function testGetActivitiesByEntityTypeWithEmptyResult(): void
+    public function test_get_activities_by_entity_type_with_empty_result(): void
     {
         $entityType = 'NonExistentEntity';
         $limit = 5;
@@ -178,7 +178,7 @@ class ActivityServiceTest extends TestCase
         $this->assertCount(0, $activities);
     }
 
-    public function testGetRecentActivitiesWithEmptyResult(): void
+    public function test_get_recent_activities_with_empty_result(): void
     {
         $limit = 5;
         $mockActivities = Collection::make([]);
@@ -195,7 +195,7 @@ class ActivityServiceTest extends TestCase
         $this->assertCount(0, $activities);
     }
 
-    public function testLogActivityWithSpecialCharacters(): void
+    public function test_log_activity_with_special_characters(): void
     {
         $action = '用户创建';
         $userName = '张三';
@@ -218,7 +218,7 @@ class ActivityServiceTest extends TestCase
         $this->activityService->logActivity($action, $userName, $userEmail, $entityType, $entityId);
     }
 
-    public function testLogActivityWithEmojiCharacters(): void
+    public function test_log_activity_with_emoji_characters(): void
     {
         $action = '🎉 user_created';
         $userName = 'John 😊';
@@ -241,10 +241,10 @@ class ActivityServiceTest extends TestCase
         $this->activityService->logActivity($action, $userName, $userEmail, $entityType, $entityId);
     }
 
-    public function testLogActivityWithVeryLongStrings(): void
+    public function test_log_activity_with_very_long_strings(): void
     {
         $longString = str_repeat('a', 1000);
-        
+
         $this->activityRepository
             ->shouldReceive('save')
             ->once()
@@ -252,15 +252,15 @@ class ActivityServiceTest extends TestCase
             ->andReturnUsing(function (Activity $activity) use ($longString) {
                 $this->assertEquals($longString, $activity->action());
                 $this->assertEquals($longString, $activity->userName());
-                $this->assertEquals($longString . '@example.com', $activity->userEmail());
+                $this->assertEquals($longString.'@example.com', $activity->userEmail());
                 $this->assertEquals($longString, $activity->entityType());
                 $this->assertEquals($longString, $activity->entityId());
             });
 
-        $this->activityService->logActivity($longString, $longString, $longString . '@example.com', $longString, $longString);
+        $this->activityService->logActivity($longString, $longString, $longString.'@example.com', $longString, $longString);
     }
 
-    public function testLogActivityWithEmptyStrings(): void
+    public function test_log_activity_with_empty_strings(): void
     {
         $this->activityRepository
             ->shouldReceive('save')
@@ -277,7 +277,7 @@ class ActivityServiceTest extends TestCase
         $this->activityService->logActivity('', '', '', '', '');
     }
 
-    public function testLogActivityWithWhitespaceOnlyStrings(): void
+    public function test_log_activity_with_whitespace_only_strings(): void
     {
         $this->activityRepository
             ->shouldReceive('save')
@@ -294,13 +294,13 @@ class ActivityServiceTest extends TestCase
         $this->activityService->logActivity('   ', "\t\n", '   ', '   ', '   ');
     }
 
-    public function testGetActivitiesByEntityTypeWithDifferentEntityTypes(): void
+    public function test_get_activities_by_entity_type_with_different_entity_types(): void
     {
         $entityTypes = ['User', 'Task', 'Project', 'Organization', 'System'];
         $limit = 5;
 
         foreach ($entityTypes as $entityType) {
-            $mockActivities = Collection::times($limit, fn() => $this->createActivityEntity(['entityType' => $entityType]));
+            $mockActivities = Collection::times($limit, fn () => $this->createActivityEntity(['entityType' => $entityType]));
 
             $this->activityRepository = Mockery::mock(ActivityRepositoryInterface::class);
             $this->activityService = new ActivityService($this->activityRepository);
@@ -315,11 +315,11 @@ class ActivityServiceTest extends TestCase
 
             $this->assertInstanceOf(Collection::class, $activities);
             $this->assertCount($limit, $activities);
-            $this->assertTrue($activities->every(fn($activity) => $activity->getEntityType() === $entityType));
+            $this->assertTrue($activities->every(fn ($activity) => $activity->getEntityType() === $entityType));
         }
     }
 
-    public function testGetActivitiesByEntityTypeWithZeroLimit(): void
+    public function test_get_activities_by_entity_type_with_zero_limit(): void
     {
         $entityType = 'User';
         $limit = 0;
@@ -337,7 +337,7 @@ class ActivityServiceTest extends TestCase
         $this->assertCount(0, $activities);
     }
 
-    public function testGetRecentActivitiesWithZeroLimit(): void
+    public function test_get_recent_activities_with_zero_limit(): void
     {
         $limit = 0;
         $mockActivities = Collection::make([]);
@@ -354,7 +354,7 @@ class ActivityServiceTest extends TestCase
         $this->assertCount(0, $activities);
     }
 
-    public function testGetActivitiesByEntityTypeWithNegativeLimit(): void
+    public function test_get_activities_by_entity_type_with_negative_limit(): void
     {
         $entityType = 'User';
         $limit = -1;
@@ -372,7 +372,7 @@ class ActivityServiceTest extends TestCase
         $this->assertCount(0, $activities);
     }
 
-    public function testGetRecentActivitiesWithNegativeLimit(): void
+    public function test_get_recent_activities_with_negative_limit(): void
     {
         $limit = -1;
         $mockActivities = Collection::make([]);
@@ -389,11 +389,11 @@ class ActivityServiceTest extends TestCase
         $this->assertCount(0, $activities);
     }
 
-    public function testGetActivitiesByEntityTypeWithVeryLargeLimit(): void
+    public function test_get_activities_by_entity_type_with_very_large_limit(): void
     {
         $entityType = 'User';
         $limit = 1000;
-        $mockActivities = Collection::times($limit, fn() => $this->createActivityEntity(['entityType' => $entityType]));
+        $mockActivities = Collection::times($limit, fn () => $this->createActivityEntity(['entityType' => $entityType]));
 
         $this->activityRepository
             ->shouldReceive('getByEntityType')
@@ -407,10 +407,10 @@ class ActivityServiceTest extends TestCase
         $this->assertCount($limit, $activities);
     }
 
-    public function testGetRecentActivitiesWithVeryLargeLimit(): void
+    public function test_get_recent_activities_with_very_large_limit(): void
     {
         $limit = 1000;
-        $mockActivities = Collection::times($limit, fn() => $this->createActivityEntity());
+        $mockActivities = Collection::times($limit, fn () => $this->createActivityEntity());
 
         $this->activityRepository
             ->shouldReceive('getRecent')

@@ -14,8 +14,7 @@ readonly class EstateDto implements Arrayable
         private string $postal_code,
         private City $city,
         private string $house_number
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

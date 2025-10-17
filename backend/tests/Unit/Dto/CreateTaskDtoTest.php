@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class CreateTaskDtoTest extends TestCase
 {
-    public function testCreatesDtoWithAllRequiredFields(): void
+    public function test_creates_dto_with_all_required_fields(): void
     {
         $dto = new CreateTaskDto(
             title: 'Test Task',
@@ -34,7 +34,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals(8.5, $dto->getEstimatedHours());
     }
 
-    public function testCreatesDtoWithNullOptionalFields(): void
+    public function test_creates_dto_with_null_optional_fields(): void
     {
         $dto = new CreateTaskDto(
             title: 'Test Task',
@@ -57,7 +57,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertNull($dto->getEstimatedHours());
     }
 
-    public function testHandlesEmptyStrings(): void
+    public function test_handles_empty_strings(): void
     {
         $dto = new CreateTaskDto(
             title: '',
@@ -80,7 +80,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals(0.0, $dto->getEstimatedHours());
     }
 
-    public function testHandlesSpecialCharactersInTitleAndDescription(): void
+    public function test_handles_special_characters_in_title_and_description(): void
     {
         $dto = new CreateTaskDto(
             title: 'Tâche spéciale avec caractères accentués',
@@ -97,7 +97,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals('Description avec émojis 🎉 et caractères spéciaux: àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ', $dto->getDescription());
     }
 
-    public function testHandlesUnicodeCharacters(): void
+    public function test_handles_unicode_characters(): void
     {
         $dto = new CreateTaskDto(
             title: '任务标题',
@@ -114,7 +114,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals('任务描述包含中文字符', $dto->getDescription());
     }
 
-    public function testHandlesEmojiCharacters(): void
+    public function test_handles_emoji_characters(): void
     {
         $dto = new CreateTaskDto(
             title: 'Task with emoji 🎯',
@@ -131,10 +131,10 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals('Description with emojis 🚀 ✨ 💡', $dto->getDescription());
     }
 
-    public function testHandlesVeryLongStrings(): void
+    public function test_handles_very_long_strings(): void
     {
         $longString = str_repeat('a', 1000);
-        
+
         $dto = new CreateTaskDto(
             title: $longString,
             description: $longString,
@@ -150,7 +150,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals($longString, $dto->getDescription());
     }
 
-    public function testHandlesWhitespaceOnlyStrings(): void
+    public function test_handles_whitespace_only_strings(): void
     {
         $dto = new CreateTaskDto(
             title: '   ',
@@ -168,7 +168,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals('   ', $dto->getDueDate());
     }
 
-    public function testHandlesAllTaskStatuses(): void
+    public function test_handles_all_task_statuses(): void
     {
         $statuses = [
             TaskStatus::PENDING,
@@ -194,7 +194,7 @@ class CreateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesAllTaskPriorities(): void
+    public function test_handles_all_task_priorities(): void
     {
         $priorities = [
             TaskPriority::LOW,
@@ -219,7 +219,7 @@ class CreateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesDifferentDueDateFormats(): void
+    public function test_handles_different_due_date_formats(): void
     {
         $dateFormats = [
             '2024-12-31',
@@ -250,7 +250,7 @@ class CreateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesDifferentEstimatedHoursValues(): void
+    public function test_handles_different_estimated_hours_values(): void
     {
         $hoursValues = [
             0.0,
@@ -285,7 +285,7 @@ class CreateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesDifferentUserIdValues(): void
+    public function test_handles_different_user_id_values(): void
     {
         $userIdValues = [
             0,
@@ -315,7 +315,7 @@ class CreateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesNullDueDateWhenOtherFieldsAreProvided(): void
+    public function test_handles_null_due_date_when_other_fields_are_provided(): void
     {
         $dto = new CreateTaskDto(
             title: 'Test Task',
@@ -338,7 +338,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertEquals(8.5, $dto->getEstimatedHours());
     }
 
-    public function testHandlesNullEstimatedHoursWhenOtherFieldsAreProvided(): void
+    public function test_handles_null_estimated_hours_when_other_fields_are_provided(): void
     {
         $dto = new CreateTaskDto(
             title: 'Test Task',
@@ -361,7 +361,7 @@ class CreateTaskDtoTest extends TestCase
         $this->assertNull($dto->getEstimatedHours());
     }
 
-    public function testMaintainsImmutability(): void
+    public function test_maintains_immutability(): void
     {
         $dto = new CreateTaskDto(
             title: 'Original Task',

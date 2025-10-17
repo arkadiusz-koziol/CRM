@@ -19,24 +19,32 @@ class DestroyUserController extends Controller
      *     summary="Delete a user by ID",
      *     description="Deletes the user with the given ID.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="User ID",
      *         required=true,
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User deleted successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="User deleted successfully")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="User not found",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="User not found")
      *         )
      *     )
@@ -55,8 +63,9 @@ class DestroyUserController extends Controller
                 'user_id' => $user->id,
                 'admin_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('messages.user_not_found')
+                'message' => __('messages.user_not_found'),
             ], Response::HTTP_NOT_FOUND);
         }
     }

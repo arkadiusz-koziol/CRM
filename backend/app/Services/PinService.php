@@ -11,8 +11,7 @@ class PinService
 {
     public function __construct(
         protected PinRepositoryInterface $pinRepository
-    ) {
-    }
+    ) {}
 
     public function createPin(PinDto $dto, Plan $plan): Pin
     {

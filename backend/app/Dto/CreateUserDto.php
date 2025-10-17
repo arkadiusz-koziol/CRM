@@ -12,8 +12,7 @@ readonly class CreateUserDto
         private string $password,
         private ?string $city,
         private ?string $vovoidship
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

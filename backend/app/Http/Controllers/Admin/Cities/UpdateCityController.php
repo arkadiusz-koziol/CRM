@@ -22,20 +22,25 @@ class UpdateCityController extends Controller
      *     operationId="updateCity",
      *     tags={"Admin Cities"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the city to update",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"name", "district", "commune", "voivodeship"},
+     *
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -62,11 +67,14 @@ class UpdateCityController extends Controller
      *               ),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="City updated successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -74,11 +82,14 @@ class UpdateCityController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -86,14 +97,18 @@ class UpdateCityController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -118,7 +133,7 @@ class UpdateCityController extends Controller
                 voivodeship: $request->input('voivodeship')
             );
 
-            if (!$cityService->updateCity($city, $cityDto)) {
+            if (! $cityService->updateCity($city, $cityDto)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 

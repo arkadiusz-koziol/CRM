@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CreateUserDtoTest extends TestCase
 {
-    public function testCreatesDtoWithAllRequiredFields(): void
+    public function test_creates_dto_with_all_required_fields(): void
     {
         $dto = new CreateUserDto(
             name: 'John',
@@ -30,7 +30,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertEquals('Mazowieckie', $dto->getVovoidship());
     }
 
-    public function testCreatesDtoWithNullOptionalFields(): void
+    public function test_creates_dto_with_null_optional_fields(): void
     {
         $dto = new CreateUserDto(
             name: 'Jane',
@@ -51,7 +51,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertNull($dto->getVovoidship());
     }
 
-    public function testHandlesEmptyStrings(): void
+    public function test_handles_empty_strings(): void
     {
         $dto = new CreateUserDto(
             name: '',
@@ -72,7 +72,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertEquals('', $dto->getVovoidship());
     }
 
-    public function testHandlesSpecialCharactersInNames(): void
+    public function test_handles_special_characters_in_names(): void
     {
         $dto = new CreateUserDto(
             name: 'José María',
@@ -91,7 +91,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertEquals('Comunidad de Madrid', $dto->getVovoidship());
     }
 
-    public function testHandlesUnicodeCharacters(): void
+    public function test_handles_unicode_characters(): void
     {
         $dto = new CreateUserDto(
             name: '张三',
@@ -111,7 +111,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertEquals('北京市', $dto->getVovoidship());
     }
 
-    public function testHandlesEmojiCharacters(): void
+    public function test_handles_emoji_characters(): void
     {
         $dto = new CreateUserDto(
             name: 'John 😊',
@@ -130,14 +130,14 @@ class CreateUserDtoTest extends TestCase
         $this->assertEquals('Mazowieckie 🗺️', $dto->getVovoidship());
     }
 
-    public function testHandlesVeryLongStrings(): void
+    public function test_handles_very_long_strings(): void
     {
         $longString = str_repeat('a', 1000);
-        
+
         $dto = new CreateUserDto(
             name: $longString,
             surname: $longString,
-            email: $longString . '@example.com',
+            email: $longString.'@example.com',
             phone: $longString,
             password: $longString,
             city: $longString,
@@ -146,14 +146,14 @@ class CreateUserDtoTest extends TestCase
 
         $this->assertEquals($longString, $dto->getName());
         $this->assertEquals($longString, $dto->getSurname());
-        $this->assertEquals($longString . '@example.com', $dto->getEmail());
+        $this->assertEquals($longString.'@example.com', $dto->getEmail());
         $this->assertEquals($longString, $dto->getPhone());
         $this->assertEquals($longString, $dto->getPassword());
         $this->assertEquals($longString, $dto->getCity());
         $this->assertEquals($longString, $dto->getVovoidship());
     }
 
-    public function testHandlesWhitespaceOnlyStrings(): void
+    public function test_handles_whitespace_only_strings(): void
     {
         $dto = new CreateUserDto(
             name: '   ',
@@ -174,7 +174,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertEquals('   ', $dto->getVovoidship());
     }
 
-    public function testHandlesDifferentEmailFormats(): void
+    public function test_handles_different_email_formats(): void
     {
         $emailFormats = [
             'user@example.com',
@@ -204,7 +204,7 @@ class CreateUserDtoTest extends TestCase
         }
     }
 
-    public function testHandlesDifferentPhoneFormats(): void
+    public function test_handles_different_phone_formats(): void
     {
         $phoneFormats = [
             '+48123456789',
@@ -234,7 +234,7 @@ class CreateUserDtoTest extends TestCase
         }
     }
 
-    public function testHandlesNullPhoneWhenOtherFieldsAreProvided(): void
+    public function test_handles_null_phone_when_other_fields_are_provided(): void
     {
         $dto = new CreateUserDto(
             name: 'Test',
@@ -255,7 +255,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertEquals('Mazowieckie', $dto->getVovoidship());
     }
 
-    public function testHandlesNullCityAndVovoidshipWhenOtherFieldsAreProvided(): void
+    public function test_handles_null_city_and_vovoidship_when_other_fields_are_provided(): void
     {
         $dto = new CreateUserDto(
             name: 'Test',
@@ -276,7 +276,7 @@ class CreateUserDtoTest extends TestCase
         $this->assertNull($dto->getVovoidship());
     }
 
-    public function testMaintainsImmutability(): void
+    public function test_maintains_immutability(): void
     {
         $dto = new CreateUserDto(
             name: 'John',

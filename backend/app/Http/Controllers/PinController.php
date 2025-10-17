@@ -19,7 +19,7 @@ class PinController extends Controller
                 array_merge(
                     $request->validated(),
                     [
-                    'user_id' => $this->authManager->guard()->user()->id
+                        'user_id' => $this->authManager->guard()->user()->id,
                     ]
                 ),
                 $plan

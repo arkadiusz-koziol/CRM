@@ -44,7 +44,7 @@ return [
             ],
             'servers' => [
                 [
-                    'url' => env('APP_URL') . '/api/v1',
+                    'url' => env('APP_URL').'/api/v1',
                     'description' => 'Local API server',
                 ],
             ],
@@ -92,7 +92,7 @@ return [
             /*
              * Edit to set the API's base path
              */
-            'base' =>'/api/v1',
+            'base' => '/api/v1',
 
             /*
              * Edit to set path where swagger UI assets should be stored
@@ -108,14 +108,14 @@ return [
         ],
 
         'scanOptions' => [
-            /**
+            /*
              * Configuration for default processors. Allows to pass processors configuration to swagger-php.
              *
              * @link https://zircote.github.io/swagger-php/reference/processors.html
              */
             'default_processors_configuration' => [
-                /** Example */
-                /**
+                /* Example */
+                /*
                  * 'operationId.hash' => true,
                  * 'pathFilter' => [
                  * 'tags' => [
@@ -126,21 +126,21 @@ return [
                  */
             ],
 
-            /**
+            /*
              * analyser: defaults to \OpenApi\StaticAnalyser .
              *
              * @see \OpenApi\scan
              */
             'analyser' => null,
 
-            /**
+            /*
              * analysis: defaults to a new \OpenApi\Analysis .
              *
              * @see \OpenApi\scan
              */
             'analysis' => null,
 
-            /**
+            /*
              * Custom query path processors classes.
              *
              * @link https://github.com/zircote/swagger-php/tree/master/Examples/processors/schema-query-parameter
@@ -150,7 +150,7 @@ return [
                 // new \App\SwaggerProcessors\SchemaQueryParameter(),
             ],
 
-            /**
+            /*
              * pattern: string       $pattern File pattern(s) to scan (default: *.php) .
              *
              * @see \OpenApi\scan

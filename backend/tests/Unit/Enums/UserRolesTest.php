@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserRolesTest extends TestCase
 {
-    public function testEnumValues(): void
+    public function test_enum_values(): void
     {
         $this->assertEquals('admin', UserRoles::ADMIN->value);
         $this->assertEquals('user', UserRoles::USER->value);
@@ -18,13 +18,13 @@ class UserRolesTest extends TestCase
         $this->assertEquals('object_manager', UserRoles::OBJECT_MANAGER->value);
     }
 
-    public function testAllowedForWeb(): void
+    public function test_allowed_for_web(): void
     {
         $expected = [UserRoles::ADMIN->value];
         $this->assertEquals($expected, UserRoles::allowedForWeb());
     }
 
-    public function testAllowedForApi(): void
+    public function test_allowed_for_api(): void
     {
         $expected = [
             UserRoles::ADMIN->value,
@@ -35,11 +35,11 @@ class UserRolesTest extends TestCase
         $this->assertEquals($expected, UserRoles::allowedForApi());
     }
 
-    public function testEnumCases(): void
+    public function test_enum_cases(): void
     {
         $cases = UserRoles::cases();
         $this->assertCount(5, $cases);
-        
+
         $expectedValues = [
             'admin',
             'user',
@@ -47,12 +47,12 @@ class UserRolesTest extends TestCase
             'driver',
             'object_manager',
         ];
-        
-        $actualValues = array_map(fn($case) => $case->value, $cases);
+
+        $actualValues = array_map(fn ($case) => $case->value, $cases);
         $this->assertEquals($expectedValues, $actualValues);
     }
 
-    public function testEnumFromValue(): void
+    public function test_enum_from_value(): void
     {
         $this->assertEquals(UserRoles::ADMIN, UserRoles::from('admin'));
         $this->assertEquals(UserRoles::USER, UserRoles::from('user'));
@@ -61,7 +61,7 @@ class UserRolesTest extends TestCase
         $this->assertEquals(UserRoles::OBJECT_MANAGER, UserRoles::from('object_manager'));
     }
 
-    public function testEnumTryFromValue(): void
+    public function test_enum_try_from_value(): void
     {
         $this->assertEquals(UserRoles::ADMIN, UserRoles::tryFrom('admin'));
         $this->assertEquals(UserRoles::USER, UserRoles::tryFrom('user'));
@@ -72,25 +72,25 @@ class UserRolesTest extends TestCase
         $this->assertNull(UserRoles::tryFrom(''));
     }
 
-    public function testEnumFromValueThrowsExceptionForInvalidValue(): void
+    public function test_enum_from_value_throws_exception_for_invalid_value(): void
     {
         $this->expectException(\ValueError::class);
         UserRoles::from('invalid_role');
     }
 
-    public function testEnumFromValueThrowsExceptionForEmptyString(): void
+    public function test_enum_from_value_throws_exception_for_empty_string(): void
     {
         $this->expectException(\ValueError::class);
         UserRoles::from('');
     }
 
-    public function testEnumFromValueThrowsExceptionForNull(): void
+    public function test_enum_from_value_throws_exception_for_null(): void
     {
         $this->expectException(\TypeError::class);
         UserRoles::from(null);
     }
 
-    public function testEnumName(): void
+    public function test_enum_name(): void
     {
         $this->assertEquals('ADMIN', UserRoles::ADMIN->name);
         $this->assertEquals('USER', UserRoles::USER->name);
@@ -99,7 +99,7 @@ class UserRolesTest extends TestCase
         $this->assertEquals('OBJECT_MANAGER', UserRoles::OBJECT_MANAGER->name);
     }
 
-    public function testEnumToString(): void
+    public function test_enum_to_string(): void
     {
         $this->assertEquals('admin', UserRoles::ADMIN->value);
         $this->assertEquals('user', UserRoles::USER->value);
@@ -108,14 +108,14 @@ class UserRolesTest extends TestCase
         $this->assertEquals('object_manager', UserRoles::OBJECT_MANAGER->value);
     }
 
-    public function testEnumEquality(): void
+    public function test_enum_equality(): void
     {
         $this->assertTrue(UserRoles::ADMIN === UserRoles::ADMIN);
         $this->assertTrue(UserRoles::USER === UserRoles::USER);
         $this->assertTrue(UserRoles::TECHNICIAN === UserRoles::TECHNICIAN);
         $this->assertTrue(UserRoles::DRIVER === UserRoles::DRIVER);
         $this->assertTrue(UserRoles::OBJECT_MANAGER === UserRoles::OBJECT_MANAGER);
-        
+
         $this->assertFalse(UserRoles::ADMIN === UserRoles::USER);
         $this->assertFalse(UserRoles::USER === UserRoles::TECHNICIAN);
         $this->assertFalse(UserRoles::TECHNICIAN === UserRoles::DRIVER);
@@ -123,14 +123,14 @@ class UserRolesTest extends TestCase
         $this->assertFalse(UserRoles::OBJECT_MANAGER === UserRoles::ADMIN);
     }
 
-    public function testEnumInequality(): void
+    public function test_enum_inequality(): void
     {
         $this->assertTrue(UserRoles::ADMIN !== UserRoles::USER);
         $this->assertTrue(UserRoles::USER !== UserRoles::TECHNICIAN);
         $this->assertTrue(UserRoles::TECHNICIAN !== UserRoles::DRIVER);
         $this->assertTrue(UserRoles::DRIVER !== UserRoles::OBJECT_MANAGER);
         $this->assertTrue(UserRoles::OBJECT_MANAGER !== UserRoles::ADMIN);
-        
+
         $this->assertFalse(UserRoles::ADMIN !== UserRoles::ADMIN);
         $this->assertFalse(UserRoles::USER !== UserRoles::USER);
         $this->assertFalse(UserRoles::TECHNICIAN !== UserRoles::TECHNICIAN);
@@ -138,17 +138,17 @@ class UserRolesTest extends TestCase
         $this->assertFalse(UserRoles::OBJECT_MANAGER !== UserRoles::OBJECT_MANAGER);
     }
 
-    public function testEnumInArray(): void
+    public function test_enum_in_array(): void
     {
         $webRoles = UserRoles::allowedForWeb();
         $apiRoles = UserRoles::allowedForApi();
-        
+
         $this->assertContains(UserRoles::ADMIN->value, $webRoles);
         $this->assertNotContains(UserRoles::USER->value, $webRoles);
         $this->assertNotContains(UserRoles::TECHNICIAN->value, $webRoles);
         $this->assertNotContains(UserRoles::DRIVER->value, $webRoles);
         $this->assertNotContains(UserRoles::OBJECT_MANAGER->value, $webRoles);
-        
+
         $this->assertContains(UserRoles::ADMIN->value, $apiRoles);
         $this->assertContains(UserRoles::USER->value, $apiRoles);
         $this->assertContains(UserRoles::TECHNICIAN->value, $apiRoles);
@@ -156,74 +156,74 @@ class UserRolesTest extends TestCase
         $this->assertNotContains(UserRoles::OBJECT_MANAGER->value, $apiRoles);
     }
 
-    public function testEnumArrayKeys(): void
+    public function test_enum_array_keys(): void
     {
         $webRoles = UserRoles::allowedForWeb();
         $apiRoles = UserRoles::allowedForApi();
-        
+
         $this->assertArrayHasKey(0, $webRoles);
         $this->assertArrayHasKey(0, $apiRoles);
         $this->assertArrayHasKey(1, $apiRoles);
         $this->assertArrayHasKey(2, $apiRoles);
         $this->assertArrayHasKey(3, $apiRoles);
-        
+
         $this->assertArrayNotHasKey(1, $webRoles);
         $this->assertArrayNotHasKey(4, $apiRoles);
     }
 
-    public function testEnumArrayValues(): void
+    public function test_enum_array_values(): void
     {
         $webRoles = UserRoles::allowedForWeb();
         $apiRoles = UserRoles::allowedForApi();
-        
+
         $this->assertEquals('admin', $webRoles[0]);
-        
+
         $this->assertEquals('admin', $apiRoles[0]);
         $this->assertEquals('user', $apiRoles[1]);
         $this->assertEquals('technician', $apiRoles[2]);
         $this->assertEquals('driver', $apiRoles[3]);
     }
 
-    public function testEnumArrayCount(): void
+    public function test_enum_array_count(): void
     {
         $webRoles = UserRoles::allowedForWeb();
         $apiRoles = UserRoles::allowedForApi();
-        
+
         $this->assertCount(1, $webRoles);
         $this->assertCount(4, $apiRoles);
     }
 
-    public function testEnumArrayTypes(): void
+    public function test_enum_array_types(): void
     {
         $webRoles = UserRoles::allowedForWeb();
         $apiRoles = UserRoles::allowedForApi();
-        
+
         $this->assertIsArray($webRoles);
         $this->assertIsArray($apiRoles);
-        
+
         foreach ($webRoles as $role) {
             $this->assertIsString($role);
         }
-        
+
         foreach ($apiRoles as $role) {
             $this->assertIsString($role);
         }
     }
 
-    public function testEnumArrayUniqueness(): void
+    public function test_enum_array_uniqueness(): void
     {
         $webRoles = UserRoles::allowedForWeb();
         $apiRoles = UserRoles::allowedForApi();
-        
+
         $this->assertEquals($webRoles, array_unique($webRoles));
         $this->assertEquals($apiRoles, array_unique($apiRoles));
     }
 
-    public function testEnumArrayOrder(): void
+    public function test_enum_array_order(): void
     {
         $webRoles = UserRoles::allowedForWeb();
         $apiRoles = UserRoles::allowedForApi();
-        
+
         $this->assertEquals(['admin'], $webRoles);
         $this->assertEquals(['admin', 'user', 'technician', 'driver'], $apiRoles);
     }

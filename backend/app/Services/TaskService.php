@@ -6,17 +6,16 @@ namespace App\Services;
 
 use App\Dto\CreateTaskDto;
 use App\Dto\UpdateTaskDto;
+use App\Enums\TaskStatus;
 use App\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Models\Task;
-use App\Enums\TaskStatus;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class TaskService
 {
     public function __construct(
         private readonly TaskRepositoryInterface $taskRepository
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new task.
@@ -39,7 +38,7 @@ class TaskService
      */
     public function updateTask(Task $task, UpdateTaskDto $dto): Task
     {
-        if (!$dto->hasChanges()) {
+        if (! $dto->hasChanges()) {
             return $task;
         }
 

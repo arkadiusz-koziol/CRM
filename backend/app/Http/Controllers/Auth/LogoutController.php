@@ -15,10 +15,13 @@ class LogoutController extends Controller
      *     summary="Log out a user",
      *     description="Log out the authenticated user by invalidating the Bearer token.",
      *     security={{ "sanctum": {} }},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Logout successful",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Logged out successfully")
      *         )
      *     )

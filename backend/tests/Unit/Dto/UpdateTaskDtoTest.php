@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class UpdateTaskDtoTest extends TestCase
 {
-    public function testCreatesDtoWithAllFields(): void
+    public function test_creates_dto_with_all_fields(): void
     {
         $dto = new UpdateTaskDto(
             title: 'Updated Task',
@@ -35,7 +35,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertTrue($dto->hasChanges());
     }
 
-    public function testCreatesDtoWithPartialFields(): void
+    public function test_creates_dto_with_partial_fields(): void
     {
         $dto = new UpdateTaskDto(
             title: 'Updated Task',
@@ -53,9 +53,9 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertTrue($dto->hasChanges());
     }
 
-    public function testCreatesEmptyDto(): void
+    public function test_creates_empty_dto(): void
     {
-        $dto = new UpdateTaskDto();
+        $dto = new UpdateTaskDto;
 
         $this->assertNull($dto->getTitle());
         $this->assertNull($dto->getDescription());
@@ -68,7 +68,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertFalse($dto->hasChanges());
     }
 
-    public function testHandlesEmptyStrings(): void
+    public function test_handles_empty_strings(): void
     {
         $dto = new UpdateTaskDto(
             title: '',
@@ -92,7 +92,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertTrue($dto->hasChanges());
     }
 
-    public function testHandlesSpecialCharactersInTitleAndDescription(): void
+    public function test_handles_special_characters_in_title_and_description(): void
     {
         $dto = new UpdateTaskDto(
             title: 'Tâche mise à jour avec caractères accentués',
@@ -109,7 +109,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertEquals('Description mise à jour avec émojis 🎉 et caractères spéciaux: àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ', $dto->getDescription());
     }
 
-    public function testHandlesUnicodeCharacters(): void
+    public function test_handles_unicode_characters(): void
     {
         $dto = new UpdateTaskDto(
             title: '任务更新',
@@ -126,7 +126,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertEquals('任务描述更新包含中文字符', $dto->getDescription());
     }
 
-    public function testHandlesEmojiCharacters(): void
+    public function test_handles_emoji_characters(): void
     {
         $dto = new UpdateTaskDto(
             title: 'Task updated with emoji 🎯',
@@ -143,10 +143,10 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertEquals('Description updated with emojis 🚀 ✨ 💡', $dto->getDescription());
     }
 
-    public function testHandlesVeryLongStrings(): void
+    public function test_handles_very_long_strings(): void
     {
         $longString = str_repeat('a', 1000);
-        
+
         $dto = new UpdateTaskDto(
             title: $longString,
             description: $longString,
@@ -162,7 +162,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertEquals($longString, $dto->getDescription());
     }
 
-    public function testHandlesWhitespaceOnlyStrings(): void
+    public function test_handles_whitespace_only_strings(): void
     {
         $dto = new UpdateTaskDto(
             title: '   ',
@@ -180,7 +180,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertEquals('   ', $dto->getDueDate());
     }
 
-    public function testHandlesAllTaskStatuses(): void
+    public function test_handles_all_task_statuses(): void
     {
         $statuses = [
             TaskStatus::PENDING,
@@ -206,7 +206,7 @@ class UpdateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesAllTaskPriorities(): void
+    public function test_handles_all_task_priorities(): void
     {
         $priorities = [
             TaskPriority::LOW,
@@ -231,7 +231,7 @@ class UpdateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesDifferentDueDateFormats(): void
+    public function test_handles_different_due_date_formats(): void
     {
         $dateFormats = [
             '2024-12-31',
@@ -262,7 +262,7 @@ class UpdateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesDifferentHoursValues(): void
+    public function test_handles_different_hours_values(): void
     {
         $hoursValues = [
             0.0,
@@ -298,7 +298,7 @@ class UpdateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesDifferentUserIdValues(): void
+    public function test_handles_different_user_id_values(): void
     {
         $userIdValues = [
             0,
@@ -327,7 +327,7 @@ class UpdateTaskDtoTest extends TestCase
         }
     }
 
-    public function testHandlesNullFieldsWhenOtherFieldsAreProvided(): void
+    public function test_handles_null_fields_when_other_fields_are_provided(): void
     {
         $dto = new UpdateTaskDto(
             title: 'Updated Task',
@@ -351,7 +351,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertTrue($dto->hasChanges());
     }
 
-    public function testHandlesMixedNullAndNonNullFields(): void
+    public function test_handles_mixed_null_and_non_null_fields(): void
     {
         $dto = new UpdateTaskDto(
             title: null,
@@ -375,7 +375,7 @@ class UpdateTaskDtoTest extends TestCase
         $this->assertTrue($dto->hasChanges());
     }
 
-    public function testMaintainsImmutability(): void
+    public function test_maintains_immutability(): void
     {
         $dto = new UpdateTaskDto(
             title: 'Original Task',

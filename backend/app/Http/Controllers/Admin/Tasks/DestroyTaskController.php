@@ -21,24 +21,32 @@ class DestroyTaskController extends Controller
      *     summary="Delete a task",
      *     description="Deletes a specific task.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="task",
      *         in="path",
      *         required=true,
      *         description="Task ID",
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Task deleted successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Task deleted successfully")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Task not found",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Task not found")
      *         )
      *     )
@@ -49,21 +57,22 @@ class DestroyTaskController extends Controller
         try {
             $deleted = $taskService->deleteTask($task);
 
-            if (!$deleted) {
+            if (! $deleted) {
                 return $this->responseFactory->json([
-                    'message' => __('app.task.deletion_failed')
+                    'message' => __('app.task.deletion_failed'),
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
             return $this->responseFactory->json([
-                'message' => __('app.task.deleted_successfully')
+                'message' => __('app.task.deleted_successfully'),
             ], Response::HTTP_OK);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'task_id' => $task->getId(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('app.task.deletion_failed')
+                'message' => __('app.task.deletion_failed'),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

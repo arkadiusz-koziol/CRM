@@ -20,25 +20,33 @@ class ShowPlanController extends Controller
      *     summary="Get plans for an estate",
      *     description="Retrieves all plans associated with a specific estate.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="estate",
      *         in="path",
      *         description="Estate ID",
      *         required=true,
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of plans",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/Plan")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Plans not found",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Plans not found")
      *         )
      *     )
@@ -55,16 +63,18 @@ class ShowPlanController extends Controller
                 'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('app.not_found')
+                'message' => __('app.not_found'),
             ], Response::HTTP_NOT_FOUND);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('app.action.error')
+                'message' => __('app.action.error'),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

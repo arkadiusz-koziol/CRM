@@ -10,8 +10,7 @@ class CityService
 {
     public function __construct(
         protected CityRepositoryInterface $cityRepository
-    ) {
-    }
+    ) {}
 
     public function createCity(CityDto $cityDto): City
     {

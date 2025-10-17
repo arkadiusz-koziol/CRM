@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Materials;
 
-use App\Dto\MaterialDto;
 use App\Factory\MaterialDtoFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateMaterialRequest;
@@ -22,11 +21,14 @@ class StoreMaterialController extends Controller
      *     operationId="createMaterial",
      *     tags={"Admin Materials"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"name", "description", "count", "price"},
+     *
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -54,22 +56,28 @@ class StoreMaterialController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Material created successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             additionalProperties=true
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -98,6 +106,7 @@ class StoreMaterialController extends Controller
             $this->logger->error($e->getMessage(), [
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

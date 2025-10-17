@@ -13,8 +13,7 @@ final class ActivitySeeder extends Seeder
 {
     public function __construct(
         private readonly ActivityRepository $activityRepository
-    ) {
-    }
+    ) {}
 
     public function run(): void
     {

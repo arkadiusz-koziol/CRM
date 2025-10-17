@@ -22,13 +22,13 @@ return new class extends Migration
                 TaskStatus::IN_PROGRESS->value,
                 TaskStatus::COMPLETED->value,
                 TaskStatus::CANCELLED->value,
-                TaskStatus::ON_HOLD->value
+                TaskStatus::ON_HOLD->value,
             ])->default(TaskStatus::PENDING->value);
             $table->enum('priority', [
                 TaskPriority::LOW->value,
                 TaskPriority::MEDIUM->value,
                 TaskPriority::HIGH->value,
-                TaskPriority::URGENT->value
+                TaskPriority::URGENT->value,
             ])->default(TaskPriority::MEDIUM->value);
             $table->foreignId('assigned_to')->constrained('users')->onDelete('cascade');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');

@@ -20,20 +20,25 @@ class DestroyToolController extends Controller
      *     operationId="deleteTool",
      *     tags={"Admin Tools"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the tool to delete",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tool deleted successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -41,11 +46,14 @@ class DestroyToolController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -53,14 +61,18 @@ class DestroyToolController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -71,15 +83,14 @@ class DestroyToolController extends Controller
      *     )
      * )
      */
-
     public function __invoke(
         Tool $tool,
         ToolService $toolService
     ): JsonResponse {
         try {
-            if (!$toolService->deleteTool($tool)) {
+            if (! $toolService->deleteTool($tool)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed'),
-                                                     Response::HTTP_UNPROCESSABLE_ENTITY]);
+                    Response::HTTP_UNPROCESSABLE_ENTITY]);
             }
 
             return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
@@ -88,6 +99,7 @@ class DestroyToolController extends Controller
                 'tool_id' => $tool->getId(),
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

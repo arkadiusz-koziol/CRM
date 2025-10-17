@@ -7,13 +7,10 @@ namespace App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Services\ToolService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Auth\AuthManager;
 use OpenApi\Annotations as OA;
-use Psr\Log\LoggerInterface;
 
 class StatsController extends Controller
 {
-
     /**
      * @OA\Get(
      *     path="/v1/admin/dashboard/stats",
@@ -23,11 +20,14 @@ class StatsController extends Controller
      *     operationId="getDashboardStats",
      *     tags={"Admin Dashboard"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="tools", type="object",
      *                 @OA\Property(property="total", type="integer"),
      *                 @OA\Property(property="active", type="integer")
@@ -46,6 +46,7 @@ class StatsController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -58,8 +59,7 @@ class StatsController extends Controller
      */
     public function __invoke(
         ToolService $toolService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $tools = $toolService->getAllTools();
         $toolsCount = count($tools);
 

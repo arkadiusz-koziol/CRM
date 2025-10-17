@@ -11,8 +11,7 @@ readonly class MaterialDto implements Arrayable
         private string $description,
         private int $count,
         private int $price
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

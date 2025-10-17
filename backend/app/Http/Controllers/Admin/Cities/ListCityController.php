@@ -19,13 +19,17 @@ class ListCityController extends Controller
      *     operationId="listCities",
      *     tags={"Admin Cities"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of cities retrieved successfully",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(
      *                 type="object",
+     *
      *                 @OA\Property(
      *                     property="id",
      *                     type="integer",
@@ -66,6 +70,7 @@ class ListCityController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -77,8 +82,10 @@ class ListCityController extends Controller
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     )

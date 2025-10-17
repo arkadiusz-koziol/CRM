@@ -8,16 +8,16 @@ use App\Models\User;
 use App\Services\PlanService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 use Mockery;
 use Spatie\Permission\Models\Permission;
+use Tests\TestCase;
 
 class PlanShowTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         parent::setUp();
         Permission::firstOrCreate(['name' => 'plan.list']);
     }
@@ -33,7 +33,7 @@ class PlanShowTest extends TestCase
         $mockService = Mockery::mock(PlanService::class);
         $mockService->shouldReceive('getPlansByEstate')
             ->once()
-            ->with(Mockery::on(fn($estateArg) => $estateArg->id === $estate->id))
+            ->with(Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id))
             ->andReturn(collect($plan));
         $this->app->instance(PlanService::class, $mockService);
 
@@ -53,8 +53,8 @@ class PlanShowTest extends TestCase
         $mockService = Mockery::mock(PlanService::class);
         $mockService->shouldReceive('getPlansByEstate')
             ->once()
-            ->with(Mockery::on(fn($estateArg) => $estateArg->id === $estate->id))
-            ->andThrow(new ModelNotFoundException());
+            ->with(Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id))
+            ->andThrow(new ModelNotFoundException);
         $this->app->instance(PlanService::class, $mockService);
 
         $this->actingAs($admin)

@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 /**
- * Test Status Summary Script
- * 
+ * Test Status Summary Script.
+ *
  * This script provides a quick overview of the current testing status
  * and what has been implemented so far.
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 class TestStatus
 {
@@ -47,7 +47,7 @@ class TestStatus
     private function showTestStructure(): void
     {
         echo "2. TEST STRUCTURE\n";
-        
+
         $testDirs = [
             'tests/Unit' => 'Unit tests for domain logic',
             'tests/Integration' => 'Integration tests for repositories',
@@ -57,7 +57,7 @@ class TestStatus
         ];
 
         foreach ($testDirs as $dir => $description) {
-            $exists = is_dir($this->basePath . '/' . $dir);
+            $exists = is_dir($this->basePath.'/'.$dir);
             $status = $exists ? '✓' : '✗';
             echo "   $status $dir - $description\n";
         }
@@ -67,7 +67,7 @@ class TestStatus
     private function showCoverage(): void
     {
         echo "3. CURRENT TEST COVERAGE\n";
-        
+
         $testFiles = [
             'tests/Unit/Domain/Activity/Entity/ActivityTest.php' => 'Activity entity tests',
             'tests/Unit/Dto/CreateUserDtoTest.php' => 'CreateUserDto tests',
@@ -81,7 +81,7 @@ class TestStatus
         ];
 
         foreach ($testFiles as $file => $description) {
-            $exists = file_exists($this->basePath . '/' . $file);
+            $exists = file_exists($this->basePath.'/'.$file);
             $status = $exists ? '✓' : '✗';
             echo "   $status $description\n";
         }
@@ -131,9 +131,8 @@ class TestStatus
 }
 
 // Run the status check
-$status = new TestStatus(__DIR__ . '/..');
+$status = new TestStatus(__DIR__.'/..');
 $status->showStatus();
 
 echo "=== STATUS COMPLETE ===\n";
 echo "For detailed information, see README_TESTING.md\n";
-

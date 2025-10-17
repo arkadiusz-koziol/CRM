@@ -21,46 +21,61 @@ class ListTaskController extends Controller
      *     summary="List all tasks",
      *     description="Returns a paginated list of all tasks with optional filtering.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         description="Page number",
+     *
      *         @OA\Schema(type="integer", default=1)
      *     ),
+     *
      *     @OA\Parameter(
      *         name="per_page",
      *         in="query",
      *         description="Items per page",
+     *
      *         @OA\Schema(type="integer", default=15)
      *     ),
+     *
      *     @OA\Parameter(
      *         name="status",
      *         in="query",
      *         description="Filter by status",
+     *
      *         @OA\Schema(type="string", enum={"pending", "in_progress", "completed", "cancelled", "on_hold"})
      *     ),
+     *
      *     @OA\Parameter(
      *         name="priority",
      *         in="query",
      *         description="Filter by priority",
+     *
      *         @OA\Schema(type="string", enum={"low", "medium", "high", "urgent"})
      *     ),
+     *
      *     @OA\Parameter(
      *         name="assigned_to",
      *         in="query",
      *         description="Filter by assigned user ID",
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Parameter(
      *         name="search",
      *         in="query",
      *         description="Search in title and description",
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tasks retrieved successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/Task")),
      *             @OA\Property(property="current_page", type="integer"),
      *             @OA\Property(property="last_page", type="integer"),
@@ -94,8 +109,9 @@ class ListTaskController extends Controller
             return $this->responseFactory->successResponse($tasks);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
+
             return $this->responseFactory->json([
-                'message' => __('app.task.list_failed')
+                'message' => __('app.task.list_failed'),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

@@ -10,8 +10,7 @@ class MaterialService
 {
     public function __construct(
         protected MaterialRepositoryInterface $materialRepository
-    ) {
-    }
+    ) {}
 
     public function createMaterial(MaterialDto $materialDto): Material
     {

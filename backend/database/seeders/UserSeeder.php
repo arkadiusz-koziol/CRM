@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Enums\UserRoles;
 use App\Enums\UserStatus;
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             $user->assignRole(UserRoles::USER->value);
         });
 
-        if (!User::where('email', 'admin@example.com')->exists()) {
+        if (! User::where('email', 'admin@example.com')->exists()) {
             User::factory()->create([
                 'name' => 'Admin',
                 'email' => 'admin@example.com',

@@ -11,8 +11,8 @@ class CreateCarRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
-            'registration_number' => ['required', 'alpha_num','max:255','unique:cars,registration_number'],
-            'technical_details' => ['nullable','string','max:255']
+            'registration_number' => ['required', 'alpha_num', 'max:255', 'unique:cars,registration_number'],
+            'technical_details' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

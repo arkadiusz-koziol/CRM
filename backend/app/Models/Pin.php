@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  *     schema="Pin",
  *     type="object",
  *     required={"plan_id", "x", "y", "user_id"},
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",

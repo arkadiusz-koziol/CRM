@@ -18,6 +18,7 @@ abstract class Controller
      * )
      *
      * @OA\Components(
+     *
      *     @OA\SecurityScheme(
      *         securityScheme="bearerAuth",
      *         type="http",
@@ -26,11 +27,9 @@ abstract class Controller
      *     )
      * )
      */
-
     public function __construct(
         protected ResponseFactory $responseFactory,
         protected AuthManager $authManager,
         protected LoggerInterface $logger,
-    ) {
-    }
+    ) {}
 }

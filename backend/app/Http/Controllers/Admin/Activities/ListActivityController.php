@@ -13,8 +13,7 @@ final class ListActivityController extends Controller
 {
     public function __construct(
         private readonly ActivityService $activityService
-    ) {
-    }
+    ) {}
 
     public function __invoke(Request $request): JsonResponse
     {

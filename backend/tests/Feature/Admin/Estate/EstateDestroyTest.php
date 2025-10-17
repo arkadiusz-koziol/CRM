@@ -5,10 +5,10 @@ namespace Tests\Feature\Admin\Estate;
 use App\Models\Estate;
 use App\Models\User;
 use App\Services\EstateService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Database\Seeders\PermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use Tests\TestCase;
 
 class EstateDestroyTest extends TestCase
 {
@@ -30,9 +30,10 @@ class EstateDestroyTest extends TestCase
         $mockService = Mockery::mock(EstateService::class);
         $mockService->shouldReceive('deleteEstate')
             ->once()
-            ->with(Mockery::on(fn($estateArg) => $estateArg->id === $estate->id))
+            ->with(Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id))
             ->andReturnUsing(function ($estate) {
                 $estate->delete();
+
                 return true;
             });
         $this->app->instance(EstateService::class, $mockService);
@@ -55,7 +56,7 @@ class EstateDestroyTest extends TestCase
         $mockService = Mockery::mock(EstateService::class);
         $mockService->shouldReceive('deleteEstate')
             ->once()
-            ->with(Mockery::on(fn($estateArg) => $estateArg->id === $estate->id))
+            ->with(Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id))
             ->andReturnFalse();
         $this->app->instance(EstateService::class, $mockService);
 

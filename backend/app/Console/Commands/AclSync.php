@@ -22,6 +22,7 @@ class AclSync extends Command
 
         if ($acl === null) {
             $this->error('Missing system.php configuration file, or "acl" key in this file');
+
             return;
         }
 
@@ -29,10 +30,10 @@ class AclSync extends Command
             foreach ($acl as $role => $permissions) {
                 collect($permissions)->each(function (string $name) {
                     Permission::firstOrCreate(['name' => $name]);
-                    $this->info('syncing permission: ' . $name);
+                    $this->info('syncing permission: '.$name);
                 });
                 $role = Role::firstOrCreate(['name' => $role]);
-                $this->info('syncing role: ' . $role->name);
+                $this->info('syncing role: '.$role->name);
                 $role->syncPermissions($permissions);
             }
         } catch (Throwable $e) {

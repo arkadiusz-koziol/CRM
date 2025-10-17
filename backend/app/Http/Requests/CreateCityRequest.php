@@ -13,6 +13,6 @@ class CreateCityRequest extends FormRequest
             'district' => ['required', 'string', 'max:255'],
             'commune' => ['required', 'string', 'max:255'],
             'voivodeship' => ['required', 'string', 'max:255'],
-            ];
+        ];
     }
 }

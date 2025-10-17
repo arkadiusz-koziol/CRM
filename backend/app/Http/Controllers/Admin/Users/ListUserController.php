@@ -16,11 +16,14 @@ class ListUserController extends Controller
      *     summary="Get list of users",
      *     description="Returns a list of all users.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of users",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/User")
      *         )
      *     )
