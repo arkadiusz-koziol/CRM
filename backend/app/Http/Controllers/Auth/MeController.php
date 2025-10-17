@@ -13,6 +13,7 @@ class MeController extends Controller
      * @OA\Schema(
      *     schema="MeResource",
      *     type="object",
+     *
      *     @OA\Property(property="id", type="integer", example=1),
      *     @OA\Property(property="name", type="string", example="John"),
      *     @OA\Property(property="surname", type="string", example="Doe"),
@@ -28,17 +29,23 @@ class MeController extends Controller
      *     summary="Get current user profile",
      *     description="Get the profile information of the currently authenticated user.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User profile retrieved successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="data", ref="#/components/schemas/MeResource")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="error", type="string", example="Unauthenticated")
      *         )
      *     )
@@ -48,7 +55,7 @@ class MeController extends Controller
     {
         $user = $this->authManager->user();
 
-        if (!$user) {
+        if (! $user) {
             return $this->responseFactory->errorResponse('Unauthenticated', 401);
         }
 

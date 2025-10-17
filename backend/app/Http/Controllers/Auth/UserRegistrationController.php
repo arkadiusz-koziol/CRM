@@ -17,7 +17,7 @@ class UserRegistrationController extends Controller
 
         return $this->responseFactory->successResponse([
             'user' => $user,
-            'token' => $user->createToken('auth_token')->plainTextToken
+            'token' => $user->createToken('auth_token')->plainTextToken,
         ], 201);
     }
 }

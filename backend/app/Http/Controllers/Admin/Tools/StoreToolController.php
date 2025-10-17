@@ -21,11 +21,14 @@ class StoreToolController extends Controller
      *     operationId="createTool",
      *     tags={"Admin Tools"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"name", "description", "count"},
+     *
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -46,22 +49,28 @@ class StoreToolController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Tool created successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             additionalProperties=true
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -72,7 +81,6 @@ class StoreToolController extends Controller
      *     )
      * )
      */
-
     public function __invoke(
         CreateToolRequest $request,
         ToolService $toolService,
@@ -90,6 +98,7 @@ class StoreToolController extends Controller
             $this->logger->error($e->getMessage(), [
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Estate;
 use App\Models\City;
+use App\Models\Estate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EstateFactory extends Factory

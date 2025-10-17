@@ -18,11 +18,6 @@ final class ForgotPasswordController extends Controller
 {
     /**
      * Handle the forgot password request.
-     *
-     * @param ForgotPasswordService $forgotPasswordService
-     * @param ForgotPasswordDtoFactory $dtoFactory
-     * @param ForgotPasswordRequest $request
-     * @return JsonResponse
      */
     public function __invoke(
         ForgotPasswordService $forgotPasswordService,
@@ -34,7 +29,7 @@ final class ForgotPasswordController extends Controller
             $message = $forgotPasswordService->handle($dto);
 
             return (new ForgotPasswordResource([
-                'message' => $message
+                'message' => $message,
             ]))->response()->setStatusCode(200);
         } catch (UserNotFoundException $e) {
             return $this->responseFactory->errorResponse($e->getMessage(), 404);

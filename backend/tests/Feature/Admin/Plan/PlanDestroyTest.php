@@ -10,16 +10,16 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
-use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 use Mockery;
 use Spatie\Permission\Models\Permission;
+use Tests\TestCase;
 
 class PlanDestroyTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         parent::setUp();
         Permission::firstOrCreate(['name' => 'plan.delete']);
     }
@@ -35,7 +35,7 @@ class PlanDestroyTest extends TestCase
         $mockService = Mockery::mock(PlanService::class);
         $mockService->shouldReceive('getPlansByEstate')
             ->once()
-            ->with(Mockery::on(fn($estateArg) => $estateArg->id === $estate->id))
+            ->with(Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id))
             ->andReturn(collect($plan));
         $mockService->shouldReceive('deletePlan')
             ->once()
@@ -59,8 +59,8 @@ class PlanDestroyTest extends TestCase
         $mockService = Mockery::mock(PlanService::class);
         $mockService->shouldReceive('getPlansByEstate')
             ->once()
-            ->with(Mockery::on(fn($estateArg) => $estateArg->id === $estate->id))
-            ->andThrow(new ModelNotFoundException());
+            ->with(Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id))
+            ->andThrow(new ModelNotFoundException);
         $this->app->instance(PlanService::class, $mockService);
 
         $this->actingAs($admin)
@@ -79,7 +79,7 @@ class PlanDestroyTest extends TestCase
         $mockService = Mockery::mock(PlanService::class);
         $mockService->shouldReceive('getPlansByEstate')
             ->once()
-            ->with(Mockery::on(fn($estateArg) => $estateArg->id === $estate->id))
+            ->with(Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id))
             ->andThrow(new Exception('Delete error'));
         $this->app->instance(PlanService::class, $mockService);
 

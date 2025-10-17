@@ -11,8 +11,7 @@ readonly class PinDto
         private float $x,
         private float $y,
         private ?UploadedFile $photo
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

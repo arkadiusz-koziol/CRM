@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Admin\Material;
 
-use App\Models\Material;
 use App\Models\User;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 
 class MaterialStoreTest extends TestCase
 {

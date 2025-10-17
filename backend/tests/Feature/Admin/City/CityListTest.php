@@ -4,12 +4,12 @@ namespace Tests\Feature\Admin\City;
 
 use App\Models\User;
 use App\Services\CityService;
+use Database\Seeders\PermissionSeeder;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mockery;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Tests\TestCase;
-use Mockery;
-use Database\Seeders\PermissionSeeder;
 
 class CityListTest extends TestCase
 {

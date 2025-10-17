@@ -20,24 +20,32 @@ class DestroyPlanController extends Controller
      *     summary="Delete plans for an estate",
      *     description="Deletes all plans associated with a specific estate.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="estate",
      *         in="path",
      *         description="Estate ID",
      *         required=true,
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Plans deleted successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Action successful")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Plans not found",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Plans not found")
      *         )
      *     )
@@ -56,16 +64,18 @@ class DestroyPlanController extends Controller
                 'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('Nie znaleziono planu dla tej nieruchomości')
+                'message' => __('Nie znaleziono planu dla tej nieruchomości'),
             ], Response::HTTP_NOT_FOUND);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage(), [
                 'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('Błąd podczas usuwania planów')
+                'message' => __('Błąd podczas usuwania planów'),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

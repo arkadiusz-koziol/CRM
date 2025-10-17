@@ -16,8 +16,7 @@ final readonly class ResetPasswordService
 {
     public function __construct(
         private PasswordBroker $passwordBroker
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidPasswordResetTokenException
@@ -33,7 +32,7 @@ final readonly class ResetPasswordService
             'token' => $dto->getToken(),
         ], function ($user, $password) {
             $user->forceFill([
-                'password' => Hash::make($password)
+                'password' => Hash::make($password),
             ])->save();
         });
 

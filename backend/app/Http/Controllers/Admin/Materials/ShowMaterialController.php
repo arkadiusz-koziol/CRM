@@ -19,31 +19,39 @@ class ShowMaterialController extends Controller
      *     operationId="getMaterialById",
      *     tags={"Admin Materials"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the material",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             additionalProperties=true
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -63,6 +71,7 @@ class ShowMaterialController extends Controller
                 'material_id' => $material->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

@@ -18,6 +18,7 @@ use OpenApi\Annotations as OA;
  *     type="object",
  *     title="Task",
  *     required={"id", "title", "description", "status", "priority", "assigned_to", "created_by"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="title", type="string", example="Fix login issue"),
  *     @OA\Property(property="description", type="string", example="Users cannot log in to the system"),

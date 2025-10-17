@@ -11,18 +11,17 @@ class UserService
 {
     public function __construct(
         protected UserRepositoryInterface $userRepository
-    ) {
-    }
+    ) {}
 
     public function createUser(CreateUserDto $dto): User
     {
         $data = [
-            'name'       => $dto->getName(),
-            'surname'    => $dto->getSurname(),
-            'email'      => $dto->getEmail(),
-            'phone'      => $dto->getPhone(),
-            'password'   => $dto->getPassword(),
-            'city'       => $dto->getCity(),
+            'name' => $dto->getName(),
+            'surname' => $dto->getSurname(),
+            'email' => $dto->getEmail(),
+            'phone' => $dto->getPhone(),
+            'password' => $dto->getPassword(),
+            'city' => $dto->getCity(),
             'vovoidship' => $dto->getVovoidship(),
         ];
 

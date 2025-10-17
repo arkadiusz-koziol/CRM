@@ -12,6 +12,7 @@ use OpenApi\Annotations as OA;
  *     type="object",
  *     title="Tool",
  *     required={"id", "name", "description", "count", "created_at", "updated_at", "deleted_at"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="Hammer"),
  *     @OA\Property(property="description", type="string", example="Black, small, wood-made"),
@@ -21,7 +22,6 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(property="deleted_at", type="string", format="date-time", example="2024-10-10T08:30:00Z"),
  * )
  */
-
 class Tool extends Model
 {
     use SoftDeletes;

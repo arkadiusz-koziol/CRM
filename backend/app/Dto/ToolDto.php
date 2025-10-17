@@ -10,8 +10,7 @@ readonly class ToolDto implements Arrayable
         private string $name,
         private string $description,
         private int $count
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

@@ -20,20 +20,25 @@ class DestroyEstateController extends Controller
      *     operationId="deleteEstate",
      *     tags={"Admin Estates"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the estate to delete",
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Estate deleted successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -41,11 +46,14 @@ class DestroyEstateController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad Request",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -53,14 +61,18 @@ class DestroyEstateController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Unprocessable Entity",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(type="string")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
@@ -76,7 +88,7 @@ class DestroyEstateController extends Controller
         EstateService $estateService
     ): JsonResponse {
         try {
-            if (!$estateService->deleteEstate($estate)) {
+            if (! $estateService->deleteEstate($estate)) {
                 return $this->responseFactory->json(['message' => __('app.action.failed'), Response::HTTP_BAD_REQUEST]);
             }
 

@@ -6,10 +6,10 @@ use App\Dto\CityDto;
 use App\Models\City;
 use App\Models\User;
 use App\Services\CityService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Database\Seeders\PermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use Tests\TestCase;
 
 class CityUpdateTest extends TestCase
 {
@@ -100,7 +100,7 @@ class CityUpdateTest extends TestCase
         $mockService->shouldReceive('updateCity')
             ->once()
             ->with(
-                Mockery::on(fn($cityArg) => $cityArg->id === $city->id),
+                Mockery::on(fn ($cityArg) => $cityArg->id === $city->id),
                 Mockery::type(CityDto::class)
             )
             ->andReturnFalse();
@@ -126,8 +126,7 @@ class CityUpdateTest extends TestCase
         ];
 
         $this->actingAs($admin)
-            ->putJson("api/v1/admin/cities/99999999999", $payload)
+            ->putJson('api/v1/admin/cities/99999999999', $payload)
             ->assertNotFound();
     }
-
 }

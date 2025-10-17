@@ -14,7 +14,7 @@ class CreateMaterialRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                new UniqueIgnoringSoftDeletes('materials', 'name')
+                new UniqueIgnoringSoftDeletes('materials', 'name'),
             ],
             'description' => ['required', 'string', 'max:255'],
             'count' => ['required', 'integer', 'min:0'],

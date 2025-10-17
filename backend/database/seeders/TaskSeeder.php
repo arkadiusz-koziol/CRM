@@ -19,6 +19,7 @@ class TaskSeeder extends Seeder
 
         if ($users->isEmpty()) {
             $this->command->warn('No users found. Please run UserSeeder first.');
+
             return;
         }
 
@@ -38,8 +39,8 @@ class TaskSeeder extends Seeder
                 ['priority' => 'urgent'],
             )
             ->create([
-                'assigned_to' => fn() => $users->random()->id,
-                'created_by' => fn() => $users->random()->id,
+                'assigned_to' => fn () => $users->random()->id,
+                'created_by' => fn () => $users->random()->id,
             ]);
 
         $this->command->info('Tasks seeded successfully!');

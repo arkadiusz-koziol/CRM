@@ -21,10 +21,13 @@ class StoreUserController extends Controller
      *     summary="Create a new user",
      *     description="Creates a new user and returns the user details.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"name", "surname", "email", "password"},
+     *
      *             @OA\Property(property="name", type="string", example="John"),
      *             @OA\Property(property="surname", type="string", example="Doe"),
      *             @OA\Property(property="email", type="string", format="email", example="johndoe@example.com"),
@@ -34,15 +37,20 @@ class StoreUserController extends Controller
      *             @OA\Property(property="phone", type="string", example="111222333"),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="User created successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/User")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Validation error",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Validation error")
      *         )
      *     )
@@ -56,6 +64,7 @@ class StoreUserController extends Controller
     ): JsonResponse {
         try {
             $dto = $dtoFactory->fromRequest($request);
+
             return $this->responseFactory->successResponse(
                 $userService->createUser($dto)
             );
@@ -63,8 +72,9 @@ class StoreUserController extends Controller
             $this->logger->error($e->getMessage(), [
                 'user_id' => $auth->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('messages.user_creation_failed')
+                'message' => __('messages.user_creation_failed'),
             ], Response::HTTP_BAD_REQUEST);
         }
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Domain\Activity\Entity\Activity;
-use App\Dto\ActivityDto;
 use App\Factory\ActivityDtoFactory;
 use App\Interfaces\Repositories\ActivityRepositoryInterface;
 use Illuminate\Support\Collection;
@@ -14,8 +13,7 @@ final class ActivityService
 {
     public function __construct(
         private readonly ActivityRepositoryInterface $activityRepository
-    ) {
-    }
+    ) {}
 
     public function logActivity(
         string $action,
@@ -39,13 +37,13 @@ final class ActivityService
     {
         return $this->activityRepository
             ->getRecent($limit)
-            ->map(fn(Activity $activity) => ActivityDtoFactory::fromEntity($activity));
+            ->map(fn (Activity $activity) => ActivityDtoFactory::fromEntity($activity));
     }
 
     public function getActivitiesByEntityType(string $entityType, int $limit = 10): Collection
     {
         return $this->activityRepository
             ->getByEntityType($entityType, $limit)
-            ->map(fn(Activity $activity) => ActivityDtoFactory::fromEntity($activity));
+            ->map(fn (Activity $activity) => ActivityDtoFactory::fromEntity($activity));
     }
 }

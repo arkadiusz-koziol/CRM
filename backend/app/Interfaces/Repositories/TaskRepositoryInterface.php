@@ -7,7 +7,6 @@ namespace App\Interfaces\Repositories;
 use App\Dto\CreateTaskDto;
 use App\Dto\UpdateTaskDto;
 use App\Models\Task;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface TaskRepositoryInterface

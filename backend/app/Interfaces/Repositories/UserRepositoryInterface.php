@@ -15,6 +15,8 @@ interface UserRepositoryInterface
     public function delete(User $user): bool;
 
     public function changePassword(User $user, string $newPassword): bool;
+
     public function list(): array;
+
     public function userCanPerformAction(User $user): bool;
 }

@@ -10,8 +10,7 @@ class CarService
 {
     public function __construct(
         protected CarRepositoryInterface $carRepository
-    ) {
-    }
+    ) {}
 
     public function createCar(CarDto $carDto): Car
     {

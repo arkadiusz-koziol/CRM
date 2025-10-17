@@ -21,7 +21,7 @@ class PermissionSeeder extends Seeder
             'city.update',
             'city.delete',
             'city.list',
-            
+
             // Estate permissions
             'estate.create',
             'estate.read',
@@ -29,7 +29,7 @@ class PermissionSeeder extends Seeder
             'estate.update',
             'estate.delete',
             'estate.list',
-            
+
             // Material permissions
             'material.create',
             'material.read',
@@ -37,7 +37,7 @@ class PermissionSeeder extends Seeder
             'material.update',
             'material.delete',
             'material.list',
-            
+
             // Plan permissions
             'plan.create',
             'plan.read',
@@ -45,7 +45,7 @@ class PermissionSeeder extends Seeder
             'plan.update',
             'plan.delete',
             'plan.list',
-            
+
             // Task permissions
             'task.create',
             'task.read',
@@ -53,7 +53,7 @@ class PermissionSeeder extends Seeder
             'task.update',
             'task.delete',
             'task.list',
-            
+
             // User permissions
             'user.create',
             'user.read',

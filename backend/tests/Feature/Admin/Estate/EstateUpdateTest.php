@@ -7,10 +7,10 @@ use App\Models\City;
 use App\Models\Estate;
 use App\Models\User;
 use App\Services\EstateService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Database\Seeders\PermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use Tests\TestCase;
 
 class EstateUpdateTest extends TestCase
 {
@@ -50,7 +50,7 @@ class EstateUpdateTest extends TestCase
         $mockService->shouldReceive('updateEstate')
             ->once()
             ->with(
-                Mockery::on(fn($estateArg) => $estateArg->id === $estate->id),
+                Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id),
                 Mockery::type(EstateDto::class)
             )
             ->andReturnTrue();
@@ -61,7 +61,6 @@ class EstateUpdateTest extends TestCase
             ->assertOk()
             ->assertJsonFragment(['message' => 'Akcja zakończona sukcesem.']);
     }
-
 
     public function test_validation_error_when_data_missing(): void
     {
@@ -123,7 +122,7 @@ class EstateUpdateTest extends TestCase
         $mockService->shouldReceive('updateEstate')
             ->once()
             ->with(
-                Mockery::on(fn($estateArg) => $estateArg->id === $estate->id),
+                Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id),
                 Mockery::type(EstateDto::class)
             )
             ->andReturnFalse();

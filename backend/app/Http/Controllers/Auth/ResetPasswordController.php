@@ -18,11 +18,6 @@ final class ResetPasswordController extends Controller
 {
     /**
      * Handle the reset password request.
-     *
-     * @param ResetPasswordService $resetPasswordService
-     * @param ResetPasswordDtoFactory $dtoFactory
-     * @param ResetPasswordRequest $request
-     * @return JsonResponse
      */
     public function __invoke(
         ResetPasswordService $resetPasswordService,
@@ -34,7 +29,7 @@ final class ResetPasswordController extends Controller
             $message = $resetPasswordService->handle($dto);
 
             return (new ResetPasswordResource([
-                'message' => $message
+                'message' => $message,
             ]))->response()->setStatusCode(200);
         } catch (InvalidPasswordResetTokenException $e) {
             return $this->responseFactory->errorResponse($e->getMessage(), 400);

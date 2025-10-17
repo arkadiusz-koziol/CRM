@@ -22,7 +22,7 @@ class ActivityTest extends TestCase
         Carbon::setTestNow();
     }
 
-    public function testCreatesActivityWithAllRequiredFields(): void
+    public function test_creates_activity_with_all_required_fields(): void
     {
         $activity = Activity::create(
             action: 'user_created',
@@ -42,7 +42,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('2024-01-01 12:00:00', $activity->createdAt()->toDateTimeString());
     }
 
-    public function testCreatesActivityWithoutEntityId(): void
+    public function test_creates_activity_without_entity_id(): void
     {
         $activity = Activity::create(
             action: 'system_started',
@@ -60,7 +60,7 @@ class ActivityTest extends TestCase
         $this->assertInstanceOf(Carbon::class, $activity->createdAt());
     }
 
-    public function testGeneratesUniqueIdsForDifferentActivities(): void
+    public function test_generates_unique_ids_for_different_activities(): void
     {
         $activity1 = Activity::create(
             action: 'user_created',
@@ -79,7 +79,7 @@ class ActivityTest extends TestCase
         $this->assertNotEquals($activity1->id(), $activity2->id());
     }
 
-    public function testHandlesSpecialCharactersInUserData(): void
+    public function test_handles_special_characters_in_user_data(): void
     {
         $activity = Activity::create(
             action: 'user_created',
@@ -93,7 +93,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('josé.maría@example.com', $activity->userEmail());
     }
 
-    public function testHandlesEmptyStringsInOptionalFields(): void
+    public function test_handles_empty_strings_in_optional_fields(): void
     {
         $activity = Activity::create(
             action: 'test_action',
@@ -109,26 +109,26 @@ class ActivityTest extends TestCase
         $this->assertEquals('', $activity->entityId());
     }
 
-    public function testHandlesVeryLongStrings(): void
+    public function test_handles_very_long_strings(): void
     {
         $longString = str_repeat('a', 1000);
-        
+
         $activity = Activity::create(
             action: $longString,
             userName: $longString,
-            userEmail: $longString . '@example.com',
+            userEmail: $longString.'@example.com',
             entityType: $longString,
             entityId: $longString
         );
 
         $this->assertEquals($longString, $activity->action());
         $this->assertEquals($longString, $activity->userName());
-        $this->assertEquals($longString . '@example.com', $activity->userEmail());
+        $this->assertEquals($longString.'@example.com', $activity->userEmail());
         $this->assertEquals($longString, $activity->entityType());
         $this->assertEquals($longString, $activity->entityId());
     }
 
-    public function testHandlesUnicodeCharacters(): void
+    public function test_handles_unicode_characters(): void
     {
         $activity = Activity::create(
             action: '用户创建',
@@ -145,7 +145,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('用户123', $activity->entityId());
     }
 
-    public function testHandlesEmojiCharacters(): void
+    public function test_handles_emoji_characters(): void
     {
         $activity = Activity::create(
             action: '🎉 user_created',
@@ -162,7 +162,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('123 🆔', $activity->entityId());
     }
 
-    public function testMaintainsImmutability(): void
+    public function test_maintains_immutability(): void
     {
         $activity = Activity::create(
             action: 'user_created',
@@ -210,14 +210,14 @@ class ActivityTest extends TestCase
         $this->assertEquals('456', $newActivity->entityId());
     }
 
-    public function testHandlesDifferentTimeZones(): void
+    public function test_handles_different_time_zones(): void
     {
         // Test with different time zones
         $timezones = ['UTC', 'Europe/Warsaw', 'America/New_York', 'Asia/Tokyo'];
-        
+
         foreach ($timezones as $timezone) {
             Carbon::setTestNow(Carbon::now($timezone));
-            
+
             $activity = Activity::create(
                 action: 'timezone_test',
                 userName: 'Test User',
@@ -231,7 +231,7 @@ class ActivityTest extends TestCase
         }
     }
 
-    public function testHandlesEdgeCaseEntityIds(): void
+    public function test_handles_edge_case_entity_ids(): void
     {
         $edgeCases = [
             '0',

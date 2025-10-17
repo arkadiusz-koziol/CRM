@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 class TaskServiceTest extends TestCase
 {
     private TaskRepositoryInterface $taskRepository;
+
     private TaskService $taskService;
 
     protected function setUp(): void
@@ -26,7 +27,7 @@ class TaskServiceTest extends TestCase
         $this->taskService = new TaskService($this->taskRepository);
     }
 
-    public function testCreateTask(): void
+    public function test_create_task(): void
     {
         $dto = new CreateTaskDto(
             title: 'Test Task',
@@ -51,7 +52,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $result);
     }
 
-    public function testGetTaskById(): void
+    public function test_get_task_by_id(): void
     {
         $taskId = 1;
         $task = $this->createMock(Task::class);
@@ -67,7 +68,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $foundTask);
     }
 
-    public function testUpdateTaskWithChanges(): void
+    public function test_update_task_with_changes(): void
     {
         $task = $this->createTask();
         $dto = new UpdateTaskDto(title: 'Updated Title');
@@ -83,10 +84,10 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testUpdateTaskNoChanges(): void
+    public function test_update_task_no_changes(): void
     {
         $task = $this->createTask();
-        $dto = new UpdateTaskDto(); // No changes
+        $dto = new UpdateTaskDto; // No changes
 
         $this->taskRepository
             ->expects($this->never())
@@ -97,7 +98,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testDeleteTask(): void
+    public function test_delete_task(): void
     {
         $task = $this->createTask();
 
@@ -112,7 +113,7 @@ class TaskServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testGetAllTasks(): void
+    public function test_get_all_tasks(): void
     {
         $perPage = 10;
         $paginator = $this->createMock(LengthAwarePaginator::class);
@@ -128,7 +129,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($paginator, $result);
     }
 
-    public function testGetTasksByAssignedUser(): void
+    public function test_get_tasks_by_assigned_user(): void
     {
         $userId = 1;
         $perPage = 10;
@@ -145,7 +146,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($paginator, $result);
     }
 
-    public function testGetTasksByCreatorUser(): void
+    public function test_get_tasks_by_creator_user(): void
     {
         $userId = 1;
         $perPage = 10;
@@ -162,7 +163,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($paginator, $result);
     }
 
-    public function testGetTasksByStatus(): void
+    public function test_get_tasks_by_status(): void
     {
         $status = TaskStatus::COMPLETED->value;
         $perPage = 10;
@@ -179,7 +180,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($paginator, $result);
     }
 
-    public function testCreateTaskWithSpecialCharacters(): void
+    public function test_create_task_with_special_characters(): void
     {
         $dto = new CreateTaskDto(
             title: 'Tâche spéciale avec caractères accentués',
@@ -204,7 +205,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $result);
     }
 
-    public function testCreateTaskWithUnicodeCharacters(): void
+    public function test_create_task_with_unicode_characters(): void
     {
         $dto = new CreateTaskDto(
             title: '任务标题',
@@ -229,7 +230,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $result);
     }
 
-    public function testCreateTaskWithEmojiCharacters(): void
+    public function test_create_task_with_emoji_characters(): void
     {
         $dto = new CreateTaskDto(
             title: 'Task with emoji 🎯',
@@ -254,10 +255,10 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $result);
     }
 
-    public function testCreateTaskWithVeryLongStrings(): void
+    public function test_create_task_with_very_long_strings(): void
     {
         $longString = str_repeat('a', 1000);
-        
+
         $dto = new CreateTaskDto(
             title: $longString,
             description: $longString,
@@ -281,7 +282,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $result);
     }
 
-    public function testCreateTaskWithEmptyStrings(): void
+    public function test_create_task_with_empty_strings(): void
     {
         $dto = new CreateTaskDto(
             title: '',
@@ -306,7 +307,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $result);
     }
 
-    public function testCreateTaskWithWhitespaceOnlyStrings(): void
+    public function test_create_task_with_whitespace_only_strings(): void
     {
         $dto = new CreateTaskDto(
             title: '   ',
@@ -331,7 +332,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $result);
     }
 
-    public function testUpdateTaskWithSpecialCharacters(): void
+    public function test_update_task_with_special_characters(): void
     {
         $task = $this->createTask();
         $dto = new UpdateTaskDto(
@@ -356,7 +357,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testUpdateTaskWithUnicodeCharacters(): void
+    public function test_update_task_with_unicode_characters(): void
     {
         $task = $this->createTask();
         $dto = new UpdateTaskDto(
@@ -381,7 +382,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testUpdateTaskWithEmojiCharacters(): void
+    public function test_update_task_with_emoji_characters(): void
     {
         $task = $this->createTask();
         $dto = new UpdateTaskDto(
@@ -406,7 +407,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testUpdateTaskWithVeryLongStrings(): void
+    public function test_update_task_with_very_long_strings(): void
     {
         $task = $this->createTask();
         $longString = str_repeat('a', 1000);
@@ -432,7 +433,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testUpdateTaskWithEmptyStrings(): void
+    public function test_update_task_with_empty_strings(): void
     {
         $task = $this->createTask();
         $dto = new UpdateTaskDto(
@@ -457,7 +458,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testUpdateTaskWithWhitespaceOnlyStrings(): void
+    public function test_update_task_with_whitespace_only_strings(): void
     {
         $task = $this->createTask();
         $dto = new UpdateTaskDto(
@@ -482,7 +483,7 @@ class TaskServiceTest extends TestCase
         $this->assertEquals($task, $updatedTask);
     }
 
-    public function testGetAllTasksWithDifferentPerPageValues(): void
+    public function test_get_all_tasks_with_different_per_page_values(): void
     {
         $perPageValues = [1, 5, 10, 25, 50, 100, 1000];
 
@@ -504,7 +505,7 @@ class TaskServiceTest extends TestCase
         }
     }
 
-    public function testGetTasksByAssignedUserWithDifferentPerPageValues(): void
+    public function test_get_tasks_by_assigned_user_with_different_per_page_values(): void
     {
         $userId = 1;
         $perPageValues = [1, 5, 10, 25, 50, 100, 1000];
@@ -527,7 +528,7 @@ class TaskServiceTest extends TestCase
         }
     }
 
-    public function testGetTasksByCreatorUserWithDifferentPerPageValues(): void
+    public function test_get_tasks_by_creator_user_with_different_per_page_values(): void
     {
         $userId = 1;
         $perPageValues = [1, 5, 10, 25, 50, 100, 1000];
@@ -550,7 +551,7 @@ class TaskServiceTest extends TestCase
         }
     }
 
-    public function testGetTasksByStatusWithDifferentPerPageValues(): void
+    public function test_get_tasks_by_status_with_different_per_page_values(): void
     {
         $status = TaskStatus::COMPLETED->value;
         $perPageValues = [1, 5, 10, 25, 50, 100, 1000];
@@ -573,7 +574,7 @@ class TaskServiceTest extends TestCase
         }
     }
 
-    public function testGetTasksByAssignedUserWithDifferentUserIds(): void
+    public function test_get_tasks_by_assigned_user_with_different_user_ids(): void
     {
         $userIds = [0, 1, 2, 10, 100, 1000, 999999, 2147483647];
         $perPage = 10;
@@ -596,7 +597,7 @@ class TaskServiceTest extends TestCase
         }
     }
 
-    public function testGetTasksByCreatorUserWithDifferentUserIds(): void
+    public function test_get_tasks_by_creator_user_with_different_user_ids(): void
     {
         $userIds = [0, 1, 2, 10, 100, 1000, 999999, 2147483647];
         $perPage = 10;
@@ -619,7 +620,7 @@ class TaskServiceTest extends TestCase
         }
     }
 
-    public function testGetTasksByStatusWithDifferentStatuses(): void
+    public function test_get_tasks_by_status_with_different_statuses(): void
     {
         $statuses = [
             TaskStatus::PENDING->value,
@@ -648,7 +649,7 @@ class TaskServiceTest extends TestCase
         }
     }
 
-    public function testGetTaskByIdWithNonExistentId(): void
+    public function test_get_task_by_id_with_non_existent_id(): void
     {
         $nonExistentId = 999999;
 
@@ -663,7 +664,7 @@ class TaskServiceTest extends TestCase
         $this->assertNull($foundTask);
     }
 
-    public function testDeleteTaskWithNonExistentTask(): void
+    public function test_delete_task_with_non_existent_task(): void
     {
         $task = $this->createTask();
 
@@ -678,7 +679,7 @@ class TaskServiceTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testUpdateTaskWithNonExistentTask(): void
+    public function test_update_task_with_non_existent_task(): void
     {
         $task = $this->createTask();
         $dto = new UpdateTaskDto(title: 'Updated Title');

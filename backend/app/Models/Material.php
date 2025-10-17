@@ -13,6 +13,7 @@ use OpenApi\Annotations as OA;
  *     type="object",
  *     title="Material",
  *     required={"id", "name", "description", "count", "price","created_at", "updated_at", "deleted_at"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="Nail"),
  *     @OA\Property(property="description", type="string", example="Big head, made from steel, wood-use."),
@@ -23,11 +24,10 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(property="deleted_at", type="string", format="date-time", example="2024-10-10T08:30:00Z"),
  * )
  */
-
 class Material extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

@@ -10,8 +10,7 @@ readonly class ResetPasswordDto
         private string $email,
         private string $password,
         private string $token
-    ) {
-    }
+    ) {}
 
     public function getEmail(): string
     {

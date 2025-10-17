@@ -11,8 +11,7 @@ readonly class CityDto implements Arrayable
         private string $district,
         private string $commune,
         private string $voivodeship
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

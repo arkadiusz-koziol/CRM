@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Http;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 
 abstract class TestCase extends BaseTestCase
@@ -24,13 +24,13 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Set deterministic time for all tests
         Carbon::setTestNow('2024-01-01 12:00:00');
-        
+
         // Set deterministic UUID generation
-        Uuid::setFactory(new \Ramsey\Uuid\UuidFactory());
-        
+        Uuid::setFactory(new \Ramsey\Uuid\UuidFactory);
+
         // Fake external services
         Event::fake();
         Queue::fake();
@@ -46,12 +46,12 @@ abstract class TestCase extends BaseTestCase
     {
         // Reset time
         Carbon::setTestNow();
-        
+
         parent::tearDown();
     }
 
     /**
-     * Create a user with specific attributes
+     * Create a user with specific attributes.
      */
     protected function createUser(array $attributes = []): \App\Models\User
     {
@@ -59,7 +59,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Create a task with specific attributes
+     * Create a task with specific attributes.
      */
     protected function createTask(array $attributes = []): \App\Models\Task
     {
@@ -67,7 +67,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Create an activity entity
+     * Create an activity entity.
      */
     protected function createActivity(array $attributes = []): \App\Domain\Activity\Entity\Activity
     {
@@ -81,7 +81,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that a job was dispatched
+     * Assert that a job was dispatched.
      */
     protected function assertJobDispatched(string $jobClass, int $times = 1): void
     {
@@ -89,7 +89,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that an event was dispatched
+     * Assert that an event was dispatched.
      */
     protected function assertEventDispatched(string $eventClass, int $times = 1): void
     {
@@ -97,7 +97,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that a notification was sent
+     * Assert that a notification was sent.
      */
     protected function assertNotificationSent(string $notificationClass, int $times = 1): void
     {
@@ -105,7 +105,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that an email was sent
+     * Assert that an email was sent.
      */
     protected function assertEmailSent(string $mailableClass, int $times = 1): void
     {
@@ -113,7 +113,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that an HTTP request was made
+     * Assert that an HTTP request was made.
      */
     protected function assertHttpRequestMade(string $url, int $times = 1): void
     {
@@ -123,7 +123,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert JSON structure matches expected format
+     * Assert JSON structure matches expected format.
      */
     protected function assertJsonStructure(array $structure, array $data): void
     {
@@ -131,7 +131,7 @@ abstract class TestCase extends BaseTestCase
         $this->assertArrayHasKey('type', $data['data']);
         $this->assertArrayHasKey('id', $data['data']);
         $this->assertArrayHasKey('attributes', $data['data']);
-        
+
         foreach ($structure as $key => $value) {
             if (is_array($value)) {
                 $this->assertArrayHasKey($key, $data['data']['attributes']);
@@ -143,7 +143,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that a model was created with specific attributes
+     * Assert that a model was created with specific attributes.
      */
     protected function assertModelCreated(string $modelClass, array $attributes): void
     {
@@ -154,7 +154,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that a model was updated with specific attributes
+     * Assert that a model was updated with specific attributes.
      */
     protected function assertModelUpdated(string $modelClass, array $attributes, array $where): void
     {
@@ -165,7 +165,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that a model was soft deleted
+     * Assert that a model was soft deleted.
      */
     protected function assertModelSoftDeleted(string $modelClass, array $where): void
     {
@@ -173,7 +173,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Get test data for user creation
+     * Get test data for user creation.
      */
     protected function getUserData(array $overrides = []): array
     {
@@ -189,7 +189,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Get test data for task creation
+     * Get test data for task creation.
      */
     protected function getTaskData(array $overrides = []): array
     {
@@ -204,7 +204,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that a response follows JSON:API format
+     * Assert that a response follows JSON:API format.
      */
     protected function assertJsonApiResponse(array $response): void
     {
@@ -215,14 +215,14 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Assert that a collection response follows JSON:API format
+     * Assert that a collection response follows JSON:API format.
      */
     protected function assertJsonApiCollectionResponse(array $response): void
     {
         $this->assertArrayHasKey('data', $response);
         $this->assertIsArray($response['data']);
-        
-        if (!empty($response['data'])) {
+
+        if (! empty($response['data'])) {
             $this->assertArrayHasKey('type', $response['data'][0]);
             $this->assertArrayHasKey('id', $response['data'][0]);
             $this->assertArrayHasKey('attributes', $response['data'][0]);

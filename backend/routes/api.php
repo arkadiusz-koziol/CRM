@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\Activities\ListActivityController;
 use App\Http\Controllers\Admin\Cars\CreateCarController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
 use App\Http\Controllers\Admin\Cities\UpdateCityController;
+use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Admin\Estates\DestroyEstateController;
 use App\Http\Controllers\Admin\Estates\ListEstateController;
 use App\Http\Controllers\Admin\Estates\ShowEstateController;
@@ -34,8 +36,6 @@ use App\Http\Controllers\Admin\Users\ListUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
 use App\Http\Controllers\Admin\Users\StoreUserController;
 use App\Http\Controllers\Admin\Users\UpdateUserController;
-use App\Http\Controllers\Admin\Activities\ListActivityController;
-use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -163,7 +163,7 @@ Route::group(
                         ->can('estate.show');
                 });
 
-                //Admin Plans
+                // Admin Plans
                 Route::prefix('plans')->group(function () {
                     Route::get('/{estate}', ShowPlanController::class)
                         ->can('plan.list');
@@ -173,13 +173,13 @@ Route::group(
                         ->can('plan.delete');
                 });
 
-                //Admin Pins
+                // Admin Pins
                 Route::prefix('pins/{plan}')->group(function () {
                     Route::get('/', ShowPinByPlanController::class)
                         ->can('pin.list.by.plan');
                 });
 
-                //Admin Cars
+                // Admin Cars
                 Route::prefix('cars')->group(function () {
                     Route::post('/create', CreateCarController::class)
                         ->can('car.create');

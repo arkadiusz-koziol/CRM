@@ -14,6 +14,7 @@ use OpenApi\Annotations as OA;
  *     type="estate",
  *     title="Estate",
  *     required={"id", "name", "custom_id", "street", "postal_code", "city_id", "house_number"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="Biedronka"),
  *     @OA\Property(property="custom_id", type="string", example="AZL123"),
@@ -28,8 +29,8 @@ use OpenApi\Annotations as OA;
  */
 class Estate extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

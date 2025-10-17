@@ -15,8 +15,7 @@ final readonly class ForgotPasswordService
 {
     public function __construct(
         private PasswordBroker $passwordBroker
-    ) {
-    }
+    ) {}
 
     /**
      * @throws PasswordResetException

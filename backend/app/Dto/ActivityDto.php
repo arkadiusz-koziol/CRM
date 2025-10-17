@@ -17,8 +17,7 @@ final readonly class ActivityDto implements Arrayable
         private string $entityType,
         private ?string $entityId,
         private Carbon $createdAt
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {
@@ -79,17 +78,17 @@ final readonly class ActivityDto implements Arrayable
         }
 
         if ($diff < 60) {
-            return $diff . ' min temu';
+            return $diff.' min temu';
         }
 
         $hours = $this->createdAt->diffInHours($now);
         if ($hours < 24) {
-            return $hours . ' godz. temu';
+            return $hours.' godz. temu';
         }
 
         $days = $this->createdAt->diffInDays($now);
         if ($days < 7) {
-            return $days . ' dni temu';
+            return $days.' dni temu';
         }
 
         return $this->createdAt->format('d.m.Y H:i');

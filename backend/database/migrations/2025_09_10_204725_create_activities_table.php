@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('entity_type');
             $table->string('entity_id')->nullable();
             $table->timestamp('created_at');
-            
+
             $table->index(['entity_type', 'created_at']);
             $table->index(['user_email', 'created_at']);
         });

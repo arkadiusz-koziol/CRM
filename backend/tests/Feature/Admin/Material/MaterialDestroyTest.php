@@ -5,10 +5,10 @@ namespace Tests\Feature\Admin\Material;
 use App\Models\Material;
 use App\Models\User;
 use App\Services\MaterialService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Database\Seeders\PermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use Tests\TestCase;
 
 class MaterialDestroyTest extends TestCase
 {
@@ -30,9 +30,10 @@ class MaterialDestroyTest extends TestCase
         $mockService = Mockery::mock(MaterialService::class);
         $mockService->shouldReceive('deleteMaterial')
             ->once()
-            ->with(Mockery::on(fn($m) => $m->id === $material->id))
+            ->with(Mockery::on(fn ($m) => $m->id === $material->id))
             ->andReturnUsing(function ($material) {
                 $material->delete();
+
                 return true;
             });
         $this->app->instance(MaterialService::class, $mockService);
@@ -55,7 +56,7 @@ class MaterialDestroyTest extends TestCase
         $mockService = Mockery::mock(MaterialService::class);
         $mockService->shouldReceive('deleteMaterial')
             ->once()
-            ->with(Mockery::on(fn($m) => $m->id === $material->id))
+            ->with(Mockery::on(fn ($m) => $m->id === $material->id))
             ->andReturnFalse();
         $this->app->instance(MaterialService::class, $mockService);
 

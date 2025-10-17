@@ -6,10 +6,10 @@ use App\Dto\MaterialDto;
 use App\Models\Material;
 use App\Models\User;
 use App\Services\MaterialService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Database\Seeders\PermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use Tests\TestCase;
 
 class MaterialUpdateTest extends TestCase
 {
@@ -44,7 +44,7 @@ class MaterialUpdateTest extends TestCase
         $mockService->shouldReceive('updateMaterial')
             ->once()
             ->with(
-                Mockery::on(fn($m) => $m->id === $material->id),
+                Mockery::on(fn ($m) => $m->id === $material->id),
                 Mockery::type(MaterialDto::class)
             )
             ->andReturnTrue();
@@ -109,7 +109,7 @@ class MaterialUpdateTest extends TestCase
         $mockService->shouldReceive('updateMaterial')
             ->once()
             ->with(
-                Mockery::on(fn($m) => $m->id === $material->id),
+                Mockery::on(fn ($m) => $m->id === $material->id),
                 Mockery::type(MaterialDto::class)
             )
             ->andReturnFalse();

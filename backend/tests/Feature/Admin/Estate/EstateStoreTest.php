@@ -3,11 +3,10 @@
 namespace Tests\Feature\Admin\Estate;
 
 use App\Models\City;
-use App\Models\Estate;
 use App\Models\User;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 
 class EstateStoreTest extends TestCase
 {

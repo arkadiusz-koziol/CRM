@@ -23,10 +23,13 @@ class StoreTaskController extends Controller
      *     summary="Create a new task",
      *     description="Creates a new task and returns the task details.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"title", "description", "assigned_to"},
+     *
      *             @OA\Property(property="title", type="string", example="Fix login issue"),
      *             @OA\Property(property="description", type="string", example="Users cannot log in to the system"),
      *             @OA\Property(property="status", type="string", enum={"pending", "in_progress", "completed",
@@ -38,15 +41,20 @@ class StoreTaskController extends Controller
      *             @OA\Property(property="estimated_hours", type="number", format="float", example=4.5),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Task created successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Task")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Validation error",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Validation error")
      *         )
      *     )
@@ -60,6 +68,7 @@ class StoreTaskController extends Controller
     ): JsonResponse {
         try {
             $dto = $dtoFactory->fromRequest($request);
+
             return $this->responseFactory->successResponse(
                 $taskService->createTask($dto)
             );
@@ -67,8 +76,9 @@ class StoreTaskController extends Controller
             $this->logger->error($e->getMessage(), [
                 'user_id' => $auth->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('app.task.creation_failed')
+                'message' => __('app.task.creation_failed'),
             ], Response::HTTP_BAD_REQUEST);
         }
     }

@@ -20,28 +20,38 @@ class StorePlanController extends Controller
      *     summary="Create a new plan for an estate",
      *     description="Creates a new plan by uploading a PDF and converting it to an image.",
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Parameter(
      *         name="estate",
      *         in="path",
      *         description="Estate ID",
      *         required=true,
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="file", type="string", format="binary", description="PDF file of the plan")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Plan created successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Plan")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Validation error",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Validation error")
      *         )
      *     )
@@ -65,8 +75,9 @@ class StorePlanController extends Controller
                 'estate_id' => $estate->id,
                 'user_id' => auth()->id(),
             ]);
+
             return $this->responseFactory->json([
-                'message' => __('app.action.error')
+                'message' => __('app.action.error'),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

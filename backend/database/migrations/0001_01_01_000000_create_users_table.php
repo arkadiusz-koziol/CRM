@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('status', [
                 UserStatus::INACTIVE->value,
                 UserStatus::ACTIVE->value,
-                UserStatus::BLOCKED->value
+                UserStatus::BLOCKED->value,
             ])->default('inactive');
             $table->rememberToken();
             $table->timestamps();

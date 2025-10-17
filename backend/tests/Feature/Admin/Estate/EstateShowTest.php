@@ -5,10 +5,10 @@ namespace Tests\Feature\Admin\Estate;
 use App\Models\Estate;
 use App\Models\User;
 use App\Services\EstateService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Database\Seeders\PermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use Tests\TestCase;
 
 class EstateShowTest extends TestCase
 {

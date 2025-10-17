@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\Dto\ActivityDto;
 use App\Domain\Activity\Entity\Activity;
+use App\Dto\ActivityDto;
 use Carbon\Carbon;
 
 final class ActivityDtoFactory

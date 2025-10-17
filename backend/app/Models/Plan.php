@@ -13,6 +13,7 @@ use OpenApi\Annotations as OA;
  *     schema="Plan",
  *     type="object",
  *     required={"estate_id", "file_path", "image_path"},
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",

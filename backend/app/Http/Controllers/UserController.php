@@ -32,7 +32,7 @@ class UserController extends Controller
     ): JsonResponse {
         $user = $this->authManager->user();
 
-        if (!Hash::check($request->password, $user->password)) {
+        if (! Hash::check($request->password, $user->password)) {
             return $this->responseFactory->errorResponse(__('errors.invalid_password'), 400);
         }
 

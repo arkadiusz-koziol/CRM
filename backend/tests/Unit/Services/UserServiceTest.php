@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 class UserServiceTest extends TestCase
 {
     private UserRepositoryInterface $userRepository;
+
     private UserService $userService;
 
     protected function setUp(): void
@@ -24,7 +25,7 @@ class UserServiceTest extends TestCase
         $this->userService = new UserService($this->userRepository);
     }
 
-    public function testCreateUser(): void
+    public function test_create_user(): void
     {
         $dto = new CreateUserDto(
             name: 'John',
@@ -49,7 +50,7 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $createdUser);
     }
 
-    public function testUpdateUser(): void
+    public function test_update_user(): void
     {
         $user = $this->createUser();
         $data = ['name' => 'Updated Name'];
@@ -65,7 +66,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testGetUserById(): void
+    public function test_get_user_by_id(): void
     {
         $userId = 1;
         $user = $this->createMock(User::class);
@@ -81,7 +82,7 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $foundUser);
     }
 
-    public function testDeleteUser(): void
+    public function test_delete_user(): void
     {
         $user = $this->createUser();
 
@@ -96,7 +97,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testChangePassword(): void
+    public function test_change_password(): void
     {
         $user = $this->createUser();
         $newPassword = 'new_password';
@@ -112,9 +113,9 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testGetAllUsers(): void
+    public function test_get_all_users(): void
     {
-        $users = Collection::times(3, fn() => $this->createUser())->all();
+        $users = Collection::times(3, fn () => $this->createUser())->all();
 
         $this->userRepository
             ->expects($this->once())
@@ -126,7 +127,7 @@ class UserServiceTest extends TestCase
         $this->assertEquals($users, $allUsers);
     }
 
-    public function testCreateUserWithSpecialCharacters(): void
+    public function test_create_user_with_special_characters(): void
     {
         $dto = new CreateUserDto(
             name: 'José María',
@@ -151,7 +152,7 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $createdUser);
     }
 
-    public function testCreateUserWithUnicodeCharacters(): void
+    public function test_create_user_with_unicode_characters(): void
     {
         $dto = new CreateUserDto(
             name: '张三',
@@ -176,7 +177,7 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $createdUser);
     }
 
-    public function testCreateUserWithEmojiCharacters(): void
+    public function test_create_user_with_emoji_characters(): void
     {
         $dto = new CreateUserDto(
             name: 'John 😊',
@@ -201,14 +202,14 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $createdUser);
     }
 
-    public function testCreateUserWithVeryLongStrings(): void
+    public function test_create_user_with_very_long_strings(): void
     {
         $longString = str_repeat('a', 1000);
-        
+
         $dto = new CreateUserDto(
             name: $longString,
             surname: $longString,
-            email: $longString . '@example.com',
+            email: $longString.'@example.com',
             phone: $longString,
             password: $longString,
             city: $longString,
@@ -228,7 +229,7 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $createdUser);
     }
 
-    public function testCreateUserWithEmptyStrings(): void
+    public function test_create_user_with_empty_strings(): void
     {
         $dto = new CreateUserDto(
             name: '',
@@ -253,7 +254,7 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $createdUser);
     }
 
-    public function testCreateUserWithWhitespaceOnlyStrings(): void
+    public function test_create_user_with_whitespace_only_strings(): void
     {
         $dto = new CreateUserDto(
             name: '   ',
@@ -278,14 +279,14 @@ class UserServiceTest extends TestCase
         $this->assertEquals($user, $createdUser);
     }
 
-    public function testUpdateUserWithSpecialCharacters(): void
+    public function test_update_user_with_special_characters(): void
     {
         $user = $this->createUser();
         $data = [
             'name' => 'José María',
             'surname' => 'García-López',
             'city' => 'Madrid',
-            'vovoidship' => 'Comunidad de Madrid'
+            'vovoidship' => 'Comunidad de Madrid',
         ];
 
         $this->userRepository
@@ -299,14 +300,14 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testUpdateUserWithUnicodeCharacters(): void
+    public function test_update_user_with_unicode_characters(): void
     {
         $user = $this->createUser();
         $data = [
             'name' => '张三',
             'surname' => '李四',
             'city' => '北京',
-            'vovoidship' => '北京市'
+            'vovoidship' => '北京市',
         ];
 
         $this->userRepository
@@ -320,14 +321,14 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testUpdateUserWithEmojiCharacters(): void
+    public function test_update_user_with_emoji_characters(): void
     {
         $user = $this->createUser();
         $data = [
             'name' => 'John 😊',
             'surname' => 'Doe 🎉',
             'city' => 'Warsaw 🏙️',
-            'vovoidship' => 'Mazowieckie 🗺️'
+            'vovoidship' => 'Mazowieckie 🗺️',
         ];
 
         $this->userRepository
@@ -341,7 +342,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testUpdateUserWithVeryLongStrings(): void
+    public function test_update_user_with_very_long_strings(): void
     {
         $user = $this->createUser();
         $longString = str_repeat('a', 1000);
@@ -349,7 +350,7 @@ class UserServiceTest extends TestCase
             'name' => $longString,
             'surname' => $longString,
             'city' => $longString,
-            'vovoidship' => $longString
+            'vovoidship' => $longString,
         ];
 
         $this->userRepository
@@ -363,14 +364,14 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testUpdateUserWithEmptyStrings(): void
+    public function test_update_user_with_empty_strings(): void
     {
         $user = $this->createUser();
         $data = [
             'name' => '',
             'surname' => '',
             'city' => '',
-            'vovoidship' => ''
+            'vovoidship' => '',
         ];
 
         $this->userRepository
@@ -384,14 +385,14 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testUpdateUserWithWhitespaceOnlyStrings(): void
+    public function test_update_user_with_whitespace_only_strings(): void
     {
         $user = $this->createUser();
         $data = [
             'name' => '   ',
             'surname' => "\t\n",
             'city' => '   ',
-            'vovoidship' => '   '
+            'vovoidship' => '   ',
         ];
 
         $this->userRepository
@@ -405,7 +406,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testChangePasswordWithSpecialCharacters(): void
+    public function test_change_password_with_special_characters(): void
     {
         $user = $this->createUser();
         $newPassword = 'p@ssw0rd!@#$%^&*()_+-=[]{}|;:,.<>?';
@@ -421,7 +422,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testChangePasswordWithUnicodeCharacters(): void
+    public function test_change_password_with_unicode_characters(): void
     {
         $user = $this->createUser();
         $newPassword = '密码123';
@@ -437,7 +438,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testChangePasswordWithEmojiCharacters(): void
+    public function test_change_password_with_emoji_characters(): void
     {
         $user = $this->createUser();
         $newPassword = 'password😊🎉';
@@ -453,7 +454,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testChangePasswordWithVeryLongString(): void
+    public function test_change_password_with_very_long_string(): void
     {
         $user = $this->createUser();
         $newPassword = str_repeat('a', 1000);
@@ -469,7 +470,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testChangePasswordWithEmptyString(): void
+    public function test_change_password_with_empty_string(): void
     {
         $user = $this->createUser();
         $newPassword = '';
@@ -485,7 +486,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testChangePasswordWithWhitespaceOnlyString(): void
+    public function test_change_password_with_whitespace_only_string(): void
     {
         $user = $this->createUser();
         $newPassword = '   ';
@@ -501,7 +502,7 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testGetAllUsersWithEmptyResult(): void
+    public function test_get_all_users_with_empty_result(): void
     {
         $users = [];
 
@@ -517,9 +518,9 @@ class UserServiceTest extends TestCase
         $this->assertCount(0, $allUsers);
     }
 
-    public function testGetAllUsersWithLargeResult(): void
+    public function test_get_all_users_with_large_result(): void
     {
-        $users = Collection::times(1000, fn() => $this->createUser())->all();
+        $users = Collection::times(1000, fn () => $this->createUser())->all();
 
         $this->userRepository
             ->expects($this->once())
@@ -533,7 +534,7 @@ class UserServiceTest extends TestCase
         $this->assertCount(1000, $allUsers);
     }
 
-    public function testGetUserByIdWithNonExistentId(): void
+    public function test_get_user_by_id_with_non_existent_id(): void
     {
         $nonExistentId = 999999;
 
@@ -548,7 +549,7 @@ class UserServiceTest extends TestCase
         $this->assertNull($foundUser);
     }
 
-    public function testDeleteUserWithNonExistentUser(): void
+    public function test_delete_user_with_non_existent_user(): void
     {
         $user = $this->createUser();
 
@@ -563,7 +564,7 @@ class UserServiceTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testUpdateUserWithNonExistentUser(): void
+    public function test_update_user_with_non_existent_user(): void
     {
         $user = $this->createUser();
         $data = ['name' => 'Updated Name'];
@@ -579,7 +580,7 @@ class UserServiceTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testChangePasswordWithNonExistentUser(): void
+    public function test_change_password_with_non_existent_user(): void
     {
         $user = $this->createUser();
         $newPassword = 'new_password';

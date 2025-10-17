@@ -14,17 +14,16 @@ class PlanService
 {
     public function __construct(
         protected PlanRepositoryInterface $planRepository
-    ) {
-    }
+    ) {}
 
     public function createPlan(array $data, Estate $estate): Plan
     {
         $pdfPath = $data['file']->store('plans/pdf', 'public');
 
-        $imagePath = 'plans/images/' . pathinfo($data['file']->getClientOriginalName(), PATHINFO_FILENAME) . '.jpg';
+        $imagePath = 'plans/images/'.pathinfo($data['file']->getClientOriginalName(), PATHINFO_FILENAME).'.jpg';
 
         $imageDirectory = storage_path('app/public/plans/images');
-        if (!is_dir($imageDirectory)) {
+        if (! is_dir($imageDirectory)) {
             mkdir($imageDirectory, 0755, true);
         }
 

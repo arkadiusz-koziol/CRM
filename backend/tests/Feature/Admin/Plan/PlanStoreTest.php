@@ -8,16 +8,16 @@ use App\Models\User;
 use App\Services\PlanService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
-use Database\Seeders\PermissionSeeder;
 use Mockery;
 use Spatie\Permission\Models\Permission;
+use Tests\TestCase;
 
 class PlanStoreTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         parent::setUp();
         Permission::firstOrCreate(['name' => 'plan.create']);
     }
@@ -31,8 +31,8 @@ class PlanStoreTest extends TestCase
         $file = UploadedFile::fake()->create('plan.pdf', 100, 'application/pdf');
 
         $planData = [
-            'estate_id'  => $estate->id,
-            'file_path'  => 'plans/pdf/plan.pdf',
+            'estate_id' => $estate->id,
+            'file_path' => 'plans/pdf/plan.pdf',
             'image_path' => 'plans/images/plan.jpg',
         ];
         $plan = Plan::factory()->make($planData);
@@ -42,7 +42,7 @@ class PlanStoreTest extends TestCase
             ->once()
             ->with(
                 Mockery::any(),
-                Mockery::on(fn($estateArg) => $estateArg->id === $estate->id)
+                Mockery::on(fn ($estateArg) => $estateArg->id === $estate->id)
             )
             ->andReturn($plan);
         $this->app->instance(PlanService::class, $mockService);
