@@ -20,6 +20,11 @@ final class TrainingRepository extends EloquentRepository implements TrainingRep
         return $this->create($trainingDto->toArray());
     }
 
+    public function updateTraining(Training $training, TrainingDto $trainingDto): bool
+    {
+        return $this->update($training, $trainingDto->toArray());
+    }
+
     public function findById(int $id): ?Training
     {
         return $this->model->find($id);

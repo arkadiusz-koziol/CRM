@@ -206,4 +206,101 @@ final class TrainingRepositoryTest extends TestCase
         $this->assertCount(1, $result['data']);
         $this->assertEquals('Training 2', $result['data'][0]->title);
     }
+
+    public function test_update_training_updates_database_record(): void
+    {
+        $training = Training::factory()->create([
+            'title' => 'Original Title',
+            'description' => 'Original Description',
+            'category' => 'Original Category',
+        ]);
+
+        $trainingDto = new TrainingDto(
+            title: 'Updated Training',
+            description: 'Updated Description',
+            category: 'Updated Category',
+            filePath: 'trainings/updated.pdf',
+            fileName: 'updated.pdf',
+            fileSize: 2048,
+            mimeType: 'application/pdf'
+        );
+
+        $result = $this->trainingRepository->updateTraining($training, $trainingDto);
+
+        $this->assertTrue($result);
+
+        $this->assertDatabaseHas('trainings', [
+            'id' => $training->id,
+            'title' => 'Updated Training',
+            'description' => 'Updated Description',
+            'category' => 'Updated Category',
+            'file_path' => 'trainings/updated.pdf',
+            'file_name' => 'updated.pdf',
+            'file_size' => 2048,
+            'mime_type' => 'application/pdf',
+        ]);
+    }
+
+    public function test_update_training_with_null_values(): void
+    {
+        $training = Training::factory()->create([
+            'title' => 'Original Title',
+            'description' => 'Original Description',
+            'category' => 'Original Category',
+            'file_path' => 'trainings/original.pdf',
+            'file_name' => 'original.pdf',
+            'file_size' => 1024,
+            'mime_type' => 'application/pdf',
+        ]);
+
+        $trainingDto = new TrainingDto(
+            title: 'Updated Training',
+            description: null,
+            category: 'Updated Category',
+            filePath: null,
+            fileName: null,
+            fileSize: null,
+            mimeType: null
+        );
+
+        $result = $this->trainingRepository->updateTraining($training, $trainingDto);
+
+        $this->assertTrue($result);
+
+        $this->assertDatabaseHas('trainings', [
+            'id' => $training->id,
+            'title' => 'Updated Training',
+            'description' => null,
+            'category' => 'Updated Category',
+            'file_path' => null,
+            'file_name' => null,
+            'file_size' => null,
+            'mime_type' => null,
+        ]);
+    }
+
+    public function test_update_training_returns_false_on_database_error(): void
+    {
+        $training = Training::factory()->create();
+
+        $trainingDto = new TrainingDto(
+            title: 'Updated Training',
+            description: 'Updated Description',
+            category: 'Updated Category',
+            filePath: null,
+            fileName: null,
+            fileSize: null,
+            mimeType: null
+        );
+
+        // Mock the model to simulate a database error
+        $this->mock(Training::class, function ($mock) {
+            $mock->shouldReceive('update')
+                ->andThrow(new \Exception('Database error'));
+        });
+
+        $result = $this->trainingRepository->updateTraining($training, $trainingDto);
+
+        $this->assertFalse($result);
+    }
 }

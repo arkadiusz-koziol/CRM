@@ -15,14 +15,14 @@ final class TrainingServiceTest extends TestCase
 {
     private TrainingService $trainingService;
 
-    private TrainingRepositoryInterface $trainingRepository;
+    private $trainingRepositoryMock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->trainingRepository = Mockery::mock(TrainingRepositoryInterface::class);
-        $this->trainingService = new TrainingService($this->trainingRepository);
+        $this->trainingRepositoryMock = Mockery::mock(TrainingRepositoryInterface::class);
+        $this->trainingService = new TrainingService($this->trainingRepositoryMock);
     }
 
     protected function tearDown(): void
@@ -47,7 +47,7 @@ final class TrainingServiceTest extends TestCase
         $training->id = 1;
         $training->title = 'Test Training';
 
-        $this->trainingRepository
+        $this->trainingRepositoryMock
             ->shouldReceive('createTraining')
             ->once()
             ->with($trainingDto)
@@ -64,7 +64,7 @@ final class TrainingServiceTest extends TestCase
         $training->id = 1;
         $training->title = 'Test Training';
 
-        $this->trainingRepository
+        $this->trainingRepositoryMock
             ->shouldReceive('findById')
             ->once()
             ->with(1)
@@ -77,7 +77,7 @@ final class TrainingServiceTest extends TestCase
 
     public function test_get_training_by_id_returns_null_when_not_found(): void
     {
-        $this->trainingRepository
+        $this->trainingRepositoryMock
             ->shouldReceive('findById')
             ->once()
             ->with(999)
@@ -95,7 +95,7 @@ final class TrainingServiceTest extends TestCase
             ['id' => 2, 'title' => 'Training 2'],
         ];
 
-        $this->trainingRepository
+        $this->trainingRepositoryMock
             ->shouldReceive('findAllTrainings')
             ->once()
             ->andReturn($trainings);
@@ -122,7 +122,7 @@ final class TrainingServiceTest extends TestCase
             ],
         ];
 
-        $this->trainingRepository
+        $this->trainingRepositoryMock
             ->shouldReceive('findPaginated')
             ->once()
             ->with(1, 10, '')
@@ -149,7 +149,7 @@ final class TrainingServiceTest extends TestCase
             ],
         ];
 
-        $this->trainingRepository
+        $this->trainingRepositoryMock
             ->shouldReceive('findPaginated')
             ->once()
             ->with(1, 10, 'safety')
@@ -158,5 +158,59 @@ final class TrainingServiceTest extends TestCase
         $result = $this->trainingService->getPaginatedTrainings(1, 10, 'safety');
 
         $this->assertSame($paginatedData, $result);
+    }
+
+    public function test_update_training_calls_repository(): void
+    {
+        $training = new Training;
+        $training->id = 1;
+        $training->title = 'Original Training';
+
+        $trainingDto = new TrainingDto(
+            title: 'Updated Training',
+            description: 'Updated Description',
+            category: 'Updated Category',
+            filePath: 'trainings/updated.pdf',
+            fileName: 'updated.pdf',
+            fileSize: 2048,
+            mimeType: 'application/pdf'
+        );
+
+        $this->trainingRepositoryMock
+            ->shouldReceive('updateTraining')
+            ->once()
+            ->with($training, $trainingDto)
+            ->andReturn(true);
+
+        $result = $this->trainingService->updateTraining($training, $trainingDto);
+
+        $this->assertTrue($result);
+    }
+
+    public function test_update_training_returns_false_when_repository_fails(): void
+    {
+        $training = new Training;
+        $training->id = 1;
+        $training->title = 'Original Training';
+
+        $trainingDto = new TrainingDto(
+            title: 'Updated Training',
+            description: 'Updated Description',
+            category: 'Updated Category',
+            filePath: null,
+            fileName: null,
+            fileSize: null,
+            mimeType: null
+        );
+
+        $this->trainingRepositoryMock
+            ->shouldReceive('updateTraining')
+            ->once()
+            ->with($training, $trainingDto)
+            ->andReturn(false);
+
+        $result = $this->trainingService->updateTraining($training, $trainingDto);
+
+        $this->assertFalse($result);
     }
 }
