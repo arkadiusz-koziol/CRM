@@ -6,9 +6,6 @@ use App\Http\Controllers\Admin\Cars\DeleteCarController;
 use App\Http\Controllers\Admin\Cars\ListCarController;
 use App\Http\Controllers\Admin\Cars\ShowCarController;
 use App\Http\Controllers\Admin\Cars\UpdateCarController;
-use App\Http\Controllers\Admin\Trainings\CreateTrainingController;
-use App\Http\Controllers\Admin\Trainings\UpdateTrainingController;
-use App\Http\Controllers\Admin\Trainings\DeleteTrainingController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
@@ -38,6 +35,15 @@ use App\Http\Controllers\Admin\Tools\ListToolController;
 use App\Http\Controllers\Admin\Tools\ShowToolController;
 use App\Http\Controllers\Admin\Tools\StoreToolController;
 use App\Http\Controllers\Admin\Tools\UpdateToolController;
+use App\Http\Controllers\Admin\Trainings\CreateTrainingController;
+use App\Http\Controllers\Admin\Trainings\DeleteTrainingController;
+use App\Http\Controllers\Admin\Trainings\UpdateTrainingController;
+use App\Http\Controllers\Admin\TrainingUsers\AssignAllUsersToTrainingController;
+use App\Http\Controllers\Admin\TrainingUsers\AssignSelectedUsersToTrainingController;
+use App\Http\Controllers\Admin\TrainingUsers\AssignUsersByRoleToTrainingController;
+use App\Http\Controllers\Admin\TrainingUsers\AssignUserToTrainingController;
+use App\Http\Controllers\Admin\TrainingUsers\GetTrainingUsersController;
+use App\Http\Controllers\Admin\TrainingUsers\RemoveUserFromTrainingController;
 use App\Http\Controllers\Admin\Users\DestroyUserController;
 use App\Http\Controllers\Admin\Users\ListUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
@@ -215,6 +221,28 @@ Route::group(
                     Route::delete('/{training}', DeleteTrainingController::class)
                         ->name('trainings.delete')
                         ->can('training.delete');
+
+                    // Training User Assignment Routes
+                    Route::prefix('{training}/users')->group(function () {
+                        Route::get('/', GetTrainingUsersController::class)
+                            ->name('training.users.index')
+                            ->can('training.user.list');
+                        Route::post('/', AssignUserToTrainingController::class)
+                            ->name('training.users.assign')
+                            ->can('training.user.assign');
+                        Route::delete('/{user}', RemoveUserFromTrainingController::class)
+                            ->name('training.users.remove')
+                            ->can('training.user.remove');
+                        Route::post('/assign-all', AssignAllUsersToTrainingController::class)
+                            ->name('training.users.assign_all')
+                            ->can('training.user.assign_all');
+                        Route::post('/assign-by-role', AssignUsersByRoleToTrainingController::class)
+                            ->name('training.users.assign_by_role')
+                            ->can('training.user.assign_by_role');
+                        Route::post('/assign-selected', AssignSelectedUsersToTrainingController::class)
+                            ->name('training.users.assign_selected')
+                            ->can('training.user.assign_selected');
+                    });
                 });
 
                 // Admin Tasks

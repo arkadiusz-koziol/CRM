@@ -1,50 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
-use App\Enums\UserStatus;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 
-class UserRepository implements UserRepositoryInterface
+final class UserRepository extends EloquentRepository implements UserRepositoryInterface
 {
-    public function create(array $data): User
-    {
-        return User::create($data);
-    }
-
-    public function update(User $user, array $data): bool
-    {
-        return $user->update($data);
+    public function __construct(
+        protected User $model
+    ) {
+        parent::__construct($model);
     }
 
     public function findById(int $id): ?User
     {
-        return User::find($id);
+        return $this->model->find($id);
     }
 
-    public function delete(User $user): bool
+    public function findAll(): array
     {
-        return $user->delete();
+        return $this->model->all()->toArray();
     }
 
-    public function changePassword(User $user, string $newPassword): bool
+    public function findByRole(string $role): array
     {
-        return $user->update(['password' => $newPassword]);
+        return $this->model->role($role)->get()->toArray();
     }
 
-    public function list(): array
+    public function findByIds(array $ids): array
     {
-        return User::all()->toArray();
-    }
-
-    public function userCanPerformAction(User $user): bool
-    {
-        return in_array(
-            $user->getStatus(),
-            [
-                UserStatus::ACTIVE->value,
-            ]
-        );
+        return $this->model->whereIn('id', $ids)->get()->toArray();
     }
 }

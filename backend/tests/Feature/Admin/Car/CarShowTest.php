@@ -239,4 +239,3 @@ final class CarShowTest extends TestCase
         $this->assertNotNull($responseData['updated_at']);
     }
 }
-

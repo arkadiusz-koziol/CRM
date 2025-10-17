@@ -27,4 +27,3 @@ final class CarResource extends JsonResource
         ];
     }
 }
-

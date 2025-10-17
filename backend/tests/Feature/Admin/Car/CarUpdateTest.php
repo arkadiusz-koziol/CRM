@@ -316,4 +316,3 @@ final class CarUpdateTest extends TestCase
         $this->assertTrue($car->updated_at->gt($originalUpdatedAt));
     }
 }
-
