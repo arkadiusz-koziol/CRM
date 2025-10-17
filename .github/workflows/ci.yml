@@ -40,7 +40,7 @@ jobs:
           php-8.4-composer-
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Copy .env
@@ -133,7 +133,7 @@ jobs:
           php-8.4-composer-
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Copy .env
@@ -225,7 +225,7 @@ jobs:
         coverage: xdebug
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Copy .env
@@ -278,7 +278,7 @@ jobs:
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Copy .env
@@ -321,7 +321,7 @@ jobs:
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Run Pint (fix)

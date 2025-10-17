@@ -55,7 +55,7 @@ jobs:
       working-directory: ./backend
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Generate key
@@ -131,7 +131,7 @@ jobs:
         coverage: xdebug
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Copy .env
@@ -184,7 +184,7 @@ jobs:
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, redis
 
     - name: Install Composer dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install
       working-directory: ./backend
 
     - name: Copy .env
