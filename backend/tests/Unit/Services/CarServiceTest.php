@@ -17,6 +17,7 @@ final class CarServiceTest extends TestCase
     use RefreshDatabase;
 
     private CarService $carService;
+
     private CarRepositoryInterface $carRepository;
 
     protected function setUp(): void
@@ -35,7 +36,7 @@ final class CarServiceTest extends TestCase
             technicalDetails: 'V8 Engine'
         );
 
-        $expectedCar = new Car();
+        $expectedCar = new Car;
         $expectedCar->id = 1;
         $expectedCar->name = 'BMW X5';
         $expectedCar->description = 'Luxury SUV';
@@ -43,7 +44,7 @@ final class CarServiceTest extends TestCase
         $expectedCar->technical_details = 'V8 Engine';
 
         $this->carRepository
-            ->shouldReceive('create')
+            ->shouldReceive('createCar')
             ->once()
             ->with($carDto)
             ->andReturn($expectedCar);
@@ -62,7 +63,7 @@ final class CarServiceTest extends TestCase
         ];
 
         $this->carRepository
-            ->shouldReceive('findAll')
+            ->shouldReceive('findAllCars')
             ->once()
             ->andReturn($expectedCars);
 
@@ -126,7 +127,7 @@ final class CarServiceTest extends TestCase
 
     public function test_get_car_by_id_calls_repository(): void
     {
-        $expectedCar = new Car();
+        $expectedCar = new Car;
         $expectedCar->id = 1;
         $expectedCar->name = 'BMW X5';
 

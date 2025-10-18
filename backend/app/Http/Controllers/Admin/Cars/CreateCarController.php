@@ -24,7 +24,7 @@ final class CreateCarController extends Controller
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
                 'registration_number' => $request->input('registration_number'),
-                'technical_details' => $request->input('technical_details')
+                'technical_details' => $request->input('technical_details'),
             ]);
 
             return $this->responseFactory->json($carService->createCar($carDto), Response::HTTP_CREATED);
