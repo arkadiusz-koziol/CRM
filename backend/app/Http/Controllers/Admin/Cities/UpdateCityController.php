@@ -122,11 +122,10 @@ class UpdateCityController extends Controller
     public function __invoke(
         UpdateCityRequest $request,
         City $city,
-        CityService $cityService,
-        CityDtoFactory $cityDtoFactory
+        CityService $cityService
     ): JsonResponse {
         try {
-            $cityDto = $cityDtoFactory->fromRequest(
+            $cityDto = CityDtoFactory::fromRequest(
                 name: $request->input('name'),
                 district: $request->input('district'),
                 commune: $request->input('commune'),
@@ -134,12 +133,12 @@ class UpdateCityController extends Controller
             );
 
             if (! $cityService->updateCity($city, $cityDto)) {
-                return $this->responseFactory->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
+                return response()->json(['message' => __('app.action.failed')], Response::HTTP_BAD_REQUEST);
             }
 
-            return $this->responseFactory->json(['message' => __('app.action.success'), Response::HTTP_OK]);
+            return response()->json(['message' => __('app.action.success')], Response::HTTP_OK);
         } catch (Throwable $e) {
-            return $this->responseFactory->json([$e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

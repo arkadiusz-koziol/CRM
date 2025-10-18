@@ -9,6 +9,7 @@ use App\Http\Resources\CarResource;
 use App\Models\Car;
 use App\Services\CarService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -85,23 +86,23 @@ final class ShowCarController extends Controller
             $carDetails = $carService->getCarById($car->id);
 
             if (! $carDetails) {
-                return $this->responseFactory->json(
+                return response()->json(
                     ['message' => __('app.car.not_found')],
                     Response::HTTP_NOT_FOUND
                 );
             }
 
-            return $this->responseFactory->json(
+            return response()->json(
                 new CarResource($carDetails),
                 Response::HTTP_OK
             );
         } catch (Throwable $e) {
-            $this->logger->error('Error retrieving car details', [
+            Log::error('Error retrieving car details', [
                 'car_id' => $car->id,
                 'exception' => $e,
             ]);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

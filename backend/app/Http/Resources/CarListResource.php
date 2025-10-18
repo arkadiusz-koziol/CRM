@@ -12,18 +12,14 @@ final class CarListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'data' => [
-                'type' => 'cars',
-                'id' => (string) $this->resource['id'],
-                'attributes' => [
-                    'name' => $this->resource['name'],
-                    'description' => $this->resource['description'],
-                    'registration_number' => $this->resource['registration_number'],
-                    'technical_details' => $this->resource['technical_details'],
-                    'created_at' => $this->resource['created_at'],
-                    'updated_at' => $this->resource['updated_at'],
-                ],
-            ],
+            'id' => $this->resource['id'],
+            'name' => $this->resource['name'],
+            'description' => $this->resource['description'],
+            'registration_number' => $this->resource['registration_number'],
+            'technical_details' => $this->resource['technical_details'],
+            'created_at' => $this->resource['created_at'],
+            'updated_at' => $this->resource['updated_at'],
+            'deleted_at' => $this->resource['deleted_at'] ?? null,
         ];
     }
 }
