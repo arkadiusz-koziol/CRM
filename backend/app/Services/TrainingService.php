@@ -19,6 +19,11 @@ class TrainingService
         return $this->trainingRepository->createTraining($trainingDto);
     }
 
+    public function updateTraining(Training $training, TrainingDto $trainingDto): bool
+    {
+        return $this->trainingRepository->updateTraining($training, $trainingDto);
+    }
+
     public function getTrainingById(int $id): ?Training
     {
         return $this->trainingRepository->findById($id);

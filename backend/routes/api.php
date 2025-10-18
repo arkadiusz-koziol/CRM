@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\Tools\ShowToolController;
 use App\Http\Controllers\Admin\Tools\StoreToolController;
 use App\Http\Controllers\Admin\Tools\UpdateToolController;
 use App\Http\Controllers\Admin\Trainings\CreateTrainingController;
+use App\Http\Controllers\Admin\Trainings\UpdateTrainingController;
 use App\Http\Controllers\Admin\Users\DestroyUserController;
 use App\Http\Controllers\Admin\Users\ListUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
@@ -207,6 +208,9 @@ Route::group(
                     Route::post('/', CreateTrainingController::class)
                         ->name('trainings.create')
                         ->can('training.create');
+                    Route::put('/{training}', UpdateTrainingController::class)
+                        ->name('trainings.update')
+                        ->can('training.update');
                 });
 
                 // Admin Tasks

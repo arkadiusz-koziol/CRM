@@ -11,6 +11,8 @@ interface TrainingRepositoryInterface
 {
     public function createTraining(TrainingDto $trainingDto): Training;
 
+    public function updateTraining(Training $training, TrainingDto $trainingDto): bool;
+
     public function findById(int $id): ?Training;
 
     public function findAllTrainings(): array;
