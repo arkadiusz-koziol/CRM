@@ -19,6 +19,7 @@ final class UpdateTrainingCategoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
         $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.category.update');
     }
