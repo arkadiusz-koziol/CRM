@@ -21,4 +21,3 @@ final class CarFactory extends Factory
         ];
     }
 }
-

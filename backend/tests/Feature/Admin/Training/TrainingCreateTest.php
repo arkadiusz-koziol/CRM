@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Admin\Training;
 
 use App\Models\User;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -17,6 +18,7 @@ final class TrainingCreateTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(PermissionSeeder::class);
         Storage::fake('public');
     }
 
@@ -32,7 +34,12 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
+
+        if ($response->status() !== 201) {
+            dump('Status: '.$response->status());
+            dump('Response: '.$response->getContent());
+        }
 
         $response->assertStatus(201)
             ->assertJsonStructure([
@@ -87,7 +94,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(201)
             ->assertJsonStructure([
@@ -140,7 +147,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(201)
             ->assertJson([
@@ -176,7 +183,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(201)
             ->assertJson([
@@ -205,7 +212,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(403);
     }
@@ -218,7 +225,7 @@ final class TrainingCreateTest extends TestCase
             'category' => 'Test',
         ];
 
-        $response = $this->postJson('/v1/admin/trainings', $trainingData);
+        $response = $this->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(401);
     }
@@ -229,7 +236,7 @@ final class TrainingCreateTest extends TestCase
         $admin->givePermissionTo('training.create');
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', []);
+            ->postJson('/api/v1/admin/trainings', []);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['title', 'category']);
@@ -246,7 +253,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['title']);
@@ -263,7 +270,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['category']);
@@ -283,7 +290,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['file']);
@@ -303,7 +310,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['file']);
@@ -325,7 +332,7 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
 
         $response->assertStatus(500)
             ->assertJson([
@@ -345,7 +352,13 @@ final class TrainingCreateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->postJson('/v1/admin/trainings', $trainingData);
+            ->postJson('/api/v1/admin/trainings', $trainingData);
+
+        // Debug the response
+        if ($response->status() !== 201) {
+            dump('Status: '.$response->status());
+            dump('Response: '.$response->getContent());
+        }
 
         $response->assertStatus(201)
             ->assertJsonStructure([

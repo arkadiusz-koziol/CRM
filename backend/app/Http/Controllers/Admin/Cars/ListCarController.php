@@ -9,6 +9,7 @@ use App\Http\Resources\CarListResource;
 use App\Services\CarService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -106,7 +107,11 @@ final class ListCarController extends Controller
             $search = $request->query('search', '');
 
             $page = max(1, $page);
-            $limit = max(1, min(100, $limit));
+            if ($limit === 0) {
+                $limit = PHP_INT_MAX;
+            } else {
+                $limit = max(1, min(100, $limit));
+            }
 
             $result = $carService->getPaginatedCars($page, $limit, $search);
 
@@ -115,11 +120,11 @@ final class ListCarController extends Controller
                 'pagination' => $result['pagination'],
             ]);
         } catch (Throwable $e) {
-            $this->logger->error('Error retrieving cars', [
+            Log::error('Error retrieving cars', [
                 'exception' => $e,
             ]);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
