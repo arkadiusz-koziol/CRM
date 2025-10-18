@@ -81,6 +81,11 @@ class PermissionSeeder extends Seeder
             'training.update',
             'training.delete',
             'training.list',
+
+            // Training file permissions
+            'training.file.attach',
+            'training.file.list',
+            'training.file.delete',
         ];
 
         foreach ($permissions as $permission) {

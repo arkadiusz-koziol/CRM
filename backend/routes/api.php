@@ -35,6 +35,10 @@ use App\Http\Controllers\Admin\Tools\ListToolController;
 use App\Http\Controllers\Admin\Tools\ShowToolController;
 use App\Http\Controllers\Admin\Tools\StoreToolController;
 use App\Http\Controllers\Admin\Tools\UpdateToolController;
+use App\Http\Controllers\Admin\TrainingFiles\AttachFileToTrainingController;
+use App\Http\Controllers\Admin\TrainingFiles\AttachMultipleFilesToTrainingController;
+use App\Http\Controllers\Admin\TrainingFiles\DeleteTrainingFileController;
+use App\Http\Controllers\Admin\TrainingFiles\GetTrainingFilesController;
 use App\Http\Controllers\Admin\Trainings\CreateTrainingController;
 use App\Http\Controllers\Admin\Trainings\DeleteTrainingController;
 use App\Http\Controllers\Admin\Trainings\UpdateTrainingController;
@@ -242,6 +246,22 @@ Route::group(
                         Route::post('/assign-selected', AssignSelectedUsersToTrainingController::class)
                             ->name('training.users.assign_selected')
                             ->can('training.user.assign_selected');
+                    });
+
+                    // Training File Routes
+                    Route::prefix('{training}/files')->group(function () {
+                        Route::get('/', GetTrainingFilesController::class)
+                            ->name('training.files.index')
+                            ->can('training.file.list');
+                        Route::post('/', AttachFileToTrainingController::class)
+                            ->name('training.files.attach')
+                            ->can('training.file.attach');
+                        Route::post('/multiple', AttachMultipleFilesToTrainingController::class)
+                            ->name('training.files.attach_multiple')
+                            ->can('training.file.attach');
+                        Route::delete('/{file}', DeleteTrainingFileController::class)
+                            ->name('training.files.delete')
+                            ->can('training.file.delete');
                     });
                 });
 
