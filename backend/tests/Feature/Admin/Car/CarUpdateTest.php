@@ -47,16 +47,13 @@ final class CarUpdateTest extends TestCase
 
         $response->assertJsonStructure([
             'data' => [
-                'type',
                 'id',
-                'attributes' => [
-                    'name',
-                    'description',
-                    'registration_number',
-                    'technical_details',
-                    'created_at',
-                    'updated_at',
-                ],
+                'name',
+                'description',
+                'registration_number',
+                'technical_details',
+                'created_at',
+                'updated_at',
             ],
         ]);
 

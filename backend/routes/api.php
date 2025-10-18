@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Activities\ListActivityController;
 use App\Http\Controllers\Admin\Cars\CreateCarController;
 use App\Http\Controllers\Admin\Cars\DeleteCarController;
 use App\Http\Controllers\Admin\Cars\ListCarController;
+use App\Http\Controllers\Admin\Cars\ShowCarController;
 use App\Http\Controllers\Admin\Cars\UpdateCarController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
@@ -187,6 +188,9 @@ Route::group(
                     Route::get('/list', ListCarController::class)
                         ->name('cars.index')
                         ->can('car.list');
+                    Route::get('/{car}', ShowCarController::class)
+                        ->name('cars.show')
+                        ->can('car.show');
                     Route::post('/create', CreateCarController::class)
                         ->can('car.create');
                     Route::put('/{car}', UpdateCarController::class)
