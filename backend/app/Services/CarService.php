@@ -24,6 +24,11 @@ class CarService
         return $this->carRepository->updateCar($car, $carDto);
     }
 
+    public function deleteCar(Car $car): bool
+    {
+        return $this->carRepository->deleteCar($car);
+    }
+
     public function getAllCars(): array
     {
         return $this->carRepository->findAllCars();

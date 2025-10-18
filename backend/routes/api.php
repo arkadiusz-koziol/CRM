@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Activities\ListActivityController;
 use App\Http\Controllers\Admin\Cars\CreateCarController;
+use App\Http\Controllers\Admin\Cars\DeleteCarController;
 use App\Http\Controllers\Admin\Cars\ListCarController;
 use App\Http\Controllers\Admin\Cars\UpdateCarController;
 use App\Http\Controllers\Admin\Cities\CreateCityController;
@@ -191,6 +192,9 @@ Route::group(
                     Route::put('/{car}', UpdateCarController::class)
                         ->name('cars.update')
                         ->can('car.update');
+                    Route::delete('/{car}', DeleteCarController::class)
+                        ->name('cars.delete')
+                        ->can('car.delete');
                 });
 
                 // Admin Tasks

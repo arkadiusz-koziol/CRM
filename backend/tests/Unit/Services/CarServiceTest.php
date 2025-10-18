@@ -202,4 +202,37 @@ final class CarServiceTest extends TestCase
 
         $this->assertFalse($result);
     }
+
+    public function test_delete_car_calls_repository(): void
+    {
+        $car = new Car;
+        $car->id = 1;
+        $car->name = 'BMW X5';
+
+        $this->carRepository
+            ->shouldReceive('deleteCar')
+            ->once()
+            ->with($car)
+            ->andReturn(true);
+
+        $result = $this->carService->deleteCar($car);
+
+        $this->assertTrue($result);
+    }
+
+    public function test_delete_car_returns_false_when_repository_fails(): void
+    {
+        $car = new Car;
+        $car->id = 1;
+
+        $this->carRepository
+            ->shouldReceive('deleteCar')
+            ->once()
+            ->with($car)
+            ->andReturn(false);
+
+        $result = $this->carService->deleteCar($car);
+
+        $this->assertFalse($result);
+    }
 }

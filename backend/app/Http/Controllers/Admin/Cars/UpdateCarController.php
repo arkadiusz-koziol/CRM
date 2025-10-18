@@ -110,7 +110,7 @@ final class UpdateCarController extends Controller
             $updated = $carService->updateCar($car, $carDto);
 
             if (! $updated) {
-                return response()->json(
+                return $this->responseFactory->json(
                     ['message' => __('app.action.failed')],
                     Response::HTTP_INTERNAL_SERVER_ERROR
                 );

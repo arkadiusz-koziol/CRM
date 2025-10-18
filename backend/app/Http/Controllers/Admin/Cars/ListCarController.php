@@ -108,14 +108,14 @@ final class ListCarController extends Controller
 
             $page = max(1, $page);
             if ($limit === 0) {
-                $limit = PHP_INT_MAX; // No limit
+                $limit = PHP_INT_MAX;
             } else {
                 $limit = max(1, min(100, $limit));
             }
 
             $result = $carService->getPaginatedCars($page, $limit, $search);
 
-            return response()->json([
+            return $this->responseFactory->json([
                 'data' => array_map(fn ($car) => new CarListResource($car), $result['data']),
                 'pagination' => $result['pagination'],
             ]);

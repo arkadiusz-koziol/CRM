@@ -13,6 +13,8 @@ interface CarRepositoryInterface
 
     public function updateCar(Car $car, CarDto $carDto): bool;
 
+    public function deleteCar(Car $car): bool;
+
     public function findAllCars(): array;
 
     public function findPaginated(int $page = 1, int $limit = 10, string $search = ''): array;
