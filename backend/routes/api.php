@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\Companies\CompanyController;
 use App\Http\Controllers\Admin\Companies\MyCompaniesController;
 use App\Http\Controllers\Admin\Contacts\ContactController;
 use App\Http\Controllers\Admin\Contacts\ContactCompanyController;
+use App\Http\Controllers\Admin\Opportunities\OpportunityController;
+use App\Http\Controllers\Admin\Opportunities\KanbanController;
 use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Admin\Estates\DestroyEstateController;
 use App\Http\Controllers\Admin\Estates\ListEstateController;
@@ -377,6 +379,38 @@ Route::group(
                             ->name('contacts.bulk_unlink_company')
                             ->can('contact.update');
                     });
+                });
+
+                // Admin Opportunities
+                Route::prefix('opportunities')->group(function () {
+                    Route::get('/', [OpportunityController::class, 'index'])
+                        ->name('opportunities.index')
+                        ->can('opportunity.view');
+                    Route::get('/{opportunity}', [OpportunityController::class, 'show'])
+                        ->name('opportunities.show')
+                        ->can('opportunity.view');
+                    Route::post('/', [OpportunityController::class, 'store'])
+                        ->name('opportunities.store')
+                        ->can('opportunity.create');
+                    Route::put('/{opportunity}', [OpportunityController::class, 'update'])
+                        ->name('opportunities.update')
+                        ->can('opportunity.update');
+                    Route::delete('/{opportunity}', [OpportunityController::class, 'destroy'])
+                        ->name('opportunities.destroy')
+                        ->can('opportunity.delete');
+                });
+
+                // Admin Kanban
+                Route::prefix('kanban')->group(function () {
+                    Route::get('/opportunities', [KanbanController::class, 'index'])
+                        ->name('kanban.opportunities')
+                        ->can('opportunity.view');
+                    Route::post('/opportunities/move-stage', [KanbanController::class, 'moveStage'])
+                        ->name('kanban.move_stage')
+                        ->can('opportunity.update');
+                    Route::post('/opportunities/update-probability', [KanbanController::class, 'updateProbability'])
+                        ->name('kanban.update_probability')
+                        ->can('opportunity.update');
                 });
 
                 // Admin Dashboard

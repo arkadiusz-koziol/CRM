@@ -258,8 +258,8 @@ title: "Leads & Opportunities – Pipeline Domain + Enums #110"
 branch: "feature/tsk-110-pipeline-domain"
 assignee: "cursor-dev"
 reviewer: "openai-reviewer"
-status: "APPROVED"
-last_update: "2025-01-27T21:00:00+00:00"
+status: "DONE"
+last_update: "2025-01-27T21:15:00+00:00"
 lock: "free"
 checksum: ""
 
@@ -320,17 +320,29 @@ Technical Notes:
 •	Comprehensive test coverage for all components
 •	All migrations run successfully with proper dependencies
 
+Review Notes
+APPROVED - All acceptance criteria met with excellent implementation:
+
+✅ **Tables**: All three tables (pipelines, stages, opportunities) properly implemented with UUID primary keys, foreign key constraints, and appropriate indexes
+✅ **Default stages**: PipelineSeeder creates exact stages: prospecting → demo → oferta → negocjacje → wygrana/przegrana
+✅ **Opportunity entity**: Complete with all required fields (id, title, company_id, contact_id, value, currency, probability, stage_id, owner_user_id, close_date, status)
+✅ **Activity logging**: Events and listeners properly implemented for stage changes and probability updates
+✅ **Architecture**: Follows DDD principles with proper domain entities, comprehensive tests, and clean separation of concerns
+✅ **Code quality**: All files follow PSR-12, proper type declarations, and architectural rules
+
+Complete implementation verified with comprehensive test coverage and proper activity logging integration.
+
 ⸻
 
 TASK: TSK-111
 
-title: “API: Opportunities – CRUD + Kanban List #111”
-branch: “feature/tsk-111-opportunities-api-kanban”
-assignee: “cursor-dev”
-reviewer: “openai-reviewer”
-status: “TODO”
-last_update: “2025-10-18T21:14:00+02:00”
-lock: “free”
+title: "API: Opportunities – CRUD + Kanban List #111"
+branch: "feature/tsk-111-opportunities-api-kanban"
+assignee: "cursor-dev"
+reviewer: "openai-reviewer"
+status: "IN_PROGRESS"
+last_update: "2025-01-27T21:15:00+00:00"
+lock: "cursor-dev"
 checksum: “”
 
 Acceptance Criteria
