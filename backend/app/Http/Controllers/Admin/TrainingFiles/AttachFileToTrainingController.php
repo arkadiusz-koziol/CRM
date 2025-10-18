@@ -92,20 +92,41 @@ final class AttachFileToTrainingController extends Controller
     ): JsonResponse {
         try {
             $file = $request->file('file');
-            $trainingFile = $trainingFileService->attachFileToTraining($training, $file);
+            $trainingFile = $trainingFileService->attachFileToTraining((int) $training, $file);
 
             return $this->responseFactory->json(
                 TrainingFileResource::make($trainingFile),
                 Response::HTTP_CREATED
             );
+        } catch (\RuntimeException $e) {
+            if ($e->getMessage() === 'Training not found') {
+                return $this->responseFactory->json(
+                    ['message' => __('app.training.not_found')],
+                    Response::HTTP_NOT_FOUND
+                );
+            }
+
+            $this->logger->error('Error attaching file to training', [
+                'training_id' => $training,
+                'exception' => $e,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return $this->responseFactory->json(
+                ['message' => __('app.action.failed'), 'debug' => $e->getMessage()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         } catch (Throwable $e) {
             $this->logger->error('Error attaching file to training', [
                 'training_id' => $training,
                 'exception' => $e,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ]);
 
             return $this->responseFactory->json(
-                ['message' => __('app.action.failed')],
+                ['message' => __('app.action.failed'), 'debug' => $e->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }

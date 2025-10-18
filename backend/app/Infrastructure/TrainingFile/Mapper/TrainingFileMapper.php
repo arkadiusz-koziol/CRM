@@ -13,8 +13,8 @@ final class TrainingFileMapper
     public function toDomain(TrainingFileModel $model): TrainingFileEntity
     {
         return new TrainingFileEntity(
-            id: $model->id,
-            trainingId: $model->training_id,
+            id: (string) $model->id,
+            trainingId: (string) $model->training_id,
             originalName: $model->original_name,
             fileName: $model->file_name,
             filePath: $model->file_path,

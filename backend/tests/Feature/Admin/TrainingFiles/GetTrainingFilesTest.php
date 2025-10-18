@@ -20,7 +20,7 @@ final class GetTrainingFilesTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.file.list');
     }
 
@@ -29,7 +29,7 @@ final class GetTrainingFilesTest extends TestCase
         $training = Training::factory()->create();
         $files = TrainingFile::factory()->count(3)->create(['training_id' => $training->id]);
 
-        $response = $this->actingAs($this->admin)->getJson("/v1/admin/trainings/{$training->id}/files");
+        $response = $this->actingAs($this->admin)->getJson("/api/v1/admin/trainings/{$training->id}/files");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonCount(3, 'data')
@@ -56,7 +56,7 @@ final class GetTrainingFilesTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->getJson("/v1/admin/trainings/{$training->id}/files");
+        $response = $this->actingAs($this->admin)->getJson("/api/v1/admin/trainings/{$training->id}/files");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonCount(0, 'data');
@@ -64,7 +64,7 @@ final class GetTrainingFilesTest extends TestCase
 
     public function test_admin_cannot_get_files_from_non_existent_training(): void
     {
-        $response = $this->actingAs($this->admin)->getJson('/v1/admin/trainings/99999/files');
+        $response = $this->actingAs($this->admin)->getJson('/api/v1/admin/trainings/99999/files');
 
         $response->assertNotFound()
             ->assertJson(['message' => __('app.training.not_found')]);
@@ -74,17 +74,17 @@ final class GetTrainingFilesTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->getJson("/v1/admin/trainings/{$training->id}/files");
+        $response = $this->getJson("/api/v1/admin/trainings/{$training->id}/files");
 
         $response->assertUnauthorized();
     }
 
     public function test_unauthorized_user_cannot_get_training_files(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($user)->getJson("/v1/admin/trainings/{$training->id}/files");
+        $response = $this->actingAs($user)->getJson("/api/v1/admin/trainings/{$training->id}/files");
 
         $response->assertForbidden();
     }

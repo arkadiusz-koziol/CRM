@@ -11,13 +11,13 @@ use App\Interfaces\Services\FileStorageServiceInterface;
 use App\Interfaces\Services\UuidServiceInterface;
 use App\Models\Training;
 use App\Models\TrainingFile;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 
-final class TrainingFileRepository extends EloquentRepository implements TrainingFileRepositoryInterface
+class TrainingFileRepository extends EloquentRepository implements TrainingFileRepositoryInterface
 {
     public function __construct(
-        protected TrainingFile $model,
+        TrainingFile $model,
         protected TrainingFileMapper $mapper,
         protected FileStorageServiceInterface $fileStorageService,
         protected UuidServiceInterface $uuidService
@@ -27,23 +27,18 @@ final class TrainingFileRepository extends EloquentRepository implements Trainin
 
     public function attachFileToTraining(Training $training, UploadedFile $file): TrainingFileEntity
     {
-        $filePath = $this->fileStorageService->store($file, 'trainings/files');
-        $id = $this->uuidService->generate();
+        $filePath = $this->fileStorageService->store($file, 'training-files');
 
-        $entity = TrainingFileEntity::create(
-            id: $id,
-            trainingId: $training->id,
-            originalName: $file->getClientOriginalName(),
-            fileName: $file->getClientOriginalName(),
-            filePath: $filePath,
-            mimeType: $file->getMimeType(),
-            fileSize: $file->getSize(),
-        );
+        $model = $this->model->create([
+            'training_id' => $training->id,
+            'original_name' => $file->getClientOriginalName(),
+            'file_name' => $file->getClientOriginalName(),
+            'file_path' => $filePath,
+            'mime_type' => $file->getMimeType(),
+            'file_size' => $file->getSize(),
+        ]);
 
-        $model = $this->mapper->toModel($entity);
-        $model->save();
-
-        return $entity;
+        return $this->mapper->toDomain($model);
     }
 
     public function attachMultipleFilesToTraining(Training $training, array $files): Collection
@@ -58,14 +53,16 @@ final class TrainingFileRepository extends EloquentRepository implements Trainin
 
     public function getTrainingFiles(Training $training): Collection
     {
-        return $training->files;
+        return collect($training->files->map(function ($file) {
+            return $this->mapper->toDomain($file);
+        })->all());
     }
 
     public function deleteTrainingFile(TrainingFileEntity $trainingFile): bool
     {
         $this->fileStorageService->delete($trainingFile->filePath());
 
-        $model = $this->model->find($trainingFile->id());
+        $model = $this->model->find((int) $trainingFile->id());
         if (! $model) {
             return false;
         }
@@ -73,7 +70,7 @@ final class TrainingFileRepository extends EloquentRepository implements Trainin
         return $model->delete();
     }
 
-    public function findById(string $id): ?TrainingFileEntity
+    public function findTrainingFileById(int $id): ?TrainingFileEntity
     {
         $model = $this->model->find($id);
         if (! $model) {

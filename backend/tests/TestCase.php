@@ -31,6 +31,9 @@ abstract class TestCase extends BaseTestCase
         // Set deterministic UUID generation
         Uuid::setFactory(new \Ramsey\Uuid\UuidFactory);
 
+        // Seed permissions for tests
+        $this->seedPermissions();
+
         // Fake external services
         Event::fake();
         Queue::fake();
@@ -226,6 +229,79 @@ abstract class TestCase extends BaseTestCase
             $this->assertArrayHasKey('type', $response['data'][0]);
             $this->assertArrayHasKey('id', $response['data'][0]);
             $this->assertArrayHasKey('attributes', $response['data'][0]);
+        }
+    }
+
+    /**
+     * Seed permissions for tests.
+     */
+    protected function seedPermissions(): void
+    {
+        $permissions = [
+            'city.create',
+            'city.read',
+            'city.show',
+            'city.update',
+            'city.delete',
+            'city.list',
+            'estate.create',
+            'estate.read',
+            'estate.show',
+            'estate.update',
+            'estate.delete',
+            'estate.list',
+            'material.create',
+            'material.read',
+            'material.show',
+            'material.update',
+            'material.delete',
+            'material.list',
+            'plan.create',
+            'plan.read',
+            'plan.show',
+            'plan.update',
+            'plan.delete',
+            'plan.list',
+            'task.create',
+            'task.read',
+            'task.show',
+            'task.update',
+            'task.delete',
+            'task.list',
+            'user.create',
+            'user.read',
+            'user.show',
+            'user.update',
+            'user.delete',
+            'user.list',
+            'car.list',
+            'car.show',
+            'car.create',
+            'car.update',
+            'car.delete',
+            'training.user.remove',
+            'training.user.add',
+            'training.user.assign',
+            'training.user.assign_all',
+            'training.user.assign_by_role',
+            'training.user.assign_selected',
+            'training.user.list',
+            'training.create',
+            'training.read',
+            'training.show',
+            'training.update',
+            'training.delete',
+            'training.list',
+            'training.file.attach',
+            'training.file.list',
+            'training.file.delete',
+        ];
+
+        foreach ($permissions as $permission) {
+            \Spatie\Permission\Models\Permission::firstOrCreate([
+                'name' => $permission,
+                'guard_name' => 'web',
+            ]);
         }
     }
 }

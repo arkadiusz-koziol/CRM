@@ -7,8 +7,9 @@ namespace Tests\Unit\Repositories;
 use App\Models\Training;
 use App\Models\TrainingFile;
 use App\Repositories\TrainingFileRepository;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
+use Mockery;
 use Tests\TestCase;
 
 final class TrainingFileRepositoryTest extends TestCase
@@ -20,7 +21,15 @@ final class TrainingFileRepositoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->trainingFileRepository = new TrainingFileRepository(new TrainingFile);
+        $fileStorageServiceMock = Mockery::mock(\App\Interfaces\Services\FileStorageServiceInterface::class);
+        $fileStorageServiceMock->shouldReceive('delete')->andReturn(true);
+
+        $this->trainingFileRepository = new TrainingFileRepository(
+            new TrainingFile,
+            new \App\Infrastructure\TrainingFile\Mapper\TrainingFileMapper,
+            $fileStorageServiceMock,
+            Mockery::mock(\App\Interfaces\Services\UuidServiceInterface::class)
+        );
     }
 
     public function test_create_training_file(): void
@@ -35,7 +44,7 @@ final class TrainingFileRepositoryTest extends TestCase
             'file_size' => 1000,
         ]);
 
-        $result = $this->trainingFileRepository->create($trainingFile);
+        $result = $this->trainingFileRepository->create($trainingFile->toArray());
 
         $this->assertInstanceOf(TrainingFile::class, $result);
         $this->assertDatabaseHas('training_files', [
@@ -44,19 +53,19 @@ final class TrainingFileRepositoryTest extends TestCase
         ]);
     }
 
-    public function test_find_by_id_returns_training_file_when_exists(): void
+    public function test_find_training_file_by_id_returns_training_file_when_exists(): void
     {
         $trainingFile = TrainingFile::factory()->create();
 
-        $result = $this->trainingFileRepository->findById($trainingFile->id);
+        $result = $this->trainingFileRepository->findTrainingFileById($trainingFile->id);
 
-        $this->assertInstanceOf(TrainingFile::class, $result);
-        $this->assertEquals($trainingFile->id, $result->id);
+        $this->assertInstanceOf(\App\Domain\TrainingFile\Entity\TrainingFile::class, $result);
+        $this->assertEquals((string) $trainingFile->id, $result->id());
     }
 
-    public function test_find_by_id_returns_null_when_not_exists(): void
+    public function test_find_training_file_by_id_returns_null_when_not_exists(): void
     {
-        $result = $this->trainingFileRepository->findById('non-existent-id');
+        $result = $this->trainingFileRepository->findTrainingFileById(999);
 
         $this->assertNull($result);
     }
@@ -66,7 +75,7 @@ final class TrainingFileRepositoryTest extends TestCase
         $training = Training::factory()->create();
         $files = TrainingFile::factory()->count(3)->create(['training_id' => $training->id]);
 
-        $result = $this->trainingFileRepository->findByTraining($training);
+        $result = $this->trainingFileRepository->getTrainingFiles($training);
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertCount(3, $result);
@@ -89,9 +98,21 @@ final class TrainingFileRepositoryTest extends TestCase
         $training = Training::factory()->create();
         $files = TrainingFile::factory()->count(3)->create(['training_id' => $training->id]);
 
-        $result = $this->trainingFileRepository->deleteByTraining($training);
+        $trainingFileEntity = new \App\Domain\TrainingFile\Entity\TrainingFile(
+            id: (string) $files->first()->id,
+            trainingId: (string) $training->id,
+            originalName: 'test.pdf',
+            fileName: 'test.pdf',
+            filePath: '/path/to/test.pdf',
+            mimeType: 'application/pdf',
+            fileSize: 100,
+            createdAt: now(),
+            updatedAt: now()
+        );
 
-        $this->assertEquals(3, $result);
+        $result = $this->trainingFileRepository->deleteTrainingFile($trainingFileEntity);
+
+        $this->assertTrue($result);
         $this->assertSoftDeleted('training_files', [
             'training_id' => $training->id,
         ]);

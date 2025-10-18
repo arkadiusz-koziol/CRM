@@ -22,7 +22,7 @@ final class AttachMultipleFilesToTrainingTest extends TestCase
     {
         parent::setUp();
         Storage::fake('public');
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.file.attach');
     }
 
@@ -34,7 +34,7 @@ final class AttachMultipleFilesToTrainingTest extends TestCase
             UploadedFile::fake()->create('document2.pptx', 2000, 'application/vnd.openxmlformats-officedocument.presentationml.presentation'),
         ];
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/files/multiple", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/files/multiple", [
             'files' => $files,
         ]);
 
@@ -75,7 +75,7 @@ final class AttachMultipleFilesToTrainingTest extends TestCase
             $files[] = UploadedFile::fake()->create("document{$i}.pdf", 1000, 'application/pdf');
         }
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/files/multiple", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/files/multiple", [
             'files' => $files,
         ]);
 
@@ -87,7 +87,7 @@ final class AttachMultipleFilesToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/files/multiple", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/files/multiple", [
             'files' => [],
         ]);
 
@@ -101,7 +101,7 @@ final class AttachMultipleFilesToTrainingTest extends TestCase
             UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf'),
         ];
 
-        $response = $this->actingAs($this->admin)->postJson('/v1/admin/trainings/99999/files/multiple', [
+        $response = $this->actingAs($this->admin)->postJson('/api/v1/admin/trainings/99999/files/multiple', [
             'files' => $files,
         ]);
 
@@ -116,7 +116,7 @@ final class AttachMultipleFilesToTrainingTest extends TestCase
             UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf'),
         ];
 
-        $response = $this->postJson("/v1/admin/trainings/{$training->id}/files/multiple", [
+        $response = $this->postJson("/api/v1/admin/trainings/{$training->id}/files/multiple", [
             'files' => $files,
         ]);
 
@@ -125,13 +125,13 @@ final class AttachMultipleFilesToTrainingTest extends TestCase
 
     public function test_unauthorized_user_cannot_attach_multiple_files_to_training(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $training = Training::factory()->create();
         $files = [
             UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf'),
         ];
 
-        $response = $this->actingAs($user)->postJson("/v1/admin/trainings/{$training->id}/files/multiple", [
+        $response = $this->actingAs($user)->postJson("/api/v1/admin/trainings/{$training->id}/files/multiple", [
             'files' => $files,
         ]);
 

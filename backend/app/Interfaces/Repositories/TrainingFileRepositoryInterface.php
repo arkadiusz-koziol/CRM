@@ -6,8 +6,8 @@ namespace App\Interfaces\Repositories;
 
 use App\Domain\TrainingFile\Entity\TrainingFile as TrainingFileEntity;
 use App\Models\Training;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 
 interface TrainingFileRepositoryInterface
 {
@@ -19,5 +19,5 @@ interface TrainingFileRepositoryInterface
 
     public function deleteTrainingFile(TrainingFileEntity $trainingFile): bool;
 
-    public function findById(string $id): ?TrainingFileEntity;
+    public function findTrainingFileById(int $id): ?TrainingFileEntity;
 }
