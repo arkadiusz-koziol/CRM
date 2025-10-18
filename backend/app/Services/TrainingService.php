@@ -8,7 +8,7 @@ use App\Dto\TrainingDto;
 use App\Interfaces\Repositories\TrainingRepositoryInterface;
 use App\Models\Training;
 
-final class TrainingService
+class TrainingService
 {
     public function __construct(
         private TrainingRepositoryInterface $trainingRepository,

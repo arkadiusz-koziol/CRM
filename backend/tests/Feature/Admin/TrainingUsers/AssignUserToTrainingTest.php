@@ -19,7 +19,9 @@ final class AssignUserToTrainingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+        $this->admin = User::factory()->create();
+        $this->admin->assignRole('admin');
         $this->admin->givePermissionTo('training.user.assign');
     }
 
@@ -28,7 +30,7 @@ final class AssignUserToTrainingTest extends TestCase
         $training = Training::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users", [
             'user_id' => $user->id,
         ]);
 
@@ -53,12 +55,12 @@ final class AssignUserToTrainingTest extends TestCase
         $user = User::factory()->create();
 
         // First assignment
-        $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users", [
+        $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users", [
             'user_id' => $user->id,
         ]);
 
         // Second assignment should fail
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users", [
             'user_id' => $user->id,
         ]);
 
@@ -70,7 +72,7 @@ final class AssignUserToTrainingTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson('/v1/admin/trainings/99999/users', [
+        $response = $this->actingAs($this->admin)->postJson('/api/v1/admin/trainings/99999/users', [
             'user_id' => $user->id,
         ]);
 
@@ -82,7 +84,7 @@ final class AssignUserToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users", [
             'user_id' => 99999,
         ]);
 
@@ -95,7 +97,7 @@ final class AssignUserToTrainingTest extends TestCase
         $training = Training::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->postJson("/v1/admin/trainings/{$training->id}/users", [
+        $response = $this->postJson("/api/v1/admin/trainings/{$training->id}/users", [
             'user_id' => $user->id,
         ]);
 
@@ -104,12 +106,12 @@ final class AssignUserToTrainingTest extends TestCase
 
     public function test_unauthorized_user_cannot_assign_user_to_training(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $user->givePermissionTo('training.create'); // Has create permission but not assign
         $training = Training::factory()->create();
         $targetUser = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson("/v1/admin/trainings/{$training->id}/users", [
+        $response = $this->actingAs($user)->postJson("/api/v1/admin/trainings/{$training->id}/users", [
             'user_id' => $targetUser->id,
         ]);
 
@@ -120,7 +122,7 @@ final class AssignUserToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users", []);
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users", []);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors(['user_id']);
@@ -139,7 +141,7 @@ final class AssignUserToTrainingTest extends TestCase
                 ->andThrow(new \RuntimeException('Simulated internal error'));
         });
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users", [
             'user_id' => $user->id,
         ]);
 

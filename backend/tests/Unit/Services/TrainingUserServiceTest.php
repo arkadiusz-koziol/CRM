@@ -107,6 +107,12 @@ final class TrainingUserServiceTest extends TestCase
             ->with($training->id)
             ->andReturn($training);
 
+        $this->userRepositoryMock
+            ->shouldReceive('findById')
+            ->once()
+            ->with(999)
+            ->andReturn(null);
+
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('User not found');
 
@@ -123,6 +129,12 @@ final class TrainingUserServiceTest extends TestCase
             ->once()
             ->with($training->id)
             ->andReturn($training);
+
+        $this->userRepositoryMock
+            ->shouldReceive('findById')
+            ->once()
+            ->with($user->id)
+            ->andReturn($user);
 
         $this->trainingUserRepositoryMock
             ->shouldReceive('isUserAssignedToTraining')
@@ -290,6 +302,12 @@ final class TrainingUserServiceTest extends TestCase
 
     public function test_get_user_trainings_throws_exception_when_user_not_found(): void
     {
+        $this->userRepositoryMock
+            ->shouldReceive('findById')
+            ->once()
+            ->with(999)
+            ->andReturn(null);
+
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('User not found');
 
@@ -318,6 +336,12 @@ final class TrainingUserServiceTest extends TestCase
             ->once()
             ->with($training->id)
             ->andReturn($training);
+
+        $this->userRepositoryMock
+            ->shouldReceive('findById')
+            ->once()
+            ->with(999)
+            ->andReturn(null);
 
         $result = $this->trainingUserService->isUserAssignedToTraining($training->id, 999);
 

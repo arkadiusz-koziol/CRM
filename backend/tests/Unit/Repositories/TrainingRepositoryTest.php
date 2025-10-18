@@ -184,10 +184,12 @@ final class TrainingRepositoryTest extends TestCase
         Training::factory()->create([
             'title' => 'Training 1',
             'description' => 'This is about safety procedures',
+            'category' => 'Technical',
         ]);
         Training::factory()->create([
             'title' => 'Training 2',
             'description' => 'This is about technical skills',
+            'category' => 'Technical',
         ]);
 
         $result = $this->trainingRepository->findPaginated(1, 10, 'safety');
@@ -293,13 +295,12 @@ final class TrainingRepositoryTest extends TestCase
             mimeType: null
         );
 
-        // Mock the model to simulate a database error
-        $this->mock(Training::class, function ($mock) {
-            $mock->shouldReceive('update')
-                ->andThrow(new \Exception('Database error'));
-        });
+        // Mock the training instance to simulate a database error
+        $trainingMock = $this->createMock(Training::class);
+        $trainingMock->method('update')
+            ->willThrowException(new \Exception('Database error'));
 
-        $result = $this->trainingRepository->updateTraining($training, $trainingDto);
+        $result = $this->trainingRepository->updateTraining($trainingMock, $trainingDto);
 
         $this->assertFalse($result);
     }
@@ -352,13 +353,12 @@ final class TrainingRepositoryTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        // Mock the model to simulate a database error
-        $this->mock(Training::class, function ($mock) {
-            $mock->shouldReceive('delete')
-                ->andThrow(new \Exception('Database error'));
-        });
+        // Mock the training instance to simulate a database error
+        $trainingMock = $this->createMock(Training::class);
+        $trainingMock->method('delete')
+            ->willThrowException(new \Exception('Database error'));
 
-        $result = $this->trainingRepository->deleteTraining($training);
+        $result = $this->trainingRepository->deleteTraining($trainingMock);
 
         $this->assertFalse($result);
     }

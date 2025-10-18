@@ -70,7 +70,7 @@ final class AssignAllUsersToTrainingController extends Controller
         try {
             $assignedCount = $trainingUserService->assignAllUsersToTraining($training);
 
-            return $this->responseFactory->json([
+            return response()->json([
                 'message' => __('app.training_user.all_users_assigned_successfully'),
                 'data' => [
                     'training_id' => $training,
@@ -79,23 +79,23 @@ final class AssignAllUsersToTrainingController extends Controller
             ], Response::HTTP_OK);
         } catch (\RuntimeException $e) {
             if (str_contains($e->getMessage(), 'not found')) {
-                return $this->responseFactory->json(
+                return response()->json(
                     ['message' => $e->getMessage()],
                     Response::HTTP_NOT_FOUND
                 );
             }
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         } catch (Throwable $e) {
-            $this->logger->error('Error assigning all users to training', [
+            \Log::error('Error assigning all users to training', [
                 'training_id' => $training,
                 'exception' => $e,
             ]);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

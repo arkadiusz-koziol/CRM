@@ -44,7 +44,7 @@ final class CarServiceTest extends TestCase
         $expectedCar->technical_details = 'V8 Engine';
 
         $this->carRepository
-            ->shouldReceive('create')
+            ->shouldReceive('createCar')
             ->once()
             ->with($carDto)
             ->andReturn($expectedCar);
@@ -63,7 +63,7 @@ final class CarServiceTest extends TestCase
         ];
 
         $this->carRepository
-            ->shouldReceive('findAll')
+            ->shouldReceive('findAllCars')
             ->once()
             ->andReturn($expectedCars);
 

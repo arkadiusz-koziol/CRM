@@ -19,7 +19,9 @@ final class AssignAllUsersToTrainingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+        $this->admin = User::factory()->create();
+        $this->admin->assignRole('admin');
         $this->admin->givePermissionTo('training.user.assign_all');
     }
 
@@ -28,14 +30,14 @@ final class AssignAllUsersToTrainingTest extends TestCase
         $training = Training::factory()->create();
         $users = User::factory()->count(3)->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-all");
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-all");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => __('app.training_user.all_users_assigned_successfully'),
                 'data' => [
                     'training_id' => $training->id,
-                    'assigned_count' => 3, // 3 users created
+                    'assigned_count' => 4, // 1 admin + 3 users created
                 ],
             ]);
 
@@ -51,21 +53,21 @@ final class AssignAllUsersToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-all");
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-all");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => __('app.training_user.all_users_assigned_successfully'),
                 'data' => [
                     'training_id' => $training->id,
-                    'assigned_count' => 0,
+                    'assigned_count' => 1, // 1 admin user
                 ],
             ]);
     }
 
     public function test_admin_cannot_assign_all_users_to_nonexistent_training(): void
     {
-        $response = $this->actingAs($this->admin)->postJson('/v1/admin/trainings/99999/users/assign-all');
+        $response = $this->actingAs($this->admin)->postJson('/api/v1/admin/trainings/99999/users/assign-all');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson(['message' => 'Training not found']);
@@ -75,18 +77,18 @@ final class AssignAllUsersToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->postJson("/v1/admin/trainings/{$training->id}/users/assign-all");
+        $response = $this->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-all");
 
         $response->assertUnauthorized();
     }
 
     public function test_unauthorized_user_cannot_assign_all_users_to_training(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $user->givePermissionTo('training.create'); // Has create permission but not assign_all
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($user)->postJson("/v1/admin/trainings/{$training->id}/users/assign-all");
+        $response = $this->actingAs($user)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-all");
 
         $response->assertForbidden();
     }
@@ -103,7 +105,7 @@ final class AssignAllUsersToTrainingTest extends TestCase
                 ->andThrow(new \RuntimeException('Simulated internal error'));
         });
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-all");
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-all");
 
         $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
             ->assertJson(['message' => __('app.action.failed')]);

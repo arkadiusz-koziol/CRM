@@ -86,7 +86,7 @@ final class AssignUserToTrainingController extends Controller
         try {
             $trainingUserService->assignUserToTraining($training, $request->integer('user_id'));
 
-            return $this->responseFactory->json([
+            return response()->json([
                 'message' => __('app.training_user.assigned_successfully'),
                 'data' => [
                     'training_id' => $training,
@@ -95,31 +95,31 @@ final class AssignUserToTrainingController extends Controller
             ], Response::HTTP_CREATED);
         } catch (\RuntimeException $e) {
             if (str_contains($e->getMessage(), 'not found')) {
-                return $this->responseFactory->json(
+                return response()->json(
                     ['message' => $e->getMessage()],
                     Response::HTTP_NOT_FOUND
                 );
             }
 
             if (str_contains($e->getMessage(), 'already assigned')) {
-                return $this->responseFactory->json(
+                return response()->json(
                     ['message' => $e->getMessage()],
                     Response::HTTP_CONFLICT
                 );
             }
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         } catch (Throwable $e) {
-            $this->logger->error('Error assigning user to training', [
+            \Log::error('Error assigning user to training', [
                 'training_id' => $training,
                 'user_id' => $request->integer('user_id'),
                 'exception' => $e,
             ]);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

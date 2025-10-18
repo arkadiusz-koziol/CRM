@@ -20,7 +20,9 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+        $this->admin = User::factory()->create();
+        $this->admin->assignRole('admin');
         $this->admin->givePermissionTo('training.user.assign_by_role');
     }
 
@@ -34,7 +36,7 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
             $user->assignRole($role);
         }
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-by-role", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-by-role", [
             'role' => 'test_role',
         ]);
 
@@ -61,7 +63,7 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
         $training = Training::factory()->create();
         Role::create(['name' => 'empty_role']);
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-by-role", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-by-role", [
             'role' => 'empty_role',
         ]);
 
@@ -78,7 +80,7 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
 
     public function test_admin_cannot_assign_users_by_role_to_nonexistent_training(): void
     {
-        $response = $this->actingAs($this->admin)->postJson('/v1/admin/trainings/99999/users/assign-by-role', [
+        $response = $this->actingAs($this->admin)->postJson('/api/v1/admin/trainings/99999/users/assign-by-role', [
             'role' => 'test_role',
         ]);
 
@@ -90,7 +92,7 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-by-role", []);
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-by-role", []);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors(['role']);
@@ -108,7 +110,7 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
                 ->andThrow(new \RuntimeException('Simulated internal error'));
         });
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-by-role", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-by-role", [
             'role' => 'test_role',
         ]);
 
@@ -120,7 +122,7 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->postJson("/v1/admin/trainings/{$training->id}/users/assign-by-role", [
+        $response = $this->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-by-role", [
             'role' => 'test_role',
         ]);
 
@@ -129,11 +131,11 @@ final class AssignUsersByRoleToTrainingTest extends TestCase
 
     public function test_unauthorized_user_cannot_assign_users_by_role(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $user->givePermissionTo('training.create'); // Has create permission but not assign_by_role
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($user)->postJson("/v1/admin/trainings/{$training->id}/users/assign-by-role", [
+        $response = $this->actingAs($user)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-by-role", [
             'role' => 'test_role',
         ]);
 

@@ -12,7 +12,7 @@ final class CarDtoFactory
     {
         return new CarDto(
             name: $data['name'] ?? '',
-            description: $data['description'] ?? '',
+            description: $data['description'] ?? null,
             registrationNumber: strtoupper($data['registration_number'] ?? ''),
             technicalDetails: $data['technical_details'] ?? null
         );
