@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ActivityRepositoryInterface::class, ActivityRepository::class);
         $this->app->bind(TrainingRepositoryInterface::class, TrainingRepository::class);
         $this->app->bind(TrainingFileRepositoryInterface::class, TrainingFileRepository::class);
+        $this->app->bind(\App\Interfaces\Repositories\TrainingCategoryRepositoryInterface::class, \App\Repositories\TrainingCategoryRepository::class);
         $this->app->bind(FileStorageServiceInterface::class, function ($app) {
             return new FileStorageService(
                 $app->make('filesystem')->disk('public')

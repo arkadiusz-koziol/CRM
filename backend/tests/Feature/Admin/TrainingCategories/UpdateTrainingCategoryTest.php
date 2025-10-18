@@ -19,7 +19,7 @@ final class UpdateTrainingCategoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.category.update');
     }
 
@@ -27,22 +27,28 @@ final class UpdateTrainingCategoryTest extends TestCase
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->actingAs($this->admin)->putJson("/v1/admin/training-categories/{$trainingCategory->id}", [
+        $response = $this->actingAs($this->admin)->putJson("/api/v1/admin/training-categories/{$trainingCategory->id}", [
             'name' => 'Updated Safety Training',
         ]);
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([
                 'data' => [
+                    'type',
                     'id',
-                    'name',
-                    'created_at',
-                    'updated_at',
+                    'attributes' => [
+                        'name',
+                        'created_at',
+                        'updated_at',
+                    ],
                 ],
             ])
             ->assertJson([
                 'data' => [
-                    'name' => 'Updated Safety Training',
+                    'type' => 'training-categories',
+                    'attributes' => [
+                        'name' => 'Updated Safety Training',
+                    ],
                 ],
             ]);
 
@@ -57,7 +63,7 @@ final class UpdateTrainingCategoryTest extends TestCase
         TrainingCategory::factory()->create(['name' => 'Existing Training']);
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->actingAs($this->admin)->putJson("/v1/admin/training-categories/{$trainingCategory->id}", [
+        $response = $this->actingAs($this->admin)->putJson("/api/v1/admin/training-categories/{$trainingCategory->id}", [
             'name' => 'Existing Training',
         ]);
 
@@ -69,7 +75,7 @@ final class UpdateTrainingCategoryTest extends TestCase
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->actingAs($this->admin)->putJson("/v1/admin/training-categories/{$trainingCategory->id}", [
+        $response = $this->actingAs($this->admin)->putJson("/api/v1/admin/training-categories/{$trainingCategory->id}", [
             'name' => 'Safety Training',
         ]);
 
@@ -78,7 +84,7 @@ final class UpdateTrainingCategoryTest extends TestCase
 
     public function test_admin_cannot_update_non_existent_training_category(): void
     {
-        $response = $this->actingAs($this->admin)->putJson('/v1/admin/training-categories/non-existent-uuid', [
+        $response = $this->actingAs($this->admin)->putJson('/api/v1/admin/training-categories/550e8400-e29b-41d4-a716-446655440000', [
             'name' => 'Updated Safety Training',
         ]);
 
@@ -90,7 +96,7 @@ final class UpdateTrainingCategoryTest extends TestCase
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->actingAs($this->admin)->putJson("/v1/admin/training-categories/{$trainingCategory->id}", []);
+        $response = $this->actingAs($this->admin)->putJson("/api/v1/admin/training-categories/{$trainingCategory->id}", []);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors(['name']);
@@ -100,7 +106,7 @@ final class UpdateTrainingCategoryTest extends TestCase
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->putJson("/v1/admin/training-categories/{$trainingCategory->id}", [
+        $response = $this->putJson("/api/v1/admin/training-categories/{$trainingCategory->id}", [
             'name' => 'Updated Safety Training',
         ]);
 
@@ -109,10 +115,10 @@ final class UpdateTrainingCategoryTest extends TestCase
 
     public function test_unauthorized_user_cannot_update_training_category(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->actingAs($user)->putJson("/v1/admin/training-categories/{$trainingCategory->id}", [
+        $response = $this->actingAs($user)->putJson("/api/v1/admin/training-categories/{$trainingCategory->id}", [
             'name' => 'Updated Safety Training',
         ]);
 

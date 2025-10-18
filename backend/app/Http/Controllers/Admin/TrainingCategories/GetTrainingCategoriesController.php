@@ -54,10 +54,13 @@ final class GetTrainingCategoriesController extends Controller
         try {
             $trainingCategories = $trainingCategoryService->getAllCategories();
 
-            return $this->responseFactory->json(
-                TrainingCategoryResource::collection($trainingCategories),
-                Response::HTTP_OK
-            );
+            $resources = $trainingCategories->map(function ($category) {
+                return TrainingCategoryResource::make($category)->toArray(request())['data'];
+            });
+
+            return $this->responseFactory->json([
+                'data' => $resources->toArray(),
+            ], Response::HTTP_OK);
         } catch (Throwable $e) {
             $this->logger->error('Error getting training categories', [
                 'exception' => $e,

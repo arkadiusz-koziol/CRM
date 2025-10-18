@@ -20,6 +20,7 @@ final class TrainingFactory extends Factory
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->optional()->paragraph,
             'category' => $this->faker->randomElement(['Safety', 'Technical', 'Management', 'Compliance']),
+            'category_id' => \App\Models\TrainingCategory::factory(),
             'file_path' => $this->faker->optional()->filePath(),
             'file_name' => $this->faker->optional()->word().'.pdf',
             'file_size' => $this->faker->optional()->numberBetween(1024, 10240000),

@@ -29,7 +29,7 @@ final class TrainingCategoryRepositoryTest extends TestCase
             'name' => 'Safety Training',
         ]);
 
-        $result = $this->trainingCategoryRepository->create($trainingCategoryDto);
+        $result = $this->trainingCategoryRepository->createTrainingCategory($trainingCategoryDto);
 
         $this->assertInstanceOf(TrainingCategoryEntity::class, $result);
         $this->assertEquals('Safety Training', $result->name());
@@ -42,7 +42,7 @@ final class TrainingCategoryRepositoryTest extends TestCase
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $result = $this->trainingCategoryRepository->findById($trainingCategory->id);
+        $result = $this->trainingCategoryRepository->findTrainingCategoryById($trainingCategory->id);
 
         $this->assertInstanceOf(TrainingCategoryEntity::class, $result);
         $this->assertEquals($trainingCategory->id, $result->id());
@@ -51,7 +51,7 @@ final class TrainingCategoryRepositoryTest extends TestCase
 
     public function test_find_by_id_returns_null_if_not_found(): void
     {
-        $result = $this->trainingCategoryRepository->findById('non-existent-uuid');
+        $result = $this->trainingCategoryRepository->findTrainingCategoryById('550e8400-e29b-41d4-a716-446655440000');
 
         $this->assertNull($result);
     }
@@ -66,15 +66,15 @@ final class TrainingCategoryRepositoryTest extends TestCase
         $this->assertInstanceOf(TrainingCategoryEntity::class, $result->first());
     }
 
-    public function test_update_training_category_updates_record(): void
+    public function test_update_training_category_training_category_update_training_categorys_record(): void
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
-        $trainingCategoryEntity = $this->trainingCategoryRepository->findById($trainingCategory->id);
-        $updatedDto = TrainingCategoryDtoFactory::fromArray([
+        $trainingCategoryEntity = $this->trainingCategoryRepository->findTrainingCategoryById($trainingCategory->id);
+        $updateTrainingCategorydDto = TrainingCategoryDtoFactory::fromArray([
             'name' => 'Updated Safety Training',
         ]);
 
-        $result = $this->trainingCategoryRepository->update($trainingCategoryEntity, $updatedDto);
+        $result = $this->trainingCategoryRepository->updateTrainingCategory($trainingCategoryEntity, $updateTrainingCategorydDto);
 
         $this->assertInstanceOf(TrainingCategoryEntity::class, $result);
         $this->assertEquals('Updated Safety Training', $result->name());
@@ -84,30 +84,30 @@ final class TrainingCategoryRepositoryTest extends TestCase
         ]);
     }
 
-    public function test_update_throws_exception_if_not_found(): void
+    public function test_update_training_category_throws_exception_if_not_found(): void
     {
         $trainingCategoryEntity = new TrainingCategoryEntity(
-            id: 'non-existent-uuid',
+            id: '550e8400-e29b-41d4-a716-446655440000',
             name: 'Safety Training',
             createdAt: now(),
             updatedAt: now()
         );
-        $updatedDto = TrainingCategoryDtoFactory::fromArray([
+        $updateTrainingCategorydDto = TrainingCategoryDtoFactory::fromArray([
             'name' => 'Updated Safety Training',
         ]);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Training category not found');
 
-        $this->trainingCategoryRepository->update($trainingCategoryEntity, $updatedDto);
+        $this->trainingCategoryRepository->updateTrainingCategory($trainingCategoryEntity, $updateTrainingCategorydDto);
     }
 
-    public function test_delete_training_category_deletes_record(): void
+    public function test_delete_training_category_training_category_delete_training_categorys_record(): void
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
-        $trainingCategoryEntity = $this->trainingCategoryRepository->findById($trainingCategory->id);
+        $trainingCategoryEntity = $this->trainingCategoryRepository->findTrainingCategoryById($trainingCategory->id);
 
-        $result = $this->trainingCategoryRepository->delete($trainingCategoryEntity);
+        $result = $this->trainingCategoryRepository->deleteTrainingCategory($trainingCategoryEntity);
 
         $this->assertTrue($result);
         $this->assertSoftDeleted('trainings_categories', [
@@ -115,16 +115,16 @@ final class TrainingCategoryRepositoryTest extends TestCase
         ]);
     }
 
-    public function test_delete_returns_false_if_not_found(): void
+    public function test_delete_training_category_returns_false_if_not_found(): void
     {
         $trainingCategoryEntity = new TrainingCategoryEntity(
-            id: 'non-existent-uuid',
+            id: '550e8400-e29b-41d4-a716-446655440000',
             name: 'Safety Training',
             createdAt: now(),
             updatedAt: now()
         );
 
-        $result = $this->trainingCategoryRepository->delete($trainingCategoryEntity);
+        $result = $this->trainingCategoryRepository->deleteTrainingCategory($trainingCategoryEntity);
 
         $this->assertFalse($result);
     }

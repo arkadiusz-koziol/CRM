@@ -27,6 +27,7 @@ final class TrainingUpdateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.update');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Safety']);
         $training = Training::factory()->create([
             'title' => 'Original Title',
             'description' => 'Original Description',
@@ -37,6 +38,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated Safety Training',
             'description' => 'Updated comprehensive safety training course',
             'category' => 'Safety',
+            'category_id' => $category->id,
         ];
 
         $response = $this->actingAs($admin)
@@ -71,6 +73,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated Safety Training',
             'description' => 'Updated comprehensive safety training course',
             'category' => 'Safety',
+            'category_id' => $category->id,
         ]);
     }
 
@@ -79,6 +82,7 @@ final class TrainingUpdateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.update');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Documentation']);
         $training = Training::factory()->create([
             'title' => 'Original Title',
             'file_name' => 'old.pdf',
@@ -91,6 +95,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated PDF Training',
             'description' => 'Training with new PDF file',
             'category' => 'Documentation',
+            'category_id' => $category->id,
             'file' => $file,
         ];
 
@@ -114,6 +119,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated PDF Training',
             'description' => 'Training with new PDF file',
             'category' => 'Documentation',
+            'category_id' => $category->id,
             'file_name' => 'new-training.pdf',
             'mime_type' => 'application/pdf',
         ]);
@@ -126,6 +132,7 @@ final class TrainingUpdateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.update');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Presentation']);
         $training = Training::factory()->create([
             'title' => 'Original Title',
         ]);
@@ -136,6 +143,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated PowerPoint Training',
             'description' => 'Training with new PowerPoint file',
             'category' => 'Presentation',
+            'category_id' => $category->id,
             'file' => $file,
         ];
 
@@ -159,6 +167,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated PowerPoint Training',
             'description' => 'Training with new PowerPoint file',
             'category' => 'Presentation',
+            'category_id' => $category->id,
             'file_name' => 'new-presentation.pptx',
             'mime_type' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
         ]);
@@ -171,6 +180,7 @@ final class TrainingUpdateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.update');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Basic']);
         $training = Training::factory()->create([
             'title' => 'Original Title',
             'description' => 'Original Description',
@@ -180,6 +190,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated Simple Training',
             'description' => null,
             'category' => 'Basic',
+            'category_id' => $category->id,
         ];
 
         $response = $this->actingAs($admin)
@@ -200,6 +211,7 @@ final class TrainingUpdateTest extends TestCase
             'title' => 'Updated Simple Training',
             'description' => null,
             'category' => 'Basic',
+            'category_id' => $category->id,
         ]);
     }
 
@@ -361,12 +373,14 @@ final class TrainingUpdateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.update');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Testing']);
         $training = Training::factory()->create();
 
         $updateData = [
             'title' => 'JSON Structure Test',
             'description' => 'Testing JSON response structure',
             'category' => 'Testing',
+            'category_id' => $category->id,
         ];
 
         $response = $this->actingAs($admin)
@@ -399,6 +413,7 @@ final class TrainingUpdateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.update');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Updated Category']);
         $training = Training::factory()->create([
             'title' => 'Original Title',
             'file_name' => 'existing.pdf',
@@ -410,6 +425,7 @@ final class TrainingUpdateTest extends TestCase
         $updateData = [
             'title' => 'Updated Title',
             'category' => 'Updated Category',
+            'category_id' => $category->id,
         ];
 
         $response = $this->actingAs($admin)
@@ -432,6 +448,7 @@ final class TrainingUpdateTest extends TestCase
             'id' => $training->id,
             'title' => 'Updated Title',
             'category' => 'Updated Category',
+            'category_id' => $category->id,
             'file_name' => 'existing.pdf',
             'file_path' => 'trainings/existing.pdf',
             'file_size' => 1024,

@@ -37,7 +37,7 @@ final class TrainingCategoryServiceTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_create_category_calls_repository(): void
+    public function test_create_training_category_category_calls_repository(): void
     {
         $data = ['name' => 'Safety Training'];
         $trainingCategoryEntity = new TrainingCategoryEntity(
@@ -48,7 +48,7 @@ final class TrainingCategoryServiceTest extends TestCase
         );
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('create')
+            ->shouldReceive('createTrainingCategory')
             ->once()
             ->with(Mockery::on(function ($dto) {
                 return $dto->name() === 'Safety Training';
@@ -71,7 +71,7 @@ final class TrainingCategoryServiceTest extends TestCase
         );
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('findById')
+            ->shouldReceive('findTrainingCategoryById')
             ->once()
             ->with($id)
             ->andReturn($trainingCategoryEntity);
@@ -83,7 +83,7 @@ final class TrainingCategoryServiceTest extends TestCase
 
     public function test_get_all_categories_calls_repository(): void
     {
-        $categories = collect([
+        $categories = new \Illuminate\Database\Eloquent\Collection([
             new TrainingCategoryEntity(
                 id: 'uuid-1',
                 name: 'Safety Training',
@@ -108,7 +108,7 @@ final class TrainingCategoryServiceTest extends TestCase
         $this->assertSame($categories, $result);
     }
 
-    public function test_update_category_calls_repository(): void
+    public function test_update_training_category_category_calls_repository(): void
     {
         $id = 'test-uuid';
         $data = ['name' => 'Updated Safety Training'];
@@ -118,7 +118,7 @@ final class TrainingCategoryServiceTest extends TestCase
             createdAt: Carbon::now(),
             updatedAt: Carbon::now()
         );
-        $updatedCategory = new TrainingCategoryEntity(
+        $updateTrainingCategorydCategory = new TrainingCategoryEntity(
             id: $id,
             name: 'Updated Safety Training',
             createdAt: Carbon::now(),
@@ -126,31 +126,31 @@ final class TrainingCategoryServiceTest extends TestCase
         );
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('findById')
+            ->shouldReceive('findTrainingCategoryById')
             ->once()
             ->with($id)
             ->andReturn($existingCategory);
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('update')
+            ->shouldReceive('updateTrainingCategory')
             ->once()
             ->with($existingCategory, Mockery::on(function ($dto) {
                 return $dto->name() === 'Updated Safety Training';
             }))
-            ->andReturn($updatedCategory);
+            ->andReturn($updateTrainingCategorydCategory);
 
         $result = $this->trainingCategoryService->updateCategory($id, $data);
 
-        $this->assertSame($updatedCategory, $result);
+        $this->assertSame($updateTrainingCategorydCategory, $result);
     }
 
-    public function test_update_category_throws_exception_if_not_found(): void
+    public function test_update_training_category_category_throws_exception_if_not_found(): void
     {
         $id = 'non-existent-uuid';
         $data = ['name' => 'Updated Safety Training'];
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('findById')
+            ->shouldReceive('findTrainingCategoryById')
             ->once()
             ->with($id)
             ->andReturn(null);
@@ -172,13 +172,13 @@ final class TrainingCategoryServiceTest extends TestCase
         );
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('findById')
+            ->shouldReceive('findTrainingCategoryById')
             ->once()
             ->with($id)
             ->andReturn($trainingCategoryEntity);
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('delete')
+            ->shouldReceive('deleteTrainingCategory')
             ->once()
             ->with($trainingCategoryEntity)
             ->andReturn(true);
@@ -193,7 +193,7 @@ final class TrainingCategoryServiceTest extends TestCase
         $id = 'non-existent-uuid';
 
         $this->trainingCategoryRepositoryMock
-            ->shouldReceive('findById')
+            ->shouldReceive('findTrainingCategoryById')
             ->once()
             ->with($id)
             ->andReturn(null);

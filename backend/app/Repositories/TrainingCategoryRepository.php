@@ -13,19 +13,19 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class TrainingCategoryRepository extends EloquentRepository implements TrainingCategoryRepositoryInterface
 {
-    public function __construct(protected TrainingCategory $model)
+    public function __construct(TrainingCategory $model)
     {
         parent::__construct($model);
     }
 
-    public function create(TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity
+    public function createTrainingCategory(TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity
     {
         $model = $this->model->create($trainingCategoryDto->toArray());
 
         return TrainingCategoryMapper::toEntity($model);
     }
 
-    public function findById(string $id): ?TrainingCategoryEntity
+    public function findTrainingCategoryById(string $id): ?TrainingCategoryEntity
     {
         $model = $this->model->find($id);
 
@@ -34,12 +34,15 @@ final class TrainingCategoryRepository extends EloquentRepository implements Tra
 
     public function findAll(): Collection
     {
-        return $this->model->all()->map(function (TrainingCategory $model) {
+        $models = $this->model->all();
+        $entities = $models->map(function (TrainingCategory $model) {
             return TrainingCategoryMapper::toEntity($model);
         });
+
+        return new \Illuminate\Database\Eloquent\Collection($entities->toArray());
     }
 
-    public function update(TrainingCategoryEntity $trainingCategoryEntity, TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity
+    public function updateTrainingCategory(TrainingCategoryEntity $trainingCategoryEntity, TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity
     {
         $model = $this->model->find($trainingCategoryEntity->id());
         if (! $model) {
@@ -51,7 +54,7 @@ final class TrainingCategoryRepository extends EloquentRepository implements Tra
         return TrainingCategoryMapper::toEntity($model);
     }
 
-    public function delete(TrainingCategoryEntity $trainingCategoryEntity): bool
+    public function deleteTrainingCategory(TrainingCategoryEntity $trainingCategoryEntity): bool
     {
         $model = $this->model->find($trainingCategoryEntity->id());
 

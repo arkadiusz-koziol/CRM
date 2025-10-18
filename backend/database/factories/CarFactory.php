@@ -16,7 +16,7 @@ final class CarFactory extends Factory
         return [
             'name' => $this->faker->company.' '.$this->faker->word,
             'description' => $this->faker->sentence,
-            'registration_number' => strtoupper($this->faker->bothify('??####')),
+            'registration_number' => strtoupper($this->faker->bothify('???####')),
             'technical_details' => $this->faker->optional()->sentence,
         ];
     }

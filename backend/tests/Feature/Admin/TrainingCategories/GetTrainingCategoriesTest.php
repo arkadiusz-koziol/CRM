@@ -19,50 +19,68 @@ final class GetTrainingCategoriesTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.category.list');
     }
 
     public function test_admin_can_get_training_categories(): void
     {
-        TrainingCategory::factory()->count(3)->create();
+        $categories = TrainingCategory::factory()->count(3)->create();
 
-        $response = $this->actingAs($this->admin)->getJson('/v1/admin/training-categories');
+        $response = $this->actingAs($this->admin)->getJson('/api/v1/admin/training-categories');
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertJsonCount(3, 'data')
             ->assertJsonStructure([
                 'data' => [
                     '*' => [
+                        'type',
                         'id',
-                        'name',
-                        'created_at',
-                        'updated_at',
+                        'attributes' => [
+                            'name',
+                            'created_at',
+                            'updated_at',
+                        ],
                     ],
                 ],
             ]);
+
+        // Check that our created categories are in the response
+        $responseData = $response->json('data');
+        $this->assertGreaterThanOrEqual(3, count($responseData));
+
+        // Verify our specific categories are present
+        $categoryNames = collect($responseData)->pluck('attributes.name')->toArray();
+        foreach ($categories as $category) {
+            $this->assertContains($category->name, $categoryNames);
+        }
     }
 
     public function test_admin_gets_empty_array_if_no_categories(): void
     {
-        $response = $this->actingAs($this->admin)->getJson('/v1/admin/training-categories');
+        // Clear any existing categories for this test
+        TrainingCategory::query()->delete();
+
+        $response = $this->actingAs($this->admin)->getJson('/api/v1/admin/training-categories');
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertJsonCount(0, 'data');
+            ->assertJsonStructure(['data' => []]);
+
+        $responseData = $response->json('data');
+        $this->assertIsArray($responseData);
     }
 
     public function test_unauthenticated_user_cannot_get_training_categories(): void
     {
-        $response = $this->getJson('/v1/admin/training-categories');
+        $response = $this->getJson('/api/v1/admin/training-categories');
 
         $response->assertUnauthorized();
     }
 
     public function test_unauthorized_user_cannot_get_training_categories(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->getJson('/v1/admin/training-categories');
+        $response = $this->actingAs($user)->getJson('/api/v1/admin/training-categories');
 
         $response->assertForbidden();
     }

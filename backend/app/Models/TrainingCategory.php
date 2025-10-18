@@ -14,6 +14,8 @@ final class TrainingCategory extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
+    protected $table = 'trainings_categories';
+
     protected $fillable = [
         'name',
     ];

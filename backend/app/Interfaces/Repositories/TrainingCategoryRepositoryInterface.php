@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface TrainingCategoryRepositoryInterface
 {
-    public function create(TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity;
+    public function createTrainingCategory(TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity;
 
-    public function findById(string $id): ?TrainingCategoryEntity;
+    public function findTrainingCategoryById(string $id): ?TrainingCategoryEntity;
 
     public function findAll(): Collection;
 
-    public function update(TrainingCategoryEntity $trainingCategoryEntity, TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity;
+    public function updateTrainingCategory(TrainingCategoryEntity $trainingCategoryEntity, TrainingCategoryDto $trainingCategoryDto): TrainingCategoryEntity;
 
-    public function delete(TrainingCategoryEntity $trainingCategoryEntity): bool;
+    public function deleteTrainingCategory(TrainingCategoryEntity $trainingCategoryEntity): bool;
 }

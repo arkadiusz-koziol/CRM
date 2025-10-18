@@ -19,12 +19,12 @@ final class TrainingCategoryService
     {
         $trainingCategoryDto = TrainingCategoryDtoFactory::fromArray($data);
 
-        return $this->trainingCategoryRepository->create($trainingCategoryDto);
+        return $this->trainingCategoryRepository->createTrainingCategory($trainingCategoryDto);
     }
 
     public function getCategory(string $id): ?TrainingCategoryEntity
     {
-        return $this->trainingCategoryRepository->findById($id);
+        return $this->trainingCategoryRepository->findTrainingCategoryById($id);
     }
 
     public function getAllCategories(): Collection
@@ -34,23 +34,23 @@ final class TrainingCategoryService
 
     public function updateCategory(string $id, array $data): TrainingCategoryEntity
     {
-        $trainingCategory = $this->trainingCategoryRepository->findById($id);
+        $trainingCategory = $this->trainingCategoryRepository->findTrainingCategoryById($id);
         if (! $trainingCategory) {
             throw new \RuntimeException('Training category not found');
         }
 
         $trainingCategoryDto = TrainingCategoryDtoFactory::fromArray($data);
 
-        return $this->trainingCategoryRepository->update($trainingCategory, $trainingCategoryDto);
+        return $this->trainingCategoryRepository->updateTrainingCategory($trainingCategory, $trainingCategoryDto);
     }
 
     public function deleteCategory(string $id): bool
     {
-        $trainingCategory = $this->trainingCategoryRepository->findById($id);
+        $trainingCategory = $this->trainingCategoryRepository->findTrainingCategoryById($id);
         if (! $trainingCategory) {
             throw new \RuntimeException('Training category not found');
         }
 
-        return $this->trainingCategoryRepository->delete($trainingCategory);
+        return $this->trainingCategoryRepository->deleteTrainingCategory($trainingCategory);
     }
 }

@@ -121,6 +121,7 @@ final class UpdateTrainingController extends Controller
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'category' => $request->input('category'),
+                'category_id' => $request->input('category_id'),
                 'file_path' => $fileData['path'] ?? $training->file_path,
                 'file_name' => $fileData['name'] ?? $training->file_name,
                 'file_size' => $fileData['size'] ?? $training->file_size,

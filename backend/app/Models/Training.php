@@ -18,6 +18,7 @@ class Training extends Model
     protected $fillable = [
         'title',
         'description',
+        'category',
         'category_id',
         'file_path',
         'file_name',

@@ -19,7 +19,7 @@ final class DeleteTrainingCategoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.category.delete');
     }
 
@@ -27,7 +27,7 @@ final class DeleteTrainingCategoryTest extends TestCase
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/training-categories/{$trainingCategory->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/training-categories/{$trainingCategory->id}");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson(['message' => __('app.category.deleted_successfully')]);
@@ -39,7 +39,7 @@ final class DeleteTrainingCategoryTest extends TestCase
 
     public function test_admin_cannot_delete_non_existent_training_category(): void
     {
-        $response = $this->actingAs($this->admin)->deleteJson('/v1/admin/training-categories/non-existent-uuid');
+        $response = $this->actingAs($this->admin)->deleteJson('/api/v1/admin/training-categories/non-existent-uuid');
 
         $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
             ->assertJson(['message' => __('app.action.failed')]);
@@ -49,17 +49,17 @@ final class DeleteTrainingCategoryTest extends TestCase
     {
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->deleteJson("/v1/admin/training-categories/{$trainingCategory->id}");
+        $response = $this->deleteJson("/api/v1/admin/training-categories/{$trainingCategory->id}");
 
         $response->assertUnauthorized();
     }
 
     public function test_unauthorized_user_cannot_delete_training_category(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $trainingCategory = TrainingCategory::factory()->create(['name' => 'Safety Training']);
 
-        $response = $this->actingAs($user)->deleteJson("/v1/admin/training-categories/{$trainingCategory->id}");
+        $response = $this->actingAs($user)->deleteJson("/api/v1/admin/training-categories/{$trainingCategory->id}");
 
         $response->assertForbidden();
     }
