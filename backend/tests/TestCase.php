@@ -31,6 +31,9 @@ abstract class TestCase extends BaseTestCase
         // Set deterministic UUID generation
         Uuid::setFactory(new \Ramsey\Uuid\UuidFactory);
 
+        // Ensure permission tables exist before seeding
+        $this->artisan('migrate', ['--path' => 'database/migrations/2024_11_01_232535_create_permission_tables.php']);
+
         // Seed permissions for tests
         $this->seedPermissions();
 
