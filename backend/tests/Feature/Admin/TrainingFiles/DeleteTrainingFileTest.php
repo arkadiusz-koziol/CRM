@@ -22,7 +22,7 @@ final class DeleteTrainingFileTest extends TestCase
     {
         parent::setUp();
         Storage::fake('public');
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.file.delete');
     }
 
@@ -34,12 +34,12 @@ final class DeleteTrainingFileTest extends TestCase
         // Create a fake file in storage
         Storage::disk('public')->put($file->file_path, 'fake content');
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/{$training->id}/files/{$file->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/{$training->id}/files/{$file->id}");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson(['message' => __('app.file.deleted_successfully')]);
 
-        $this->assertDatabaseMissing('training_files', [
+        $this->assertSoftDeleted('training_files', [
             'id' => $file->id,
         ]);
 
@@ -50,7 +50,7 @@ final class DeleteTrainingFileTest extends TestCase
     {
         $file = TrainingFile::factory()->create();
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/99999/files/{$file->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/99999/files/{$file->id}");
 
         $response->assertNotFound()
             ->assertJson(['message' => __('app.training.not_found')]);
@@ -60,7 +60,7 @@ final class DeleteTrainingFileTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/{$training->id}/files/non-existent-id");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/{$training->id}/files/non-existent-id");
 
         $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
             ->assertJson(['message' => __('app.action.failed')]);
@@ -72,7 +72,7 @@ final class DeleteTrainingFileTest extends TestCase
         $training2 = Training::factory()->create();
         $file = TrainingFile::factory()->create(['training_id' => $training1->id]);
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/{$training2->id}/files/{$file->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/{$training2->id}/files/{$file->id}");
 
         $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
             ->assertJson(['message' => __('app.action.failed')]);
@@ -83,18 +83,18 @@ final class DeleteTrainingFileTest extends TestCase
         $training = Training::factory()->create();
         $file = TrainingFile::factory()->create(['training_id' => $training->id]);
 
-        $response = $this->deleteJson("/v1/admin/trainings/{$training->id}/files/{$file->id}");
+        $response = $this->deleteJson("/api/v1/admin/trainings/{$training->id}/files/{$file->id}");
 
         $response->assertUnauthorized();
     }
 
     public function test_unauthorized_user_cannot_delete_training_file(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $training = Training::factory()->create();
         $file = TrainingFile::factory()->create(['training_id' => $training->id]);
 
-        $response = $this->actingAs($user)->deleteJson("/v1/admin/trainings/{$training->id}/files/{$file->id}");
+        $response = $this->actingAs($user)->deleteJson("/api/v1/admin/trainings/{$training->id}/files/{$file->id}");
 
         $response->assertForbidden();
     }

@@ -94,21 +94,46 @@ final class AttachMultipleFilesToTrainingController extends Controller
     ): JsonResponse {
         try {
             $files = $request->file('files');
-            $attachedFiles = $trainingFileService->attachMultipleFilesToTraining($training, $files);
+            $attachedFiles = $trainingFileService->attachMultipleFilesToTraining((int) $training, $files);
+
+            $resources = $attachedFiles->map(function ($file) {
+                return TrainingFileResource::make($file)->toArray(request())['data'];
+            });
+
+            return $this->responseFactory->json([
+                'data' => $resources->toArray(),
+            ], Response::HTTP_CREATED);
+        } catch (\RuntimeException $e) {
+            if ($e->getMessage() === 'Training not found') {
+                return $this->responseFactory->json(
+                    ['message' => __('app.training.not_found')],
+                    Response::HTTP_NOT_FOUND
+                );
+            }
+
+            $this->logger->error('Error attaching multiple files to training', [
+                'training_id' => $training,
+                'files_count' => count($request->file('files', [])),
+                'exception' => $e,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
 
             return $this->responseFactory->json(
-                TrainingFileResource::collection($attachedFiles),
-                Response::HTTP_CREATED
+                ['message' => __('app.action.failed'), 'debug' => $e->getMessage()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         } catch (Throwable $e) {
             $this->logger->error('Error attaching multiple files to training', [
                 'training_id' => $training,
                 'files_count' => count($request->file('files', [])),
                 'exception' => $e,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ]);
 
             return $this->responseFactory->json(
-                ['message' => __('app.action.failed')],
+                ['message' => __('app.action.failed'), 'debug' => $e->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }

@@ -17,7 +17,7 @@ final class TrainingFileService
         private TrainingRepositoryInterface $trainingRepository
     ) {}
 
-    public function attachFileToTraining(string $trainingId, UploadedFile $file): TrainingFileEntity
+    public function attachFileToTraining(int $trainingId, UploadedFile $file): TrainingFileEntity
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
@@ -27,7 +27,7 @@ final class TrainingFileService
         return $this->trainingFileRepository->attachFileToTraining($training, $file);
     }
 
-    public function attachMultipleFilesToTraining(string $trainingId, array $files): Collection
+    public function attachMultipleFilesToTraining(int $trainingId, array $files): Collection
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
@@ -37,7 +37,7 @@ final class TrainingFileService
         return $this->trainingFileRepository->attachMultipleFilesToTraining($training, $files);
     }
 
-    public function getTrainingFiles(string $trainingId): Collection
+    public function getTrainingFiles(int $trainingId): Collection
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
@@ -47,9 +47,14 @@ final class TrainingFileService
         return $this->trainingFileRepository->getTrainingFiles($training);
     }
 
-    public function deleteTrainingFile(string $fileId): bool
+    public function getTrainingFileById(int $fileId): ?TrainingFileEntity
     {
-        $trainingFile = $this->trainingFileRepository->findById($fileId);
+        return $this->trainingFileRepository->findTrainingFileById($fileId);
+    }
+
+    public function deleteTrainingFile(int $fileId): bool
+    {
+        $trainingFile = $this->trainingFileRepository->findTrainingFileById($fileId);
         if (! $trainingFile) {
             throw new \RuntimeException('Training file not found');
         }

@@ -22,7 +22,7 @@ final class AttachFileToTrainingTest extends TestCase
     {
         parent::setUp();
         Storage::fake('public');
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->admin = User::factory()->create();
         $this->admin->givePermissionTo('training.file.attach');
     }
 
@@ -31,7 +31,7 @@ final class AttachFileToTrainingTest extends TestCase
         $training = Training::factory()->create();
         $file = UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf');
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/files", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/files", [
             'file' => $file,
         ]);
 
@@ -58,14 +58,15 @@ final class AttachFileToTrainingTest extends TestCase
             'mime_type' => 'application/pdf',
         ]);
 
-        Storage::disk('public')->assertExists('training-files/'.$response->json('data.attributes.file_name'));
+        $filePath = $response->json('data.attributes.file_path');
+        Storage::disk('public')->assertExists($filePath);
     }
 
     public function test_admin_cannot_attach_file_to_non_existent_training(): void
     {
         $file = UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf');
 
-        $response = $this->actingAs($this->admin)->postJson('/v1/admin/trainings/99999/files', [
+        $response = $this->actingAs($this->admin)->postJson('/api/v1/admin/trainings/99999/files', [
             'file' => $file,
         ]);
 
@@ -78,7 +79,7 @@ final class AttachFileToTrainingTest extends TestCase
         $training = Training::factory()->create();
         $file = UploadedFile::fake()->create('document.txt', 1000, 'text/plain');
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/files", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/files", [
             'file' => $file,
         ]);
 
@@ -91,7 +92,7 @@ final class AttachFileToTrainingTest extends TestCase
         $training = Training::factory()->create();
         $file = UploadedFile::fake()->create('document.pdf', 11000, 'application/pdf'); // 11MB
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/files", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/files", [
             'file' => $file,
         ]);
 
@@ -104,7 +105,7 @@ final class AttachFileToTrainingTest extends TestCase
         $training = Training::factory()->create();
         $file = UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf');
 
-        $response = $this->postJson("/v1/admin/trainings/{$training->id}/files", [
+        $response = $this->postJson("/api/v1/admin/trainings/{$training->id}/files", [
             'file' => $file,
         ]);
 
@@ -113,11 +114,11 @@ final class AttachFileToTrainingTest extends TestCase
 
     public function test_unauthorized_user_cannot_attach_file_to_training(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $training = Training::factory()->create();
         $file = UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf');
 
-        $response = $this->actingAs($user)->postJson("/v1/admin/trainings/{$training->id}/files", [
+        $response = $this->actingAs($user)->postJson("/api/v1/admin/trainings/{$training->id}/files", [
             'file' => $file,
         ]);
 

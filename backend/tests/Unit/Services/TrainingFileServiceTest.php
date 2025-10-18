@@ -58,14 +58,27 @@ final class TrainingFileServiceTest extends TestCase
             ->with($training->id)
             ->andReturn($training);
 
+        $trainingFileEntity = new \App\Domain\TrainingFile\Entity\TrainingFile(
+            id: '1',
+            trainingId: (string) $training->id,
+            originalName: 'test.pdf',
+            fileName: 'test.pdf',
+            filePath: '/path/to/test.pdf',
+            mimeType: 'application/pdf',
+            fileSize: 100,
+            createdAt: now(),
+            updatedAt: now()
+        );
+
         $this->trainingFileRepositoryMock
-            ->shouldReceive('create')
+            ->shouldReceive('attachFileToTraining')
             ->once()
-            ->andReturn($trainingFile);
+            ->with($training, $file)
+            ->andReturn($trainingFileEntity);
 
         $result = $this->trainingFileService->attachFileToTraining($training->id, $file);
 
-        $this->assertInstanceOf(TrainingFile::class, $result);
+        $this->assertInstanceOf(\App\Domain\TrainingFile\Entity\TrainingFile::class, $result);
     }
 
     public function test_attach_file_to_training_throws_exception_when_training_not_found(): void
@@ -98,14 +111,39 @@ final class TrainingFileServiceTest extends TestCase
             ->with($training->id)
             ->andReturn($training);
 
+        $trainingFileEntity1 = new \App\Domain\TrainingFile\Entity\TrainingFile(
+            id: '1',
+            trainingId: (string) $training->id,
+            originalName: 'test1.pdf',
+            fileName: 'test1.pdf',
+            filePath: '/path/to/test1.pdf',
+            mimeType: 'application/pdf',
+            fileSize: 100,
+            createdAt: now(),
+            updatedAt: now()
+        );
+
+        $trainingFileEntity2 = new \App\Domain\TrainingFile\Entity\TrainingFile(
+            id: '2',
+            trainingId: (string) $training->id,
+            originalName: 'test2.pdf',
+            fileName: 'test2.pdf',
+            filePath: '/path/to/test2.pdf',
+            mimeType: 'application/pdf',
+            fileSize: 200,
+            createdAt: now(),
+            updatedAt: now()
+        );
+
         $this->trainingFileRepositoryMock
-            ->shouldReceive('create')
-            ->twice()
-            ->andReturn(new TrainingFile);
+            ->shouldReceive('attachMultipleFilesToTraining')
+            ->once()
+            ->with($training, $files)
+            ->andReturn(new Collection([$trainingFileEntity1, $trainingFileEntity2]));
 
         $result = $this->trainingFileService->attachMultipleFilesToTraining($training->id, $files);
 
-        $this->assertIsArray($result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertCount(2, $result);
     }
 
@@ -121,7 +159,7 @@ final class TrainingFileServiceTest extends TestCase
             ->andReturn($training);
 
         $this->trainingFileRepositoryMock
-            ->shouldReceive('findByTraining')
+            ->shouldReceive('getTrainingFiles')
             ->once()
             ->with($training)
             ->andReturn($files);
@@ -136,76 +174,46 @@ final class TrainingFileServiceTest extends TestCase
         $training = Training::factory()->create();
         $file = TrainingFile::factory()->create(['training_id' => $training->id]);
 
-        $this->trainingRepositoryMock
-            ->shouldReceive('findById')
-            ->once()
-            ->with($training->id)
-            ->andReturn($training);
+        $trainingFileEntity = new \App\Domain\TrainingFile\Entity\TrainingFile(
+            id: (string) $file->id,
+            trainingId: (string) $file->training_id,
+            originalName: 'test.pdf',
+            fileName: 'test.pdf',
+            filePath: '/path/to/test.pdf',
+            mimeType: 'application/pdf',
+            fileSize: 100,
+            createdAt: now(),
+            updatedAt: now()
+        );
 
         $this->trainingFileRepositoryMock
-            ->shouldReceive('findById')
+            ->shouldReceive('findTrainingFileById')
             ->once()
             ->with($file->id)
-            ->andReturn($file);
+            ->andReturn($trainingFileEntity);
 
         $this->trainingFileRepositoryMock
-            ->shouldReceive('delete')
+            ->shouldReceive('deleteTrainingFile')
             ->once()
-            ->with($file)
+            ->with(Mockery::type(\App\Domain\TrainingFile\Entity\TrainingFile::class))
             ->andReturn(true);
 
-        $result = $this->trainingFileService->deleteTrainingFile($training->id, $file->id);
+        $result = $this->trainingFileService->deleteTrainingFile($file->id);
 
         $this->assertTrue($result);
     }
 
     public function test_delete_training_file_throws_exception_when_file_not_found(): void
     {
-        $training = Training::factory()->create();
-
-        $this->trainingRepositoryMock
-            ->shouldReceive('findById')
-            ->once()
-            ->with($training->id)
-            ->andReturn($training);
-
         $this->trainingFileRepositoryMock
-            ->shouldReceive('findById')
+            ->shouldReceive('findTrainingFileById')
             ->once()
-            ->with('non-existent-id')
+            ->with(999)
             ->andReturn(null);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Training file not found');
 
-        $this->trainingFileService->deleteTrainingFile($training->id, 'non-existent-id');
-    }
-
-    public function test_delete_all_training_files_calls_repository(): void
-    {
-        $training = Training::factory()->create();
-        $files = new Collection([new TrainingFile, new TrainingFile]);
-
-        $this->trainingRepositoryMock
-            ->shouldReceive('findById')
-            ->once()
-            ->with($training->id)
-            ->andReturn($training);
-
-        $this->trainingFileRepositoryMock
-            ->shouldReceive('findByTraining')
-            ->once()
-            ->with($training)
-            ->andReturn($files);
-
-        $this->trainingFileRepositoryMock
-            ->shouldReceive('deleteByTraining')
-            ->once()
-            ->with($training)
-            ->andReturn(2);
-
-        $result = $this->trainingFileService->deleteAllTrainingFiles($training->id);
-
-        $this->assertEquals(2, $result);
+        $this->trainingFileService->deleteTrainingFile(999);
     }
 }

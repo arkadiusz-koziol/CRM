@@ -67,20 +67,44 @@ final class GetTrainingFilesController extends Controller
         TrainingFileService $trainingFileService
     ): JsonResponse {
         try {
-            $files = $trainingFileService->getTrainingFiles($training);
+            $files = $trainingFileService->getTrainingFiles((int) $training);
+
+            $resources = $files->map(function ($file) {
+                return TrainingFileResource::make($file)->toArray(request())['data'];
+            });
+
+            return $this->responseFactory->json([
+                'data' => $resources->toArray(),
+            ], Response::HTTP_OK);
+        } catch (\RuntimeException $e) {
+            if ($e->getMessage() === 'Training not found') {
+                return $this->responseFactory->json(
+                    ['message' => __('app.training.not_found')],
+                    Response::HTTP_NOT_FOUND
+                );
+            }
+
+            $this->logger->error('Error getting training files', [
+                'training_id' => $training,
+                'exception' => $e,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
 
             return $this->responseFactory->json(
-                TrainingFileResource::collection($files),
-                Response::HTTP_OK
+                ['message' => __('app.action.failed'), 'debug' => $e->getMessage()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         } catch (Throwable $e) {
             $this->logger->error('Error getting training files', [
                 'training_id' => $training,
                 'exception' => $e,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ]);
 
             return $this->responseFactory->json(
-                ['message' => __('app.action.failed')],
+                ['message' => __('app.action.failed'), 'debug' => $e->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }

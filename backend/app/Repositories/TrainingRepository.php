@@ -22,12 +22,20 @@ final class TrainingRepository extends EloquentRepository implements TrainingRep
 
     public function updateTraining(Training $training, TrainingDto $trainingDto): bool
     {
-        return $this->update($training, $trainingDto->toArray());
+        try {
+            return $this->update($training, $trainingDto->toArray());
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     public function deleteTraining(Training $training): bool
     {
-        return $this->delete($training);
+        try {
+            return $this->delete($training);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     public function findById(int $id): ?Training
@@ -46,9 +54,10 @@ final class TrainingRepository extends EloquentRepository implements TrainingRep
 
         if (! empty($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%")
-                    ->orWhere('category', 'like', "%{$search}%");
+                $searchTerm = strtolower($search);
+                $q->whereRaw('LOWER(title) LIKE ?', ["%{$searchTerm}%"])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ["%{$searchTerm}%"])
+                    ->orWhereRaw('LOWER(category) LIKE ?', ["%{$searchTerm}%"]);
             });
         }
 

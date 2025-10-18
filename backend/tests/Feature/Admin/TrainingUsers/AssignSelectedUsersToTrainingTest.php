@@ -19,7 +19,9 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+        $this->admin = User::factory()->create();
+        $this->admin->assignRole('admin');
         $this->admin->givePermissionTo('training.user.assign_selected');
     }
 
@@ -29,7 +31,7 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
         $users = User::factory()->count(3)->create();
         $userIds = $users->pluck('id')->toArray();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-selected", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-selected", [
             'user_ids' => $userIds,
         ]);
 
@@ -56,7 +58,7 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
         $users = User::factory()->count(2)->create();
         $userIds = $users->pluck('id')->toArray();
 
-        $response = $this->actingAs($this->admin)->postJson('/v1/admin/trainings/99999/users/assign-selected', [
+        $response = $this->actingAs($this->admin)->postJson('/api/v1/admin/trainings/99999/users/assign-selected', [
             'user_ids' => $userIds,
         ]);
 
@@ -68,7 +70,7 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-selected", []);
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-selected", []);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors(['user_ids']);
@@ -78,7 +80,7 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-selected", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-selected", [
             'user_ids' => [],
         ]);
 
@@ -90,7 +92,7 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-selected", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-selected", [
             'user_ids' => [99999, 99998],
         ]);
 
@@ -112,7 +114,7 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
                 ->andThrow(new \RuntimeException('Simulated internal error'));
         });
 
-        $response = $this->actingAs($this->admin)->postJson("/v1/admin/trainings/{$training->id}/users/assign-selected", [
+        $response = $this->actingAs($this->admin)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-selected", [
             'user_ids' => $userIds,
         ]);
 
@@ -126,7 +128,7 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
         $users = User::factory()->count(2)->create();
         $userIds = $users->pluck('id')->toArray();
 
-        $response = $this->postJson("/v1/admin/trainings/{$training->id}/users/assign-selected", [
+        $response = $this->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-selected", [
             'user_ids' => $userIds,
         ]);
 
@@ -135,13 +137,13 @@ final class AssignSelectedUsersToTrainingTest extends TestCase
 
     public function test_unauthorized_user_cannot_assign_selected_users(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $user->givePermissionTo('training.create'); // Has create permission but not assign_selected
         $training = Training::factory()->create();
         $users = User::factory()->count(2)->create();
         $userIds = $users->pluck('id')->toArray();
 
-        $response = $this->actingAs($user)->postJson("/v1/admin/trainings/{$training->id}/users/assign-selected", [
+        $response = $this->actingAs($user)->postJson("/api/v1/admin/trainings/{$training->id}/users/assign-selected", [
             'user_ids' => $userIds,
         ]);
 

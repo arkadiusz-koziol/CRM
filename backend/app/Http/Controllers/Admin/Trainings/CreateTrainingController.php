@@ -11,6 +11,7 @@ use App\Http\Resources\TrainingResource;
 use App\Services\TrainingService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -114,17 +115,17 @@ final class CreateTrainingController extends Controller
 
             $training = $trainingService->createTraining($trainingDto);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 new TrainingResource($training),
                 Response::HTTP_CREATED
             );
         } catch (Throwable $e) {
-            $this->logger->error('Error creating training', [
+            Log::error('Error creating training', [
                 'request_data' => $request->except(['file']),
                 'exception' => $e,
             ]);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

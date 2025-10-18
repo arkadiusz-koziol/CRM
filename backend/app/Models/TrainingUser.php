@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-final class TrainingUser extends Model
+class TrainingUser extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = 'training_user';
 
     protected $fillable = [
         'training_id',

@@ -7,13 +7,11 @@ namespace App\Repositories;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\User;
 
-final class UserRepository extends EloquentRepository implements UserRepositoryInterface
+class UserRepository implements UserRepositoryInterface
 {
     public function __construct(
         protected User $model
-    ) {
-        parent::__construct($model);
-    }
+    ) {}
 
     public function findById(int $id): ?User
     {
@@ -33,5 +31,25 @@ final class UserRepository extends EloquentRepository implements UserRepositoryI
     public function findByIds(array $ids): array
     {
         return $this->model->whereIn('id', $ids)->get()->toArray();
+    }
+
+    public function create(array $data): User
+    {
+        return $this->model->create($data);
+    }
+
+    public function update(User $user, array $data): bool
+    {
+        return $user->update($data);
+    }
+
+    public function delete(User $user): bool
+    {
+        return $user->delete();
+    }
+
+    public function list(): array
+    {
+        return $this->model->all()->toArray();
     }
 }

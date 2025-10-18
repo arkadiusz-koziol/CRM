@@ -8,8 +8,9 @@ use App\Interfaces\Repositories\TrainingRepositoryInterface;
 use App\Interfaces\Repositories\TrainingUserRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\TrainingUser;
+use RuntimeException;
 
-final class TrainingUserService
+class TrainingUserService
 {
     public function __construct(
         private TrainingUserRepositoryInterface $trainingUserRepository,
@@ -21,16 +22,16 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         $user = $this->userRepository->findById($userId);
         if (! $user) {
-            throw new \RuntimeException('User not found');
+            throw new RuntimeException('User not found');
         }
 
         if ($this->trainingUserRepository->isUserAssignedToTraining($training, $user)) {
-            throw new \RuntimeException('User is already assigned to this training');
+            throw new RuntimeException('User is already assigned to this training');
         }
 
         return $this->trainingUserRepository->assignUserToTraining($training, $user);
@@ -40,12 +41,12 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         $user = $this->userRepository->findById($userId);
         if (! $user) {
-            throw new \RuntimeException('User not found');
+            throw new RuntimeException('User not found');
         }
 
         return $this->trainingUserRepository->removeUserFromTraining($training, $user);
@@ -55,7 +56,7 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         return $this->trainingUserRepository->assignAllUsersToTraining($training);
@@ -65,7 +66,7 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         return $this->trainingUserRepository->assignUsersByRoleToTraining($training, $role);
@@ -75,11 +76,11 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         if (empty($userIds)) {
-            throw new \RuntimeException('No user IDs provided');
+            throw new RuntimeException('No user IDs provided');
         }
 
         return $this->trainingUserRepository->assignSelectedUsersToTraining($training, $userIds);
@@ -89,7 +90,7 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         return $this->trainingUserRepository->removeAllUsersFromTraining($training);
@@ -99,7 +100,7 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         return $this->trainingUserRepository->getTrainingUsers($training);
@@ -109,7 +110,7 @@ final class TrainingUserService
     {
         $user = $this->userRepository->findById($userId);
         if (! $user) {
-            throw new \RuntimeException('User not found');
+            throw new RuntimeException('User not found');
         }
 
         return $this->trainingUserRepository->getUserTrainings($user);
@@ -134,7 +135,7 @@ final class TrainingUserService
     {
         $training = $this->trainingRepository->findById($trainingId);
         if (! $training) {
-            throw new \RuntimeException('Training not found');
+            throw new RuntimeException('Training not found');
         }
 
         return $this->trainingUserRepository->getTrainingUserCount($training);

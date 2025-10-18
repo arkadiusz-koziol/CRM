@@ -18,6 +18,7 @@ final class TrainingUpdateTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
         Storage::fake('public');
     }
 
@@ -39,7 +40,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -94,7 +95,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -139,7 +140,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -182,7 +183,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -214,7 +215,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(403);
     }
@@ -228,7 +229,7 @@ final class TrainingUpdateTest extends TestCase
             'category' => 'Test',
         ];
 
-        $response = $this->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+        $response = $this->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(401);
     }
@@ -241,7 +242,7 @@ final class TrainingUpdateTest extends TestCase
         $training = Training::factory()->create();
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", []);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", []);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['title', 'category']);
@@ -260,7 +261,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['title']);
@@ -279,7 +280,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['category']);
@@ -301,7 +302,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['file']);
@@ -323,7 +324,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['file']);
@@ -347,7 +348,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(500)
             ->assertJson([
@@ -369,7 +370,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -412,7 +413,7 @@ final class TrainingUpdateTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->putJson("/v1/admin/trainings/{$training->id}", $updateData);
+            ->putJson("/api/v1/admin/trainings/{$training->id}", $updateData);
 
         $response->assertStatus(200)
             ->assertJson([

@@ -10,12 +10,13 @@ use App\Models\Training;
 use App\Models\TrainingUser;
 use App\Models\User;
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 
-final class TrainingUserRepository extends EloquentRepository implements TrainingUserRepositoryInterface
+class TrainingUserRepository extends EloquentRepository implements TrainingUserRepositoryInterface
 {
     public function __construct(
-        protected TrainingUser $model,
-        protected UserRepositoryInterface $userRepository
+        TrainingUser $model,
+        private UserRepositoryInterface $userRepository
     ) {
         parent::__construct($model);
     }
@@ -33,7 +34,7 @@ final class TrainingUserRepository extends EloquentRepository implements Trainin
         return $this->model
             ->where('training_id', $training->id)
             ->where('user_id', $user->id)
-            ->delete() > 0;
+            ->forceDelete() > 0;
     }
 
     public function assignAllUsersToTraining(Training $training): int
@@ -44,6 +45,7 @@ final class TrainingUserRepository extends EloquentRepository implements Trainin
 
         foreach ($users as $user) {
             $assignments[] = [
+                'id' => Uuid::uuid4()->toString(),
                 'training_id' => $training->id,
                 'user_id' => $user['id'],
                 'created_at' => $now,
@@ -66,6 +68,7 @@ final class TrainingUserRepository extends EloquentRepository implements Trainin
 
         foreach ($users as $user) {
             $assignments[] = [
+                'id' => Uuid::uuid4()->toString(),
                 'training_id' => $training->id,
                 'user_id' => $user['id'],
                 'created_at' => $now,
@@ -87,6 +90,7 @@ final class TrainingUserRepository extends EloquentRepository implements Trainin
 
         foreach ($userIds as $userId) {
             $assignments[] = [
+                'id' => Uuid::uuid4()->toString(),
                 'training_id' => $training->id,
                 'user_id' => $userId,
                 'created_at' => $now,
@@ -105,7 +109,7 @@ final class TrainingUserRepository extends EloquentRepository implements Trainin
     {
         return $this->model
             ->where('training_id', $training->id)
-            ->delete();
+            ->forceDelete();
     }
 
     public function getTrainingUsers(Training $training): array
