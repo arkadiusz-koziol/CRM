@@ -90,6 +90,12 @@ class PermissionSeeder extends Seeder
             'training.file.attach',
             'training.file.list',
             'training.file.delete',
+
+            // Company permissions
+            'company.view',
+            'company.create',
+            'company.update',
+            'company.delete',
         ];
 
         foreach ($permissions as $permission) {

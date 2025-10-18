@@ -18,6 +18,8 @@ You must strictly follow these collaboration rules:
 	3.	Never edit
 	•	Review Notes (by reviewer) – that section belongs only to OpenAI-Reviewer.
 	4.	On APPROVED
+	•	Create feature branch.
+	•	Commit changes.
 	•	Push the branch.
 	•	Update status to DONE.
 	•	Move on to the next task.
@@ -29,8 +31,6 @@ You must strictly follow these collaboration rules:
 	•	If missing, add or update seeders to ensure consistent initial/test data coverage.
 
 ⸻
-/Users/akoziol/projects/skytech/.cursor/rules/reviewer.md
-/Users/akoziol/projects/skytech/.cursor/rules/developer.md
 🎯 Goal
 
 Deliver clean, functional, test-covered code until the task is DONE.

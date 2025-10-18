@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
 use App\Http\Controllers\Admin\Cities\UpdateCityController;
+use App\Http\Controllers\Admin\Companies\CompanyController;
+use App\Http\Controllers\Admin\Companies\MyCompaniesController;
 use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Admin\Estates\DestroyEstateController;
 use App\Http\Controllers\Admin\Estates\ListEstateController;
@@ -309,6 +311,28 @@ Route::group(
                     Route::get('/list', ListActivityController::class)
                         ->name('activities.index')
                         ->can('activity.list');
+                });
+
+                // Admin Companies
+                Route::prefix('companies')->group(function () {
+                    Route::get('/', [CompanyController::class, 'index'])
+                        ->name('companies.index')
+                        ->can('company.view');
+                    Route::get('/my', [MyCompaniesController::class, 'index'])
+                        ->name('companies.my')
+                        ->can('company.view');
+                    Route::get('/{company}', [CompanyController::class, 'show'])
+                        ->name('companies.show')
+                        ->can('company.view');
+                    Route::post('/', [CompanyController::class, 'store'])
+                        ->name('companies.store')
+                        ->can('company.create');
+                    Route::put('/{company}', [CompanyController::class, 'update'])
+                        ->name('companies.update')
+                        ->can('company.update');
+                    Route::delete('/{company}', [CompanyController::class, 'destroy'])
+                        ->name('companies.destroy')
+                        ->can('company.delete');
                 });
 
                 // Admin Dashboard

@@ -298,6 +298,10 @@ abstract class TestCase extends BaseTestCase
             'training.file.attach',
             'training.file.list',
             'training.file.delete',
+            'company.view',
+            'company.create',
+            'company.update',
+            'company.delete',
         ];
 
         foreach ($permissions as $permission) {

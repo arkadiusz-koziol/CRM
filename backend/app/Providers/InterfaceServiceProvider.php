@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\Repositories\CarRepositoryInterface;
 use App\Interfaces\Repositories\CityRepositoryInterface;
+use App\Interfaces\Repositories\CompanyRepositoryInterface;
 use App\Interfaces\Repositories\EstateRepositoryInterface;
 use App\Interfaces\Repositories\MaterialRepositoryInterface;
 use App\Interfaces\Repositories\PinRepositoryInterface;
@@ -13,6 +14,7 @@ use App\Interfaces\Repositories\ToolRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Repositories\CarRepository;
 use App\Repositories\CityRepository;
+use App\Repositories\CompanyRepository;
 use App\Repositories\EstateRepository;
 use App\Repositories\MaterialRepository;
 use App\Repositories\PinRepository;
@@ -34,5 +36,6 @@ class InterfaceServiceProvider extends ServiceProvider
         PinRepositoryInterface::class => PinRepository::class,
         CarRepositoryInterface::class => CarRepository::class,
         TaskRepositoryInterface::class => TaskRepository::class,
+        CompanyRepositoryInterface::class => CompanyRepository::class,
     ];
 }
