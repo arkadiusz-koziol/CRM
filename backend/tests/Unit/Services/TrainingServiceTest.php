@@ -1,0 +1,162 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Unit\Services;
+
+use App\Dto\TrainingDto;
+use App\Interfaces\Repositories\TrainingRepositoryInterface;
+use App\Models\Training;
+use App\Services\TrainingService;
+use Mockery;
+use Tests\TestCase;
+
+final class TrainingServiceTest extends TestCase
+{
+    private TrainingService $trainingService;
+
+    private TrainingRepositoryInterface $trainingRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->trainingRepository = Mockery::mock(TrainingRepositoryInterface::class);
+        $this->trainingService = new TrainingService($this->trainingRepository);
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
+
+    public function test_create_training_calls_repository(): void
+    {
+        $trainingDto = new TrainingDto(
+            title: 'Test Training',
+            description: 'Test Description',
+            category: 'Test Category',
+            filePath: null,
+            fileName: null,
+            fileSize: null,
+            mimeType: null
+        );
+
+        $training = new Training;
+        $training->id = 1;
+        $training->title = 'Test Training';
+
+        $this->trainingRepository
+            ->shouldReceive('createTraining')
+            ->once()
+            ->with($trainingDto)
+            ->andReturn($training);
+
+        $result = $this->trainingService->createTraining($trainingDto);
+
+        $this->assertSame($training, $result);
+    }
+
+    public function test_get_training_by_id_calls_repository(): void
+    {
+        $training = new Training;
+        $training->id = 1;
+        $training->title = 'Test Training';
+
+        $this->trainingRepository
+            ->shouldReceive('findById')
+            ->once()
+            ->with(1)
+            ->andReturn($training);
+
+        $result = $this->trainingService->getTrainingById(1);
+
+        $this->assertSame($training, $result);
+    }
+
+    public function test_get_training_by_id_returns_null_when_not_found(): void
+    {
+        $this->trainingRepository
+            ->shouldReceive('findById')
+            ->once()
+            ->with(999)
+            ->andReturn(null);
+
+        $result = $this->trainingService->getTrainingById(999);
+
+        $this->assertNull($result);
+    }
+
+    public function test_get_all_trainings_calls_repository(): void
+    {
+        $trainings = [
+            ['id' => 1, 'title' => 'Training 1'],
+            ['id' => 2, 'title' => 'Training 2'],
+        ];
+
+        $this->trainingRepository
+            ->shouldReceive('findAllTrainings')
+            ->once()
+            ->andReturn($trainings);
+
+        $result = $this->trainingService->getAllTrainings();
+
+        $this->assertSame($trainings, $result);
+    }
+
+    public function test_get_paginated_trainings_calls_repository(): void
+    {
+        $paginatedData = [
+            'data' => [
+                ['id' => 1, 'title' => 'Training 1'],
+                ['id' => 2, 'title' => 'Training 2'],
+            ],
+            'pagination' => [
+                'current_page' => 1,
+                'per_page' => 10,
+                'total' => 2,
+                'last_page' => 1,
+                'from' => 1,
+                'to' => 2,
+            ],
+        ];
+
+        $this->trainingRepository
+            ->shouldReceive('findPaginated')
+            ->once()
+            ->with(1, 10, '')
+            ->andReturn($paginatedData);
+
+        $result = $this->trainingService->getPaginatedTrainings(1, 10, '');
+
+        $this->assertSame($paginatedData, $result);
+    }
+
+    public function test_get_paginated_trainings_with_search_calls_repository(): void
+    {
+        $paginatedData = [
+            'data' => [
+                ['id' => 1, 'title' => 'Safety Training'],
+            ],
+            'pagination' => [
+                'current_page' => 1,
+                'per_page' => 10,
+                'total' => 1,
+                'last_page' => 1,
+                'from' => 1,
+                'to' => 1,
+            ],
+        ];
+
+        $this->trainingRepository
+            ->shouldReceive('findPaginated')
+            ->once()
+            ->with(1, 10, 'safety')
+            ->andReturn($paginatedData);
+
+        $result = $this->trainingService->getPaginatedTrainings(1, 10, 'safety');
+
+        $this->assertSame($paginatedData, $result);
+    }
+}

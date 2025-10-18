@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Interfaces\Repositories\ActivityRepositoryInterface;
+use App\Interfaces\Repositories\TrainingRepositoryInterface;
 use App\Repositories\ActivityRepository;
+use App\Repositories\TrainingRepository;
 use App\Services\ForgotPasswordService;
 use App\Services\ResetPasswordService;
 use Illuminate\Auth\Passwords\PasswordBroker;
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ActivityRepositoryInterface::class, ActivityRepository::class);
+        $this->app->bind(TrainingRepositoryInterface::class, TrainingRepository::class);
 
         $this->app->bind(ForgotPasswordService::class, function ($app) {
             return new ForgotPasswordService($app->make(PasswordBroker::class));
