@@ -47,16 +47,13 @@ final class CarUpdateTest extends TestCase
 
         $response->assertJsonStructure([
             'data' => [
-                'type',
                 'id',
-                'attributes' => [
-                    'name',
-                    'description',
-                    'registration_number',
-                    'technical_details',
-                    'created_at',
-                    'updated_at',
-                ],
+                'name',
+                'description',
+                'registration_number',
+                'technical_details',
+                'created_at',
+                'updated_at',
             ],
         ]);
 
@@ -303,16 +300,29 @@ final class CarUpdateTest extends TestCase
         $car = Car::factory()->create();
         $originalUpdatedAt = $car->updated_at;
 
+        // Advance time by 1 second to ensure timestamps are different
+        $this->travel(1)->seconds();
+
         $payload = [
             'name' => 'BMW X5 Updated',
+            'description' => 'Updated description',
             'registration_number' => 'ABC123',
+            'technical_details' => 'Updated technical details',
         ];
 
-        $this->actingAs($admin)
+        $response = $this->actingAs($admin)
             ->putJson("api/v1/admin/cars/{$car->id}", $payload)
             ->assertOk();
 
         $car->refresh();
+
+        // Check if the car was actually updated
+        $this->assertEquals('BMW X5 Updated', $car->name);
+        $this->assertEquals('Updated description', $car->description);
+        $this->assertEquals('ABC123', $car->registration_number);
+        $this->assertEquals('Updated technical details', $car->technical_details);
+
+        // The updated_at should be greater than the original
         $this->assertTrue($car->updated_at->gt($originalUpdatedAt));
     }
 }

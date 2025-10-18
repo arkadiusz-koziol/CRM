@@ -20,7 +20,9 @@ final class RemoveUserFromTrainingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+        $this->admin = User::factory()->create();
+        $this->admin->assignRole('admin');
         $this->admin->givePermissionTo('training.user.remove');
     }
 
@@ -35,7 +37,7 @@ final class RemoveUserFromTrainingTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/{$training->id}/users/{$user->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/{$training->id}/users/{$user->id}");
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
 
@@ -50,7 +52,7 @@ final class RemoveUserFromTrainingTest extends TestCase
         $training = Training::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/{$training->id}/users/{$user->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/{$training->id}/users/{$user->id}");
 
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson(['message' => __('app.training_user.not_assigned')]);
@@ -60,7 +62,7 @@ final class RemoveUserFromTrainingTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/99999/users/{$user->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/99999/users/{$user->id}");
 
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson(['message' => 'Training not found']);
@@ -70,7 +72,7 @@ final class RemoveUserFromTrainingTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/{$training->id}/users/99999");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/{$training->id}/users/99999");
 
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson(['message' => 'User not found']);
@@ -81,19 +83,19 @@ final class RemoveUserFromTrainingTest extends TestCase
         $training = Training::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->deleteJson("/v1/admin/trainings/{$training->id}/users/{$user->id}");
+        $response = $this->deleteJson("/api/v1/admin/trainings/{$training->id}/users/{$user->id}");
 
         $response->assertUnauthorized();
     }
 
     public function test_unauthorized_user_cannot_remove_user_from_training(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $user->givePermissionTo('training.create'); // Has create permission but not remove
         $training = Training::factory()->create();
         $targetUser = User::factory()->create();
 
-        $response = $this->actingAs($user)->deleteJson("/v1/admin/trainings/{$training->id}/users/{$targetUser->id}");
+        $response = $this->actingAs($user)->deleteJson("/api/v1/admin/trainings/{$training->id}/users/{$targetUser->id}");
 
         $response->assertForbidden();
     }
@@ -111,7 +113,7 @@ final class RemoveUserFromTrainingTest extends TestCase
                 ->andThrow(new \RuntimeException('Simulated internal error'));
         });
 
-        $response = $this->actingAs($this->admin)->deleteJson("/v1/admin/trainings/{$training->id}/users/{$user->id}");
+        $response = $this->actingAs($this->admin)->deleteJson("/api/v1/admin/trainings/{$training->id}/users/{$user->id}");
 
         $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
             ->assertJson(['message' => __('app.action.failed')]);

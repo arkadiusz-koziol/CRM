@@ -20,7 +20,9 @@ final class GetTrainingUsersTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['is_admin' => true]);
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+        $this->admin = User::factory()->create();
+        $this->admin->assignRole('admin');
         $this->admin->givePermissionTo('training.user.list');
     }
 
@@ -36,7 +38,7 @@ final class GetTrainingUsersTest extends TestCase
             ]);
         }
 
-        $response = $this->actingAs($this->admin)->getJson("/v1/admin/trainings/{$training->id}/users");
+        $response = $this->actingAs($this->admin)->getJson("/api/v1/admin/trainings/{$training->id}/users");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([
@@ -64,7 +66,7 @@ final class GetTrainingUsersTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($this->admin)->getJson("/v1/admin/trainings/{$training->id}/users");
+        $response = $this->actingAs($this->admin)->getJson("/api/v1/admin/trainings/{$training->id}/users");
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson(['data' => []]);
@@ -72,7 +74,7 @@ final class GetTrainingUsersTest extends TestCase
 
     public function test_admin_cannot_get_users_for_nonexistent_training(): void
     {
-        $response = $this->actingAs($this->admin)->getJson('/v1/admin/trainings/99999/users');
+        $response = $this->actingAs($this->admin)->getJson('/api/v1/admin/trainings/99999/users');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson(['message' => 'Training not found']);
@@ -82,18 +84,18 @@ final class GetTrainingUsersTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->getJson("/v1/admin/trainings/{$training->id}/users");
+        $response = $this->getJson("/api/v1/admin/trainings/{$training->id}/users");
 
         $response->assertUnauthorized();
     }
 
     public function test_unauthorized_user_cannot_get_training_users(): void
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
         $user->givePermissionTo('training.create'); // Has create permission but not list
         $training = Training::factory()->create();
 
-        $response = $this->actingAs($user)->getJson("/v1/admin/trainings/{$training->id}/users");
+        $response = $this->actingAs($user)->getJson("/api/v1/admin/trainings/{$training->id}/users");
 
         $response->assertForbidden();
     }
@@ -110,7 +112,7 @@ final class GetTrainingUsersTest extends TestCase
                 ->andThrow(new \RuntimeException('Simulated internal error'));
         });
 
-        $response = $this->actingAs($this->admin)->getJson("/v1/admin/trainings/{$training->id}/users");
+        $response = $this->actingAs($this->admin)->getJson("/api/v1/admin/trainings/{$training->id}/users");
 
         $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
             ->assertJson(['message' => __('app.action.failed')]);

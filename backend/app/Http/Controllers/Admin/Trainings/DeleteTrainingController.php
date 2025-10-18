@@ -63,7 +63,7 @@ final class DeleteTrainingController extends Controller
             $deleted = $trainingService->deleteTraining($training);
 
             if (! $deleted) {
-                return $this->responseFactory->json(
+                return response()->json(
                     ['message' => __('app.action.failed')],
                     Response::HTTP_INTERNAL_SERVER_ERROR
                 );
@@ -74,17 +74,17 @@ final class DeleteTrainingController extends Controller
                 Storage::disk('public')->delete($training->file_path);
             }
 
-            return $this->responseFactory->json(
+            return response()->json(
                 null,
                 Response::HTTP_NO_CONTENT
             );
         } catch (Throwable $e) {
-            $this->logger->error('Error deleting training', [
+            \Log::error('Error deleting training', [
                 'training_id' => $training->id,
                 'exception' => $e,
             ]);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('training_user', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('training_id')->constrained('trainings')->onDelete('cascade');
-            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('training_id')->constrained('trainings')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestampsTz();
             $table->softDeletesTz();
 

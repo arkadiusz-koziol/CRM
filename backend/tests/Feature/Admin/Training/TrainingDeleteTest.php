@@ -17,6 +17,7 @@ final class TrainingDeleteTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
         Storage::fake('public');
     }
 
@@ -36,7 +37,7 @@ final class TrainingDeleteTest extends TestCase
         ]);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(204);
 
@@ -68,7 +69,7 @@ final class TrainingDeleteTest extends TestCase
         ]);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(204);
 
@@ -95,7 +96,7 @@ final class TrainingDeleteTest extends TestCase
         ]);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(204);
 
@@ -112,7 +113,7 @@ final class TrainingDeleteTest extends TestCase
         $training = Training::factory()->create();
 
         $response = $this->actingAs($user)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(403);
 
@@ -126,7 +127,7 @@ final class TrainingDeleteTest extends TestCase
     {
         $training = Training::factory()->create();
 
-        $response = $this->deleteJson("/v1/admin/trainings/{$training->id}");
+        $response = $this->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(401);
 
@@ -142,7 +143,7 @@ final class TrainingDeleteTest extends TestCase
         $admin->givePermissionTo('training.delete');
 
         $response = $this->actingAs($admin)
-            ->deleteJson('/v1/admin/trainings/99999');
+            ->deleteJson('/api/v1/admin/trainings/99999');
 
         $response->assertStatus(404);
     }
@@ -160,7 +161,7 @@ final class TrainingDeleteTest extends TestCase
         });
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(500)
             ->assertJson([
@@ -175,15 +176,18 @@ final class TrainingDeleteTest extends TestCase
 
         $training = Training::factory()->create();
 
-        $this->mock(\App\Services\TrainingService::class, function ($mock) use ($training) {
-            $mock->shouldReceive('deleteTraining')
-                ->once()
-                ->with($training)
-                ->andReturn(false);
-        });
+        $mock = $this->createMock(\App\Services\TrainingService::class);
+        $mock->expects($this->once())
+            ->method('deleteTraining')
+            ->with($this->callback(function ($trainingParam) use ($training) {
+                return $trainingParam->id === $training->id;
+            }))
+            ->willReturn(false);
+
+        $this->app->instance(\App\Services\TrainingService::class, $mock);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(500)
             ->assertJson([
@@ -204,7 +208,7 @@ final class TrainingDeleteTest extends TestCase
         $training = Training::factory()->create();
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(204);
         $this->assertEmpty($response->getContent());
@@ -227,7 +231,7 @@ final class TrainingDeleteTest extends TestCase
         ]);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$pdfTraining->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$pdfTraining->id}");
 
         $response->assertStatus(204);
         $this->assertFalse(Storage::disk('public')->exists($pdfPath));
@@ -244,7 +248,7 @@ final class TrainingDeleteTest extends TestCase
         ]);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$pptxTraining->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$pptxTraining->id}");
 
         $response->assertStatus(204);
         $this->assertFalse(Storage::disk('public')->exists($pptxPath));
@@ -260,7 +264,7 @@ final class TrainingDeleteTest extends TestCase
         $training3 = Training::factory()->create(['title' => 'Training 3']);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training2->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training2->id}");
 
         $response->assertStatus(204);
 
@@ -292,7 +296,7 @@ final class TrainingDeleteTest extends TestCase
         ]);
 
         $response = $this->actingAs($admin)
-            ->deleteJson("/v1/admin/trainings/{$training->id}");
+            ->deleteJson("/api/v1/admin/trainings/{$training->id}");
 
         $response->assertStatus(204);
 
