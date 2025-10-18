@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\Cities\ListCityController;
 use App\Http\Controllers\Admin\Cities\UpdateCityController;
 use App\Http\Controllers\Admin\Companies\CompanyController;
 use App\Http\Controllers\Admin\Companies\MyCompaniesController;
+use App\Http\Controllers\Admin\Contacts\ContactController;
+use App\Http\Controllers\Admin\Contacts\ContactCompanyController;
 use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Admin\Estates\DestroyEstateController;
 use App\Http\Controllers\Admin\Estates\ListEstateController;
@@ -333,6 +335,48 @@ Route::group(
                     Route::delete('/{company}', [CompanyController::class, 'destroy'])
                         ->name('companies.destroy')
                         ->can('company.delete');
+                });
+
+                // Admin Contacts
+                Route::prefix('contacts')->group(function () {
+                    Route::get('/', [ContactController::class, 'index'])
+                        ->name('contacts.index')
+                        ->can('contact.view');
+                    Route::get('/{contact}', [ContactController::class, 'show'])
+                        ->name('contacts.show')
+                        ->can('contact.view');
+                    Route::post('/', [ContactController::class, 'store'])
+                        ->name('contacts.store')
+                        ->can('contact.create');
+                    Route::put('/{contact}', [ContactController::class, 'update'])
+                        ->name('contacts.update')
+                        ->can('contact.update');
+                    Route::delete('/{contact}', [ContactController::class, 'destroy'])
+                        ->name('contacts.destroy')
+                        ->can('contact.delete');
+
+                    // Contact-Company linking
+                    Route::prefix('{contact}/companies')->group(function () {
+                        Route::post('/link', [ContactCompanyController::class, 'link'])
+                            ->name('contacts.link_company')
+                            ->can('contact.update');
+                        Route::delete('/unlink', [ContactCompanyController::class, 'unlink'])
+                            ->name('contacts.unlink_company')
+                            ->can('contact.update');
+                        Route::get('/', [ContactCompanyController::class, 'getCompanies'])
+                            ->name('contacts.companies')
+                            ->can('contact.view');
+                    });
+
+                    // Bulk operations
+                    Route::prefix('bulk')->group(function () {
+                        Route::post('/link-company', [ContactCompanyController::class, 'bulkLink'])
+                            ->name('contacts.bulk_link_company')
+                            ->can('contact.update');
+                        Route::delete('/unlink-company', [ContactCompanyController::class, 'bulkUnlink'])
+                            ->name('contacts.bulk_unlink_company')
+                            ->can('contact.update');
+                    });
                 });
 
                 // Admin Dashboard

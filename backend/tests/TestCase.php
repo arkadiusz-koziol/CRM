@@ -302,6 +302,10 @@ abstract class TestCase extends BaseTestCase
             'company.create',
             'company.update',
             'company.delete',
+            'contact.view',
+            'contact.create',
+            'contact.update',
+            'contact.delete',
         ];
 
         foreach ($permissions as $permission) {

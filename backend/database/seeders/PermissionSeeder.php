@@ -96,6 +96,12 @@ class PermissionSeeder extends Seeder
             'company.create',
             'company.update',
             'company.delete',
+
+            // Contact permissions
+            'contact.view',
+            'contact.create',
+            'contact.update',
+            'contact.delete',
         ];
 
         foreach ($permissions as $permission) {
