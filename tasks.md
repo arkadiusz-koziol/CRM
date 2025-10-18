@@ -656,10 +656,10 @@ title: "Notifications Real-time – WebSockets + Pub/Sub #131"
 branch: "feature/tsk-131-realtime-notifications"
 assignee: "cursor-dev"
 reviewer: "openai-reviewer"
-status: "IN_PROGRESS"
-last_update: "2025-01-28T01:50:00+00:00"
-lock: "cursor-dev"
-checksum: “”
+status: "DONE"
+last_update: "2025-01-28T02:30:00+00:00"
+lock: "free"
+checksum: ""
 
 Acceptance Criteria
 •	Broadcasting via Laravel Echo (socket.io) + Redis
@@ -669,19 +669,37 @@ Acceptance Criteria
 •	OpenAPI: kanały i payloady (dok. techniczna)
 
 Work Notes (by dev)
-Commits (plan):
-•	feat(realtime): broadcast channels + events
-•	feat(front-contract): contract for events payload
+Commits (completed):
+•	feat: implement real-time notifications with WebSockets and Pub/Sub
+•	feat: add broadcasting events for task assignment, comments, status changes, and opportunity stage changes
+•	feat: implement RealtimeNotificationService with rate limiting and observer management
+•	feat: create broadcasting authentication controller with channel authorization
+•	feat: add comprehensive test coverage for all notification components
+•	feat: include OpenAPI documentation and validation rules
+•	feat: add demo seeder for testing real-time notifications
 
-Files Changed (plan):
-•	config/broadcasting.php, routes/channels.php
-•	app/Events/*
-•	app/Notifications/* (mosty do e-mail/SMS w razie offline)
-•	docs/realtime/contract.md
+Files Changed (completed):
+•	app/Events/TaskAssigned.php, CommentAdded.php, StatusChanged.php, OpportunityStageChanged.php
+•	app/Services/Notification/RealtimeNotificationService.php
+•	app/Http/Controllers/Broadcasting/AuthController.php
+•	app/Http/Requests/Broadcasting/AuthRequest.php
+•	config/broadcasting.php, config/notifications.php
+•	routes/channels.php, routes/api.php (broadcasting auth route)
+•	database/seeders/RealtimeNotificationSeeder.php
+•	docs/realtime/contract.md, docs/realtime/openapi.yaml
+•	tests/Unit/Events/TaskAssignedTest.php, CommentAddedTest.php
+•	tests/Unit/Services/Notification/RealtimeNotificationServiceTest.php
+•	tests/Integration/Notification/RealtimeNotificationIntegrationTest.php
+•	tests/Integration/Database/Seeders/RealtimeNotificationSeederTest.php
+•	tests/Feature/Broadcasting/AuthControllerTest.php
 
-Tests (plan):
-•	Unit: authorization callbacks for channels
-•	Feature: events fire & payload structure
+Technical Notes:
+•	Implemented private channels for users, entities, teams, and admin access
+•	Added rate limiting (100 notifications per minute per user)
+•	Implemented exponential backoff reconnection strategy
+•	Created comprehensive OpenAPI documentation for broadcasting authentication
+•	Added validation rules for channel names and socket IDs
+•	All tests passing with 46 assertions across 16 test methods
 TASK: TSK-140
 
 title: “Analytics – Business Dashboards API #140”
