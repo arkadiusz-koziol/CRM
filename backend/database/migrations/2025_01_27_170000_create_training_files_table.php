@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('training_files', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->id('training_id')->constrained('trainings')->onDelete('cascade');
             $table->string('original_name');
             $table->string('file_name');
