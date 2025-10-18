@@ -35,6 +35,10 @@ use App\Http\Controllers\Admin\Tools\ListToolController;
 use App\Http\Controllers\Admin\Tools\ShowToolController;
 use App\Http\Controllers\Admin\Tools\StoreToolController;
 use App\Http\Controllers\Admin\Tools\UpdateToolController;
+use App\Http\Controllers\Admin\TrainingCategories\CreateTrainingCategoryController;
+use App\Http\Controllers\Admin\TrainingCategories\DeleteTrainingCategoryController;
+use App\Http\Controllers\Admin\TrainingCategories\GetTrainingCategoriesController;
+use App\Http\Controllers\Admin\TrainingCategories\UpdateTrainingCategoryController;
 use App\Http\Controllers\Admin\TrainingFiles\AttachFileToTrainingController;
 use App\Http\Controllers\Admin\TrainingFiles\AttachMultipleFilesToTrainingController;
 use App\Http\Controllers\Admin\TrainingFiles\DeleteTrainingFileController;
@@ -212,6 +216,22 @@ Route::group(
                     Route::delete('/{car}', DeleteCarController::class)
                         ->name('cars.delete')
                         ->can('car.delete');
+                });
+
+                // Admin Training Categories
+                Route::prefix('training-categories')->group(function () {
+                    Route::get('/', GetTrainingCategoriesController::class)
+                        ->name('training-categories.index')
+                        ->can('training.category.list');
+                    Route::post('/', CreateTrainingCategoryController::class)
+                        ->name('training-categories.create')
+                        ->can('training.category.create');
+                    Route::put('/{id}', UpdateTrainingCategoryController::class)
+                        ->name('training-categories.update')
+                        ->can('training.category.update');
+                    Route::delete('/{id}', DeleteTrainingCategoryController::class)
+                        ->name('training-categories.delete')
+                        ->can('training.category.delete');
                 });
 
                 // Admin Trainings
