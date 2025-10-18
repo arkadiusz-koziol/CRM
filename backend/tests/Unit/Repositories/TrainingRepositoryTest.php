@@ -184,10 +184,12 @@ final class TrainingRepositoryTest extends TestCase
         Training::factory()->create([
             'title' => 'Training 1',
             'description' => 'This is about safety procedures',
+            'category' => 'Technical',
         ]);
         Training::factory()->create([
             'title' => 'Training 2',
             'description' => 'This is about technical skills',
+            'category' => 'Technical',
         ]);
 
         $result = $this->trainingRepository->findPaginated(1, 10, 'safety');
