@@ -36,9 +36,10 @@ final class TrainingRepository extends EloquentRepository implements TrainingRep
 
         if (! empty($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'ilike', "%{$search}%")
-                    ->orWhere('description', 'ilike', "%{$search}%")
-                    ->orWhere('category', 'ilike', "%{$search}%");
+                $searchTerm = strtolower($search);
+                $q->whereRaw('LOWER(title) LIKE ?', ["%{$searchTerm}%"])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ["%{$searchTerm}%"])
+                    ->orWhereRaw('LOWER(category) LIKE ?', ["%{$searchTerm}%"]);
             });
         }
 
