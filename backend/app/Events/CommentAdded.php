@@ -12,25 +12,24 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-final class OpportunityStageChanged implements ShouldBroadcast
+final class CommentAdded implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public function __construct(
-        public readonly string $opportunityId,
-        public readonly string $oldStageId,
-        public readonly string $newStageId,
-        public readonly string $oldStageName,
-        public readonly string $newStageName,
-        public readonly string $changedByUserId,
-        public readonly string $changedByName,
+        public readonly string $commentId,
+        public readonly string $entityType,
+        public readonly string $entityId,
+        public readonly string $authorId,
+        public readonly string $authorName,
+        public readonly string $comment,
         public readonly array $observers = []
     ) {}
 
     public function broadcastOn(): array
     {
         $channels = [
-            new PrivateChannel('entity.opportunity.' . $this->opportunityId),
+            new PrivateChannel('entity.' . $this->entityType . '.' . $this->entityId),
         ];
 
         // Add private channels for observers
@@ -43,19 +42,18 @@ final class OpportunityStageChanged implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'opportunity.stage.changed';
+        return 'comment.added';
     }
 
     public function broadcastWith(): array
     {
         return [
-            'opportunity_id' => $this->opportunityId,
-            'old_stage_id' => $this->oldStageId,
-            'new_stage_id' => $this->newStageId,
-            'old_stage_name' => $this->oldStageName,
-            'new_stage_name' => $this->newStageName,
-            'changed_by_user_id' => $this->changedByUserId,
-            'changed_by_name' => $this->changedByName,
+            'comment_id' => $this->commentId,
+            'entity_type' => $this->entityType,
+            'entity_id' => $this->entityId,
+            'author_id' => $this->authorId,
+            'author_name' => $this->authorName,
+            'comment' => $this->comment,
             'timestamp' => now()->toISOString(),
         ];
     }

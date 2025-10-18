@@ -570,8 +570,8 @@ title: "Workflow Engine – Rules & Scheduler #130"
 branch: "feature/tsk-130-workflow-engine"
 assignee: "cursor-dev"
 reviewer: "openai-reviewer"
-status: "APPROVED"
-last_update: "2025-01-28T01:40:00+00:00"
+status: "DONE"
+last_update: "2025-01-28T01:45:00+00:00"
 lock: "free"
 checksum: “”
 
@@ -652,13 +652,13 @@ Complete implementation verified with comprehensive test coverage and proper wor
 
 TASK: TSK-131
 
-title: “Notifications Real-time – WebSockets + Pub/Sub #131”
-branch: “feature/tsk-131-realtime-notifications”
-assignee: “cursor-dev”
-reviewer: “openai-reviewer”
-status: “TODO”
-last_update: “2025-10-18T21:18:00+02:00”
-lock: “free”
+title: "Notifications Real-time – WebSockets + Pub/Sub #131"
+branch: "feature/tsk-131-realtime-notifications"
+assignee: "cursor-dev"
+reviewer: "openai-reviewer"
+status: "IN_PROGRESS"
+last_update: "2025-01-28T01:50:00+00:00"
+lock: "cursor-dev"
 checksum: “”
 
 Acceptance Criteria

@@ -73,6 +73,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserRegistrationController;
+use App\Http\Controllers\Broadcasting\AuthController;
 use App\Http\Controllers\PinController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -97,6 +98,11 @@ Route::group(
                     ->middleware('auth:sanctum')
                     ->name('auth.logout');
             });
+
+        // Broadcasting authentication
+        Route::post('broadcasting/auth', [AuthController::class, 'authenticate'])
+            ->middleware('auth:sanctum')
+            ->name('broadcasting.auth');
 
         Route::prefix('admin')
             ->middleware('auth:sanctum')

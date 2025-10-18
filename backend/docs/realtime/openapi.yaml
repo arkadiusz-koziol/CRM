@@ -1,0 +1,244 @@
+openapi: 3.0.3
+info:
+  title: Real-time Notifications API
+  description: WebSocket and Pub/Sub real-time notifications for CRM system
+  version: 1.0.0
+  contact:
+    name: CRM API Support
+    email: support@crm.com
+
+servers:
+  - url: https://api.crm.com
+    description: Production server
+  - url: https://staging-api.crm.com
+    description: Staging server
+
+paths:
+  /broadcasting/auth:
+    post:
+      summary: Authenticate broadcasting channel
+      description: Authenticate user for private broadcasting channels
+      tags:
+        - Broadcasting
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                socket_id:
+                  type: string
+                  description: Socket ID for authentication
+                channel_name:
+                  type: string
+                  description: Channel name to authenticate
+              required:
+                - socket_id
+                - channel_name
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth:
+                    type: string
+                    description: Authentication signature
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    TaskAssignedEvent:
+      type: object
+      properties:
+        task_id:
+          type: string
+          format: uuid
+          description: ID of the assigned task
+        assigned_to_user_id:
+          type: string
+          format: uuid
+          description: ID of the user the task was assigned to
+        assigned_by_user_id:
+          type: string
+          format: uuid
+          description: ID of the user who assigned the task
+        task_title:
+          type: string
+          description: Title of the task
+        task_description:
+          type: string
+          description: Description of the task
+        due_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: Due date of the task
+        timestamp:
+          type: string
+          format: date-time
+          description: When the event occurred
+
+    CommentAddedEvent:
+      type: object
+      properties:
+        comment_id:
+          type: string
+          format: uuid
+          description: ID of the comment
+        entity_type:
+          type: string
+          description: Type of entity the comment was added to
+          enum: [company, contact, opportunity, task]
+        entity_id:
+          type: string
+          format: uuid
+          description: ID of the entity
+        author_id:
+          type: string
+          format: uuid
+          description: ID of the comment author
+        author_name:
+          type: string
+          description: Name of the comment author
+        comment:
+          type: string
+          description: The comment text
+        timestamp:
+          type: string
+          format: date-time
+          description: When the event occurred
+
+    StatusChangedEvent:
+      type: object
+      properties:
+        entity_type:
+          type: string
+          description: Type of entity whose status changed
+          enum: [company, contact, opportunity, task]
+        entity_id:
+          type: string
+          format: uuid
+          description: ID of the entity
+        old_status:
+          type: string
+          description: Previous status
+        new_status:
+          type: string
+          description: New status
+        changed_by_user_id:
+          type: string
+          format: uuid
+          description: ID of the user who changed the status
+        changed_by_name:
+          type: string
+          description: Name of the user who changed the status
+        timestamp:
+          type: string
+          format: date-time
+          description: When the event occurred
+
+    OpportunityStageChangedEvent:
+      type: object
+      properties:
+        opportunity_id:
+          type: string
+          format: uuid
+          description: ID of the opportunity
+        old_stage_id:
+          type: string
+          format: uuid
+          description: ID of the previous stage
+        new_stage_id:
+          type: string
+          format: uuid
+          description: ID of the new stage
+        old_stage_name:
+          type: string
+          description: Name of the previous stage
+        new_stage_name:
+          type: string
+          description: Name of the new stage
+        changed_by_user_id:
+          type: string
+          format: uuid
+          description: ID of the user who changed the stage
+        changed_by_name:
+          type: string
+          description: Name of the user who changed the stage
+        timestamp:
+          type: string
+          format: date-time
+          description: When the event occurred
+
+    ChannelInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Channel name
+        type:
+          type: string
+          enum: [private, presence]
+          description: Channel type
+        authorized:
+          type: boolean
+          description: Whether user is authorized for this channel
+
+    RateLimitInfo:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Rate limit per time window
+        remaining:
+          type: integer
+          description: Remaining requests in current window
+        reset:
+          type: integer
+          description: Unix timestamp when the rate limit resets
+        retry_after:
+          type: integer
+          description: Seconds to wait before retrying
+
+tags:
+  - name: Broadcasting
+    description: WebSocket broadcasting and channel authentication
+  - name: Events
+    description: Real-time event notifications
+  - name: Channels
+    description: Channel management and authorization

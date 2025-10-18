@@ -12,16 +12,15 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-final class OpportunityStageChanged implements ShouldBroadcast
+final class StatusChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public function __construct(
-        public readonly string $opportunityId,
-        public readonly string $oldStageId,
-        public readonly string $newStageId,
-        public readonly string $oldStageName,
-        public readonly string $newStageName,
+        public readonly string $entityType,
+        public readonly string $entityId,
+        public readonly string $oldStatus,
+        public readonly string $newStatus,
         public readonly string $changedByUserId,
         public readonly string $changedByName,
         public readonly array $observers = []
@@ -30,7 +29,7 @@ final class OpportunityStageChanged implements ShouldBroadcast
     public function broadcastOn(): array
     {
         $channels = [
-            new PrivateChannel('entity.opportunity.' . $this->opportunityId),
+            new PrivateChannel('entity.' . $this->entityType . '.' . $this->entityId),
         ];
 
         // Add private channels for observers
@@ -43,17 +42,16 @@ final class OpportunityStageChanged implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'opportunity.stage.changed';
+        return 'status.changed';
     }
 
     public function broadcastWith(): array
     {
         return [
-            'opportunity_id' => $this->opportunityId,
-            'old_stage_id' => $this->oldStageId,
-            'new_stage_id' => $this->newStageId,
-            'old_stage_name' => $this->oldStageName,
-            'new_stage_name' => $this->newStageName,
+            'entity_type' => $this->entityType,
+            'entity_id' => $this->entityId,
+            'old_status' => $this->oldStatus,
+            'new_status' => $this->newStatus,
             'changed_by_user_id' => $this->changedByUserId,
             'changed_by_name' => $this->changedByName,
             'timestamp' => now()->toISOString(),
