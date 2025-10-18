@@ -18,7 +18,7 @@ class ContactResource extends JsonResource
                 'attributes' => [
                     'first_name' => $this->resource['first_name'],
                     'last_name' => $this->resource['last_name'],
-                    'full_name' => $this->resource['first_name'] . ' ' . $this->resource['last_name'],
+                    'full_name' => $this->resource['first_name'].' '.$this->resource['last_name'],
                     'email' => $this->resource['email'],
                     'phone' => $this->resource['phone'],
                     'lead_level' => $this->resource['lead_level'],

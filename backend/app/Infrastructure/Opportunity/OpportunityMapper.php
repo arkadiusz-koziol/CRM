@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Opportunity;
 
 use App\Domain\Crm\Entity\Opportunity;
-use App\Enums\Crm\OpportunityStatus;
 use App\Models\Opportunity as OpportunityModel;
 use Carbon\Carbon;
 
@@ -33,12 +32,12 @@ final class OpportunityMapper
 
     public function toModel(Opportunity $opportunity): OpportunityModel
     {
-        $model = new OpportunityModel();
-        
+        $model = new OpportunityModel;
+
         if ($opportunity->id()) {
             $model->id = $opportunity->id();
         }
-        
+
         $model->title = $opportunity->title();
         $model->company_id = $opportunity->companyId();
         $model->contact_id = $opportunity->contactId();
@@ -49,15 +48,15 @@ final class OpportunityMapper
         $model->owner_user_id = $opportunity->ownerUserId();
         $model->close_date = $opportunity->closeDate()?->format('Y-m-d');
         $model->status = $opportunity->status();
-        
+
         if ($opportunity->createdAt()) {
             $model->created_at = $opportunity->createdAt();
         }
-        
+
         if ($opportunity->updatedAt()) {
             $model->updated_at = $opportunity->updatedAt();
         }
-        
+
         if ($opportunity->deletedAt()) {
             $model->deleted_at = $opportunity->deletedAt();
         }

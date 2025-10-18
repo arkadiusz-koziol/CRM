@@ -23,7 +23,7 @@ class OpportunityFactory extends Factory
     {
         return [
             'id' => \Ramsey\Uuid\Uuid::uuid7()->toString(),
-            'title' => $this->faker->words(3, true) . ' Deal',
+            'title' => $this->faker->words(3, true).' Deal',
             'company_id' => Company::factory(),
             'contact_id' => $this->faker->optional(0.7)->passthrough(Contact::factory()),
             'value' => $this->faker->randomFloat(2, 1000, 100000),

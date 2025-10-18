@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Enums\Crm\OpportunityStatus;
 use App\Events\OpportunityProbabilityChanged;
 use App\Events\OpportunityStageChanged;
 use App\Models\Company;
@@ -23,27 +22,32 @@ class KanbanApiTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Company $company;
+
     private Contact $contact;
+
     private Pipeline $pipeline;
+
     private Stage $stage1;
+
     private Stage $stage2;
 
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Ensure all migrations are run in correct order
         $this->artisan('migrate');
         $this->seed();
-        
+
         $this->user = User::factory()->create();
         $this->company = Company::factory()->create(['created_by' => $this->user->id]);
         $this->contact = Contact::factory()->create(['owner_user_id' => $this->user->id]);
         $this->pipeline = Pipeline::factory()->create(['created_by' => $this->user->id]);
         $this->stage1 = Stage::factory()->create(['pipeline_id' => $this->pipeline->id, 'order' => 1]);
         $this->stage2 = Stage::factory()->create(['pipeline_id' => $this->pipeline->id, 'order' => 2]);
-        
+
         Sanctum::actingAs($this->user);
     }
 
@@ -74,12 +78,12 @@ class KanbanApiTest extends TestCase
                                 'stage_id',
                                 'stage_name',
                                 'opportunities',
-                                'total_opportunities'
-                            ]
-                        ]
-                    ]
+                                'total_opportunities',
+                            ],
+                        ],
+                    ],
                 ],
-                'meta'
+                'meta',
             ]);
     }
 
@@ -100,7 +104,7 @@ class KanbanApiTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Opportunity stage updated successfully'
+                'message' => 'Opportunity stage updated successfully',
             ]);
 
         $this->assertDatabaseHas('opportunities', [
@@ -129,7 +133,7 @@ class KanbanApiTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Opportunity probability updated successfully'
+                'message' => 'Opportunity probability updated successfully',
             ]);
 
         $this->assertDatabaseHas('opportunities', [
@@ -227,16 +231,16 @@ class KanbanApiTest extends TestCase
         $response = $this->getJson('/api/admin/kanban/opportunities');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
-        
+
         // Should have 2 columns (stages)
         $this->assertCount(2, $data);
-        
+
         // Find the columns and verify counts
         $stage1Column = collect($data)->firstWhere('data.attributes.stage_id', $this->stage1->id);
         $stage2Column = collect($data)->firstWhere('data.attributes.stage_id', $this->stage2->id);
-        
+
         $this->assertNotNull($stage1Column);
         $this->assertNotNull($stage2Column);
         $this->assertEquals(2, $stage1Column['data']['attributes']['total_opportunities']);

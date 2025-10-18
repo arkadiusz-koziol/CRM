@@ -19,7 +19,7 @@ class PipelineFactory extends Factory
     {
         return [
             'id' => \Ramsey\Uuid\Uuid::uuid7()->toString(),
-            'name' => $this->faker->words(3, true) . ' Pipeline',
+            'name' => $this->faker->words(3, true).' Pipeline',
             'description' => $this->faker->optional()->sentence(),
             'is_default' => $this->faker->boolean(20), // 20% chance of being default
             'created_by' => User::factory(),

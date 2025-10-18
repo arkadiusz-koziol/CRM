@@ -75,13 +75,13 @@ final class OpportunityService
         User $user
     ): void {
         $opportunity = $this->opportunityRepository->findById($opportunityId);
-        
-        if (!$opportunity) {
+
+        if (! $opportunity) {
             throw new \App\Exceptions\OpportunityNotFoundException("Opportunity with ID {$opportunityId} not found.");
         }
 
         $oldStageId = $opportunity->stageId();
-        
+
         $this->opportunityRepository->updateStage($opportunityId, $newStageId);
 
         event(new OpportunityStageChanged(
@@ -107,13 +107,13 @@ final class OpportunityService
         User $user
     ): void {
         $opportunity = $this->opportunityRepository->findById($opportunityId);
-        
-        if (!$opportunity) {
+
+        if (! $opportunity) {
             throw new \App\Exceptions\OpportunityNotFoundException("Opportunity with ID {$opportunityId} not found.");
         }
 
         $oldProbability = $opportunity->probability();
-        
+
         $this->opportunityRepository->updateProbability($opportunityId, $newProbability);
 
         event(new OpportunityProbabilityChanged(
@@ -146,8 +146,8 @@ final class OpportunityService
         ?string $closeDate = null
     ): void {
         $opportunity = $this->opportunityRepository->findById($id);
-        
-        if (!$opportunity) {
+
+        if (! $opportunity) {
             throw new \App\Exceptions\OpportunityNotFoundException("Opportunity with ID {$id} not found.");
         }
 
@@ -183,15 +183,15 @@ final class OpportunityService
                 'stage_id' => $stageId,
                 'owner_user_id' => $ownerUserId,
                 'close_date' => $closeDate,
-            ], fn($value) => $value !== null)
+            ], fn ($value) => $value !== null),
         ]);
     }
 
     public function delete(string $id): void
     {
         $opportunity = $this->opportunityRepository->findById($id);
-        
-        if (!$opportunity) {
+
+        if (! $opportunity) {
             throw new \App\Exceptions\OpportunityNotFoundException("Opportunity with ID {$id} not found.");
         }
 

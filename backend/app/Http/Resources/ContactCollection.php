@@ -19,7 +19,7 @@ class ContactCollection extends ResourceCollection
                     'attributes' => [
                         'first_name' => $contact->firstName(),
                         'last_name' => $contact->lastName(),
-                        'full_name' => $contact->firstName() . ' ' . $contact->lastName(),
+                        'full_name' => $contact->firstName().' '.$contact->lastName(),
                         'email' => $contact->email(),
                         'phone' => $contact->phone(),
                         'lead_level' => $contact->leadLevel()->value,

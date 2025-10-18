@@ -137,7 +137,7 @@ class ContactService
         ]);
     }
 
-    public function linkToCompany(string $contactId, string $companyId, string $position = null, bool $isPrimary = false): void
+    public function linkToCompany(string $contactId, string $companyId, ?string $position = null, bool $isPrimary = false): void
     {
         $contact = $this->contactRepository->findContactById($contactId);
         if (! $contact) {
@@ -179,7 +179,7 @@ class ContactService
         return $this->contactRepository->getContactCompanies($contactId);
     }
 
-    public function bulkLinkToCompany(array $contactIds, string $companyId, string $position = null, bool $isPrimary = false): void
+    public function bulkLinkToCompany(array $contactIds, string $companyId, ?string $position = null, bool $isPrimary = false): void
     {
         $this->contactRepository->bulkLinkToCompany($contactIds, $companyId, $position, $isPrimary);
 

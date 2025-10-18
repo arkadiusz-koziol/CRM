@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Enums\Crm\CompanySource;
-use App\Enums\Crm\CompanyStatus;
-use App\Enums\Crm\ContactStatus;
-use App\Enums\Crm\LeadLevel;
 use App\Enums\Crm\OpportunityStatus;
 use App\Models\Company;
 use App\Models\Contact;
@@ -16,7 +12,6 @@ use App\Models\Pipeline;
 use App\Models\Stage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -25,25 +20,29 @@ class OpportunityApiTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Company $company;
+
     private Contact $contact;
+
     private Pipeline $pipeline;
+
     private Stage $stage;
 
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Ensure all migrations are run in correct order
         $this->artisan('migrate');
         $this->seed();
-        
+
         $this->user = User::factory()->create();
         $this->company = Company::factory()->create(['created_by' => $this->user->id]);
         $this->contact = Contact::factory()->create(['owner_user_id' => $this->user->id]);
         $this->pipeline = Pipeline::factory()->create(['created_by' => $this->user->id]);
         $this->stage = Stage::factory()->create(['pipeline_id' => $this->pipeline->id]);
-        
+
         Sanctum::actingAs($this->user);
     }
 
@@ -73,11 +72,11 @@ class OpportunityApiTest extends TestCase
                                 'stage_id',
                                 'owner_user_id',
                                 'status',
-                            ]
-                        ]
-                    ]
+                            ],
+                        ],
+                    ],
                 ],
-                'meta'
+                'meta',
             ]);
     }
 
@@ -103,9 +102,9 @@ class OpportunityApiTest extends TestCase
                     'data' => [
                         'type',
                         'id',
-                        'attributes'
-                    ]
-                ]
+                        'attributes',
+                    ],
+                ],
             ]);
 
         $this->assertDatabaseHas('opportunities', [
@@ -133,9 +132,9 @@ class OpportunityApiTest extends TestCase
                     'data' => [
                         'type',
                         'id',
-                        'attributes'
-                    ]
-                ]
+                        'attributes',
+                    ],
+                ],
             ]);
     }
 
@@ -185,7 +184,7 @@ class OpportunityApiTest extends TestCase
     public function test_can_filter_opportunities_by_owner(): void
     {
         $otherUser = User::factory()->create();
-        
+
         Opportunity::factory()->create([
             'company_id' => $this->company->id,
             'stage_id' => $this->stage->id,
@@ -201,7 +200,7 @@ class OpportunityApiTest extends TestCase
         $response = $this->getJson("/api/admin/opportunities?owner={$this->user->id}");
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
     }
@@ -209,7 +208,7 @@ class OpportunityApiTest extends TestCase
     public function test_can_filter_opportunities_by_company(): void
     {
         $otherCompany = Company::factory()->create(['created_by' => $this->user->id]);
-        
+
         Opportunity::factory()->create([
             'company_id' => $this->company->id,
             'stage_id' => $this->stage->id,
@@ -225,7 +224,7 @@ class OpportunityApiTest extends TestCase
         $response = $this->getJson("/api/admin/opportunities?company={$this->company->id}");
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
     }
@@ -233,7 +232,7 @@ class OpportunityApiTest extends TestCase
     public function test_can_filter_opportunities_by_stage(): void
     {
         $otherStage = Stage::factory()->create(['pipeline_id' => $this->pipeline->id]);
-        
+
         Opportunity::factory()->create([
             'company_id' => $this->company->id,
             'stage_id' => $this->stage->id,
@@ -249,7 +248,7 @@ class OpportunityApiTest extends TestCase
         $response = $this->getJson("/api/admin/opportunities?stage={$this->stage->id}");
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
     }
@@ -270,10 +269,10 @@ class OpportunityApiTest extends TestCase
             'status' => OpportunityStatus::WON->value,
         ]);
 
-        $response = $this->getJson("/api/admin/opportunities?status=" . OpportunityStatus::OPEN->value);
+        $response = $this->getJson('/api/admin/opportunities?status='.OpportunityStatus::OPEN->value);
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
     }
@@ -294,10 +293,10 @@ class OpportunityApiTest extends TestCase
             'owner_user_id' => $this->user->id,
         ]);
 
-        $response = $this->getJson("/api/admin/opportunities?search=Software");
+        $response = $this->getJson('/api/admin/opportunities?search=Software');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
     }

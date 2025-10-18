@@ -31,7 +31,7 @@ final class OpportunityRepository extends EloquentRepository implements Opportun
     public function findById(string $id): ?Opportunity
     {
         $model = $this->query()->find($id);
-        
+
         return $model ? $this->mapper->toDomain($model) : null;
     }
 
@@ -137,10 +137,10 @@ final class OpportunityRepository extends EloquentRepository implements Opportun
 
         if (isset($filters['search'])) {
             $query->where(function ($q) use ($filters) {
-                $q->where('title', 'like', '%' . $filters['search'] . '%')
-                  ->orWhereHas('company', function ($companyQuery) use ($filters) {
-                      $companyQuery->where('name', 'like', '%' . $filters['search'] . '%');
-                  });
+                $q->where('title', 'like', '%'.$filters['search'].'%')
+                    ->orWhereHas('company', function ($companyQuery) use ($filters) {
+                        $companyQuery->where('name', 'like', '%'.$filters['search'].'%');
+                    });
             });
         }
 

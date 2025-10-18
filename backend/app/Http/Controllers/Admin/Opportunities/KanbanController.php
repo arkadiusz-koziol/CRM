@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Opportunities;
 
 use App\Http\Controllers\Controller;
-use OpenApi\Attributes as OA;
 use App\Http\Resources\OpportunityKanbanColumnResource;
 use App\Services\OpportunityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Attributes as OA;
 
 final class KanbanController extends Controller
 {
@@ -38,14 +38,14 @@ final class KanbanController extends Controller
                             type: 'object',
                             properties: [
                                 'total_columns' => new OA\Property(type: 'integer'),
-                                'total_opportunities' => new OA\Property(type: 'integer')
+                                'total_opportunities' => new OA\Property(type: 'integer'),
                             ]
-                        )
+                        ),
                     ]
                 )
             ),
             new OA\Response(response: 401, description: 'Unauthorized'),
-            new OA\Response(response: 403, description: 'Forbidden')
+            new OA\Response(response: 403, description: 'Forbidden'),
         ]
     )]
     public function index(): JsonResponse
@@ -56,8 +56,8 @@ final class KanbanController extends Controller
             'data' => OpportunityKanbanColumnResource::collection($kanbanData),
             'meta' => [
                 'total_columns' => $kanbanData->count(),
-                'total_opportunities' => $kanbanData->sum(fn($column) => $column['opportunities']->count())
-            ]
+                'total_opportunities' => $kanbanData->sum(fn ($column) => $column['opportunities']->count()),
+            ],
         ]);
     }
 
@@ -73,7 +73,7 @@ final class KanbanController extends Controller
                 required: ['opportunity_id', 'new_stage_id'],
                 properties: [
                     'opportunity_id' => new OA\Property(type: 'string', format: 'uuid', example: '123e4567-e89b-12d3-a456-426614174000'),
-                    'new_stage_id' => new OA\Property(type: 'string', format: 'uuid', example: '123e4567-e89b-12d3-a456-426614174001')
+                    'new_stage_id' => new OA\Property(type: 'string', format: 'uuid', example: '123e4567-e89b-12d3-a456-426614174001'),
                 ]
             )
         ),
@@ -83,13 +83,13 @@ final class KanbanController extends Controller
                 description: 'Opportunity stage updated successfully',
                 content: new OA\JsonContent(
                     properties: [
-                        'message' => new OA\Property(type: 'string', example: 'Opportunity stage updated successfully')
+                        'message' => new OA\Property(type: 'string', example: 'Opportunity stage updated successfully'),
                     ]
                 )
             ),
             new OA\Response(response: 401, description: 'Unauthorized'),
             new OA\Response(response: 403, description: 'Forbidden'),
-            new OA\Response(response: 422, description: 'Validation error')
+            new OA\Response(response: 422, description: 'Validation error'),
         ]
     )]
     public function moveStage(Request $request): JsonResponse
@@ -106,7 +106,7 @@ final class KanbanController extends Controller
         );
 
         return response()->json([
-            'message' => 'Opportunity stage updated successfully'
+            'message' => 'Opportunity stage updated successfully',
         ]);
     }
 
@@ -124,7 +124,7 @@ final class KanbanController extends Controller
         );
 
         return response()->json([
-            'message' => 'Opportunity probability updated successfully'
+            'message' => 'Opportunity probability updated successfully',
         ]);
     }
 }

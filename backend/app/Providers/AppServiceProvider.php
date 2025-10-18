@@ -4,14 +4,29 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Infrastructure\Automation\WorkflowMapper;
+use App\Infrastructure\Automation\WorkflowRuleMapper;
+use App\Infrastructure\Billing\ContractMapper;
+use App\Infrastructure\Billing\InvoiceMapper;
 use App\Interfaces\Repositories\ActivityRepositoryInterface;
+use App\Interfaces\Repositories\ContractRepositoryInterface;
+use App\Interfaces\Repositories\InvoiceRepositoryInterface;
 use App\Interfaces\Repositories\TrainingFileRepositoryInterface;
 use App\Interfaces\Repositories\TrainingRepositoryInterface;
+use App\Interfaces\Repositories\WorkflowRepositoryInterface;
+use App\Interfaces\Repositories\WorkflowRuleRepositoryInterface;
 use App\Interfaces\Services\FileStorageServiceInterface;
 use App\Interfaces\Services\UuidServiceInterface;
 use App\Repositories\ActivityRepository;
+use App\Repositories\ContractRepository;
+use App\Repositories\InvoiceRepository;
 use App\Repositories\TrainingFileRepository;
 use App\Repositories\TrainingRepository;
+use App\Repositories\WorkflowRepository;
+use App\Repositories\WorkflowRuleRepository;
+use App\Services\Automation\WorkflowActionExecutor;
+use App\Services\Automation\WorkflowConditionEvaluator;
+use App\Services\Automation\WorkflowService;
 use App\Services\FileStorageService;
 use App\Services\ForgotPasswordService;
 use App\Services\ResetPasswordService;
@@ -38,6 +53,35 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UuidServiceInterface::class, UuidService::class);
         $this->app->bind(\App\Interfaces\Repositories\UserRepositoryInterface::class, \App\Repositories\UserRepository::class);
         $this->app->bind(\App\Interfaces\Repositories\TrainingUserRepositoryInterface::class, \App\Repositories\TrainingUserRepository::class);
+
+        // Billing repository bindings
+        $this->app->bind(ContractRepositoryInterface::class, function ($app) {
+            return new ContractRepository(new ContractMapper);
+        });
+
+        $this->app->bind(InvoiceRepositoryInterface::class, function ($app) {
+            return new InvoiceRepository(new InvoiceMapper);
+        });
+
+        // Workflow repository bindings
+        $this->app->bind(WorkflowRepositoryInterface::class, function ($app) {
+            return new WorkflowRepository(new WorkflowMapper);
+        });
+
+        $this->app->bind(WorkflowRuleRepositoryInterface::class, function ($app) {
+            return new WorkflowRuleRepository(new WorkflowRuleMapper);
+        });
+
+        // Workflow service bindings
+        $this->app->bind(WorkflowService::class, function ($app) {
+            return new WorkflowService(
+                $app->make(WorkflowRepositoryInterface::class),
+                $app->make(WorkflowRuleRepositoryInterface::class),
+                new WorkflowConditionEvaluator,
+                new WorkflowActionExecutor($app->make(\Psr\Log\LoggerInterface::class)),
+                $app->make(\Psr\Log\LoggerInterface::class)
+            );
+        });
 
         $this->app->bind(ForgotPasswordService::class, function ($app) {
             return new ForgotPasswordService($app->make(PasswordBroker::class));

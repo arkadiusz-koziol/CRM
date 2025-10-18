@@ -32,7 +32,7 @@ class ContactController extends Controller
             'source',
             'owner_user_id',
             'sort_by',
-            'sort_order'
+            'sort_order',
         ]);
 
         $perPage = (int) $request->get('per_page', 15);
@@ -111,7 +111,7 @@ class ContactController extends Controller
             'owner_user_id' => $dto->ownerUserId(),
             'source' => $dto->source(),
             'status' => $dto->status(),
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
 
         $contact = $this->contactService->update($id, $data);
 

@@ -8,7 +8,6 @@ use App\Domain\Crm\Entity\Contact as ContactEntity;
 use App\Enums\Crm\ContactStatus;
 use App\Enums\Crm\LeadLevel;
 use App\Models\Contact as ContactModel;
-use Carbon\Carbon;
 
 final readonly class ContactMapper
 {

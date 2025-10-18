@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Opportunities;
 
 use App\Http\Controllers\Controller;
-use OpenApi\Attributes as OA;
 use App\Http\Requests\CreateOpportunityRequest;
 use App\Http\Requests\UpdateOpportunityRequest;
 use App\Http\Resources\OpportunityResource;
 use App\Services\OpportunityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
 final class OpportunityController extends Controller
@@ -77,14 +77,14 @@ final class OpportunityController extends Controller
                             type: 'object',
                             properties: [
                                 'total' => new OA\Property(type: 'integer'),
-                                'filters_applied' => new OA\Property(type: 'object')
+                                'filters_applied' => new OA\Property(type: 'object'),
                             ]
-                        )
+                        ),
                     ]
                 )
             ),
             new OA\Response(response: 401, description: 'Unauthorized'),
-            new OA\Response(response: 403, description: 'Forbidden')
+            new OA\Response(response: 403, description: 'Forbidden'),
         ]
     )]
     public function index(Request $request): JsonResponse
@@ -96,7 +96,7 @@ final class OpportunityController extends Controller
             'status',
             'date_from',
             'date_to',
-            'search'
+            'search',
         ]);
 
         $opportunities = $this->opportunityService->getFiltered($filters);
@@ -105,8 +105,8 @@ final class OpportunityController extends Controller
             'data' => OpportunityResource::collection($opportunities),
             'meta' => [
                 'total' => $opportunities->count(),
-                'filters_applied' => array_filter($filters)
-            ]
+                'filters_applied' => array_filter($filters),
+            ],
         ]);
     }
 
@@ -129,7 +129,7 @@ final class OpportunityController extends Controller
                     'probability' => new OA\Property(type: 'integer', minimum: 0, maximum: 100, example: 75),
                     'stage_id' => new OA\Property(type: 'string', format: 'uuid', example: '123e4567-e89b-12d3-a456-426614174002'),
                     'owner_user_id' => new OA\Property(type: 'integer', example: 1),
-                    'close_date' => new OA\Property(type: 'string', format: 'date', example: '2024-12-31')
+                    'close_date' => new OA\Property(type: 'string', format: 'date', example: '2024-12-31'),
                 ]
             )
         ),
@@ -141,7 +141,7 @@ final class OpportunityController extends Controller
             ),
             new OA\Response(response: 401, description: 'Unauthorized'),
             new OA\Response(response: 403, description: 'Forbidden'),
-            new OA\Response(response: 422, description: 'Validation error')
+            new OA\Response(response: 422, description: 'Validation error'),
         ]
     )]
     public function store(CreateOpportunityRequest $request): JsonResponse
@@ -169,14 +169,14 @@ final class OpportunityController extends Controller
     {
         $opportunity = $this->opportunityService->findById($id);
 
-        if (!$opportunity) {
+        if (! $opportunity) {
             return response()->json([
-                'message' => 'Opportunity not found'
+                'message' => 'Opportunity not found',
             ], Response::HTTP_NOT_FOUND);
         }
 
         return response()->json([
-            'data' => new OpportunityResource($opportunity)
+            'data' => new OpportunityResource($opportunity),
         ]);
     }
 
@@ -198,7 +198,7 @@ final class OpportunityController extends Controller
         $opportunity = $this->opportunityService->findById($id);
 
         return response()->json([
-            'data' => new OpportunityResource($opportunity)
+            'data' => new OpportunityResource($opportunity),
         ]);
     }
 

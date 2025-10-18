@@ -108,6 +108,18 @@ class PermissionSeeder extends Seeder
             'opportunity.create',
             'opportunity.update',
             'opportunity.delete',
+
+            // Contract permissions
+            'contract.view',
+            'contract.create',
+            'contract.update',
+            'contract.delete',
+
+            // Invoice permissions
+            'invoice.view',
+            'invoice.create',
+            'invoice.update',
+            'invoice.delete',
         ];
 
         foreach ($permissions as $permission) {

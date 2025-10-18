@@ -12,21 +12,25 @@ use App\Http\Controllers\Admin\Cities\ListCityController;
 use App\Http\Controllers\Admin\Cities\UpdateCityController;
 use App\Http\Controllers\Admin\Companies\CompanyController;
 use App\Http\Controllers\Admin\Companies\MyCompaniesController;
-use App\Http\Controllers\Admin\Contacts\ContactController;
 use App\Http\Controllers\Admin\Contacts\ContactCompanyController;
-use App\Http\Controllers\Admin\Opportunities\OpportunityController;
-use App\Http\Controllers\Admin\Opportunities\KanbanController;
+use App\Http\Controllers\Admin\Contacts\ContactController;
+use App\Http\Controllers\Admin\Contracts\ContractBulkController;
+use App\Http\Controllers\Admin\Contracts\ContractController;
 use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Admin\Estates\DestroyEstateController;
 use App\Http\Controllers\Admin\Estates\ListEstateController;
 use App\Http\Controllers\Admin\Estates\ShowEstateController;
 use App\Http\Controllers\Admin\Estates\StoreEstateController;
 use App\Http\Controllers\Admin\Estates\UpdateEstateController;
+use App\Http\Controllers\Admin\Invoices\InvoiceBulkController;
+use App\Http\Controllers\Admin\Invoices\InvoiceController;
 use App\Http\Controllers\Admin\Materials\DestroyMaterialController;
 use App\Http\Controllers\Admin\Materials\ListMaterialController;
 use App\Http\Controllers\Admin\Materials\ShowMaterialController;
 use App\Http\Controllers\Admin\Materials\StoreMaterialController;
 use App\Http\Controllers\Admin\Materials\UpdateMaterialController;
+use App\Http\Controllers\Admin\Opportunities\KanbanController;
+use App\Http\Controllers\Admin\Opportunities\OpportunityController;
 use App\Http\Controllers\Admin\Pins\ShowPinByPlanController;
 use App\Http\Controllers\Admin\Plans\DestroyPlanController;
 use App\Http\Controllers\Admin\Plans\ShowPlanController;
@@ -411,6 +415,58 @@ Route::group(
                     Route::post('/opportunities/update-probability', [KanbanController::class, 'updateProbability'])
                         ->name('kanban.update_probability')
                         ->can('opportunity.update');
+                });
+
+                // Admin Contracts
+                Route::prefix('contracts')->group(function () {
+                    Route::get('/', [ContractController::class, 'index'])
+                        ->name('contracts.index')
+                        ->can('contract.view');
+                    Route::get('/{contract}', [ContractController::class, 'show'])
+                        ->name('contracts.show')
+                        ->can('contract.view');
+                    Route::post('/', [ContractController::class, 'store'])
+                        ->name('contracts.store')
+                        ->can('contract.create');
+                    Route::put('/{contract}', [ContractController::class, 'update'])
+                        ->name('contracts.update')
+                        ->can('contract.update');
+                    Route::delete('/{contract}', [ContractController::class, 'destroy'])
+                        ->name('contracts.destroy')
+                        ->can('contract.delete');
+
+                    // Bulk operations
+                    Route::prefix('bulk')->group(function () {
+                        Route::post('/update-status', [ContractBulkController::class, 'updateStatus'])
+                            ->name('contracts.bulk_update_status')
+                            ->can('contract.update');
+                    });
+                });
+
+                // Admin Invoices
+                Route::prefix('invoices')->group(function () {
+                    Route::get('/', [InvoiceController::class, 'index'])
+                        ->name('invoices.index')
+                        ->can('invoice.view');
+                    Route::get('/{invoice}', [InvoiceController::class, 'show'])
+                        ->name('invoices.show')
+                        ->can('invoice.view');
+                    Route::post('/', [InvoiceController::class, 'store'])
+                        ->name('invoices.store')
+                        ->can('invoice.create');
+                    Route::put('/{invoice}', [InvoiceController::class, 'update'])
+                        ->name('invoices.update')
+                        ->can('invoice.update');
+                    Route::delete('/{invoice}', [InvoiceController::class, 'destroy'])
+                        ->name('invoices.destroy')
+                        ->can('invoice.delete');
+
+                    // Bulk operations
+                    Route::prefix('bulk')->group(function () {
+                        Route::post('/update-status', [InvoiceBulkController::class, 'updateStatus'])
+                            ->name('invoices.bulk_update_status')
+                            ->can('invoice.update');
+                    });
                 });
 
                 // Admin Dashboard
