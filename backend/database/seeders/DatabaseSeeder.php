@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             EstateSeeder::class,
             CarSeeder::class,
             TaskSeeder::class,
+            CompanySeeder::class,
+            ContactSeeder::class,
         ]);
 
     }

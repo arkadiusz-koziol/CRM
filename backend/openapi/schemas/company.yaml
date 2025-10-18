@@ -1,0 +1,128 @@
+Company:
+  type: object
+  required:
+    - id
+    - name
+    - source
+    - status
+    - created_by
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: "01234567-89ab-cdef-0123-456789abcdef"
+      description: "Unique identifier for the company"
+    name:
+      type: string
+      example: "TechCorp Solutions"
+      description: "Company name"
+    industry:
+      type: string
+      nullable: true
+      example: "Technology"
+      description: "Industry sector"
+    source:
+      type: string
+      enum: ["website", "referral", "social_media", "email_campaign", "cold_call", "trade_show", "partner", "other"]
+      example: "website"
+      description: "Lead source"
+    status:
+      type: string
+      enum: ["active", "inactive", "prospect"]
+      example: "active"
+      description: "Company status"
+    region:
+      type: string
+      nullable: true
+      example: "North America"
+      description: "Geographic region"
+    vat_id:
+      type: string
+      nullable: true
+      example: "US123456789"
+      description: "VAT identification number"
+    created_by:
+      type: string
+      format: uuid
+      example: "01234567-89ab-cdef-0123-456789abcdef"
+      description: "User who created the company"
+    created_at:
+      type: string
+      format: date-time
+      example: "2024-10-06T08:30:00Z"
+      description: "Creation timestamp"
+    updated_at:
+      type: string
+      format: date-time
+      example: "2024-10-06T08:30:00Z"
+      description: "Last update timestamp"
+
+CompanyCreate:
+  type: object
+  required:
+    - name
+    - source
+    - status
+  properties:
+    name:
+      type: string
+      example: "TechCorp Solutions"
+      description: "Company name"
+    industry:
+      type: string
+      nullable: true
+      example: "Technology"
+      description: "Industry sector"
+    source:
+      type: string
+      enum: ["website", "referral", "social_media", "email_campaign", "cold_call", "trade_show", "partner", "other"]
+      example: "website"
+      description: "Lead source"
+    status:
+      type: string
+      enum: ["active", "inactive", "prospect"]
+      example: "prospect"
+      description: "Company status"
+    region:
+      type: string
+      nullable: true
+      example: "North America"
+      description: "Geographic region"
+    vat_id:
+      type: string
+      nullable: true
+      example: "US123456789"
+      description: "VAT identification number"
+
+CompanyUpdate:
+  type: object
+  properties:
+    name:
+      type: string
+      example: "TechCorp Solutions"
+      description: "Company name"
+    industry:
+      type: string
+      nullable: true
+      example: "Technology"
+      description: "Industry sector"
+    source:
+      type: string
+      enum: ["website", "referral", "social_media", "email_campaign", "cold_call", "trade_show", "partner", "other"]
+      example: "website"
+      description: "Lead source"
+    status:
+      type: string
+      enum: ["active", "inactive", "prospect"]
+      example: "active"
+      description: "Company status"
+    region:
+      type: string
+      nullable: true
+      example: "North America"
+      description: "Geographic region"
+    vat_id:
+      type: string
+      nullable: true
+      example: "US123456789"
+      description: "VAT identification number"

@@ -1,0 +1,155 @@
+Contact:
+  type: object
+  required:
+    - id
+    - first_name
+    - last_name
+    - email
+    - lead_level
+    - source
+    - status
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: "01234567-89ab-cdef-0123-456789abcdef"
+      description: "Unique identifier for the contact"
+    first_name:
+      type: string
+      example: "John"
+      description: "Contact's first name"
+    last_name:
+      type: string
+      example: "Smith"
+      description: "Contact's last name"
+    email:
+      type: string
+      format: email
+      example: "john.smith@techcorp.com"
+      description: "Contact's email address"
+    phone:
+      type: string
+      nullable: true
+      example: "+1-555-0101"
+      description: "Contact's phone number"
+    lead_level:
+      type: string
+      enum: ["lead", "contact"]
+      example: "contact"
+      description: "Lead qualification level"
+    owner_user_id:
+      type: string
+      format: uuid
+      nullable: true
+      example: "01234567-89ab-cdef-0123-456789abcdef"
+      description: "User responsible for this contact"
+    source:
+      type: string
+      example: "website"
+      description: "Lead source"
+    status:
+      type: string
+      enum: ["new", "active", "dormant", "lost"]
+      example: "active"
+      description: "Contact status"
+    created_at:
+      type: string
+      format: date-time
+      example: "2024-10-06T08:30:00Z"
+      description: "Creation timestamp"
+    updated_at:
+      type: string
+      format: date-time
+      example: "2024-10-06T08:30:00Z"
+      description: "Last update timestamp"
+
+ContactCreate:
+  type: object
+  required:
+    - first_name
+    - last_name
+    - email
+    - lead_level
+    - source
+    - status
+  properties:
+    first_name:
+      type: string
+      example: "John"
+      description: "Contact's first name"
+    last_name:
+      type: string
+      example: "Smith"
+      description: "Contact's last name"
+    email:
+      type: string
+      format: email
+      example: "john.smith@techcorp.com"
+      description: "Contact's email address"
+    phone:
+      type: string
+      nullable: true
+      example: "+1-555-0101"
+      description: "Contact's phone number"
+    lead_level:
+      type: string
+      enum: ["lead", "contact"]
+      example: "lead"
+      description: "Lead qualification level"
+    owner_user_id:
+      type: string
+      format: uuid
+      nullable: true
+      example: "01234567-89ab-cdef-0123-456789abcdef"
+      description: "User responsible for this contact"
+    source:
+      type: string
+      example: "website"
+      description: "Lead source"
+    status:
+      type: string
+      enum: ["new", "active", "dormant", "lost"]
+      example: "new"
+      description: "Contact status"
+
+ContactUpdate:
+  type: object
+  properties:
+    first_name:
+      type: string
+      example: "John"
+      description: "Contact's first name"
+    last_name:
+      type: string
+      example: "Smith"
+      description: "Contact's last name"
+    email:
+      type: string
+      format: email
+      example: "john.smith@techcorp.com"
+      description: "Contact's email address"
+    phone:
+      type: string
+      nullable: true
+      example: "+1-555-0101"
+      description: "Contact's phone number"
+    lead_level:
+      type: string
+      enum: ["lead", "contact"]
+      example: "contact"
+      description: "Lead qualification level"
+    owner_user_id:
+      type: string
+      format: uuid
+      nullable: true
+      example: "01234567-89ab-cdef-0123-456789abcdef"
+      description: "User responsible for this contact"
+    source:
+      type: string
+      example: "website"
+      description: "Lead source"
+    status:
+      type: string
+      enum: ["new", "active", "dormant", "lost"]
+      example: "active"
+      description: "Contact status"
