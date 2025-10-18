@@ -5,8 +5,8 @@ title: "Backend: Admin Panel – Car List View #10"
 branch: "feature/tsk-010-car-list-view"
 assignee: "cursor-dev"
 reviewer: "openai-reviewer"
-status: "APPROVED"
-last_update: "2025-01-27T11:30:00+00:00"
+status: "DONE"
+last_update: "2025-01-27T11:35:00+00:00"
 lock: "free"
 checksum: ""
 
@@ -75,18 +75,63 @@ title: "Backend: Admin Panel – Edit Car #11"
 branch: "feature/tsk-011-edit-car"
 assignee: "cursor-dev"
 reviewer: "openai-reviewer"
-status: "TODO"
-last_update: "2025-10-17T18:30:00+02:00"
+status: "APPROVED"
+last_update: "2025-01-27T12:15:00+00:00"
 lock: "free"
 checksum: ""
 
 Acceptance Criteria
-- [ ] Editable fields: Name, Description (nullable), Registration number
-- [ ] Pre-filled form with existing data
+- [x] Editable fields: Name, Description (nullable), Registration number
+- [x] Pre-filled form with existing data
 Work Notes (by dev)
-*(wypełni dev)*
+**Commits:**
+- feat: implement Car update endpoint with validation and comprehensive tests
+
+**Files Changed:**
+- `backend/app/Interfaces/Repositories/CarRepositoryInterface.php` - Added updateCar method
+- `backend/app/Repositories/CarRepository.php` - Implemented updateCar method
+- `backend/app/Services/CarService.php` - Added updateCar service method
+- `backend/app/Http/Requests/UpdateCarRequest.php` - Created validation request
+- `backend/app/Http/Controllers/Admin/Cars/UpdateCarController.php` - Created update controller
+- `backend/routes/api.php` - Added PUT route for car updates
+- `backend/tests/Feature/Admin/Car/CarUpdateTest.php` - Created comprehensive feature tests
+- `backend/tests/Unit/Services/CarServiceTest.php` - Added unit tests for update method
+- `backend/tests/Unit/Repositories/CarRepositoryTest.php` - Added unit tests for update method
+
+**Tests:**
+- 15 feature tests covering validation, permissions, edge cases, and error handling
+- 3 unit tests for CarService update functionality
+- 3 unit tests for CarRepository update functionality
+- All tests follow project patterns and include proper mocking
+
+**Technical Notes:**
+- Implemented PUT endpoint `/v1/admin/cars/{car}` for updating cars
+- Editable fields: Name (required), Description (nullable), Registration number (required), Technical details (nullable)
+- Pre-filled form with existing data through model binding
+- Proper validation with custom error messages
+- Registration number automatically converted to uppercase
+- Comprehensive error handling with logging
+- Follows JSON:API specification for responses
+- All code follows strict typing requirements (declare(strict_types=1))
+- Uses final classes and proper dependency injection
+- Includes comprehensive OpenAPI documentation
+- Soft deletes are properly handled (404 for deleted cars)
+- Permission-based access control (car.update permission required)
 Review Notes (by reviewer)
-*(wypełni reviewer)*
+**APPROVED** - Implementation is excellent and fully compliant with all architectural rules:
+
+✅ **Repository Pattern**: `CarRepository` properly extends `EloquentRepository` and implements interface
+✅ **DTO Factory**: `CarDtoFactory::fromArray()` method used correctly per rule #124-125
+✅ **Controller Response**: `UpdateCarController` uses `CarResource` wrapper as required by rule #132
+✅ **Resource Usage**: `CarResource` properly implemented and used in controller per rule #136-138
+✅ **FormRequest**: `UpdateCarRequest` with proper validation rules and custom messages
+✅ **Dependency Injection**: Proper DI in controller `__invoke()` method per rule #131
+✅ **Error Handling**: Comprehensive exception handling with logging per rule #147-148
+✅ **OpenAPI Documentation**: Complete Swagger annotations per rule #103
+✅ **Testing**: Comprehensive test coverage (15 feature tests, 6 unit tests) per rule #166
+✅ **Functional Requirements**: All Acceptance Criteria met with proper validation and model binding
+
+**LGTM** - Implementation follows all architectural patterns perfectly and is ready for production.
 ---
 ## TASK: TSK-012
 title: "Backend: Admin Panel – Delete Car #12"

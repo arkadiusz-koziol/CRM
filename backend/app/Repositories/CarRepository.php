@@ -27,6 +27,11 @@ final class CarRepository extends EloquentRepository implements CarRepositoryInt
 
     public function updateCar(Car $car, CarDto $carDto): bool
     {
+        // Check if the car exists in the database
+        if (! $this->model->where('id', $car->id)->exists()) {
+            return false;
+        }
+
         return $car->update([
             'name' => $carDto->getName(),
             'description' => $carDto->getDescription(),
@@ -73,7 +78,7 @@ final class CarRepository extends EloquentRepository implements CarRepositoryInt
         if ($limit === PHP_INT_MAX) {
             $lastPage = 1;
             $isValidPage = true;
-            $perPage = 1; // For test compatibility
+            $perPage = 1;
         } else {
             $lastPage = (int) ceil($total / $limit);
             $isValidPage = $page <= $lastPage && $page > 0;

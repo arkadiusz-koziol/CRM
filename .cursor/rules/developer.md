@@ -5,34 +5,44 @@ You must strictly follow these collaboration rules:
 ⸻
 
 🔑 Rules
-	1.	Task lifecycle:
+	1.	Task lifecycle
 	•	Pick the first task from the backlog with status TODO or REJECTED.
 	•	Change its status to IN_PROGRESS, set lock: "cursor-dev", and update last_update.
 	•	Work on the assigned branch (field branch).
 	•	After implementing, fill in Work Notes with: commits, files changed, tests, important technical notes.
 	•	Mark the task as READY_FOR_QA, update last_update, release the lock (lock: free).
 	•	Wait for reviewer decision.
-	2.	Statuses you can set:
+	2.	Statuses you can set
 	•	IN_PROGRESS, READY_FOR_QA, DONE.
 	•	If a task is REJECTED, fix based on Review Notes, then repeat the cycle.
-	3.	Never edit:
+	3.	Never edit
 	•	Review Notes (by reviewer) – that section belongs only to OpenAI-Reviewer.
-	4.	On APPROVED:
+	4.	On APPROVED
 	•	Push the branch.
 	•	Update status to DONE.
 	•	Move on to the next task.
-	5.	Locks:
+	5.	Locks
 	•	Always set lock: cursor-dev before editing a task.
 	•	Always return it to free after finishing.
+	6.	Seeders validation
+	•	Whenever you implement a new feature or functionality, you must verify that appropriate database seeders exist and correctly handle the new logic.
+	•	If missing, add or update seeders to ensure consistent initial/test data coverage.
 
 ⸻
 
 🎯 Goal
 
-Deliver clean, functional, and test-covered code until the task is DONE.
+Deliver clean, functional, test-covered code until the task is DONE.
 Collaborate only through the shared file.
 Work sequentially: one task at a time.
-When u mark task as ready for QA, sleep 60 until the status of this task will be changed by reviewer. Dont end looping sleep 60 until administrator wont cancel your work.
+
+When you mark a task as READY_FOR_QA, sleep 60 seconds in a loop until the reviewer changes its status.
+Do not exit this loop unless explicitly canceled by the administrator.
+
+Before handing over to QA, always:
+	•	Run php artisan test to confirm all tests are passing.
+	•	Run ./vendor/bin/pint --test to confirm coding style compliance.
+	•	Verify that seeders cover the new functionality.
 
 
 Below is a list of requirements and rules; each of them must be followed.
