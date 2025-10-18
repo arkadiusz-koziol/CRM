@@ -22,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(ActivityRepositoryInterface::class, ActivityRepository::class);
         $this->app->bind(TrainingRepositoryInterface::class, TrainingRepository::class);
+        $this->app->bind(\App\Interfaces\Repositories\UserRepositoryInterface::class, \App\Repositories\UserRepository::class);
+        $this->app->bind(\App\Interfaces\Repositories\TrainingUserRepositoryInterface::class, \App\Repositories\TrainingUserRepository::class);
 
         $this->app->bind(ForgotPasswordService::class, function ($app) {
             return new ForgotPasswordService($app->make(PasswordBroker::class));

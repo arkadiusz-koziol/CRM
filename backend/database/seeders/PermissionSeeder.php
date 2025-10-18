@@ -70,6 +70,11 @@ class PermissionSeeder extends Seeder
 
             'training.user.remove',
             'training.user.add',
+            'training.user.assign',
+            'training.user.assign_all',
+            'training.user.assign_by_role',
+            'training.user.assign_selected',
+            'training.user.list',
             'training.create',
             'training.read',
             'training.show',

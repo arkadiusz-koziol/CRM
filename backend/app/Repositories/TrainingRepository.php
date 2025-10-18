@@ -29,6 +29,15 @@ final class TrainingRepository extends EloquentRepository implements TrainingRep
         }
     }
 
+    public function deleteTraining(Training $training): bool
+    {
+        try {
+            return $this->delete($training);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     public function findById(int $id): ?Training
     {
         return $this->model->find($id);

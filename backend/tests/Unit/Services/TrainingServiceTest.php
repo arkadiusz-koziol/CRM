@@ -213,4 +213,38 @@ final class TrainingServiceTest extends TestCase
 
         $this->assertFalse($result);
     }
+
+    public function test_delete_training_calls_repository(): void
+    {
+        $training = new Training;
+        $training->id = 1;
+        $training->title = 'Training to Delete';
+
+        $this->trainingRepositoryMock
+            ->shouldReceive('deleteTraining')
+            ->once()
+            ->with($training)
+            ->andReturn(true);
+
+        $result = $this->trainingService->deleteTraining($training);
+
+        $this->assertTrue($result);
+    }
+
+    public function test_delete_training_returns_false_when_repository_fails(): void
+    {
+        $training = new Training;
+        $training->id = 1;
+        $training->title = 'Training to Delete';
+
+        $this->trainingRepositoryMock
+            ->shouldReceive('deleteTraining')
+            ->once()
+            ->with($training)
+            ->andReturn(false);
+
+        $result = $this->trainingService->deleteTraining($training);
+
+        $this->assertFalse($result);
+    }
 }

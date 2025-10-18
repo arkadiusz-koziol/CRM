@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -133,5 +134,11 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new CustomResetPasswordNotification($token));
+    }
+
+    public function trainings(): BelongsToMany
+    {
+        return $this->belongsToMany(Training::class, 'training_user')
+            ->withTimestamps();
     }
 }

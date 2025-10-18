@@ -304,4 +304,62 @@ final class TrainingRepositoryTest extends TestCase
 
         $this->assertFalse($result);
     }
+
+    public function test_delete_training_soft_deletes_record(): void
+    {
+        $training = Training::factory()->create([
+            'title' => 'Training to Delete',
+            'description' => 'This training will be deleted',
+            'category' => 'Test Category',
+        ]);
+
+        $result = $this->trainingRepository->deleteTraining($training);
+
+        $this->assertTrue($result);
+
+        $this->assertSoftDeleted('trainings', [
+            'id' => $training->id,
+            'title' => 'Training to Delete',
+            'description' => 'This training will be deleted',
+            'category' => 'Test Category',
+        ]);
+    }
+
+    public function test_delete_training_with_file_data(): void
+    {
+        $training = Training::factory()->create([
+            'title' => 'Training with File',
+            'file_path' => 'trainings/test.pdf',
+            'file_name' => 'test.pdf',
+            'file_size' => 1024,
+            'mime_type' => 'application/pdf',
+        ]);
+
+        $result = $this->trainingRepository->deleteTraining($training);
+
+        $this->assertTrue($result);
+
+        $this->assertSoftDeleted('trainings', [
+            'id' => $training->id,
+            'title' => 'Training with File',
+            'file_path' => 'trainings/test.pdf',
+            'file_name' => 'test.pdf',
+            'file_size' => 1024,
+            'mime_type' => 'application/pdf',
+        ]);
+    }
+
+    public function test_delete_training_returns_false_on_database_error(): void
+    {
+        $training = Training::factory()->create();
+
+        // Mock the training instance to simulate a database error
+        $trainingMock = $this->createMock(Training::class);
+        $trainingMock->method('delete')
+            ->willThrowException(new \Exception('Database error'));
+
+        $result = $this->trainingRepository->deleteTraining($trainingMock);
+
+        $this->assertFalse($result);
+    }
 }
