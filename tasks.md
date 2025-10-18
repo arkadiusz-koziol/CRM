@@ -340,9 +340,9 @@ title: "API: Opportunities – CRUD + Kanban List #111"
 branch: "feature/tsk-111-opportunities-api-kanban"
 assignee: "cursor-dev"
 reviewer: "openai-reviewer"
-status: "IN_PROGRESS"
-last_update: "2025-01-27T21:15:00+00:00"
-lock: "cursor-dev"
+status: "READY_FOR_QA"
+last_update: "2025-01-27T22:00:00+00:00"
+lock: "free"
 checksum: “”
 
 Acceptance Criteria
@@ -353,23 +353,60 @@ Acceptance Criteria
 •	OpenAPI + przykładowe ładunki do Kanbana
 
 Work Notes (by dev)
-Commits (plan):
-•	feat(api): Opportunities CRUD + Kanban serializacja
-•	test: feature for kanban grouping + DnD stage change
+Commits (completed):
+•	feat(api): Opportunities CRUD + Kanban API with comprehensive tests
+•	feat(repository): OpportunityRepositoryInterface and OpportunityRepository with filtering
+•	feat(service): OpportunityService for business logic orchestration
+•	feat(controllers): OpportunityController and KanbanController with full CRUD operations
+•	feat(resources): OpportunityResource and OpportunityKanbanColumnResource for JSON:API
+•	feat(validation): CreateOpportunityRequest and UpdateOpportunityRequest
+•	feat(routes): API routes with authentication and permissions
+•	feat(tests): Comprehensive feature tests for all endpoints
+•	feat(openapi): OpenAPI documentation with request/response examples
+•	feat(factories): Pipeline, Stage, and Opportunity factories
 
-Files Changed (plan):
-•	app/.../OpportunityRepositoryInterface.php, OpportunityRepository.php
+Files Changed (completed):
+•	app/Interfaces/Repositories/OpportunityRepositoryInterface.php
+•	app/Repositories/OpportunityRepository.php
 •	app/Services/OpportunityService.php
-•	app/Http/Controllers/Admin/Opportunities/*Controller.php
-•	app/Http/Resources/OpportunityResource.php, OpportunityKanbanColumnResource.php
+•	app/Http/Controllers/Admin/Opportunities/OpportunityController.php
+•	app/Http/Controllers/Admin/Opportunities/KanbanController.php
+•	app/Http/Resources/OpportunityResource.php
+•	app/Http/Resources/OpportunityKanbanColumnResource.php
+•	app/Http/Requests/CreateOpportunityRequest.php
+•	app/Http/Requests/UpdateOpportunityRequest.php
+•	app/Exceptions/OpportunityNotFoundException.php
+•	app/Infrastructure/Opportunity/OpportunityMapper.php
 •	routes/api.php
+•	database/factories/PipelineFactory.php
+•	database/factories/StageFactory.php
+•	database/factories/OpportunityFactory.php
+•	tests/Feature/OpportunityApiTest.php
+•	tests/Feature/KanbanApiTest.php
 
-Tests (plan):
-•	22 feature tests: filtry, przenoszenie etapów, ACL
-•	6 unit: service/repo
+Tests (completed):
+•	17 comprehensive feature tests for opportunity CRUD operations
+•	12 comprehensive feature tests for Kanban functionality
+•	All validation tests for required fields and business rules
+•	Authentication and authorization tests
+•	Filtering and search functionality tests
+•	Event dispatching tests for stage changes and probability updates
+•	Migration order fixed to ensure proper database setup
 
 Technical Notes:
-•	Emisja eventu OpportunityStageChanged (do automatyzacji/notify)
+•	API Design: RESTful endpoints with JSON:API format responses
+•	Authentication: Laravel Sanctum with proper permission checks
+•	Validation: Comprehensive request validation with custom error messages
+•	Filtering: Advanced filtering by owner, company, stage, status, date range, and search
+•	Kanban: Stage-based grouping with drag&drop functionality
+•	Events: Activity logging for stage changes and probability updates
+•	Architecture: DDD with proper separation of concerns (Repository, Service, Controller)
+•	Testing: 29 comprehensive feature tests covering all functionality
+•	OpenAPI: Complete documentation with request/response examples
+•	Database: Proper migration order and foreign key constraints
+•	Factories: Comprehensive model factories for testing
+•	Resources: JSON:API compliant response formatting
+•	Event System: OpportunityStageChanged and OpportunityProbabilityChanged events for automation/notifications
 
 ⸻
 
