@@ -27,10 +27,13 @@ final class TrainingCreateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.create');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Safety']);
+
         $trainingData = [
             'title' => 'Safety Training',
             'description' => 'Comprehensive safety training course',
             'category' => 'Safety',
+            'category_id' => $category->id,
         ];
 
         $response = $this->actingAs($admin)
@@ -72,6 +75,7 @@ final class TrainingCreateTest extends TestCase
             'title' => 'Safety Training',
             'description' => 'Comprehensive safety training course',
             'category' => 'Safety',
+            'category_id' => $category->id,
             'file_path' => null,
             'file_name' => null,
             'file_size' => null,
@@ -84,12 +88,14 @@ final class TrainingCreateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.create');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Documentation']);
         $file = UploadedFile::fake()->create('training.pdf', 1024, 'application/pdf');
 
         $trainingData = [
             'title' => 'PDF Training',
             'description' => 'Training with PDF file',
             'category' => 'Documentation',
+            'category_id' => $category->id,
             'file' => $file,
         ];
 
@@ -125,6 +131,7 @@ final class TrainingCreateTest extends TestCase
             'title' => 'PDF Training',
             'description' => 'Training with PDF file',
             'category' => 'Documentation',
+            'category_id' => $category->id,
             'file_name' => 'training.pdf',
             'mime_type' => 'application/pdf',
         ]);
@@ -137,12 +144,14 @@ final class TrainingCreateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.create');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Presentation']);
         $file = UploadedFile::fake()->create('presentation.pptx', 2048, 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
 
         $trainingData = [
             'title' => 'PowerPoint Training',
             'description' => 'Training with PowerPoint file',
             'category' => 'Presentation',
+            'category_id' => $category->id,
             'file' => $file,
         ];
 
@@ -164,6 +173,7 @@ final class TrainingCreateTest extends TestCase
             'title' => 'PowerPoint Training',
             'description' => 'Training with PowerPoint file',
             'category' => 'Presentation',
+            'category_id' => $category->id,
             'file_name' => 'presentation.pptx',
             'mime_type' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
         ]);
@@ -176,10 +186,13 @@ final class TrainingCreateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.create');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Basic']);
+
         $trainingData = [
             'title' => 'Simple Training',
             'description' => null,
             'category' => 'Basic',
+            'category_id' => $category->id,
         ];
 
         $response = $this->actingAs($admin)
@@ -198,6 +211,7 @@ final class TrainingCreateTest extends TestCase
             'title' => 'Simple Training',
             'description' => null,
             'category' => 'Basic',
+            'category_id' => $category->id,
         ]);
     }
 
@@ -345,10 +359,13 @@ final class TrainingCreateTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('training.create');
 
+        $category = \App\Models\TrainingCategory::factory()->create(['name' => 'Testing']);
+
         $trainingData = [
             'title' => 'JSON Structure Test',
             'description' => 'Testing JSON response structure',
             'category' => 'Testing',
+            'category_id' => $category->id,
         ];
 
         $response = $this->actingAs($admin)

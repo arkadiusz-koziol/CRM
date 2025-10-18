@@ -12,6 +12,7 @@ final readonly class TrainingDto implements Arrayable
         private string $title,
         private ?string $description,
         private string $category,
+        private ?string $categoryId,
         private ?string $filePath,
         private ?string $fileName,
         private ?int $fileSize,
@@ -31,6 +32,11 @@ final readonly class TrainingDto implements Arrayable
     public function category(): string
     {
         return $this->category;
+    }
+
+    public function categoryId(): ?string
+    {
+        return $this->categoryId;
     }
 
     public function filePath(): ?string
@@ -62,6 +68,7 @@ final readonly class TrainingDto implements Arrayable
             'title' => $this->title,
             'description' => $this->description,
             'category' => $this->category,
+            'category_id' => $this->categoryId,
             'file_path' => $this->filePath,
             'file_name' => $this->fileName,
             'file_size' => $this->fileSize,

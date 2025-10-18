@@ -17,6 +17,7 @@ final class CreateTrainingRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'category' => ['required', 'string', 'max:100'],
+            'category_id' => ['nullable', 'string', 'exists:trainings_categories,id'],
             'file' => ['nullable', 'file', 'mimes:pptx,pdf', 'max:10240'],
         ];
     }

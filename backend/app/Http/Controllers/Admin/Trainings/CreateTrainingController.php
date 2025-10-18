@@ -107,6 +107,7 @@ final class CreateTrainingController extends Controller
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'category' => $request->input('category'),
+                'category_id' => $request->input('category_id'),
                 'file_path' => $fileData['path'] ?? null,
                 'file_name' => $fileData['name'] ?? null,
                 'file_size' => $fileData['size'] ?? null,

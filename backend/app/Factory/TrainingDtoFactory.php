@@ -17,6 +17,7 @@ final class TrainingDtoFactory
             title: $data['title'] ?? '',
             description: $data['description'] ?? null,
             category: $data['category'] ?? '',
+            categoryId: $data['category_id'] ?? null,
             filePath: $data['file_path'] ?? null,
             fileName: $data['file_name'] ?? null,
             fileSize: $data['file_size'] ?? null,
