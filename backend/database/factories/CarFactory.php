@@ -14,7 +14,7 @@ final class CarFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company . ' ' . $this->faker->word,
+            'name' => $this->faker->company.' '.$this->faker->word,
             'description' => $this->faker->sentence,
             'registration_number' => strtoupper($this->faker->bothify('??####')),
             'technical_details' => $this->faker->optional()->sentence,

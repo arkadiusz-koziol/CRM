@@ -19,7 +19,7 @@ final class CarRepositoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->carRepository = new CarRepository();
+        $this->carRepository = new CarRepository(new Car);
     }
 
     public function test_create_car_saves_to_database(): void
@@ -31,7 +31,7 @@ final class CarRepositoryTest extends TestCase
             technicalDetails: 'V8 Engine'
         );
 
-        $car = $this->carRepository->create($carDto);
+        $car = $this->carRepository->createCar($carDto);
 
         $this->assertInstanceOf(Car::class, $car);
         $this->assertEquals('BMW X5', $car->name);
@@ -51,7 +51,7 @@ final class CarRepositoryTest extends TestCase
     {
         Car::factory()->count(3)->create();
 
-        $cars = $this->carRepository->findAll();
+        $cars = $this->carRepository->findAllCars();
 
         $this->assertCount(3, $cars);
         $this->assertIsArray($cars);
@@ -59,7 +59,7 @@ final class CarRepositoryTest extends TestCase
 
     public function test_find_all_returns_empty_array_when_no_cars(): void
     {
-        $cars = $this->carRepository->findAll();
+        $cars = $this->carRepository->findAllCars();
 
         $this->assertCount(0, $cars);
         $this->assertIsArray($cars);
@@ -158,7 +158,7 @@ final class CarRepositoryTest extends TestCase
         $car2 = Car::factory()->create(['name' => 'Deleted Car']);
         $car2->delete();
 
-        $allCars = $this->carRepository->findAll();
+        $allCars = $this->carRepository->findAllCars();
         $this->assertCount(1, $allCars);
 
         $paginatedCars = $this->carRepository->findPaginated(1, 10);

@@ -47,7 +47,6 @@ class ToolRepository implements ToolRepositoryInterface
 
         $query = Tool::query();
 
-        // Apply search filter if provided
         if (! empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', "%{$search}%")
@@ -55,7 +54,6 @@ class ToolRepository implements ToolRepositoryInterface
             });
         }
 
-        // Get total count before applying offset and limit
         $total = $query->count();
 
         $tools = $query->offset($offset)
