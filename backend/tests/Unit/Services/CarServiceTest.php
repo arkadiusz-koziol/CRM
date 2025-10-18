@@ -158,7 +158,7 @@ final class CarServiceTest extends TestCase
 
     public function test_update_car_calls_repository(): void
     {
-        $car = new Car();
+        $car = new Car;
         $car->id = 1;
         $car->name = 'BMW X5';
 
@@ -182,7 +182,7 @@ final class CarServiceTest extends TestCase
 
     public function test_update_car_returns_false_when_repository_fails(): void
     {
-        $car = new Car();
+        $car = new Car;
         $car->id = 1;
 
         $carDto = new CarDto(

@@ -11,6 +11,7 @@ use App\Http\Resources\CarResource;
 use App\Models\Car;
 use App\Services\CarService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -58,7 +59,6 @@ final class UpdateCarController extends Controller
      *             @OA\Property(
      *                 property="data",
      *                 type="object",
-     *
      *                 @OA\Property(property="type", type="string", example="cars"),
      *                 @OA\Property(property="id", type="string", example="1"),
      *                 @OA\Property(
@@ -79,17 +79,14 @@ final class UpdateCarController extends Controller
      *         response=404,
      *         description="Car not found"
      *     ),
-     *
      *     @OA\Response(
      *         response=422,
      *         description="Validation error"
      *     ),
-     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized"
      *     ),
-     *
      *     @OA\Response(
      *         response=403,
      *         description="Forbidden"
@@ -107,13 +104,13 @@ final class UpdateCarController extends Controller
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
                 'registration_number' => $request->input('registration_number'),
-                'technical_details' => $request->input('technical_details')
+                'technical_details' => $request->input('technical_details'),
             ]);
 
             $updated = $carService->updateCar($car, $carDto);
 
-            if (!$updated) {
-                return $this->responseFactory->json(
+            if (! $updated) {
+                return response()->json(
                     ['message' => __('app.action.failed')],
                     Response::HTTP_INTERNAL_SERVER_ERROR
                 );
@@ -121,17 +118,17 @@ final class UpdateCarController extends Controller
 
             $car->refresh();
 
-            return $this->responseFactory->json(
+            return response()->json(
                 new CarResource($car->toArray()),
                 Response::HTTP_OK
             );
         } catch (Throwable $e) {
-            $this->logger->error('Error updating car', [
+            Log::error('Error updating car', [
                 'car_id' => $car->id,
                 'exception' => $e,
             ]);
 
-            return $this->responseFactory->json(
+            return response()->json(
                 ['message' => __('app.action.failed')],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

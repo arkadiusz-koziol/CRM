@@ -10,7 +10,7 @@ final readonly class CarDto implements Arrayable
 {
     public function __construct(
         private string $name,
-        private string $description,
+        private ?string $description,
         private string $registrationNumber,
         private ?string $technicalDetails
     ) {}
@@ -30,7 +30,7 @@ final readonly class CarDto implements Arrayable
         return $this->name;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

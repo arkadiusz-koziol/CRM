@@ -27,6 +27,11 @@ final class CarRepository extends EloquentRepository implements CarRepositoryInt
 
     public function updateCar(Car $car, CarDto $carDto): bool
     {
+        // Check if the car exists in the database
+        if (! $this->model->where('id', $car->id)->exists()) {
+            return false;
+        }
+
         return $car->update([
             'name' => $carDto->getName(),
             'description' => $carDto->getDescription(),
