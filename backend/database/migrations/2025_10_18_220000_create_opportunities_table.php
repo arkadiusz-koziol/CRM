@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('opportunities', function (Blueprint $table) {
@@ -33,13 +30,11 @@ return new class extends Migration
             $table->timestampsTz();
             $table->softDeletesTz();
 
-            // Foreign key constraints
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('set null');
             $table->foreign('stage_id')->references('id')->on('stages')->onDelete('restrict');
             $table->foreign('owner_user_id')->references('id')->on('users')->onDelete('cascade');
 
-            // Indexes for better performance
             $table->index(['company_id']);
             $table->index(['contact_id']);
             $table->index(['stage_id']);
@@ -52,9 +47,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('opportunities');

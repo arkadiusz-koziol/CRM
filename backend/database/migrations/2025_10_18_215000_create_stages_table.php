@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('stages', function (Blueprint $table) {
@@ -23,19 +20,14 @@ return new class extends Migration
             $table->timestampsTz();
             $table->softDeletesTz();
 
-            // Foreign key constraints
             $table->foreign('pipeline_id')->references('id')->on('pipelines')->onDelete('cascade');
 
-            // Indexes for better performance
             $table->index(['pipeline_id', 'order']);
             $table->index(['pipeline_id', 'is_final']);
             $table->index(['deleted_at']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('stages');
