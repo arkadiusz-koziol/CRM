@@ -16,7 +16,9 @@ use Psr\Log\LoggerInterface;
 final class RealtimeNotificationService
 {
     private const RATE_LIMIT_KEY = 'realtime_notifications';
+
     private const RATE_LIMIT_ATTEMPTS = 100;
+
     private const RATE_LIMIT_DECAY_MINUTES = 1;
 
     public function __construct(
@@ -31,11 +33,12 @@ final class RealtimeNotificationService
         string $taskDescription,
         ?string $dueDate = null
     ): void {
-        if (!$this->checkRateLimit($assignedByUserId)) {
+        if (! $this->checkRateLimit($assignedByUserId)) {
             $this->logger->warning('Rate limit exceeded for task assignment notification', [
                 'assigned_by_user_id' => $assignedByUserId,
                 'task_id' => $taskId,
             ]);
+
             return;
         }
 
@@ -64,12 +67,13 @@ final class RealtimeNotificationService
         string $comment,
         array $observers = []
     ): void {
-        if (!$this->checkRateLimit($authorId)) {
+        if (! $this->checkRateLimit($authorId)) {
             $this->logger->warning('Rate limit exceeded for comment notification', [
                 'author_id' => $authorId,
                 'entity_type' => $entityType,
                 'entity_id' => $entityId,
             ]);
+
             return;
         }
 
@@ -100,12 +104,13 @@ final class RealtimeNotificationService
         string $changedByName,
         array $observers = []
     ): void {
-        if (!$this->checkRateLimit($changedByUserId)) {
+        if (! $this->checkRateLimit($changedByUserId)) {
             $this->logger->warning('Rate limit exceeded for status change notification', [
                 'changed_by_user_id' => $changedByUserId,
                 'entity_type' => $entityType,
                 'entity_id' => $entityId,
             ]);
+
             return;
         }
 
@@ -138,11 +143,12 @@ final class RealtimeNotificationService
         string $changedByName,
         array $observers = []
     ): void {
-        if (!$this->checkRateLimit($changedByUserId)) {
+        if (! $this->checkRateLimit($changedByUserId)) {
             $this->logger->warning('Rate limit exceeded for opportunity stage change notification', [
                 'changed_by_user_id' => $changedByUserId,
                 'opportunity_id' => $opportunityId,
             ]);
+
             return;
         }
 
@@ -168,7 +174,7 @@ final class RealtimeNotificationService
     public function getObserversForEntity(string $entityType, string $entityId): array
     {
         $cacheKey = "observers.{$entityType}.{$entityId}";
-        
+
         return Cache::remember($cacheKey, 300, function () use ($entityType, $entityId) {
             return match ($entityType) {
                 'company' => $this->getCompanyObservers($entityId),
@@ -182,8 +188,8 @@ final class RealtimeNotificationService
 
     private function checkRateLimit(string $userId): bool
     {
-        $key = self::RATE_LIMIT_KEY . '.' . $userId;
-        
+        $key = self::RATE_LIMIT_KEY.'.'.$userId;
+
         return RateLimiter::attempt(
             $key,
             self::RATE_LIMIT_ATTEMPTS,

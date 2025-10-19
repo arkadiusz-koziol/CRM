@@ -120,6 +120,16 @@ class PermissionSeeder extends Seeder
             'invoice.create',
             'invoice.update',
             'invoice.delete',
+
+            // Report permissions
+            'report.view',
+            'report.create',
+            'report.update',
+            'report.delete',
+
+            // Dashboard permissions
+            'dashboard.view',
+            'dashboard.manage',
         ];
 
         foreach ($permissions as $permission) {

@@ -72,6 +72,19 @@ class AppServiceProvider extends ServiceProvider
             return new WorkflowRuleRepository(new WorkflowRuleMapper);
         });
 
+        // Report repository bindings
+        $this->app->bind(\App\Interfaces\Repositories\ReportRepositoryInterface::class, function ($app) {
+            return new \App\Repositories\ReportRepository(
+                $app->make(\App\Infrastructure\Reports\ReportMapper::class)
+            );
+        });
+
+        $this->app->bind(\App\Interfaces\Repositories\ReportRunRepositoryInterface::class, function ($app) {
+            return new \App\Repositories\ReportRunRepository(
+                $app->make(\App\Infrastructure\Reports\ReportRunMapper::class)
+            );
+        });
+
         // Workflow service bindings
         $this->app->bind(WorkflowService::class, function ($app) {
             return new WorkflowService(

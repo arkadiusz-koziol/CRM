@@ -20,15 +20,16 @@ final class RealtimeNotificationServiceTest extends TestCase
     use RefreshDatabase;
 
     private RealtimeNotificationService $service;
+
     private LoggerInterface $logger;
 
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->service = new RealtimeNotificationService($this->logger);
-        
+
         Event::fake();
     }
 

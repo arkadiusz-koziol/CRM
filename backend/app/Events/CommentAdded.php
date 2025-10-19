@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -29,12 +27,12 @@ final class CommentAdded implements ShouldBroadcast
     public function broadcastOn(): array
     {
         $channels = [
-            new PrivateChannel('entity.' . $this->entityType . '.' . $this->entityId),
+            new PrivateChannel('entity.'.$this->entityType.'.'.$this->entityId),
         ];
 
         // Add private channels for observers
         foreach ($this->observers as $observerId) {
-            $channels[] = new PrivateChannel('user.' . $observerId);
+            $channels[] = new PrivateChannel('user.'.$observerId);
         }
 
         return $channels;

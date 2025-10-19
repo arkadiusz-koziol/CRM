@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Contacts\ContactCompanyController;
 use App\Http\Controllers\Admin\Contacts\ContactController;
 use App\Http\Controllers\Admin\Contracts\ContractBulkController;
 use App\Http\Controllers\Admin\Contracts\ContractController;
+use App\Http\Controllers\Admin\Dashboard\KpiController;
 use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Admin\Estates\DestroyEstateController;
 use App\Http\Controllers\Admin\Estates\ListEstateController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\Admin\Pins\ShowPinByPlanController;
 use App\Http\Controllers\Admin\Plans\DestroyPlanController;
 use App\Http\Controllers\Admin\Plans\ShowPlanController;
 use App\Http\Controllers\Admin\Plans\StorePlanController;
+use App\Http\Controllers\Admin\Reports\ReportController;
 use App\Http\Controllers\Admin\Tasks\DestroyTaskController;
 use App\Http\Controllers\Admin\Tasks\ListTaskController;
 use App\Http\Controllers\Admin\Tasks\ShowTaskController;
@@ -479,6 +481,31 @@ Route::group(
                 Route::prefix('dashboard')->group(function () {
                     Route::get('/stats', StatsController::class)
                         ->name('dashboard.stats');
+                    Route::get('/kpi', [KpiController::class, 'index'])
+                        ->name('dashboard.kpi')
+                        ->can('dashboard.view');
+                    Route::post('/kpi/refresh', [KpiController::class, 'refresh'])
+                        ->name('dashboard.kpi.refresh')
+                        ->can('dashboard.manage');
+                });
+
+                // Reports
+                Route::prefix('reports')->group(function () {
+                    Route::get('/', [ReportController::class, 'index'])
+                        ->name('reports.index')
+                        ->can('report.view');
+                    Route::post('/', [ReportController::class, 'store'])
+                        ->name('reports.store')
+                        ->can('report.create');
+                    Route::get('/{id}', [ReportController::class, 'show'])
+                        ->name('reports.show')
+                        ->can('report.view');
+                    Route::put('/{id}', [ReportController::class, 'update'])
+                        ->name('reports.update')
+                        ->can('report.update');
+                    Route::delete('/{id}', [ReportController::class, 'destroy'])
+                        ->name('reports.destroy')
+                        ->can('report.delete');
                 });
             });
 

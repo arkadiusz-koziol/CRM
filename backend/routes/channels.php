@@ -31,28 +31,28 @@ Broadcast::channel('admin', function ($user) {
 function hasAccessToCompany($user, $companyId)
 {
     // Check if user is assigned to the company or has admin role
-    return $user->companies()->where('company_id', $companyId)->exists() || 
+    return $user->companies()->where('company_id', $companyId)->exists() ||
            $user->hasRole('admin');
 }
 
 function hasAccessToContact($user, $contactId)
 {
     // Check if user is the owner of the contact or has admin role
-    return $user->contacts()->where('contact_id', $contactId)->exists() || 
+    return $user->contacts()->where('contact_id', $contactId)->exists() ||
            $user->hasRole('admin');
 }
 
 function hasAccessToOpportunity($user, $opportunityId)
 {
     // Check if user is the owner of the opportunity or has admin role
-    return $user->opportunities()->where('opportunity_id', $opportunityId)->exists() || 
+    return $user->opportunities()->where('opportunity_id', $opportunityId)->exists() ||
            $user->hasRole('admin');
 }
 
 function hasAccessToTask($user, $taskId)
 {
     // Check if user is assigned to the task or is the creator
-    return $user->tasks()->where('task_id', $taskId)->exists() || 
-           $user->createdTasks()->where('task_id', $taskId)->exists() || 
+    return $user->tasks()->where('task_id', $taskId)->exists() ||
+           $user->createdTasks()->where('task_id', $taskId)->exists() ||
            $user->hasRole('admin');
 }

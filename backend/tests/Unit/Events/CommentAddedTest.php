@@ -40,15 +40,15 @@ final class CommentAddedTest extends TestCase
         $channels = $event->broadcastOn();
 
         $this->assertCount(3, $channels);
-        
+
         // Check entity channel
         $this->assertInstanceOf(PrivateChannel::class, $channels[0]);
         $this->assertEquals('entity.company.company-456', $channels[0]->name);
-        
+
         // Check observer channels
         $this->assertInstanceOf(PrivateChannel::class, $channels[1]);
         $this->assertEquals('user.user-111', $channels[1]->name);
-        
+
         $this->assertInstanceOf(PrivateChannel::class, $channels[2]);
         $this->assertEquals('user.user-222', $channels[2]->name);
     }

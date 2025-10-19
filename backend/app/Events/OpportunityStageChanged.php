@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -30,12 +28,12 @@ final class OpportunityStageChanged implements ShouldBroadcast
     public function broadcastOn(): array
     {
         $channels = [
-            new PrivateChannel('entity.opportunity.' . $this->opportunityId),
+            new PrivateChannel('entity.opportunity.'.$this->opportunityId),
         ];
 
         // Add private channels for observers
         foreach ($this->observers as $observerId) {
-            $channels[] = new PrivateChannel('user.' . $observerId);
+            $channels[] = new PrivateChannel('user.'.$observerId);
         }
 
         return $channels;

@@ -19,23 +19,23 @@ final class AuthControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->postJson('/api/v1/broadcasting/auth', [
                 'socket_id' => 'test-socket-id',
-                'channel_name' => 'user.' . $user->id,
+                'channel_name' => 'user.'.$user->id,
             ]);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'auth'
+                'auth',
             ]);
     }
 
     public function test_it_authenticates_entity_channel(): void
     {
         $user = User::factory()->create();
-        
+
         // Create permission if it doesn't exist
         $permission = \Spatie\Permission\Models\Permission::firstOrCreate([
             'name' => 'company.view',
-            'guard_name' => 'web'
+            'guard_name' => 'web',
         ]);
         $user->givePermissionTo($permission);
 
@@ -47,18 +47,18 @@ final class AuthControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'auth'
+                'auth',
             ]);
     }
 
     public function test_it_authenticates_admin_channel(): void
     {
         $user = User::factory()->create();
-        
+
         // Create admin role if it doesn't exist
         $role = \Spatie\Permission\Models\Role::firstOrCreate([
             'name' => 'admin',
-            'guard_name' => 'web'
+            'guard_name' => 'web',
         ]);
         $user->assignRole($role);
 
@@ -70,7 +70,7 @@ final class AuthControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'auth'
+                'auth',
             ]);
     }
 
@@ -82,15 +82,15 @@ final class AuthControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->postJson('/api/v1/broadcasting/auth', [
                 'socket_id' => 'test-socket-id',
-                'channel_name' => 'user.' . $otherUser->id,
+                'channel_name' => 'user.'.$otherUser->id,
             ]);
 
         $response->assertStatus(403)
             ->assertJson([
                 'message' => 'Insufficient permissions for this channel',
                 'errors' => [
-                    'channel_name' => ['Access denied']
-                ]
+                    'channel_name' => ['Access denied'],
+                ],
             ]);
     }
 
@@ -108,8 +108,8 @@ final class AuthControllerTest extends TestCase
             ->assertJson([
                 'message' => 'Insufficient permissions for this channel',
                 'errors' => [
-                    'channel_name' => ['Access denied']
-                ]
+                    'channel_name' => ['Access denied'],
+                ],
             ]);
     }
 
@@ -127,8 +127,8 @@ final class AuthControllerTest extends TestCase
             ->assertJson([
                 'message' => 'Insufficient permissions for this channel',
                 'errors' => [
-                    'channel_name' => ['Access denied']
-                ]
+                    'channel_name' => ['Access denied'],
+                ],
             ]);
     }
 
@@ -150,7 +150,7 @@ final class AuthControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->postJson('/api/v1/broadcasting/auth', [
                 'socket_id' => str_repeat('a', 256),
-                'channel_name' => 'user.' . $user->id,
+                'channel_name' => 'user.'.$user->id,
             ]);
 
         $response->assertStatus(422)

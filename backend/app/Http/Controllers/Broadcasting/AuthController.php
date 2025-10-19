@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Broadcasting;
 
 use App\Http\Requests\Broadcasting\AuthRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 
 final class AuthController
@@ -18,33 +17,45 @@ final class AuthController
      *     description="Authenticate user for private broadcasting channels",
      *     tags={"Broadcasting"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"socket_id", "channel_name"},
+     *
      *             @OA\Property(property="socket_id", type="string", description="Socket ID for authentication"),
      *             @OA\Property(property="channel_name", type="string", description="Channel name to authenticate")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Authentication successful",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="auth", type="string", description="Authentication signature")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string"),
      *             @OA\Property(property="errors", type="object")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=403,
      *         description="Forbidden - insufficient permissions",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string"),
      *             @OA\Property(property="errors", type="object")
      *         )
@@ -57,10 +68,10 @@ final class AuthController
         $socketId = $request->input('socket_id');
 
         // Validate channel access
-        if (!$this->canAccessChannel($request->user(), $channelName)) {
+        if (! $this->canAccessChannel($request->user(), $channelName)) {
             return response()->json([
                 'message' => 'Insufficient permissions for this channel',
-                'errors' => ['channel_name' => ['Access denied']]
+                'errors' => ['channel_name' => ['Access denied']],
             ], 403);
         }
 
@@ -68,7 +79,7 @@ final class AuthController
         $auth = Broadcast::auth($request);
 
         return response()->json([
-            'auth' => $auth
+            'auth' => $auth,
         ]);
     }
 
@@ -77,6 +88,7 @@ final class AuthController
         // Parse channel name to determine access
         if (str_starts_with($channelName, 'user.')) {
             $userId = substr($channelName, 5);
+
             return (string) $user->id === $userId;
         }
 
@@ -85,12 +97,14 @@ final class AuthController
             if (count($parts) >= 3) {
                 $entityType = $parts[1];
                 $entityId = $parts[2];
+
                 return $this->hasEntityAccess($user, $entityType, $entityId);
             }
         }
 
         if (str_starts_with($channelName, 'team.')) {
             $teamId = substr($channelName, 5);
+
             return $user->teams()->where('team_id', $teamId)->exists();
         }
 

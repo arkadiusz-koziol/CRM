@@ -23,9 +23,9 @@ final class RealtimeNotificationIntegrationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->service = app(RealtimeNotificationService::class);
-        
+
         Event::fake();
     }
 
@@ -148,11 +148,11 @@ final class RealtimeNotificationIntegrationTest extends TestCase
             (string) $author->id,
             $author->name,
             'This is a comment',
-            $observers->pluck('id')->map(fn($id) => (string) $id)->toArray()
+            $observers->pluck('id')->map(fn ($id) => (string) $id)->toArray()
         );
 
         Event::assertDispatched(CommentAdded::class, function ($event) use ($observers) {
-            return $event->observers === $observers->pluck('id')->map(fn($id) => (string) $id)->toArray();
+            return $event->observers === $observers->pluck('id')->map(fn ($id) => (string) $id)->toArray();
         });
     }
 
