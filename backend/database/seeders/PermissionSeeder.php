@@ -127,6 +127,12 @@ class PermissionSeeder extends Seeder
             'report.update',
             'report.delete',
 
+            // Comment permissions
+            'comment.view',
+            'comment.create',
+            'comment.update',
+            'comment.delete',
+
             // Dashboard permissions
             'dashboard.view',
             'dashboard.manage',

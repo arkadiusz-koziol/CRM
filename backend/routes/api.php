@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Cities\CreateCityController;
 use App\Http\Controllers\Admin\Cities\DestroyCityController;
 use App\Http\Controllers\Admin\Cities\ListCityController;
 use App\Http\Controllers\Admin\Cities\UpdateCityController;
+use App\Http\Controllers\Admin\Comments\CommentController;
 use App\Http\Controllers\Admin\Companies\CompanyController;
 use App\Http\Controllers\Admin\Companies\MyCompaniesController;
 use App\Http\Controllers\Admin\Contacts\ContactCompanyController;
@@ -506,6 +507,28 @@ Route::group(
                     Route::delete('/{id}', [ReportController::class, 'destroy'])
                         ->name('reports.destroy')
                         ->can('report.delete');
+                });
+
+                // Comments
+                Route::prefix('comments')->group(function () {
+                    Route::get('/', [CommentController::class, 'index'])
+                        ->name('comments.index')
+                        ->can('comment.view');
+                    Route::post('/', [CommentController::class, 'store'])
+                        ->name('comments.store')
+                        ->can('comment.create');
+                    Route::get('/{id}', [CommentController::class, 'show'])
+                        ->name('comments.show')
+                        ->can('comment.view');
+                    Route::put('/{id}', [CommentController::class, 'update'])
+                        ->name('comments.update')
+                        ->can('comment.update');
+                    Route::delete('/{id}', [CommentController::class, 'destroy'])
+                        ->name('comments.destroy')
+                        ->can('comment.delete');
+                    Route::get('/{id}/replies', [CommentController::class, 'replies'])
+                        ->name('comments.replies')
+                        ->can('comment.view');
                 });
             });
 

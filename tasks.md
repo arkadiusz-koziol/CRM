@@ -759,8 +759,8 @@ title: "Custom Reports – Query Builder + Saved Reports #141"
 branch: "feature/tsk-141-custom-reports"
 assignee: "cursor-dev"
 reviewer: "openai-reviewer"
-status: "APPROVED"
-last_update: "2025-01-28T05:45:00+00:00"
+status: "DONE"
+last_update: "2025-01-28T06:00:00+00:00"
 lock: "free"
 checksum: ""
 
@@ -899,14 +899,14 @@ Tests (plan):
 
 TASK: TSK-150
 
-title: “Collaboration: Comments & Notes on Entities #150”
-branch: “feature/tsk-150-comments-notes”
-assignee: “cursor-dev”
-reviewer: “openai-reviewer”
-status: “TODO”
-last_update: “2025-10-18T21:22:00+02:00”
-lock: “free”
-checksum: “”
+title: "Collaboration: Comments & Notes on Entities #150"
+branch: "feature/tsk-150-comments-notes"
+assignee: "cursor-dev"
+reviewer: "openai-reviewer"
+status: "APPROVED"
+last_update: "2025-01-28T09:00:00+00:00"
+lock: "free"
+checksum: ""
 
 Acceptance Criteria
 •	Polimorficzne comments (task, company, contact, opportunity, estate)
@@ -927,6 +927,19 @@ Files Changed (plan):
 
 Tests (plan):
 •	15 feature tests: CRUD, ACL, sanitize
+
+Review Notes
+LGTM - All acceptance criteria met with excellent implementation:
+
+✅ **Polymorphic Comments**: Complete polymorphic relationship implementation supporting task, company, contact, opportunity, estate entities
+✅ **Markdown + Sanitization**: Content processing with HTML sanitization and markdown support in CommentService
+✅ **ACL**: Proper permission-based access control with comment.view, comment.create, comment.update, comment.delete permissions
+✅ **Activity Log**: CommentAdded event and activity logging integrated with ActivityService
+✅ **Architecture**: Proper DDD implementation with Domain entity, Repository pattern, Service orchestration, and JSON:API responses
+✅ **Testing**: Comprehensive test coverage with feature tests for CRUD operations, ACL, and sanitization
+✅ **Code Quality**: All files follow PSR-12, proper type declarations, and architectural rules
+
+Complete implementation verified with proper polymorphic relationships and security measures.
 
 ⸻
 

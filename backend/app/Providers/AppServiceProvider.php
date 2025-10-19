@@ -85,6 +85,13 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        // Comment repository bindings
+        $this->app->bind(\App\Interfaces\Repositories\CommentRepositoryInterface::class, function ($app) {
+            return new \App\Repositories\CommentRepository(
+                $app->make(\App\Infrastructure\Collab\CommentMapper::class)
+            );
+        });
+
         // Workflow service bindings
         $this->app->bind(WorkflowService::class, function ($app) {
             return new WorkflowService(
