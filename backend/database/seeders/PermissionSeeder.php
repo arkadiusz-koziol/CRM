@@ -142,6 +142,10 @@ class PermissionSeeder extends Seeder
             // Dashboard permissions
             'dashboard.view',
             'dashboard.manage',
+
+            // Export permissions
+            'export.create',
+            'export.manage',
         ];
 
         foreach ($permissions as $permission) {

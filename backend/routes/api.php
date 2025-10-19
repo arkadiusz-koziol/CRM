@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\Estates\ListEstateController;
 use App\Http\Controllers\Admin\Estates\ShowEstateController;
 use App\Http\Controllers\Admin\Estates\StoreEstateController;
 use App\Http\Controllers\Admin\Estates\UpdateEstateController;
+use App\Http\Controllers\Admin\Export\ExportController;
 use App\Http\Controllers\Admin\Invoices\InvoiceBulkController;
 use App\Http\Controllers\Admin\Invoices\InvoiceController;
 use App\Http\Controllers\Admin\Materials\DestroyMaterialController;
@@ -542,6 +543,25 @@ Route::group(
                     Route::get('/stats', [\App\Http\Controllers\Admin\Mentions\MentionController::class, 'stats'])
                         ->name('mentions.stats')
                         ->can('mention.view');
+                });
+
+                // Export routes
+                Route::prefix('export')->group(function () {
+                    Route::post('/csv', [ExportController::class, 'exportCsv'])
+                        ->can('export.create')
+                        ->name('admin.export.csv');
+                    Route::post('/xlsx', [ExportController::class, 'exportXlsx'])
+                        ->can('export.create')
+                        ->name('admin.export.xlsx');
+                    Route::post('/pdf', [ExportController::class, 'exportPdf'])
+                        ->can('export.create')
+                        ->name('admin.export.pdf');
+                    Route::post('/chunked', [ExportController::class, 'exportChunked'])
+                        ->can('export.create')
+                        ->name('admin.export.chunked');
+                    Route::post('/cleanup', [ExportController::class, 'cleanup'])
+                        ->can('export.manage')
+                        ->name('admin.export.cleanup');
                 });
             });
 

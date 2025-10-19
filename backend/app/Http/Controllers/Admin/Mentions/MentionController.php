@@ -10,14 +10,12 @@ use App\Services\Collab\MentionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 
 final class MentionController extends Controller
 {
     public function __construct(
         private readonly MentionService $mentionService,
-        private readonly LoggerInterface $logger,
     ) {}
 
     /**
