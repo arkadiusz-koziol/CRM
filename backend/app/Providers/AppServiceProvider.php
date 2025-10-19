@@ -92,6 +92,16 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        // Mention repository bindings
+        $this->app->bind(\App\Interfaces\Repositories\MentionRepositoryInterface::class, function ($app) {
+            return new \App\Repositories\MentionRepository(
+                $app->make(\App\Models\Mention::class)
+            );
+        });
+
+        // Notification service bindings
+        $this->app->bind(\App\Interfaces\Services\RealtimeNotificationServiceInterface::class, \App\Services\Notification\RealtimeNotificationService::class);
+
         // Workflow service bindings
         $this->app->bind(WorkflowService::class, function ($app) {
             return new WorkflowService(
@@ -117,6 +127,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register event listeners
+        \Illuminate\Support\Facades\Event::listen(
+            \App\Events\CommentAdded::class,
+            \App\Listeners\ParseMentionsFromComment::class
+        );
     }
 }

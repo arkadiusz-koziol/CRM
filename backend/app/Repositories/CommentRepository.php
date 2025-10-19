@@ -64,13 +64,13 @@ final class CommentRepository implements CommentRepositoryInterface
         $models = CommentModel::where('commentable_type', $commentableType)
             ->where('commentable_id', $commentableId)
             ->whereNull('parent_id')
-            ->where(function ($query) use ($userId, $commentableType, $commentableId) {
+            ->where(function ($query) use ($userId, $commentableType) {
                 // Public comments are visible to everyone
                 $query->where('is_private', false)
                     // Author can always see their own comments
                     ->orWhere('author_id', $userId)
                     // Team members can see private comments on entities they have access to
-                    ->orWhere(function ($subQuery) use ($userId, $commentableType, $commentableId) {
+                    ->orWhere(function ($subQuery) use ($userId, $commentableType) {
                         $subQuery->where('is_private', true)
                             ->whereHas('commentable', function ($entityQuery) use ($userId, $commentableType) {
                                 $this->addEntityAccessConditions($entityQuery, $userId, $commentableType);
@@ -129,6 +129,7 @@ final class CommentRepository implements CommentRepositoryInterface
                             $userQuery->where('user_id', $userId);
                         });
                 });
+
                 break;
             case 'App\\Models\\Contact':
                 $query->where(function ($contactQuery) use ($userId) {
@@ -137,6 +138,7 @@ final class CommentRepository implements CommentRepositoryInterface
                             $userQuery->where('user_id', $userId);
                         });
                 });
+
                 break;
             case 'App\\Models\\Opportunity':
                 $query->where(function ($opportunityQuery) use ($userId) {
@@ -145,16 +147,19 @@ final class CommentRepository implements CommentRepositoryInterface
                             $userQuery->where('user_id', $userId);
                         });
                 });
+
                 break;
             case 'App\\Models\\Task':
                 $query->where(function ($taskQuery) use ($userId) {
                     $taskQuery->where('assigned_to', $userId)
                         ->orWhere('created_by', $userId);
                 });
+
                 break;
             default:
                 // For other entity types, only allow access to the creator
                 $query->where('created_by', $userId);
+
                 break;
         }
     }

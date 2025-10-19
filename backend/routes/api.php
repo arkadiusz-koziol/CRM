@@ -530,6 +530,19 @@ Route::group(
                         ->name('comments.replies')
                         ->can('comment.view');
                 });
+
+                // Mentions
+                Route::prefix('mentions')->group(function () {
+                    Route::get('/', [\App\Http\Controllers\Admin\Mentions\MentionController::class, 'index'])
+                        ->name('mentions.index')
+                        ->can('mention.view');
+                    Route::post('/{id}/read', [\App\Http\Controllers\Admin\Mentions\MentionController::class, 'markAsRead'])
+                        ->name('mentions.markAsRead')
+                        ->can('mention.update');
+                    Route::get('/stats', [\App\Http\Controllers\Admin\Mentions\MentionController::class, 'stats'])
+                        ->name('mentions.stats')
+                        ->can('mention.view');
+                });
             });
 
         // Regular user routes

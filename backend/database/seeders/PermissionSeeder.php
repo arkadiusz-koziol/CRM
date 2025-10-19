@@ -133,6 +133,12 @@ class PermissionSeeder extends Seeder
             'comment.update',
             'comment.delete',
 
+            // Mention permissions
+            'mention.view',
+            'mention.create',
+            'mention.update',
+            'mention.delete',
+
             // Dashboard permissions
             'dashboard.view',
             'dashboard.manage',

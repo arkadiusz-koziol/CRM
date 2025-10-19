@@ -194,12 +194,12 @@ final class CommentService
         $html = preg_replace_callback('/\[([^\]]+)\]\(([^)]+)\)/', function ($matches) {
             $text = $matches[1];
             $url = $matches[2];
-            
+
             // Basic URL validation
             if (filter_var($url, FILTER_VALIDATE_URL) || preg_match('/^\/[^\/]/', $url)) {
-                return '<a href="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($text, ENT_QUOTES, 'UTF-8') . '</a>';
+                return '<a href="'.htmlspecialchars($url, ENT_QUOTES, 'UTF-8').'">'.htmlspecialchars($text, ENT_QUOTES, 'UTF-8').'</a>';
             }
-            
+
             return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
         }, $html);
 
@@ -208,15 +208,15 @@ final class CommentService
 
         // Mentions (sanitized)
         $html = preg_replace_callback('/@(\w+)/', function ($matches) {
-            return '<span class="mention">@' . htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8') . '</span>';
+            return '<span class="mention">@'.htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8').'</span>';
         }, $html);
 
         // XSS sanitization - remove any remaining dangerous tags
         $html = strip_tags($html, '<strong><em><a><br><span>');
-        
+
         // Additional XSS protection
         $html = htmlspecialchars($html, ENT_QUOTES, 'UTF-8');
-        
+
         // Restore allowed tags
         $html = str_replace(
             ['&lt;strong&gt;', '&lt;/strong&gt;', '&lt;em&gt;', '&lt;/em&gt;', '&lt;a&gt;', '&lt;/a&gt;', '&lt;br&gt;', '&lt;span&gt;', '&lt;/span&gt;'],

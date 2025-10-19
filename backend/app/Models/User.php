@@ -51,6 +51,9 @@ class User extends Authenticatable
         'phone',
         'status',
         'password',
+        'username',
+        'mention_notifications_enabled',
+        'mention_email_notifications_enabled',
     ];
 
     /**
@@ -73,6 +76,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'mention_notifications_enabled' => 'boolean',
+            'mention_email_notifications_enabled' => 'boolean',
         ];
     }
 
@@ -140,5 +145,27 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Training::class, 'training_user')
             ->withTimestamps();
+    }
+
+    public function hasOptedOutOfMentions(): bool
+    {
+        return ! $this->mention_notifications_enabled;
+    }
+
+    public function hasOptedOutOfMentionEmails(): bool
+    {
+        return ! $this->mention_email_notifications_enabled;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setMentionPreferences(bool $notifications, bool $emails): void
+    {
+        $this->mention_notifications_enabled = $notifications;
+        $this->mention_email_notifications_enabled = $emails;
+        $this->save();
     }
 }

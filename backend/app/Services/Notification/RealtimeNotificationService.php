@@ -8,12 +8,15 @@ use App\Events\CommentAdded;
 use App\Events\OpportunityStageChanged;
 use App\Events\StatusChanged;
 use App\Events\TaskAssigned;
+use App\Events\UserMentioned;
+use App\Interfaces\Services\RealtimeNotificationServiceInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\UuidInterface;
 
-final class RealtimeNotificationService
+final class RealtimeNotificationService implements RealtimeNotificationServiceInterface
 {
     private const RATE_LIMIT_KEY = 'realtime_notifications';
 
@@ -168,6 +171,59 @@ final class RealtimeNotificationService
             'old_stage_id' => $oldStageId,
             'new_stage_id' => $newStageId,
             'changed_by_user_id' => $changedByUserId,
+        ]);
+    }
+
+    public function sendMentionNotification(
+        UuidInterface $mentionedUserId,
+        UuidInterface $mentionerUserId,
+        string $entityType,
+        UuidInterface $entityId,
+        UuidInterface $commentId
+    ): void {
+        if (! $this->checkRateLimit($mentionerUserId->toString())) {
+            $this->logger->warning('Rate limit exceeded for mention notification', [
+                'mentioned_user_id' => $mentionedUserId->toString(),
+                'mentioner_user_id' => $mentionerUserId->toString(),
+                'entity_type' => $entityType,
+                'entity_id' => $entityId->toString(),
+            ]);
+
+            return;
+        }
+
+        UserMentioned::dispatch(
+            $mentionedUserId->toString(),
+            $mentionerUserId->toString(),
+            $entityType,
+            $entityId->toString(),
+            $commentId->toString()
+        );
+
+        $this->logger->info('Mention notification sent', [
+            'mentioned_user_id' => $mentionedUserId->toString(),
+            'mentioner_user_id' => $mentionerUserId->toString(),
+            'entity_type' => $entityType,
+            'entity_id' => $entityId->toString(),
+            'comment_id' => $commentId->toString(),
+        ]);
+    }
+
+    public function sendMentionEmail(
+        UuidInterface $mentionedUserId,
+        UuidInterface $mentionerUserId,
+        string $entityType,
+        UuidInterface $entityId,
+        UuidInterface $commentId
+    ): void {
+        // This would typically dispatch an email notification job
+        // For now, we'll just log it
+        $this->logger->info('Mention email notification queued', [
+            'mentioned_user_id' => $mentionedUserId->toString(),
+            'mentioner_user_id' => $mentionerUserId->toString(),
+            'entity_type' => $entityType,
+            'entity_id' => $entityId->toString(),
+            'comment_id' => $commentId->toString(),
         ]);
     }
 
