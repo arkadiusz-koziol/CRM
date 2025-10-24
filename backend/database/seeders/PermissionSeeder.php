@@ -102,6 +102,12 @@ class PermissionSeeder extends Seeder
             'contact.create',
             'contact.update',
             'contact.delete',
+
+            // Opportunity permissions
+            'opportunity.view',
+            'opportunity.create',
+            'opportunity.update',
+            'opportunity.delete',
         ];
 
         foreach ($permissions as $permission) {
