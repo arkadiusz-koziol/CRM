@@ -1,0 +1,143 @@
+name: Docs Auto-merge
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  statuses: read
+  checks: read
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.state == 'open'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            docs/**
+            docs/config/**
+            docs/manifest/**
+            README.md
+
+      - name: Check if only docs files changed
+        id: docs-only
+        run: |
+          CHANGED_FILES="${{ steps.changed-files.outputs.all_changed_files }}"
+          ALLOWED_PATTERNS="docs/|README.md"
+          
+          # Check if any file is outside allowed patterns
+          for file in $CHANGED_FILES; do
+            if ! echo "$file" | grep -qE "$ALLOWED_PATTERNS"; then
+              echo "❌ File outside docs: $file"
+              echo "docs_only=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          done
+          
+          echo "✅ All files are in docs/** or README.md"
+          echo "docs_only=true" >> $GITHUB_OUTPUT
+
+      - name: Check PR labels
+        id: check-labels
+        run: |
+          LABELS="${{ join(github.event.pull_request.labels.*.name, ' ') }}"
+          echo "PR labels: $LABELS"
+          
+          if echo "$LABELS" | grep -q "docs:auto" && echo "$LABELS" | grep -q "low-risk"; then
+            echo "✅ Required labels present: docs:auto + low-risk"
+            echo "has_labels=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Missing required labels (need: docs:auto + low-risk)"
+            echo "has_labels=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check PR title format
+        id: check-title
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          echo "PR title: $TITLE"
+          
+          if echo "$TITLE" | grep -qE "^chore\(docs:crm\):"; then
+            echo "✅ PR title format correct"
+            echo "title_valid=true" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️  PR title doesn't start with 'chore(docs:crm):' (continuing anyway)"
+            echo "title_valid=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check docs/qa status
+        id: check-status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: statuses } = await github.rest.repos.listCommitStatusesForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.payload.pull_request.head.sha,
+            });
+            
+            const docsQaStatus = statuses.find(s => s.context === 'docs/qa');
+            
+            if (docsQaStatus && docsQaStatus.state === 'success') {
+              console.log('✅ docs/qa status: success');
+              core.setOutput('status_check', 'success');
+            } else {
+              console.log('❌ docs/qa status not found or not success');
+              console.log('Available statuses:', statuses.map(s => `${s.context}: ${s.state}`).join(', '));
+              core.setOutput('status_check', 'missing');
+            }
+
+      - name: Enable auto-merge
+        if: |
+          steps.docs-only.outputs.docs_only == 'true' &&
+          steps.check-labels.outputs.has_labels == 'true' &&
+          steps.check-status.outputs.status_check == 'success'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: squash
+
+      - name: Comment on PR
+        if: |
+          steps.docs-only.outputs.docs_only == 'true' &&
+          steps.check-labels.outputs.has_labels == 'true' &&
+          steps.check-status.outputs.status_check == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: '✅ Auto-merge enabled for this documentation PR.\n\n' +
+                    'Conditions met:\n' +
+                    '- ✅ Only documentation files changed\n' +
+                    '- ✅ Required labels: `docs:auto` + `low-risk`\n' +
+                    '- ✅ Status check `docs/qa` passed\n\n' +
+                    'This PR will be automatically merged when all required checks pass.'
+            });
+
+      - name: Log skipped conditions
+        if: |
+          steps.docs-only.outputs.docs_only != 'true' ||
+          steps.check-labels.outputs.has_labels != 'true' ||
+          steps.check-status.outputs.status_check != 'success'
+        run: |
+          echo "⚠️  Auto-merge skipped due to unmet conditions:"
+          echo "  - Docs only: ${{ steps.docs-only.outputs.docs_only }}"
+          echo "  - Has labels: ${{ steps.check-labels.outputs.has_labels }}"
+          echo "  - Status check: ${{ steps.check-status.outputs.status_check }}"
+
