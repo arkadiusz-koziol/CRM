@@ -132,6 +132,10 @@ System składa się z trzech głównych komponentów:
 
 ### Uwagi techniczne / Diagnostyka
 
+Zaktualizowano dokumentację zgodnie ze zmianami w kodzie.
+
+### Uwagi techniczne / Diagnostyka
+
 Dodano sondę testową `DocsPipelineProbe` w module CRM z metodą `isDocsPipelineHealthy(): bool` zwracającą `true`. Element służy wyłącznie do weryfikacji automatyzacji dokumentacji (CI/CD) i nie wpływa na logikę biznesową ani interfejsy API produkcyjne.
 
 ### Uwagi techniczne / Diagnostyka
