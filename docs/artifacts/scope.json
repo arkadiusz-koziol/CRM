@@ -1,0 +1,66 @@
+{
+  "changed_files": [
+    "backend/app/Domain/Crm/Entity/Opportunity.php",
+    "backend/app/Domain/Crm/Entity/Pipeline.php",
+    "backend/app/Domain/Crm/Entity/Stage.php",
+    "backend/app/Enums/Crm/OpportunityStatus.php",
+    "backend/app/Events/OpportunityProbabilityChanged.php",
+    "backend/app/Events/OpportunityStageChanged.php",
+    "backend/app/Listeners/LogOpportunityProbabilityChange.php",
+    "backend/app/Listeners/LogOpportunityStageChange.php",
+    "backend/app/Models/Opportunity.php",
+    "backend/app/Models/Pipeline.php",
+    "backend/app/Models/Stage.php",
+    "backend/database/migrations/2025_10_18_204547_create_pipelines_table.php",
+    "backend/database/migrations/2025_10_18_204549_create_stages_table.php",
+    "backend/database/migrations/2025_10_18_204550_create_opportunities_table.php",
+    "backend/database/seeders/PipelineSeeder.php",
+    "backend/tests/Feature/Integration/Database/Migrations/OpportunityMigrationTest.php",
+    "backend/tests/Feature/Integration/Database/Migrations/PipelineMigrationTest.php",
+    "backend/tests/Feature/Integration/Database/Migrations/StageMigrationTest.php",
+    "backend/tests/Feature/Integration/Database/Seeders/PipelineSeederTest.php",
+    "backend/tests/Feature/Unit/Domain/Crm/Entity/OpportunityTest.php",
+    "backend/tests/Feature/Unit/Domain/Crm/Entity/PipelineTest.php",
+    "backend/tests/Feature/Unit/Domain/Crm/Entity/StageTest.php",
+    "backend/tests/Integration/Database/Migrations/OpportunityMigrationTest.php",
+    "backend/tests/Integration/Database/Migrations/PipelineMigrationTest.php",
+    "backend/tests/Integration/Database/Migrations/StageMigrationTest.php",
+    "backend/tests/Integration/Database/Seeders/PipelineSeederTest.php",
+    "backend/tests/Unit/Domain/Crm/Entity/OpportunityTest.php",
+    "backend/tests/Unit/Domain/Crm/Entity/PipelineTest.php",
+    "backend/tests/Unit/Domain/Crm/Entity/StageTest.php",
+    "tasks.md"
+  ],
+  "matched_docs": [
+    {
+      "doc_file": "docs/DOKUMENTACJA_TECHNICZNA.md",
+      "anchor": "crm-module-appdomaincrm",
+      "via": "mapping",
+      "confidence": 1
+    },
+    {
+      "doc_file": "docs/DOKUMENTACJA_TECHNICZNA.md",
+      "anchor": "moduły--pakiety",
+      "via": "mapping",
+      "confidence": 1
+    },
+    {
+      "doc_file": "docs/DOKUMENTACJA_TECHNICZNA.md",
+      "anchor": "opportunities",
+      "via": "mapping",
+      "confidence": 1
+    },
+    {
+      "doc_file": "docs/DOKUMENTACJA_TECHNICZNA.md",
+      "anchor": "tabele",
+      "via": "mapping",
+      "confidence": 1
+    },
+    {
+      "doc_file": "docs/DOKUMENTACJA_TECHNICZNA.md",
+      "anchor": "migracje",
+      "via": "mapping",
+      "confidence": 1
+    }
+  ]
+}
