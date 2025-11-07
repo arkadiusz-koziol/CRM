@@ -130,6 +130,10 @@ System składa się z trzech głównych komponentów:
 
 **Zależności**: User, Enums (CompanySource, CompanyStatus, ContactStatus, LeadLevel, OpportunityStatus)
 
+### Uwagi techniczne / Diagnostyka
+
+Dodano sondę testową `DocsPipelineProbe` w module CRM z metodą `isDocsPipelineHealthy(): bool` zwracającą `true`. Element służy wyłącznie do weryfikacji automatyzacji dokumentacji (CI/CD) i nie wpływa na logikę biznesową ani interfejsy API produkcyjne.
+
 #### Training Module (`app/Domain/TrainingCategory/`, `app/Domain/TrainingFile/`)
 
 **Odpowiedzialność**: Zarządzanie kategoriami szkoleń, plikami szkoleniowymi.
