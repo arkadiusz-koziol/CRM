@@ -37,7 +37,7 @@ jobs:
           CHANGED_FILES="${{ steps.cf.outputs.all_changed_files }}"
 
           echo "---- Changed files (first 20) ----"
-          printf '%s\n' "$CHANGED_FILES" | head -n 20
+          printf '%s' "$CHANGED_FILES" | tr ' ' '\n' | sed '/^$/d' | head -n 20
           echo "----------------------------------"
 
           if [[ -z "${CHANGED_FILES// }" ]]; then
@@ -54,7 +54,7 @@ jobs:
               echo "❌ Outside docs: $file"
               VIOLATIONS=$((VIOLATIONS+1))
             fi
-          done <<< "$CHANGED_FILES"
+          done < <(printf '%s' "$CHANGED_FILES" | tr ' ' '\n' | sed '/^$/d')
 
           if [[ $VIOLATIONS -eq 0 ]]; then
             echo "✅ All files are in docs/** or README.md"
@@ -97,11 +97,18 @@ jobs:
         with:
           script: |
             const { owner, repo } = context.repo;
-            const sha = context.payload.pull_request.head.sha;
-            const res = await github.repos.listCommitStatusesForRef({ owner, repo, ref: sha });
-            const ok = res.data.some(s => s.context === 'docs/qa' && s.state === 'success');
+            const sha = context.payload.pull_request?.head?.sha;
+            if (!sha) {
+              core.info('No PR head SHA → treating as missing status');
+              core.setOutput('ok', 'false');
+              return;
+            }
+            // ✅ v7 wymaga github.rest.repos.*
+            const res = await github.rest.repos.listCommitStatusesForRef({ owner, repo, ref: sha });
+            const statuses = res.data ?? [];
+            core.info('Available statuses: ' + statuses.map(s => `${s.context}=${s.state}`).join(', '));
+            const ok = statuses.some(s => s.context === 'docs/qa' && s.state === 'success');
             core.setOutput('ok', ok ? 'true' : 'false');
-            core.info(`Available statuses: ${res.data.map(s => `${s.context}=${s.state}`).join(', ')}`);
 
       - name: Enable auto-merge (squash)
         if: ${{ steps.docs_only.outputs.docs_only == 'true' && steps.labels.outputs.has_required == 'true' && steps.qa.outputs.ok == 'true' }}
