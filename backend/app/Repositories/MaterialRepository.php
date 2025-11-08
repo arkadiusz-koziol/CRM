@@ -42,4 +42,9 @@ class MaterialRepository implements MaterialRepositoryInterface
     {
         return Material::all()->toArray();
     }
+
+    public function countUsable(): int
+    {
+        return Material::where('count', '>', 0)->count();
+    }
 }
