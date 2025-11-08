@@ -23,51 +23,63 @@ class CompanyController
 
     public function index(Request $request): JsonResponse
     {
-        $filters = $request->only([
-            'name', 'vat_id', 'region', 'status', 'source', 'industry',
-            'sort_by', 'sort_direction',
-        ]);
+        try {
+            $filters = $request->only([
+                'name', 'vat_id', 'region', 'status', 'source', 'industry',
+                'sort_by', 'sort_direction',
+            ]);
 
-        $perPage = (int) $request->get('per_page', 15);
-        $page = (int) $request->get('page', 1);
+            $perPage = (int) $request->get('per_page', 15);
+            $page = (int) $request->get('page', 1);
 
-        $result = $this->companyService->search($filters, $perPage, $page);
+            $result = $this->companyService->search($filters, $perPage, $page);
 
-        $data = collect($result['data'])->map(function ($company) {
-            // Convert Eloquent model to Domain entity if needed
-            if ($company instanceof \App\Models\Company) {
-                $company = $this->convertModelToEntity($company);
-            }
+            $data = collect($result['data'])->map(function ($company) {
+                // Convert Eloquent model to Domain entity if needed
+                if ($company instanceof \App\Models\Company) {
+                    $company = $this->convertModelToEntity($company);
+                }
 
-            return [
-                'type' => 'companies',
-                'id' => $company->id(),
-                'attributes' => [
-                    'name' => $company->name(),
-                    'industry' => $company->industry(),
-                    'source' => $company->source()->value,
-                    'status' => $company->status()->value,
-                    'region' => $company->region(),
-                    'vat_id' => $company->vatId(),
-                    'created_by' => $company->createdBy(),
-                    'created_at' => $company->createdAt()->toISOString(),
-                    'updated_at' => $company->updatedAt()->toISOString(),
+                return [
+                    'type' => 'companies',
+                    'id' => $company->id(),
+                    'attributes' => [
+                        'name' => $company->name(),
+                        'industry' => $company->industry(),
+                        'source' => $company->source()->value,
+                        'status' => $company->status()->value,
+                        'region' => $company->region(),
+                        'vat_id' => $company->vatId(),
+                        'created_by' => $company->createdBy(),
+                        'created_at' => $company->createdAt()->toISOString(),
+                        'updated_at' => $company->updatedAt()->toISOString(),
+                    ],
+                ];
+            });
+
+            return response()->json([
+                'data' => $data,
+                'meta' => [
+                    'total' => $result['pagination']['total'] ?? 0,
+                    'per_page' => $result['pagination']['per_page'] ?? 15,
+                    'current_page' => $result['pagination']['current_page'] ?? 1,
+                    'last_page' => $result['pagination']['last_page'] ?? 1,
+                    'from' => $result['pagination']['from'] ?? null,
+                    'to' => $result['pagination']['to'] ?? null,
+                    'request_id' => uniqid(),
                 ],
-            ];
-        });
-
-        return response()->json([
-            'data' => $data,
-            'meta' => [
-                'total' => $result['pagination']['total'] ?? 0,
-                'per_page' => $result['pagination']['per_page'] ?? 15,
-                'current_page' => $result['pagination']['current_page'] ?? 1,
-                'last_page' => $result['pagination']['last_page'] ?? 1,
-                'from' => $result['pagination']['from'] ?? null,
-                'to' => $result['pagination']['to'] ?? null,
-                'request_id' => uniqid(),
-            ],
-        ], Response::HTTP_OK);
+            ], Response::HTTP_OK);
+        } catch (\ValueError | \TypeError $e) {
+            return response()->json([
+                'errors' => [
+                    [
+                        'status' => '500',
+                        'title' => 'Internal Server Error',
+                        'detail' => 'An error occurred while processing the request.',
+                    ],
+                ],
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function show(string $id): JsonResponse
@@ -207,14 +219,26 @@ class CompanyController
 
     private function convertModelToEntity(\App\Models\Company $model): \App\Domain\Crm\Entity\Company
     {
-        return \App\Domain\Crm\Entity\Company::create(
+        $source = $model->source instanceof \App\Enums\Crm\CompanySource 
+            ? $model->source 
+            : \App\Enums\Crm\CompanySource::from($model->source);
+        
+        $status = $model->status instanceof \App\Enums\Crm\CompanyStatus 
+            ? $model->status 
+            : \App\Enums\Crm\CompanyStatus::from($model->status);
+
+        return new \App\Domain\Crm\Entity\Company(
+            id: $model->id,
             name: $model->name,
             industry: $model->industry,
-            source: $model->source instanceof \App\Enums\Crm\CompanySource ? $model->source : \App\Enums\Crm\CompanySource::from($model->source),
-            status: $model->status instanceof \App\Enums\Crm\CompanyStatus ? $model->status : \App\Enums\Crm\CompanyStatus::from($model->status),
+            source: $source,
+            status: $status,
             region: $model->region,
             vatId: $model->vat_id,
-            createdBy: (string) $model->created_by
+            createdBy: (string) $model->created_by,
+            createdAt: \Carbon\Carbon::parse($model->created_at),
+            updatedAt: \Carbon\Carbon::parse($model->updated_at),
+            deletedAt: $model->deleted_at ? \Carbon\Carbon::parse($model->deleted_at) : null
         );
     }
 }
