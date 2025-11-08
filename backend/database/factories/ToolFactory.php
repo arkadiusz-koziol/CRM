@@ -23,4 +23,3 @@ class ToolFactory extends Factory
         ];
     }
 }
-
