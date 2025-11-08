@@ -12,8 +12,8 @@ use App\Http\Controllers\Admin\Cities\ListCityController;
 use App\Http\Controllers\Admin\Cities\UpdateCityController;
 use App\Http\Controllers\Admin\Companies\CompanyController;
 use App\Http\Controllers\Admin\Companies\MyCompaniesController;
-use App\Http\Controllers\Admin\Contacts\ContactController;
 use App\Http\Controllers\Admin\Contacts\ContactCompanyController;
+use App\Http\Controllers\Admin\Contacts\ContactController;
 use App\Http\Controllers\Admin\Dashboard\StatsController;
 use App\Http\Controllers\Admin\Estates\DestroyEstateController;
 use App\Http\Controllers\Admin\Estates\ListEstateController;
@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Estates\ShowEstateController;
 use App\Http\Controllers\Admin\Estates\StoreEstateController;
 use App\Http\Controllers\Admin\Estates\UpdateEstateController;
 use App\Http\Controllers\Admin\Materials\DestroyMaterialController;
+use App\Http\Controllers\Admin\Materials\GetUsableMaterialCountController;
 use App\Http\Controllers\Admin\Materials\ListMaterialController;
 use App\Http\Controllers\Admin\Materials\ShowMaterialController;
 use App\Http\Controllers\Admin\Materials\StoreMaterialController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\Admin\Tasks\ShowTaskController;
 use App\Http\Controllers\Admin\Tasks\StoreTaskController;
 use App\Http\Controllers\Admin\Tasks\UpdateTaskController;
 use App\Http\Controllers\Admin\Tools\DestroyToolController;
+use App\Http\Controllers\Admin\Tools\GetUsableToolCountController;
 use App\Http\Controllers\Admin\Tools\ListToolController;
 use App\Http\Controllers\Admin\Tools\ShowToolController;
 use App\Http\Controllers\Admin\Tools\StoreToolController;
@@ -117,6 +119,9 @@ Route::group(
 
                 // Admin Tools
                 Route::prefix('tools')->group(function () {
+                    Route::get('/usable-count', GetUsableToolCountController::class)
+                        ->name('tools.usable-count')
+                        ->can('tool.list');
                     Route::get('/list', ListToolController::class)
                         ->name('tools.index')
                         ->can('tool.list');
@@ -136,6 +141,9 @@ Route::group(
 
                 // Admin materials
                 Route::prefix('materials')->group(function () {
+                    Route::get('/usable-count', GetUsableMaterialCountController::class)
+                        ->name('materials.usable-count')
+                        ->can('material.list');
                     Route::get('/list', ListMaterialController::class)
                         ->name('materials.index')
                         ->can('material.list');

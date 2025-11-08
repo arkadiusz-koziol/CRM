@@ -133,13 +133,13 @@ class PipelineSeederTest extends TestCase
         $this->seed(PipelineSeeder::class);
 
         $pipeline = Pipeline::where('name', 'Sales Pipeline')->first();
-        
+
         $finalStages = Stage::where('pipeline_id', $pipeline->id)
             ->where('is_final', true)
             ->get();
 
         $this->assertCount(2, $finalStages);
-        
+
         $finalStageNames = $finalStages->pluck('name')->toArray();
         $this->assertContains('Won', $finalStageNames);
         $this->assertContains('Lost', $finalStageNames);

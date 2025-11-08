@@ -21,47 +21,74 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get changed files
-        id: changed-files
+      - name: Get changed files (JSON)
+        id: cf
         uses: tj-actions/changed-files@v44
         with:
-          files: |
-            docs/**
-            docs/config/**
-            docs/manifest/**
-            README.md
+          json: true
+          fetch_depth: 0
 
-      - name: Check if only docs files changed
-        id: docs-only
+      - name: Check docs-only changes
+        id: docs_only
+        env:
+          CHANGED_FILES_JSON: ${{ steps.cf.outputs.all_changed_files }}
         run: |
-          CHANGED_FILES="${{ steps.changed-files.outputs.all_changed_files }}"
-          ALLOWED_PATTERNS="docs/|README.md"
-          
-          # Check if any file is outside allowed patterns
-          for file in $CHANGED_FILES; do
-            if ! echo "$file" | grep -qE "$ALLOWED_PATTERNS"; then
-              echo "❌ File outside docs: $file"
-              echo "docs_only=false" >> $GITHUB_OUTPUT
-              exit 0
+          set -Eeuo pipefail
+
+          RAW="$CHANGED_FILES_JSON"
+
+          # 1) Zdejmij ucieczki \" → "  (GitHub potrafi podać tablicę w formie [\"a\",\"b\"])
+          SANITIZED="$(printf '%s' "$RAW" | sed 's/\\"/"/g')"
+
+          # 2) Jeżeli dalej to nie jest poprawny JSON, pokaż surowe wejście i zakończ grzecznie
+          if ! echo "$SANITIZED" | jq -e . >/dev/null 2>&1; then
+            echo "⚠️  Not valid JSON from changed-files output:"
+            echo "$RAW"
+            echo "docs_only=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "---- Changed files (first 50) ----"
+          echo "$SANITIZED" | jq -r '.[]' | head -n 50
+          echo "----------------------------------"
+
+          if [[ "$(echo "$SANITIZED" | jq 'length')" -eq 0 ]]; then
+            echo "No changed files detected → docs_only=false"
+            echo "docs_only=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          ALLOWED_REGEX='^(docs/|README\.md$)'
+          VIOLATIONS=0
+
+          while IFS= read -r file; do
+            [[ -z "$file" ]] && continue
+            if ! [[ "$file" =~ $ALLOWED_REGEX ]]; then
+              echo "❌ Outside docs: $file"
+              VIOLATIONS=$((VIOLATIONS+1))
+            fi
+          done < <(echo "$SANITIZED" | jq -r '.[]')
+
+          if (( VIOLATIONS == 0 )); then
+            echo "✅ All files are in docs/** or README.md"
+            echo "docs_only=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "docs_only=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check labels
+        id: labels
+        run: |
+          REQUIRED=("docs:auto" "low-risk")
+          HAS_REQUIRED=true
+          echo "PR labels: ${{ join(github.event.pull_request.labels.*.name, ', ') }}"
+          for L in "${REQUIRED[@]}"; do
+            if ! grep -qw "$L" <<< "${{ join(github.event.pull_request.labels.*.name, ' ') }}"; then
+              echo "❌ Missing label: $L"
+              HAS_REQUIRED=false
             fi
           done
-          
-          echo "✅ All files are in docs/** or README.md"
-          echo "docs_only=true" >> $GITHUB_OUTPUT
-
-      - name: Check PR labels
-        id: check-labels
-        run: |
-          LABELS="${{ join(github.event.pull_request.labels.*.name, ' ') }}"
-          echo "PR labels: $LABELS"
-          
-          if echo "$LABELS" | grep -q "docs:auto" && echo "$LABELS" | grep -q "low-risk"; then
-            echo "✅ Required labels present: docs:auto + low-risk"
-            echo "has_labels=true" >> $GITHUB_OUTPUT
-          else
-            echo "❌ Missing required labels (need: docs:auto + low-risk)"
-            echo "has_labels=false" >> $GITHUB_OUTPUT
-          fi
+          echo "has_required=$HAS_REQUIRED" >> "$GITHUB_OUTPUT"
 
       - name: Check PR title format
         id: check-title
@@ -78,43 +105,33 @@ jobs:
           fi
 
       - name: Check docs/qa status
-        id: check-status
+        id: qa
         uses: actions/github-script@v7
         with:
           script: |
-            const { data: statuses } = await github.rest.repos.listCommitStatusesForRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: context.payload.pull_request.head.sha,
-            });
-            
-            const docsQaStatus = statuses.find(s => s.context === 'docs/qa');
-            
-            if (docsQaStatus && docsQaStatus.state === 'success') {
-              console.log('✅ docs/qa status: success');
-              core.setOutput('status_check', 'success');
-            } else {
-              console.log('❌ docs/qa status not found or not success');
-              console.log('Available statuses:', statuses.map(s => `${s.context}: ${s.state}`).join(', '));
-              core.setOutput('status_check', 'missing');
+            const { owner, repo } = context.repo;
+            const sha = context.payload.pull_request?.head?.sha;
+            if (!sha) {
+              core.info('No PR head SHA → treating as missing status');
+              core.setOutput('ok', 'false');
+              return;
             }
+            // ✅ v7 wymaga github.rest.repos.*
+            const res = await github.rest.repos.listCommitStatusesForRef({ owner, repo, ref: sha });
+            const statuses = res.data ?? [];
+            core.info('Available statuses: ' + statuses.map(s => `${s.context}=${s.state}`).join(', '));
+            const ok = statuses.some(s => s.context === 'docs/qa' && s.state === 'success');
+            core.setOutput('ok', ok ? 'true' : 'false');
 
-      - name: Enable auto-merge
-        if: |
-          steps.docs-only.outputs.docs_only == 'true' &&
-          steps.check-labels.outputs.has_labels == 'true' &&
-          steps.check-status.outputs.status_check == 'success'
+      - name: Enable auto-merge (squash)
+        if: ${{ steps.docs_only.outputs.docs_only == 'true' && steps.labels.outputs.has_required == 'true' && steps.qa.outputs.ok == 'true' }}
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ github.event.pull_request.number }}
           merge-method: squash
 
       - name: Comment on PR
-        if: |
-          steps.docs-only.outputs.docs_only == 'true' &&
-          steps.check-labels.outputs.has_labels == 'true' &&
-          steps.check-status.outputs.status_check == 'success'
+        if: ${{ steps.docs_only.outputs.docs_only == 'true' && steps.labels.outputs.has_required == 'true' && steps.qa.outputs.ok == 'true' }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -131,13 +148,10 @@ jobs:
             });
 
       - name: Log skipped conditions
-        if: |
-          steps.docs-only.outputs.docs_only != 'true' ||
-          steps.check-labels.outputs.has_labels != 'true' ||
-          steps.check-status.outputs.status_check != 'success'
+        if: ${{ steps.docs_only.outputs.docs_only != 'true' || steps.labels.outputs.has_required != 'true' || steps.qa.outputs.ok != 'true' }}
         run: |
           echo "⚠️  Auto-merge skipped due to unmet conditions:"
-          echo "  - Docs only: ${{ steps.docs-only.outputs.docs_only }}"
-          echo "  - Has labels: ${{ steps.check-labels.outputs.has_labels }}"
-          echo "  - Status check: ${{ steps.check-status.outputs.status_check }}"
+          echo "  - Docs only: ${{ steps.docs_only.outputs.docs_only }}"
+          echo "  - Has required labels: ${{ steps.labels.outputs.has_required }}"
+          echo "  - QA status ok: ${{ steps.qa.outputs.ok }}"
 

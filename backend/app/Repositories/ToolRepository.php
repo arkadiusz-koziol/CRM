@@ -76,4 +76,9 @@ class ToolRepository implements ToolRepositoryInterface
             ],
         ];
     }
+
+    public function countUsable(): int
+    {
+        return Tool::where('count', '>', 0)->count();
+    }
 }

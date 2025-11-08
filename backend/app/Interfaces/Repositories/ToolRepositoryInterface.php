@@ -18,4 +18,6 @@ interface ToolRepositoryInterface
     public function findAll(): array;
 
     public function findPaginated(int $page = 1, int $limit = 10, string $search = ''): array;
+
+    public function countUsable(): int;
 }

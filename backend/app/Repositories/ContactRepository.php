@@ -22,12 +22,14 @@ class ContactRepository extends EloquentRepository implements ContactRepositoryI
     public function findContactById(string $id): ?ContactEntity
     {
         $model = $this->model->find($id);
+
         return $model ? $this->mapToEntity($model) : null;
     }
 
     public function findByEmail(string $email): ?ContactEntity
     {
         $model = $this->model->where('email', $email)->first();
+
         return $model ? $this->mapToEntity($model) : null;
     }
 
@@ -40,9 +42,9 @@ class ContactRepository extends EloquentRepository implements ContactRepositoryI
             $search = $filters['search'];
             $query->where(function (Builder $q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
@@ -71,7 +73,7 @@ class ContactRepository extends EloquentRepository implements ContactRepositoryI
         $paginated = $query->paginate($perPage, ['*'], 'page', $page);
 
         return [
-            'data' => collect($paginated->items())->map(fn($model) => $this->mapToEntity($model))->toArray(),
+            'data' => collect($paginated->items())->map(fn ($model) => $this->mapToEntity($model))->toArray(),
             'pagination' => [
                 'current_page' => $paginated->currentPage(),
                 'per_page' => $paginated->perPage(),
@@ -86,6 +88,7 @@ class ContactRepository extends EloquentRepository implements ContactRepositoryI
     public function findByOwner(string $ownerId, array $filters = [], int $perPage = 15, int $page = 1): array
     {
         $filters['owner_user_id'] = $ownerId;
+
         return $this->search($filters, $perPage, $page);
     }
 
@@ -123,7 +126,7 @@ class ContactRepository extends EloquentRepository implements ContactRepositoryI
         $this->model->withTrashed()->find($id)?->restore();
     }
 
-    public function linkToCompany(string $contactId, string $companyId, string $position = null, bool $isPrimary = false): void
+    public function linkToCompany(string $contactId, string $companyId, ?string $position = null, bool $isPrimary = false): void
     {
         $contact = $this->model->find($contactId);
         if ($contact) {
@@ -133,7 +136,7 @@ class ContactRepository extends EloquentRepository implements ContactRepositoryI
                     'is_primary' => $isPrimary,
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]
+                ],
             ]);
         }
     }
@@ -149,10 +152,11 @@ class ContactRepository extends EloquentRepository implements ContactRepositoryI
     public function getContactCompanies(string $contactId): array
     {
         $contact = $this->model->find($contactId);
+
         return $contact ? $contact->companies()->get()->toArray() : [];
     }
 
-    public function bulkLinkToCompany(array $contactIds, string $companyId, string $position = null, bool $isPrimary = false): void
+    public function bulkLinkToCompany(array $contactIds, string $companyId, ?string $position = null, bool $isPrimary = false): void
     {
         foreach ($contactIds as $contactId) {
             $this->linkToCompany($contactId, $companyId, $position, $isPrimary);
