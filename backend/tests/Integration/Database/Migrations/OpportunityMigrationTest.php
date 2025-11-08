@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Database\Migrations;
 
-use App\Enums\Crm\CompanySource;
-use App\Enums\Crm\CompanyStatus;
-use App\Enums\Crm\ContactStatus;
-use App\Enums\Crm\LeadLevel;
 use App\Enums\Crm\OpportunityStatus;
 use App\Models\Company;
 use App\Models\Contact;

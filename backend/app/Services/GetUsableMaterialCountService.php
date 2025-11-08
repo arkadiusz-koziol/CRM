@@ -22,6 +22,7 @@ final class GetUsableMaterialCountService
     {
         try {
             $count = $this->materialRepository->countUsable();
+
             return $this->dtoFactory->create('materials', $count);
         } catch (\Exception $e) {
             $this->logger->error('Failed to get usable material count', [
@@ -33,4 +34,3 @@ final class GetUsableMaterialCountService
         }
     }
 }
-

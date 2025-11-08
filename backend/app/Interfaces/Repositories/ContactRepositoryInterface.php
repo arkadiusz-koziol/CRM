@@ -23,13 +23,13 @@ interface ContactRepositoryInterface extends RepositoryInterface
 
     public function restore(string $id): void;
 
-    public function linkToCompany(string $contactId, string $companyId, string $position = null, bool $isPrimary = false): void;
+    public function linkToCompany(string $contactId, string $companyId, ?string $position = null, bool $isPrimary = false): void;
 
     public function unlinkFromCompany(string $contactId, string $companyId): void;
 
     public function getContactCompanies(string $contactId): array;
 
-    public function bulkLinkToCompany(array $contactIds, string $companyId, string $position = null, bool $isPrimary = false): void;
+    public function bulkLinkToCompany(array $contactIds, string $companyId, ?string $position = null, bool $isPrimary = false): void;
 
     public function bulkUnlinkFromCompany(array $contactIds, string $companyId): void;
 }

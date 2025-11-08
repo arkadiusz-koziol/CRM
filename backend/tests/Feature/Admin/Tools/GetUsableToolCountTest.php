@@ -76,4 +76,3 @@ final class GetUsableToolCountTest extends TestCase
             ->assertStatus(403);
     }
 }
-

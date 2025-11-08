@@ -77,4 +77,3 @@ final class GetUsableMaterialCountTest extends TestCase
             ->assertStatus(403);
     }
 }
-

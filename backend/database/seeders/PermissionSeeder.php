@@ -30,6 +30,14 @@ class PermissionSeeder extends Seeder
             'estate.delete',
             'estate.list',
 
+            // Tool permissions
+            'tool.create',
+            'tool.read',
+            'tool.show',
+            'tool.update',
+            'tool.delete',
+            'tool.list',
+
             // Material permissions
             'material.create',
             'material.read',

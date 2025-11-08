@@ -177,7 +177,7 @@ class OpportunityTest extends TestCase
     public function test_it_handles_close_date(): void
     {
         $closeDate = Carbon::parse('2024-12-31');
-        
+
         $opportunity = Opportunity::create(
             title: 'Test Opportunity',
             companyId: 'company-test',

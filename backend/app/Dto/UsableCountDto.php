@@ -21,4 +21,3 @@ final readonly class UsableCountDto
         return $this->count;
     }
 }
-

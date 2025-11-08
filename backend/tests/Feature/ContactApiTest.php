@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Models\Contact;
-use App\Models\Company;
-use App\Models\User;
 use App\Enums\Crm\ContactStatus;
 use App\Enums\Crm\LeadLevel;
+use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,6 +16,7 @@ class ContactApiTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private User $admin;
 
     protected function setUp(): void
@@ -193,7 +193,7 @@ class ContactApiTest extends TestCase
         Contact::factory()->create(['lead_level' => LeadLevel::LEAD->value]);
 
         $response = $this->actingAs($this->admin)
-            ->getJson('/api/v1/admin/contacts?status=' . ContactStatus::ACTIVE->value);
+            ->getJson('/api/v1/admin/contacts?status='.ContactStatus::ACTIVE->value);
 
         $response->assertStatus(200);
         $this->assertCount(1, $response->json('data'));

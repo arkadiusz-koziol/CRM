@@ -20,4 +20,3 @@ final class UsableCountUnavailableException extends Exception
         );
     }
 }
-

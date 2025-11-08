@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Admin\Tools;
 
 use App\Exceptions\UsableCountUnavailableException;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UsableCountResource;
 use App\Services\GetUsableToolCountService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
@@ -51,7 +50,6 @@ final class GetUsableToolCountController extends Controller
      *         response=401,
      *         description="Unauthorized"
      *     ),
-     *
      *     @OA\Response(
      *         response=403,
      *         description="Forbidden"
@@ -63,9 +61,11 @@ final class GetUsableToolCountController extends Controller
     ): JsonResponse {
         try {
             $dto = $service->handle();
-            return (new UsableCountResource($dto))
-                ->response()
-                ->setStatusCode(Response::HTTP_OK);
+
+            return $this->responseFactory->json([
+                'entity' => $dto->entity(),
+                'count' => $dto->count(),
+            ], Response::HTTP_OK);
         } catch (UsableCountUnavailableException $e) {
             return $this->responseFactory->json([
                 'error' => 'USABLE_COUNT_UNAVAILABLE',
@@ -74,4 +74,3 @@ final class GetUsableToolCountController extends Controller
         }
     }
 }
-

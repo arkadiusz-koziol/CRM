@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Integration\Database\Seeders;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PipelineSeederTest extends TestCase

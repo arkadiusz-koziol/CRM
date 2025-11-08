@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Integration\Database\Migrations;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class StageMigrationTest extends TestCase

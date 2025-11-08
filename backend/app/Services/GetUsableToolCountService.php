@@ -22,6 +22,7 @@ final class GetUsableToolCountService
     {
         try {
             $count = $this->toolRepository->countUsable();
+
             return $this->dtoFactory->create('tools', $count);
         } catch (\Exception $e) {
             $this->logger->error('Failed to get usable tool count', [
@@ -33,4 +34,3 @@ final class GetUsableToolCountService
         }
     }
 }
-
