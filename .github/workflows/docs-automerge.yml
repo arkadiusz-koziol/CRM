@@ -21,26 +21,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get changed files
+      - name: Get changed files (JSON)
         id: cf
         uses: tj-actions/changed-files@v44
         with:
-          separator: "\n"
+          json: true
           fetch_depth: 0
 
       - name: Check docs-only changes
         id: docs_only
-        shell: bash
+        env:
+          CHANGED_FILES_JSON: ${{ steps.cf.outputs.all_changed_files }}
         run: |
           set -euo pipefail
 
-          CHANGED_FILES="${{ steps.cf.outputs.all_changed_files }}"
+          # Wypisz listę plików (maks 50) dla logów:
+          echo "---- Changed files ----"
+          echo "$CHANGED_FILES_JSON" | jq -r '.[]' | head -n 50
+          echo "-----------------------"
 
-          echo "---- Changed files (first 20) ----"
-          printf '%s' "$CHANGED_FILES" | tr ' ' '\n' | sed '/^$/d' | head -n 20
-          echo "----------------------------------"
-
-          if [[ -z "${CHANGED_FILES// }" ]]; then
+          # Brak zmian → false
+          if [[ "$(echo "$CHANGED_FILES_JSON" | jq 'length')" -eq 0 ]]; then
             echo "No changed files detected → docs_only=false"
             echo "docs_only=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -48,15 +49,17 @@ jobs:
 
           ALLOWED_REGEX='^(docs/|README\.md$)'
           VIOLATIONS=0
+
+          # Iteruj po realnej tablicy plików
           while IFS= read -r file; do
             [[ -z "$file" ]] && continue
             if ! [[ "$file" =~ $ALLOWED_REGEX ]]; then
               echo "❌ Outside docs: $file"
               VIOLATIONS=$((VIOLATIONS+1))
             fi
-          done < <(printf '%s' "$CHANGED_FILES" | tr ' ' '\n' | sed '/^$/d')
+          done < <(echo "$CHANGED_FILES_JSON" | jq -r '.[]')
 
-          if [[ $VIOLATIONS -eq 0 ]]; then
+          if (( VIOLATIONS == 0 )); then
             echo "✅ All files are in docs/** or README.md"
             echo "docs_only=true" >> "$GITHUB_OUTPUT"
           else
