@@ -1,365 +1,123 @@
 mappings:
-  # Backend Domain Entities - CRM Module
-  - code_glob: "backend/app/Domain/Crm/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Domain/Crm/Entity/Company.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Domain/Crm/Entity/Contact.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Domain/Crm/Entity/Opportunity.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Domain/Crm/Entity/Pipeline.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Domain/Crm/Entity/Stage.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  # Backend Domain Entities - Training Module
-  - code_glob: "backend/app/Domain/TrainingCategory/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "training-module-appdomaintrainingcategory-appdomaintrainingfile"
-
-  - code_glob: "backend/app/Domain/TrainingFile/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "training-module-appdomaintrainingcategory-appdomaintrainingfile"
-
-  # Backend Domain Entities - Activity Module
-  - code_glob: "backend/app/Domain/Activity/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "activity-module-appdomainactivity"
-
-  # Backend Services - CRM
-  - code_glob: "backend/app/Services/CompanyService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Services/ContactService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  # Backend Services - Training
-  - code_glob: "backend/app/Services/TrainingService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "training-module-appdomaintrainingcategory-appdomaintrainingfile"
-
-  - code_glob: "backend/app/Services/TrainingCategoryService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "training-module-appdomaintrainingcategory-appdomaintrainingfile"
-
-  - code_glob: "backend/app/Services/TrainingFileService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "training-module-appdomaintrainingcategory-appdomaintrainingfile"
-
-  - code_glob: "backend/app/Services/TrainingUserService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "training-module-appdomaintrainingcategory-appdomaintrainingfile"
-
-  # Backend Services - Tasks
-  - code_glob: "backend/app/Services/TaskService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  # Backend Services - Estates/Plans/Pins
-  - code_glob: "backend/app/Services/EstateService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  - code_glob: "backend/app/Services/PlanService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  - code_glob: "backend/app/Services/PinService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  # Backend Services - Tools/Materials/Cars/Cities
-  - code_glob: "backend/app/Services/ToolService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  - code_glob: "backend/app/Services/MaterialService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  - code_glob: "backend/app/Services/CarService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  - code_glob: "backend/app/Services/CityService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  # Backend Services - Activity
-  - code_glob: "backend/app/Services/ActivityService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "activity-module-appdomainactivity"
-
-  # Backend Services - Auth
-  - code_glob: "backend/app/Services/AuthService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-autoryzacji"
-
-  - code_glob: "backend/app/Services/ForgotPasswordService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-autoryzacji"
-
-  - code_glob: "backend/app/Services/ResetPasswordService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-autoryzacji"
-
-  # Backend Services - Users
-  - code_glob: "backend/app/Services/UserService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-użytkowników"
-
-  # Backend Services - Other
-  - code_glob: "backend/app/Services/FileStorageService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  - code_glob: "backend/app/Services/UuidService.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  # Backend Controllers - CRM
-  - code_glob: "backend/app/Http/Controllers/Admin/Companies/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-firm-companies"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/Contacts/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-kontaktów-contacts"
-
-  # Backend Controllers - Training
-  - code_glob: "backend/app/Http/Controllers/Admin/Trainings/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-szkoleń-trainings"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/TrainingCategories/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-kategorii-szkoleń"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/TrainingFiles/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-szkoleń-trainings"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/TrainingUsers/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-szkoleń-trainings"
-
-  # Backend Controllers - Tasks
-  - code_glob: "backend/app/Http/Controllers/Admin/Tasks/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-zadań-tasks"
-
-  # Backend Controllers - Estates/Plans/Pins
-  - code_glob: "backend/app/Http/Controllers/Admin/Estates/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/Plans/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/Pins/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  - code_glob: "backend/app/Http/Controllers/PinController.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  # Backend Controllers - Tools/Materials/Cars/Cities
-  - code_glob: "backend/app/Http/Controllers/Admin/Tools/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/Materials/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/Cars/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  - code_glob: "backend/app/Http/Controllers/Admin/Cities/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  # Backend Controllers - Activities
-  - code_glob: "backend/app/Http/Controllers/Admin/Activities/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "inne-endpointy"
-
-  # Backend Controllers - Dashboard
-  - code_glob: "backend/app/Http/Controllers/Admin/Dashboard/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-dashboard"
-
-  # Backend Controllers - Auth
-  - code_glob: "backend/app/Http/Controllers/Auth/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-autoryzacji"
-
-  # Backend Controllers - Users
-  - code_glob: "backend/app/Http/Controllers/Admin/Users/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-użytkowników"
-
-  - code_glob: "backend/app/Http/Controllers/UserController.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "endpointy-użytkowników"
-
-  # Backend Repositories
-  - code_glob: "backend/app/Repositories/CompanyRepository.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Repositories/ContactRepository.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Repositories/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  # Backend Models
-  - code_glob: "backend/app/Models/Company.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "companies"
-
-  - code_glob: "backend/app/Models/Contact.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "contacts"
-
-  - code_glob: "backend/app/Models/Opportunity.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "opportunities"
-
-  - code_glob: "backend/app/Models/Training.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "trainings"
-
-  - code_glob: "backend/app/Models/Task.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "tasks"
-
-  - code_glob: "backend/app/Models/User.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "users"
-
-  - code_glob: "backend/app/Models/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "tabele"
-
-  # Backend Enums
-  - code_glob: "backend/app/Enums/Crm/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "crm-module-appdomaincrm"
-
-  - code_glob: "backend/app/Enums/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "moduły--pakiety"
-
-  # API Routes
-  - code_glob: "backend/routes/api.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "api"
-
-  # Database Migrations
-  - code_glob: "backend/database/migrations/2025_10_18_213900_create_companies_table.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "companies"
-
-  - code_glob: "backend/database/migrations/2025_10_18_214000_create_contacts_table.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "contacts"
-
-  - code_glob: "backend/database/migrations/2025_10_18_204550_create_opportunities_table.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "opportunities"
-
-  - code_glob: "backend/database/migrations/2025_01_27_140000_create_trainings_table.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "trainings"
-
-  - code_glob: "backend/database/migrations/2025_01_15_000000_create_tasks_table.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "tasks"
-
-  - code_glob: "backend/database/migrations/0001_01_01_000000_create_users_table.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "users"
-
-  - code_glob: "backend/database/migrations/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "migracje"
-
-  # Frontend
-  - code_glob: "apps/web/src/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "frontend-appsweb"
-
-  # Mobile
-  - code_glob: "apps/mobile/src/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "mobile-appsmobile"
-
-  # Shared Packages
-  - code_glob: "packages/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "shared-packages-packages"
-
-  # Configuration Files
-  - code_glob: "backend/config/app.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "konfiguracja-i-środowiska"
-
-  - code_glob: "backend/config/database.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "konfiguracja-i-środowiska"
-
-  - code_glob: "backend/config/auth.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "bezpieczeństwo-i-zgodność"
-
-  - code_glob: "backend/config/permission.php"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "uprawnienia"
-
-  - code_glob: "backend/config/**"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "konfiguracja-i-środowiska"
-
-  # Docker
-  - code_glob: "docker-compose.dev.yml"
-    doc_file: "docs/DOKUMENTACJA_TECHNICZNA.md"
-    anchor: "docker-compose-development"
-
+  - code_glob: app/Domain/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: warstwy-architektury-backendu
+    confidence: 0.95
+  - code_glob: app/Services/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: warstwy-architektury-backendu
+    confidence: 0.95
+  - code_glob: app/Infrastructure/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: warstwy-architektury-backendu
+    confidence: 0.95
+  - code_glob: app/Repositories/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: warstwy-architektury-backendu
+    confidence: 0.95
+  - code_glob: app/Http/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: warstwy-architektury-backendu
+    confidence: 0.95
+  - code_glob: app/Domain/Crm/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: crm-module-appdomaincrm
+    confidence: 0.95
+  - code_glob: app/Domain/TrainingCategory/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: training-module-appdomaintrainingcategory-appdomaintrainingfile
+    confidence: 0.95
+  - code_glob: app/Domain/TrainingFile/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: training-module-appdomaintrainingcategory-appdomaintrainingfile
+    confidence: 0.95
+  - code_glob: app/Domain/Activity/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: activity-module-appdomainactivity
+    confidence: 0.95
+  - code_glob: src/app/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: frontend-appsweb
+    confidence: 0.95
+  - code_glob: src/features/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: frontend-appsweb
+    confidence: 0.95
+  - code_glob: src/shared/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: frontend-appsweb
+    confidence: 0.95
+  - code_glob: src/app/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: mobile-appsmobile
+    confidence: 0.95
+  - code_glob: src/shared/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: mobile-appsmobile
+    confidence: 0.95
+  - code_glob: src/testing/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: mobile-appsmobile
+    confidence: 0.95
+  - code_glob: config/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: baza-danych
+    confidence: 0.95
+  - code_glob: config/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: cors
+    confidence: 0.95
+  - code_glob: routes/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: znane-ograniczenia
+    confidence: 0.95
+  - code_glob: app/Domain/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: backend-moduy-domenowe
+    confidence: 0.95
+  - code_glob: app/Services/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: przepywy-wysokiego-poziomu
+    confidence: 0.95
+  - code_glob: app/Http/Controllers/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: api
+    confidence: 0.95
+  - code_glob: routes/api.php
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: api
+    confidence: 0.95
+  - code_glob: database/migrations/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: migracje
+    confidence: 0.95
+  - code_glob: config/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: konfiguracja-i-srodowiska
+    confidence: 0.95
+  - code_glob: app/Models/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: model-danych-baza
+    confidence: 0.95
+  - code_glob: tests/**
+    doc_file: docs/DOKUMENTACJA_TECHNICZNA.md
+    anchor: testowanie-i-jakosc
+    confidence: 0.95
 precedence:
-  - "backend/app/Domain/**"
-  - "backend/app/Services/**"
-  - "backend/app/Http/**"
-  - "backend/routes/**"
-  - "backend/database/migrations/**"
-  - "backend/app/Repositories/**"
-  - "backend/app/Models/**"
-  - "backend/app/Enums/**"
-  - "backend/config/**"
-  - "apps/web/**"
-  - "apps/mobile/**"
-  - "packages/**"
-
+  - app/Domain/**
+  - app/Application/**
+  - app/Services/**
+  - app/Http/**
+  - routes/**
+  - database/migrations/**
+  - config/**
+  - app/Models/**
+  - app/Enums/**
+  - app/Repositories/**
+  - app/Infrastructure/**
+  - app/Events/**
+  - app/Listeners/**
+  - app/Jobs/**
+  - tests/**
 defaults:
-  missing_anchor_behavior: "fail"
-
+  missing_anchor_behavior: append-at-end
